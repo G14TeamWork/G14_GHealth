@@ -80,7 +80,7 @@ public class MasterController {
 				if (!MainClass.debug) {
 					FTRCont= new FillTestResController();
 					VRDCont= new ViewRefDetController(); 
-					RACont = new RecordAppointController();
+					//RACont = new RecordAppointController();
 					PMRCont= new ProduceMonthlyReportController();
 					VMHCont= new ViewMedicalHistoryController();  
 					CACont = new CancelAppointmentController();

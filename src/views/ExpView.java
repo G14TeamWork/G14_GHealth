@@ -1,5 +1,6 @@
 package views;
 
+import Controllers.*;
 import graphics.GUIimage;
 
 import javax.swing.JFrame;
@@ -26,6 +27,7 @@ public class ExpView extends JPanel {
 	public JButton btnRecordAppointment;
 	public JButton btnRequstDetails;
 	public JButton btnViewMedicalHistory;
+	public boolean flag = true; /////////////////////////////////// if = false - no window change will happen
 	public ExpView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -58,9 +60,12 @@ public class ExpView extends JPanel {
 		btnRecordAppointment = new JButton();
 		btnRecordAppointment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				MainClass.masterControler.RACont = new RecordAppointController();
+				if (flag)
 				MainClass.masterControler.setView(
 						MainClass.masterControler.RACont.RecordAppointview,
 						MainClass.masterControler.RACont);
+				flag = true;
 			}
 		});
 		btnRecordAppointment.setText("Record Appointment");
@@ -70,9 +75,10 @@ public class ExpView extends JPanel {
 		btnRequstDetails = new JButton();
 		btnRequstDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MainClass.masterControler.setView(
-						MainClass.masterControler.RDCont.RequestDetailsview,
-						MainClass.masterControler.RDCont);
+				if (flag)
+					MainClass.masterControler.setView(
+						MainClass.masterControler.RDCont.RequestDetailsview,MainClass.masterControler.RDCont);
+				flag = true;
 			}
 		});
 		btnRequstDetails.setText("Requst Details");
@@ -82,9 +88,10 @@ public class ExpView extends JPanel {
 		btnViewMedicalHistory = new JButton();
 		btnViewMedicalHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MainClass.masterControler.setView(
-						MainClass.masterControler.VMHCont.ViewMedicalHistoryview,
-						MainClass.masterControler.VMHCont);
+			
+					MainClass.masterControler.setView(
+						MainClass.masterControler.VMHCont.ViewMedicalHistoryview,MainClass.masterControler.VMHCont);
+			
 			}
 		});
 		btnViewMedicalHistory.setText("View medical history");

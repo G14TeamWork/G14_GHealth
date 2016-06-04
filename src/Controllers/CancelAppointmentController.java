@@ -1,6 +1,6 @@
 package Controllers;/////
 
-import java.util.Observable;////
+import java.util.Observable;//////
 import java.util.Observer;
 
 import views.CancelAppointmentView;

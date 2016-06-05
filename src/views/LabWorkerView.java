@@ -69,6 +69,10 @@ public class LabWorkerView extends JPanel {
 				MainClass.masterControler.setView(
 						MainClass.masterControler.FTRCont.FillTestResview,
 						MainClass.masterControler.FTRCont);
+				MainClass.masterControler.FTRCont.FillTestResview.textField_first.setText(""); //ניקוי טקסט
+				MainClass.masterControler.FTRCont.FillTestResview.textField_last.setText("");
+				MainClass.masterControler.FTRCont.FillTestResview.textFieldid.setText("");
+				MainClass.masterControler.FTRCont.FillTestResview.textField_TestResult.setText("");
 			}
 		});
 		btnFillTestResult.setText("Fill test result");

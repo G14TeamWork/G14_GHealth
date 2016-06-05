@@ -81,14 +81,14 @@ public class SetAppointmentView extends JPanel {
 		
 		textField_first = new JTextField();
 		textField_first.setEditable(false);
-		textField_first.setText("");
+		//textField_first.setText("");
 		textField_first.setColumns(10);
 		textField_first.setBounds(271, 277, 148, 28);
 		add(textField_first);
 		
 		textField_last = new JTextField();
 		textField_last.setEditable(false);
-		textField_last.setText("");
+		//textField_last.setText("");
 		textField_last.setColumns(10);
 		textField_last.setBounds(271, 318, 148, 28);
 		add(textField_last);

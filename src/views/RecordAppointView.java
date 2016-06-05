@@ -26,6 +26,8 @@ public class RecordAppointView extends JPanel {
 	private JTextField patientID;
 	private JTextField appID;
 	private JTextField StarHour;
+	
+	//public RecordAppointView(){};
 	public RecordAppointView(String ID, String app, String time) {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);

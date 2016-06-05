@@ -14,6 +14,7 @@ import views.RecordAppointView;
 import Controllers.IRefresh;
 
 public class  RecordAppointController implements Observer,IRefresh  {
+	private static final long serialVersionUID = 1L;
 	public RecordAppointView RecordAppointview;
 	
 	public RecordAppointController() {
@@ -26,10 +27,11 @@ public class  RecordAppointController implements Observer,IRefresh  {
 		while (flag != 0){
 			try {
 				String appID = JOptionPane.showInputDialog(null, "Please enter appointment number:");
-				query = "SELECT idappointment,idpatient FROM ghealth.appointments where "
-						+ "idappointment = \"" + appID + "\"";
+				System.out.println(appID);
+				query = "SELECT * FROM ghealth.appointments WHERE username = \"" + Integer.parseInt(appID) + "\"";
 				arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-				
+				if (arrList.isEmpty()) System.out.println("array empty!!!");
+				System.out.println(arrList);
 				/* ************************************************************************** */
 				for ( int i = 0 ; i< arrList.size() ; i++)
 					JOptionPane.showMessageDialog(null, arrList.get(i));

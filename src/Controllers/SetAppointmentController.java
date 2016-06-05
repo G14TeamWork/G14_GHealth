@@ -38,14 +38,6 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		{
 			System.out.println("noooooooooo");
 		}
-		else
-		{
-			pat.setFirstname((String)arrList.get(0));
-			pat.setLastname((String)arrList.get(1));
-			SetAppointmentview.textField_first.setText(pat.getFirstname());
-			SetAppointmentview.textField_last.setText(pat.getLastname());
-			SetAppointmentview.revalidate();
-		}
 	}
 	
 	@Override
@@ -56,5 +48,13 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
+		if (arg instanceof Patient)
+		{
+			pat.setFirstname(((Patient) arg).getFirstname());
+			pat.setLastname(((Patient) arg).getLastname());
+			SetAppointmentview.textField_first.setText(pat.getFirstname());
+			SetAppointmentview.textField_last.setText(pat.getLastname());
+			refreshView();
+		}
 	}
 }

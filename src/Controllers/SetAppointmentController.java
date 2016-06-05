@@ -30,7 +30,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	public void checkExistanceSql(Patient pat)
 	{
 		String query = "";
-		query = "SELECT firstname,lastname FROM ghealth.patient where "
+		query = "SELECT firstname,lastname,phone,email,address FROM ghealth.patient where "
 				+ "id = \"" + pat.getId() + "\"";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrList.isEmpty())
@@ -41,6 +41,9 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		{
 			pat.setFirstname((String)arrList.get(0));
 			pat.setLastname((String)arrList.get(1));
+			pat.setPhone((String)arrList.get(2));
+			pat.setEmail((String)arrList.get(3));
+			pat.setAddress((String)arrList.get(4));
 			arrList.clear();
 		}
 
@@ -58,8 +61,11 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		{
 			pat.setFirstname(((Patient) arg).getFirstname());
 			pat.setLastname(((Patient) arg).getLastname());
-			SetAppointmentview.textField_first.setText(pat.getFirstname());
-			SetAppointmentview.textField_last.setText(pat.getLastname());
+			SetAppointmentview.textField_first.setText(((Patient) arg).getFirstname());
+			SetAppointmentview.textField_last.setText(((Patient) arg).getLastname());
+			SetAppointmentview.textField_phone.setText(((Patient) arg).getPhone());
+			SetAppointmentview.textField_email.setText(((Patient) arg).getEmail());
+			SetAppointmentview.textField_adress.setText(((Patient) arg).getAddress());
 			refreshView();
 		}
 	}

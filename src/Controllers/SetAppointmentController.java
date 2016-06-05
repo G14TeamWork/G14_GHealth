@@ -26,7 +26,6 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		 pat=new Patient();
 		 pat.setId(SetAppointmentview.textFieldid.getText());
 		 MainClass.ghealth.sendMessegeToServer(pat);
-//		 MainClass.masterControler.SACont.refreshView();
 	}
 	public void checkExistanceSql(Patient pat)
 	{
@@ -38,6 +37,13 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		{
 			System.out.println("noooooooooo");
 		}
+		else
+		{
+			pat.setFirstname((String)arrList.get(0));
+			pat.setLastname((String)arrList.get(1));
+			arrList.clear();
+		}
+
 	}
 	
 	@Override

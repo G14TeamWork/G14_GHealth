@@ -57,7 +57,7 @@ public class SetAppointmentView extends JPanel {
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
 		textFieldid = new JTextField();
-		textFieldid.setText("");
+		//textFieldid.setText("");
 		textFieldid.setColumns(10);
 		textFieldid.setBounds(271, 236, 148, 28);
 		add(textFieldid);

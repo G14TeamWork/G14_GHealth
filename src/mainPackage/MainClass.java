@@ -71,7 +71,7 @@ public class MainClass {
 		int locationX = dim.width /2-(430/2); 
 		int	locationY = dim.height/2-(65/2);
 		
-		frame.setTitle("GHealt");
+		frame.setTitle("GHealth");
 		frame.setBounds(locationX,locationY, 430, 65);
 	
         WebProgressBar progressBar3 = new WebProgressBar ();

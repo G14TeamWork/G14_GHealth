@@ -141,13 +141,12 @@ public class GHealthServer extends ObservableServer{
 			/*	
 			case "getStationsEntity":
 				SMC.LoginCont.getStationsFromSQL((getStationsEntity)msg);
-				break;
+				break;*/
 				
-			case "MinLvEntity":
-				if (!((MinLvEntity)msg).toUpdate) SMC.minLvcont.getMinLvFromSQL((MinLvEntity) msg);
-				else SMC.minLvcont.updateMinLvFromSQL((MinLvEntity) msg);
+			case "Patient":
+				SMC.SACont.checkExistanceSql((Patient)msg);
 				break;
-				*/				
+							
 			case "LoginEntity":
 				if (((LoginEntity)msg).getStatus()==1) SMC.LoginCont.sendLogOutToSql((LoginEntity)msg);
 				else SMC.LoginCont.toSQL((LoginEntity)msg); 

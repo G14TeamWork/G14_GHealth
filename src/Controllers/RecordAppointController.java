@@ -26,6 +26,7 @@ public class  RecordAppointController implements Observer,IRefresh  {
 	    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		ArrayList<Object> arrList = new ArrayList<>();
 		String query = "";
+		ape = new RecordAppointmentEntity();
 		
 		while (flag != 0){
 			try {
@@ -60,15 +61,10 @@ public class  RecordAppointController implements Observer,IRefresh  {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		if (arg instanceof RecordAppointmentEntity)
-		{
-			FTRpat1.pat.setFirstname(((FillTestResEntity) arg).pat.getFirstname());
-			FTRpat1.pat.setLastname(((FillTestResEntity) arg).pat.getLastname());
-			FillTestResview.textField_first.setText(FTRpat1.pat.getFirstname());
-			FillTestResview.textField_last.setText(FTRpat1.pat.getLastname());
-			FillTestResview.textField_TestResult.setEditable(true);
-			
+		if (arg instanceof RecordAppointmentEntity){
+			//ape.app.setIdappointment((RecordAppointmentEntity)arg)
 			refreshView();
 		
+		}
 	}
 }

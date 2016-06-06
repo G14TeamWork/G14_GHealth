@@ -74,7 +74,7 @@ public class ExpView extends JPanel {
 		
 		btnRequstDetails = new JButton();
 		btnRequstDetails.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {////////////////////////////flag ruslan
 				if (flag)
 					MainClass.masterControler.setView(
 						MainClass.masterControler.RDCont.RequestDetailsview,MainClass.masterControler.RDCont);

@@ -152,7 +152,7 @@ public class GHealthServer extends ObservableServer{
 				break;
 				
 			case "RecordAppointmentEntity":
-			//	SMC.RACont.checkExistanceSql((SetAppointmentEntity)msg);
+				SMC.RACont.RAgetdataquery();
 				break;
 				
 				

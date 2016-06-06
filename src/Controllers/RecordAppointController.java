@@ -1,104 +1,64 @@
-package views;
+package Controllers;
 
-import views.*;
-import graphics.GUIimage;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JSeparator;
 
 import mainPackage.MainClass;
+import ocsf.server.GHealthServer;
+import views.RecordAppointView;
+import Controllers.IRefresh;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-
-import javax.swing.JTextPane;
-
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-
-public class RecordAppointView extends JPanel {
+public class  RecordAppointController implements Observer,IRefresh  {
 	private static final long serialVersionUID = 1L;
-	public JSeparator separator;
-	private JTextField patientID;
-	private JTextField appID;
-	private JTextField StarHour;
+	public RecordAppointView RecordAppointview;
 	
-	//public RecordAppointView(){};
-	public RecordAppointView(String ID, String app, String time) {
-		setLayout(null);
-		this.setBounds(0, 0, 677, 562);
-		this.setLayout(null);
-		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 126, 677, 12);
-		add(separator);
+	public RecordAppointController() {
+		int flag = 1;
+		Calendar cal = Calendar.getInstance();
+	    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		ArrayList<Object> arrList = new ArrayList<>();
+		String query = "";
 		
-		JTextArea record = new JTextArea();
-		record.setBounds(33, 252, 399, 251);
-		add(record);
-		
-		JLabel lblExpert = new JLabel("Record Appointment");
-		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(192, 136, 253, 118);
-		add(lblExpert);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setForeground(Color.BLACK);
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(JOptionPane.showConfirmDialog(null, "Cancel record?",null,JOptionPane.YES_NO_OPTION)==0){
-					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);
-					record.setText("");
-					
-				}
+		while (flag != 0){
+			try {
+				String appID = JOptionPane.showInputDialog(null, "Please enter appointment number:");
+				System.out.println(appID);
+				query = "SELECT * FROM ghealth.appointments WHERE username = \"" + Integer.parseInt(appID) + "\"";
+				arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+				if (arrList.isEmpty()) System.out.println("array empty!!!");
+				System.out.println(arrList);
+				/* ************************************************************************** */
+				for ( int i = 0 ; i< arrList.size() ; i++)
+					JOptionPane.showMessageDialog(null, arrList.get(i));
+				JOptionPane.showMessageDialog(null, "array list size is " + arrList.size());
+
+				/* ************************************************************************** */
+				RecordAppointview = new RecordAppointView(arrList.get(0).toString(),arrList.get(1).toString(),sdf.format(cal.getTime()).toString());
+				flag = 0;
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null, "Please make sure appointment number is correct and try again.");
+				flag++;
+			}finally{ 
+				if ( flag == 3 ){
+					flag =  0;
+					MainClass.masterControler.EXPVCont.expview.flag = false;
+					}
 			}
-		});
-		btnCancel.setBounds(493, 462, 140, 55);
-		add(btnCancel);
-		btnCancel.setIcon(null);
+		}
+	}
+	@Override
+	public void refreshView() {
+		// TODO Auto-generated method stub
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
-					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);
-					MainClass.masterControler.EXPVCont.expview.flag=false;
-					record.setText("");
-				}
-			}
-		});
-		btnSave.setBounds(493, 382, 140, 55);
-		add(btnSave);
-		
-		patientID = new JTextField();
-		patientID.setEditable(false);
-		patientID.setText("Patient ID : "+ ID);
-		patientID.setBounds(493, 212, 140, 20);
-		add(patientID);
-		patientID.setColumns(10);
-		
-		appID = new JTextField();
-		appID.setText("Appointment No. : " + app);
-		appID.setEditable(false);
-		appID.setBounds(493, 248, 160, 20);
-		add(appID);
-		appID.setColumns(10);
-		
-		StarHour = new JTextField();
-		StarHour.setEditable(false);
-		StarHour.setText("Start Hour : " + time);
-		StarHour.setBounds(493, 288, 140, 20);
-		add(StarHour);
-		StarHour.setColumns(10);
-		
-		JLabel lblAppointmentRecord = new JLabel("Appointment record:");
-		lblAppointmentRecord.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAppointmentRecord.setBounds(43, 229, 139, 25);
-		add(lblAppointmentRecord);
-		
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
 	}
 }

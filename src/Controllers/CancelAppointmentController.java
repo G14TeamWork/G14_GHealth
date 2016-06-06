@@ -37,6 +37,8 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	
 	public void searchAppointmentSQL(CancelAppointmentEntity cap )
 	{
+		cap.setAppList(new ArrayList<Appointment>());
+		cap.
 				ArrayList<Object> arrList = new ArrayList<Object>();
 				String query="SELECT ghealth.appointments.appdate,ghealth.expert.experties,ghealth.users.firstname,ghealth.users.lastname,ghealth.appointments.idappointment"
 								+" FROM ghealth.appointments,ghealth.users,ghealth.expert" 
@@ -44,28 +46,17 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 								+" ghealth.appointments.idexpert = ghealth.expert.id AND"
 								+" ghealth.users.username = ghealth.expert.id";
 				arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-			//	System.out.println(arrList  + arrList.get(0).getClass().getName() + arrList.get(1).getClass().getName() + arrList.get(2).getClass().getName() + arrList.get(3).getClass().getName());
-				
+			
 
 				for (int i  = 0 ; i < arrList.size() ; i +=5)
-				{
 					cap.getAppList().add(new Appointment((Timestamp)arrList.get(i),(String)arrList.get(i+1),(String)arrList.get(i+2),(String)arrList.get(i+3),String.valueOf((int)arrList.get(i+4))));
-				}
-				
+
 	}
 	
 	public void deleteAppintmentSQL(CancelAppointmentEntity cap )
 	{
-		ArrayList<Object> arrList = new ArrayList<Object>();
 		String query="DELETE FROM ghealth.appointments WHERE idappointment="+ cap.getIdapp();
-		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		System.out.println(arrList.toString());
-	/*	if(arrList != null)
-		cap.setTaskToDo("deleted");
-		else {
-			cap.setTaskToDo("sql prublame");
-			System.out.println(arrList);
-		}*/
+		GHealthServer.sqlConn.sendSqlUpdate(query);
 	}
 		
 	@Override
@@ -81,20 +72,12 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 			if(((CancelAppointmentEntity)arg).getAppList().size() != 0)
 			{
 				setFlag(true);
+				CancelAppointmentview.getComboBox().removeAll();
 				for (int i  = 0 ; i < ((CancelAppointmentEntity)arg).getAppList().size() ; i ++)
-				{
 					CancelAppointmentview.getComboBox().addItem(((CancelAppointmentEntity)arg).getAppList().get(i));
-					
-						/*CancelAppointmentview.getComboBox().addItem(
-								
-								((CancelAppointmentEntity)arg).getAppList().get(i).getAppdate().toString()
-								+" "+ ((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getFirstName()
-								+" "+((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getLastName()
-								+" "+((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getExperties()
-								);*/
-						CAP = ((CancelAppointmentEntity)arg);
-						System.out.println(CAP.toString() );
-				}
+				
+				CAP = ((CancelAppointmentEntity)arg);
+				System.out.println(CAP.toString() );
 			}
 			else setFlag(false);
 			refreshView();

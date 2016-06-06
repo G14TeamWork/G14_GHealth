@@ -2,6 +2,7 @@ package views;
 
 import graphics.GUIimage;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -18,7 +19,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import java.awt.Button;
+
 import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
 
 public class FillTestResView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +29,9 @@ public class FillTestResView extends JPanel {
 	public JTextField textField_first;
 	public JTextField textFieldid;
 	public JTextField textField_last;
-	public JTextField textField_TestResult;
+	public JTextArea  textField_TestResult;
+	public JButton 	  btnSave;
+	public JButton	  btnAddPhoto;
 	public FillTestResView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -97,25 +102,38 @@ public class FillTestResView extends JPanel {
 		lblLastName.setBounds(302, 235, 120, 28);
 		add(lblLastName);
 		
-		textField_TestResult = new JTextField();
-		//textField_TestResult. ////jobs done
-		textField_TestResult.setHorizontalAlignment(SwingConstants.LEFT);
-		textField_TestResult.setColumns(10);
-		textField_TestResult.setBounds(32, 309, 390, 214);
-		add(textField_TestResult);
-		
 		JLabel lblTestResult = new JLabel("Test result:");
 		lblTestResult.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblTestResult.setBounds(32, 276, 120, 28);
 		add(lblTestResult);
 		
-		JButton btnAddPhoto = new JButton("<html>Add photo<br />(Optional)</html>");
+		btnAddPhoto = new JButton("<html>Add photo<br />(Optional)</html>");
+		btnAddPhoto.setEnabled(false);
 		btnAddPhoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
-		btnAddPhoto.setBounds(490, 346, 140, 55);
+		btnAddPhoto.setBounds(490, 305, 140, 55);
 		add(btnAddPhoto);
+		
+		textField_TestResult = new JTextArea();
+		textField_TestResult.setLineWrap(true);
+		textField_TestResult.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textField_TestResult.setBounds(32, 312, 390, 183);
+		add(textField_TestResult);
+		
+		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(JOptionPane.showConfirmDialog(null, "Save data?",null,JOptionPane.YES_NO_OPTION)==0) //if pressed yes
+					System.out.println("yessss");
+			}
+		});
+		btnSave.setEnabled(false);
+		btnSave.setBounds(490, 374, 140, 53);
+		add(btnSave);
+		
 
 	}
 }

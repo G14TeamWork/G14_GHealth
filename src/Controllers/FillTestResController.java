@@ -63,7 +63,8 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 			FillTestResview.textField_first.setText(FTRpat1.pat.getFirstname());
 			FillTestResview.textField_last.setText(FTRpat1.pat.getLastname());
 			FillTestResview.textField_TestResult.setEditable(true);
-			
+			FillTestResview.btnSave.setEnabled(true);
+			FillTestResview.btnAddPhoto.setEnabled(true);
 			refreshView();
 			
 		}

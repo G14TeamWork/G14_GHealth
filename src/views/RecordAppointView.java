@@ -85,7 +85,7 @@ public class RecordAppointView extends JPanel {
 		appID = new JTextField();
 		appID.setText("Appointment No. : " + app);
 		appID.setEditable(false);
-		appID.setBounds(493, 248, 140, 20);
+		appID.setBounds(493, 248, 158, 20);
 		add(appID);
 		appID.setColumns(10);
 		

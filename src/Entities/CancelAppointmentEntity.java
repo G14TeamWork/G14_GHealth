@@ -1,3 +1,4 @@
+
 package Entities;
 
 import java.io.Serializable;
@@ -12,12 +13,19 @@ public class CancelAppointmentEntity implements Serializable{
 	private ArrayList<Appointment> appList;
 	private String taskToDo;
 	private String idPatient;
+	private int idapp;
 	
 	public CancelAppointmentEntity(String task , String idPatient)
 	{
 		this.taskToDo = task;
 		this.idPatient = idPatient;
 		this.appList = new ArrayList<Appointment>();
+	}
+
+	public CancelAppointmentEntity(String task , int idapp)
+	{
+		this.idapp = idapp;
+		this.taskToDo = task;
 	}
 
 	public ArrayList<Appointment> getAppList() {
@@ -44,6 +52,13 @@ public class CancelAppointmentEntity implements Serializable{
 		this.idPatient = idPatient;
 	}
 	
-	
+	public int getIdapp() {
+		return idapp;
+	}
+
+	public void setIdapp(int idapp) {
+		this.idapp = idapp;
+	}
+
 
 }

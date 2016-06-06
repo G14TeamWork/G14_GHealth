@@ -163,7 +163,10 @@ public class GHealthServer extends ObservableServer{
 				break;
 		
 			case "CancelAppointmentEntity":
-				SMC.CACont.searchAppintmentSQL((CancelAppointmentEntity)msg);
+				if(((CancelAppointmentEntity)msg).getTaskToDo().equals("search"))
+					SMC.CACont.searchAppointmentSQL((CancelAppointmentEntity)msg);
+				else if(((CancelAppointmentEntity)msg).getTaskToDo().equals("delete"))
+					SMC.CACont.cancelAppointment(((CancelAppointmentEntity)msg).getIdPatient());
 				break;
 		/*		
 			case "HeatingFuelEnt":{

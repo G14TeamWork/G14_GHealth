@@ -24,6 +24,8 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 
 import ocsf.server.GHealthServer;
+import java.awt.Color;
+import javax.swing.DropMode;
 
 public class CancelAppointmentView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -57,9 +59,10 @@ public class CancelAppointmentView extends JPanel {
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
 		searchField = new JTextField();
+		searchField.setForeground(new Color(0, 0, 0));
 		searchField.setToolTipText("");
 		searchField.setText("type patient id ");
-		searchField.setBounds(73, 280, 401, 20);
+		searchField.setBounds(73, 280, 401, 28);
 		add(searchField);
 		searchField.setColumns(10);
 		
@@ -82,8 +85,20 @@ public class CancelAppointmentView extends JPanel {
 				
 			}
 		});
-		comboBox.setBounds(73, 311, 401, 20);
+		comboBox.setBounds(73, 334, 401, 28);
 		add(comboBox);
+		
+		JButton btnCancelApp = new JButton("Cancel Appointment");
+		btnCancelApp.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				MainClass.masterControler.CACont.cancelAppointment(
+						String.valueOf(MainClass.masterControler.CACont.CAP.getAppList().get(comboBox.getSelectedIndex()).getIdappointment()));
+					
+				
+			}
+		});
+		btnCancelApp.setBounds(490, 374, 140, 55);
+		add(btnCancelApp);
 	}
 	public JComboBox getComboBox() {
 		return comboBox;

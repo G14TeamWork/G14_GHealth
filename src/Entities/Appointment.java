@@ -11,7 +11,7 @@ public class Appointment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int idappointment;
 	private int idexpert;
-	private String idpatient;
+	private int idpatient;
 	private Timestamp appdate;
 	private Time start;
 	private Time end;
@@ -24,8 +24,9 @@ public class Appointment implements Serializable{
 	{
 		
 	}
-	public Appointment(Timestamp appdate,String experties,String firstname,String lastname)
+	public Appointment(Timestamp appdate,String experties,String firstname,String lastname,int idappointment)
 	{
+		this.idappointment = Integer.valueOf(idappointment);
 		this.appdate = appdate;
 		this.EX = new Expert(experties,firstname,lastname);
 	}
@@ -49,10 +50,10 @@ public class Appointment implements Serializable{
 	public void setIdexpert(int idexpert) {
 		this.idexpert = idexpert;
 	}
-	public String getIdpatient() {
+	public int getIdpatient() {
 		return idpatient;
 	}
-	public void setIdpatient(String idpatient) {
+	public void setIdpatient(int idpatient) {
 		this.idpatient = idpatient;
 	}
 	public Timestamp getAppdate() {

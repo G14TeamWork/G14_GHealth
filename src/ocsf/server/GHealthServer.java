@@ -138,21 +138,13 @@ public class GHealthServer extends ObservableServer{
 	
 			case "String":
 				break;
-			/*	
-			case "getStationsEntity":
-				SMC.LoginCont.getStationsFromSQL((getStationsEntity)msg);
-				break;*/
-			
+				
 			case "FillTestResEntity":
 				SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
 				break;
 				
 			case "SetAppointmentEntity":
 				SMC.SACont.checkExistanceSql((SetAppointmentEntity)msg);
-				break;
-				
-			case "RecordAppointmentEntity":
-				SMC.RACont.RAgetdataquery();
 				break;
 				
 				

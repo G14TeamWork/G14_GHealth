@@ -18,7 +18,7 @@ import Entities.RecordAppointmentEntity;
 public class  RecordAppointController implements Observer,IRefresh  {
 	private static final long serialVersionUID = 1L;
 	public RecordAppointView RecordAppointview;
-	public RecordAppointmentEntity ape;
+	public RecordAppointmentEntity recordentity;
 	
 	public RecordAppointController() {
 		int flag = 1;
@@ -26,7 +26,7 @@ public class  RecordAppointController implements Observer,IRefresh  {
 	    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		ArrayList<Object> arrList = new ArrayList<>();
 		String query = "";
-		ape = new RecordAppointmentEntity();
+		recordentity = new RecordAppointmentEntity();
 		
 		while (flag != 0){
 			try {
@@ -62,7 +62,8 @@ public class  RecordAppointController implements Observer,IRefresh  {
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		if (arg instanceof RecordAppointmentEntity){
-			//ape.app.setIdappointment((RecordAppointmentEntity)arg)
+			recordentity.appointment.setIdappointment(((RecordAppointmentEntity)arg).appointment.getIdappointment());
+			recordentity.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
 			refreshView();
 		
 		}

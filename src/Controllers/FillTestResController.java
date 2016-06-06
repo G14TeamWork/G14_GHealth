@@ -16,7 +16,6 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	public FillTestResView FillTestResview;
 	ArrayList<Object> arrList = new ArrayList<>();
 	public FillTestResEntity FTRpat1;
-	public boolean flag;
 	public FillTestResController() {
 		FillTestResview = new FillTestResView();
 	}
@@ -36,19 +35,15 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrList.isEmpty())
 		{
-			//MainClass.masterControler.FTRCont.FillTestResview.flagg=false;
 			System.out.println("noooooooooo");
-			FTRpat.showbuttomflag=false;
-			//MainClass.masterControler.FTRCont.flag=false;
+			FTRpat.showbuttonflag=false;
 		}
 		else
 		{
-			FTRpat.showbuttomflag=true;
-			//MainClass.masterControler.FTRCont.FillTestResview.flagg=true;
+			FTRpat.showbuttonflag=true;
 			FTRpat.pat.setFirstname((String)arrList.get(0));
 			FTRpat.pat.setLastname((String)arrList.get(1));
 			arrList.clear();
-			//MainClass.masterControler.FTRCont.flag=true;
 		}
 		
 	}
@@ -67,8 +62,8 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 			FTRpat1.pat.setLastname(((FillTestResEntity) arg).pat.getLastname());
 			FillTestResview.textField_first.setText(FTRpat1.pat.getFirstname());
 			FillTestResview.textField_last.setText(FTRpat1.pat.getLastname());
-			FTRpat1.showbuttomflag=((FillTestResEntity) arg).showbuttomflag;
-			if (FTRpat1.showbuttomflag)
+			FTRpat1.showbuttonflag=((FillTestResEntity) arg).showbuttonflag;
+			if (FTRpat1.showbuttonflag)
 			{
 				FillTestResview.textField_TestResult.setEditable(true);
 				FillTestResview.btnSave.setEnabled(true);

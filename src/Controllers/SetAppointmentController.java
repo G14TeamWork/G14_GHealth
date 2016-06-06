@@ -84,6 +84,21 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		arrList.clear();
 	}
 	
+	public void AddNewPatient(Patient pat)
+	{
+		String query = "";
+		query = "INSERT INTO ghealth.patient (id, firstname, lastname, phone, email, address)"+
+		"VALUES ("+pat.getId()+
+		", \""+pat.getFirstname()+
+		"\", \""+pat.getLastname()+
+		"\", "+pat.getPhone()+
+		", \""+pat.getEmail()+
+		"\", \""+pat.getAddress()+"\");";
+		
+		GHealthServer.sqlConn.sendSqlUpdate(query);
+		
+	}
+	
 	@Override
 	public void refreshView() {
 		MainClass.masterControler.setView(MainClass.masterControler.SACont.SetAppointmentview);

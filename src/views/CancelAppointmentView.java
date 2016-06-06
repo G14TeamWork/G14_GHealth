@@ -91,8 +91,7 @@ public class CancelAppointmentView extends JPanel {
 		JButton btnCancelApp = new JButton("Cancel Appointment");
 		btnCancelApp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				MainClass.masterControler.CACont.cancelAppointment(
-						String.valueOf(MainClass.masterControler.CACont.CAP.getAppList().get(comboBox.getSelectedIndex()).getIdappointment()));
+				MainClass.masterControler.CACont.cancelAppointment();
 					
 				
 			}

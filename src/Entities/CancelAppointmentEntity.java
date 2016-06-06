@@ -13,19 +13,21 @@ public class CancelAppointmentEntity implements Serializable{
 	private ArrayList<Appointment> appList;
 	private String taskToDo;
 	private String idPatient;
-	private int idapp;
+	private String idapp;
 	
-	public CancelAppointmentEntity(String task , String idPatient)
+	public CancelAppointmentEntity(String task , String id)
 	{
-		this.taskToDo = task;
-		this.idPatient = idPatient;
-		this.appList = new ArrayList<Appointment>();
-	}
-
-	public CancelAppointmentEntity(String task , int idapp)
-	{
-		this.idapp = idapp;
-		this.taskToDo = task;
+		if(task.equals("search"))
+		{
+			this.taskToDo = task;
+			this.idPatient = id;
+			this.appList = new ArrayList<Appointment>();
+		}
+		else if(task.equals("delete"))
+		{
+			this.taskToDo = task;
+			this.idapp = id;
+		}
 	}
 
 	public ArrayList<Appointment> getAppList() {
@@ -51,14 +53,14 @@ public class CancelAppointmentEntity implements Serializable{
 	public void setIdPatient(String idPatient) {
 		this.idPatient = idPatient;
 	}
-	
-	public int getIdapp() {
+
+	public String getIdapp() {
 		return idapp;
 	}
 
-	public void setIdapp(int idapp) {
+	public void setIdapp(String idapp) {
 		this.idapp = idapp;
 	}
-
+	
 
 }

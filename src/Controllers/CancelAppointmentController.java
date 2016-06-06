@@ -29,9 +29,9 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 		CAP = new CancelAppointmentEntity("search" , CancelAppointmentview.getSearchField().getText());
 		 MainClass.ghealth.sendMessegeToServer(CAP);
 	}
-	public void cancelAppointment(String idApp)
+	public void cancelAppointment()
 	{
-		CAP = new CancelAppointmentEntity("delete" , idApp);
+		CAP = new CancelAppointmentEntity("delete" ,((Appointment)CancelAppointmentview.getComboBox().getSelectedItem()).getIdappointment());
 		MainClass.ghealth.sendMessegeToServer(CAP);
 	}
 	
@@ -49,7 +49,7 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 
 				for (int i  = 0 ; i < arrList.size() ; i +=5)
 				{
-					cap.getAppList().add(new Appointment((Timestamp)arrList.get(i),(String)arrList.get(i+1),(String)arrList.get(i+2),(String)arrList.get(i+3),(int)arrList.get(i+4)));
+					cap.getAppList().add(new Appointment((Timestamp)arrList.get(i),(String)arrList.get(i+1),(String)arrList.get(i+2),(String)arrList.get(i+3),String.valueOf((int)arrList.get(i+4))));
 				}
 				
 	}
@@ -75,7 +75,7 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+	
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("search") )
 		{
 			if(((CancelAppointmentEntity)arg).getAppList().size() != 0)
@@ -83,15 +83,17 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 				setFlag(true);
 				for (int i  = 0 ; i < ((CancelAppointmentEntity)arg).getAppList().size() ; i ++)
 				{
+					CancelAppointmentview.getComboBox().addItem(((CancelAppointmentEntity)arg).getAppList().get(i));
 					
-						CancelAppointmentview.getComboBox().addItem(
+						/*CancelAppointmentview.getComboBox().addItem(
 								
 								((CancelAppointmentEntity)arg).getAppList().get(i).getAppdate().toString()
 								+" "+ ((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getFirstName()
 								+" "+((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getLastName()
 								+" "+((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getExperties()
-								);
+								);*/
 						CAP = ((CancelAppointmentEntity)arg);
+						System.out.println(CAP.toString() );
 				}
 			}
 			else setFlag(false);

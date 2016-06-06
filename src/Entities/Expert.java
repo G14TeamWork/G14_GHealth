@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Expert implements Serializable{
 	
+
 	/**
 	 * 
 	 */
@@ -86,6 +87,10 @@ public class Expert implements Serializable{
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	@Override
+	public String toString() {
+		return  firstName+" " + lastName +" "+  experties ;
 	}
 
 }

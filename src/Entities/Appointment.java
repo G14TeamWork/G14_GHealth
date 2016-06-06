@@ -5,13 +5,10 @@ import java.sql.*;
 
 public class Appointment implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private int idappointment;
+	private String idappointment;
 	private int idexpert;
-	private int idpatient;
+	private String idpatient;
 	private Timestamp appdate;
 	private Time start;
 	private Time end;
@@ -24,9 +21,9 @@ public class Appointment implements Serializable{
 	{
 		
 	}
-	public Appointment(Timestamp appdate,String experties,String firstname,String lastname,int idappointment)
+	public Appointment(Timestamp appdate,String experties,String firstname,String lastname,String idappointment)
 	{
-		this.idappointment = Integer.valueOf(idappointment);
+		this.idappointment = idappointment;
 		this.appdate = appdate;
 		this.EX = new Expert(experties,firstname,lastname);
 	}
@@ -38,10 +35,10 @@ public class Appointment implements Serializable{
 	public void setEX(Expert eX) {
 		EX = eX;
 	}
-	public int getIdappointment() {
+	public String getIdappointment() {
 		return idappointment;
 	}
-	public void setIdappointment(int idappointment) {
+	public void setIdappointment(String idappointment) {
 		this.idappointment = idappointment;
 	}
 	public int getIdexpert() {
@@ -50,11 +47,11 @@ public class Appointment implements Serializable{
 	public void setIdexpert(int idexpert) {
 		this.idexpert = idexpert;
 	}
-	public int getIdpatient() {
+	public String getIdpatient() {
 		return idpatient;
 	}
-	public void setIdpatient(int idpatient) {
-		this.idpatient = idpatient;
+	public void setIdpatient(String appID) {
+		this.idpatient = appID;
 	}
 	public Timestamp getAppdate() {
 		return appdate;
@@ -92,6 +89,13 @@ public class Appointment implements Serializable{
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Appointment ["+idappointment+"] " + appdate+" " + EX;
+	}
+	/**
+	 * 
+	 */
+
 }

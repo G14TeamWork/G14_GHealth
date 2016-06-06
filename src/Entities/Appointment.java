@@ -14,7 +14,21 @@ public class Appointment {
 	private String appstatus;
 	private String record;
 	private float price;
+	private String expertname;
+	private String expertise;
 	
+	public String getExpertname() {
+		return expertname;
+	}
+	public void setExpertname(String expertname) {
+		this.expertname = expertname;
+	}
+	public String getExpertise() {
+		return expertise;
+	}
+	public void setExpertise(String expertise) {
+		this.expertise = expertise;
+	}
 	public int getIdappointment() {
 		return idappointment;
 	}

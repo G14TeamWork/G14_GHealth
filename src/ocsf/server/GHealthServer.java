@@ -150,7 +150,12 @@ public class GHealthServer extends ObservableServer{
 			case "SetAppointmentEntity":
 				SMC.SACont.checkExistanceSql((SetAppointmentEntity)msg);
 				break;
-							
+				
+			case "RecordAppointmentEntity":
+				SMC.RACont.checkExistanceSql((SetAppointmentEntity)msg);
+				break;
+				
+				
 			case "LoginEntity":
 				if (((LoginEntity)msg).getStatus()==1) SMC.LoginCont.sendLogOutToSql((LoginEntity)msg);
 				else SMC.LoginCont.toSQL((LoginEntity)msg); 

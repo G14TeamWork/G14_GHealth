@@ -2,11 +2,13 @@ package views;
 
 import graphics.GUIimage;
 
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import javax.swing.JFileChooser;
 
 import mainPackage.MainClass;
 
@@ -22,18 +24,23 @@ import java.awt.Button;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class FillTestResView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;
-	public JTextField textField_first;
 	public JTextField textFieldid;
-	public JTextField textField_last;
 	public JTextArea  textField_TestResult;
 	public JButton 	  btnSave;
 	public JButton	  btnAddPhoto;
+	public String file_path="";
+	public JLabel textField_first;
+	public JComboBox comboBox_test;
 	//public boolean flagg;
 	public FillTestResView() {
 		setLayout(null);
@@ -72,12 +79,12 @@ public class FillTestResView extends JPanel {
 		});
 		//textFieldid.setText("");
 		textFieldid.setColumns(10);
-		textFieldid.setBounds(128, 194, 148, 28);
+		textFieldid.setBounds(149, 194, 148, 28);
 		add(textFieldid);
 		
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");
 		lblEnterPatientId.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblEnterPatientId.setBounds(12, 193, 120, 28);
+		lblEnterPatientId.setBounds(32, 193, 120, 28);
 
 		add(lblEnterPatientId);
 		
@@ -86,37 +93,11 @@ public class FillTestResView extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				MainClass.masterControler.FTRCont.setFTR_Patient();
-				//btnSave.setEnabled(false);
-				//btnAddPhoto.setEnabled(false);
 			}
 		});
-		searchIcon.setBounds(288, 194, 29, 28);
+		searchIcon.setBounds(309, 194, 29, 28);
 		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth()-7,searchIcon.getHeight()-7).image);
 		this.add(searchIcon);
-		
-		textField_first = new JTextField();
-		textField_first.setEditable(false);
-		//textField_first.setText("");
-		textField_first.setColumns(10);
-		textField_first.setBounds(128, 236, 148, 28);
-		add(textField_first);
-		
-		textField_last = new JTextField();
-		textField_last.setEditable(false);
-		//textField_last.setText("");
-		textField_last.setColumns(10);
-		textField_last.setBounds(390, 236, 148, 28);
-		add(textField_last);
-		
-		JLabel lblFirstName = new JLabel("First name:");
-		lblFirstName.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblFirstName.setBounds(12, 235, 120, 28);
-		add(lblFirstName);
-		
-		JLabel lblLastName = new JLabel("Last name:");
-		lblLastName.setFont(new Font("Dialog", Font.PLAIN, 16));
-		lblLastName.setBounds(302, 235, 120, 28);
-		add(lblLastName);
 		
 		JLabel lblTestResult = new JLabel("Test result:");
 		lblTestResult.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -124,8 +105,17 @@ public class FillTestResView extends JPanel {
 		add(lblTestResult);
 		
 		btnAddPhoto = new JButton("<html>Add photo<br />(Optional)</html>");
+		btnAddPhoto.setIcon(new GUIimage("xSign", 25, 23).image);
 		btnAddPhoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFileChooser filebutton = new JFileChooser();
+				if (filebutton.showOpenDialog(null)==JFileChooser.APPROVE_OPTION)
+				{
+					btnAddPhoto.setIcon(new GUIimage("vSign", 25, 23).image);
+					file_path=filebutton.getSelectedFile().getPath();
+				}
+				else btnAddPhoto.setIcon(new GUIimage("xSign", 25, 23).image);
+				
 				
 			}
 		});
@@ -133,6 +123,7 @@ public class FillTestResView extends JPanel {
 		add(btnAddPhoto);
 		
 		textField_TestResult = new JTextArea();
+		textField_TestResult.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		textField_TestResult.setEditable(false);
 		textField_TestResult.setLineWrap(true);
 		textField_TestResult.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -142,20 +133,35 @@ public class FillTestResView extends JPanel {
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(JOptionPane.showConfirmDialog(null, "Save data?",null,JOptionPane.YES_NO_OPTION)==0) //if pressed yes
-					{
-						System.out.println("yessss");
-						btnSave.setEnabled(false);
-						btnAddPhoto.setEnabled(false);
-						MainClass.masterControler.setView(MainClass.masterControler.LWCont.labworkerview);
-					}
-			}
+				if (textField_TestResult.getText().isEmpty()) 
+					JOptionPane.showMessageDialog(null, "You cannot enter empty test result!","",JOptionPane.ERROR_MESSAGE);//.showConfirmDialog(null, "ytry",null,JOptionPane.ERROR_MESSAGE);
+				else if (comboBox_test.getSelectedItem()=="") 
+					JOptionPane.showMessageDialog(null, "Choose test type!","",JOptionPane.ERROR_MESSAGE);	
+				else if(JOptionPane.showConfirmDialog(null, "Did you finish your report?",null,JOptionPane.YES_NO_OPTION)==0) //if pressed yes
+						{
+							btnSave.setEnabled(false);
+							btnAddPhoto.setEnabled(false);
+							MainClass.masterControler.setView(MainClass.masterControler.LWCont.labworkerview);
+							MainClass.masterControler.FTRCont.SaveTestResult();
+						}
+								}
 		});
 		btnSave.setBounds(490, 374, 140, 53);
 		add(btnSave);
-		//btnSave.setEnabled(false);
-		//btnAddPhoto.setEnabled(false);
 		
-
+		textField_first = new JLabel("");
+		textField_first.setFont(new Font("Tahoma", Font.BOLD, 17));
+		textField_first.setBounds(32, 235, 306, 29);
+		add(textField_first);
+		
+		comboBox_test = new JComboBox();
+		comboBox_test.setEditable(true);
+		comboBox_test.setBounds(490, 235, 140, 22);
+		comboBox_test.setAlignmentX(CENTER_ALIGNMENT);
+		comboBox_test.setSelectedItem("");
+		comboBox_test.addItem("Blood");
+		comboBox_test.addItem("Rentgen");
+		comboBox_test.setVisible(false);
+		add(comboBox_test);
 	}
 }

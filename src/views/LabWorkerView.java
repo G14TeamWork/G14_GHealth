@@ -70,11 +70,13 @@ public class LabWorkerView extends JPanel {
 						MainClass.masterControler.FTRCont.FillTestResview,
 						MainClass.masterControler.FTRCont);
 				MainClass.masterControler.FTRCont.FillTestResview.textField_first.setText(""); 
-				MainClass.masterControler.FTRCont.FillTestResview.textField_last.setText("");
+				//MainClass.masterControler.FTRCont.FillTestResview.textField_last.setText("");
 				MainClass.masterControler.FTRCont.FillTestResview.textFieldid.setText("");
 				MainClass.masterControler.FTRCont.FillTestResview.textField_TestResult.setText("");
 				MainClass.masterControler.FTRCont.FillTestResview.btnAddPhoto.setEnabled(false);
 				MainClass.masterControler.FTRCont.FillTestResview.btnSave.setEnabled(false);
+				MainClass.masterControler.FTRCont.FillTestResview.comboBox_test.setVisible(false);
+				MainClass.masterControler.FTRCont.FillTestResview.comboBox_test.setSelectedItem("");
 			}
 		});
 		btnFillTestResult.setText("Fill test result");

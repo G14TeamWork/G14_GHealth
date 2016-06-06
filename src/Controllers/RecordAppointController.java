@@ -18,7 +18,7 @@ public class  RecordAppointController implements Observer,IRefresh  {
 	public RecordAppointView RecordAppointview;
 	
 	public RecordAppointController() {
-	
+		
 		
 	}
 	

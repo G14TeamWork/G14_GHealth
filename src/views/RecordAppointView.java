@@ -29,7 +29,7 @@ public class RecordAppointView extends JPanel {
 	private JTextField StarHour;
 	
 	//public RecordAppointView(){};
-	public RecordAppointView(String ID, String app, String time) {
+	public RecordAppointView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
@@ -67,7 +67,7 @@ public class RecordAppointView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);
-					MainClass.masterControler.EXPVCont.expview.flag=false;
+					
 					record.setText("");
 				}
 			}
@@ -77,13 +77,13 @@ public class RecordAppointView extends JPanel {
 		
 		patientID = new JTextField();
 		patientID.setEditable(false);
-		patientID.setText("Patient ID : "+ ID);
+		patientID.setText("Patient ID : ");
 		patientID.setBounds(493, 212, 140, 20);
 		add(patientID);
 		patientID.setColumns(10);
 		
 		appID = new JTextField();
-		appID.setText("Appointment No. : " + app);
+		appID.setText("Appointment No. : ");
 		appID.setEditable(false);
 		appID.setBounds(493, 248, 158, 20);
 		add(appID);
@@ -91,7 +91,7 @@ public class RecordAppointView extends JPanel {
 		
 		StarHour = new JTextField();
 		StarHour.setEditable(false);
-		StarHour.setText("Start Hour : " + time);
+		StarHour.setText("Start Hour : " );
 		StarHour.setBounds(493, 288, 140, 20);
 		add(StarHour);
 		StarHour.setColumns(10);

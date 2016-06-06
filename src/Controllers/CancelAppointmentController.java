@@ -41,7 +41,7 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 
 				for (int i  = 0 ; i < arrList.size() ; i +=4)
 				{
-					cap.getAppList().add(new Appointment(arrList.get(i).toString(),(String)arrList.get(i+1),(String)arrList.get(i+2),(String)arrList.get(i+3)));
+				//	cap.getAppList().add(new Appointment(arrList.get(i).toString(),(String)arrList.get(i+1),(String)arrList.get(i+2),(String)arrList.get(i+3)));
 				}
 				
 	}

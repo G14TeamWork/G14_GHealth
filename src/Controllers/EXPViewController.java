@@ -18,40 +18,47 @@ public class EXPViewController implements Observer,IRefresh  {
 		expview = new ExpView();
 	}
 	
-	public void checkApp(String appID){
-		RAE = new RecordAppointmentEntity(appID,"search");
+	public void checkApp(String appID1){
+		RAE = new RecordAppointmentEntity(appID1,"search");
 		MainClass.ghealth.sendMessegeToServer(RAE);
-		RAE.appointment.getIdpatient();
+		//RAE.appointment.getIdpatient();
 	}
-	public void checkAppSQL() {
+	public void checkAppSQL(RecordAppointmentEntity rae) {
 		ArrayList<Object> arrList = new ArrayList<Object>();
-		String query = "SELECT * FROM ghealth.appointments WHERE idappointment =" + RAE.appID;
+		System.out.println("start check app sql");
+		String query = "SELECT * FROM ghealth.appointments WHERE idappointment =" + rae.appID ;
+		System.out.println("ASKING QUERY ");
+		System.out.println(rae.appID);
 		arrList=GHealthServer.sqlConn.sendSqlQuery(query);
-		RAE.appointment.setIdpatient((String)arrList.get(2));
+		System.out.println("back from sqlconn.sendsqlquery");
+		System.out.println(arrList.get(2)+"LALALALAL");
+		rae.appID=((String)arrList.get(2));
+		System.out.println(rae.appointment.getIdpatient());
 	}
 	
 	@Override
 	public void refreshView() {
-		// TODO Auto-generated method stub
-		
+		//MainClass.masterControler.setView(
+			//	MainClass.masterControler.RACont.RecordAppointview,
+			//		MainClass.masterControler.RACont);
+			MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+		/*
 		if(arg instanceof RecordAppointmentEntity){
 			if (((RecordAppointmentEntity)arg).appointment.getIdpatient()!=null){
 				MainClass.masterControler.RACont = new RecordAppointController();
 				MainClass.masterControler.RACont.RecordAppointview.getPatientID().setText("Patient ID : " +
 						((RecordAppointmentEntity)arg).appointment.getIdpatient() );
-				MainClass.masterControler.setView(
-						MainClass.masterControler.RACont.RecordAppointview,
-							MainClass.masterControler.RACont);
+				refreshView();
 				
-			}
-				
+			}*/
+		if(arg instanceof RecordAppointmentEntity){
+		}
+			RAE.appointment.setIdpatient(((RecordAppointmentEntity)arg).appID);
+			refreshView();
 		}
 		
 	}
-
-}

@@ -124,7 +124,6 @@ public class SQLconnection {
 		}
 		
 		disconnect();
-		
 		return arrList;
 	}//sendSqlQuery
 		

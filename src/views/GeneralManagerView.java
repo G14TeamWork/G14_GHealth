@@ -15,15 +15,24 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+
 import java.awt.Font;
+
+import javax.swing.JTextArea;
+import javax.swing.JFormattedTextField;
+
+import java.awt.Color;
 
 public class GeneralManagerView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JButton btnLogout;
 	public JSeparator separator;
-	public JButton btnViewPeriodicreport;
+	public JButton btnViewWeeklyReport;
+	
 	public GeneralManagerView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -32,10 +41,10 @@ public class GeneralManagerView extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
-		JLabel lblExpert = new JLabel("General Manager");
-		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(211, 182, 253, 118);
-		add(lblExpert);
+		JLabel Titel = new JLabel("General Manager");
+		Titel.setFont(new Font("Lucida Grande", Font.BOLD, 22));
+		Titel.setBounds(195, 181, 253, 118);
+		add(Titel);
 		
 		btnLogout = new JButton();
 		btnLogout.setText("Logout");
@@ -52,16 +61,38 @@ public class GeneralManagerView extends JPanel {
 		add(btnLogout);
 		btnLogout.setIcon(new GUIimage("logout", 25, 23).image);
 		
-		btnViewPeriodicreport = new JButton();
-		btnViewPeriodicreport.addActionListener(new ActionListener() {
+		btnViewWeeklyReport = new JButton();
+		btnViewWeeklyReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VPRCont.ViewPeriodicReportview,
 						MainClass.masterControler.VPRCont);
 			}
 		});
-		btnViewPeriodicreport.setText("View periodic report");
-		btnViewPeriodicreport.setBounds(449, 372, 181, 55);
-		add(btnViewPeriodicreport);
+		btnViewWeeklyReport.setText("View weekly report");
+		btnViewWeeklyReport.setBounds(449, 372, 181, 55);
+		add(btnViewWeeklyReport);
+		
+		JButton btnViewMonthlyReport = new JButton("View monthly report");
+		btnViewMonthlyReport.setBounds(449, 306, 181, 55);
+		add(btnViewMonthlyReport);
+		
+		JFormattedTextField frmtdtxtfldEnterClinicId = new JFormattedTextField();
+		frmtdtxtfldEnterClinicId.setForeground(new Color(192, 192, 192));
+		frmtdtxtfldEnterClinicId.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		frmtdtxtfldEnterClinicId.setText("Enter Clinic ID");
+		frmtdtxtfldEnterClinicId.setBounds(133, 311, 245, 28);
+		add(frmtdtxtfldEnterClinicId);
+		
+		JLabel searchIcon = new JLabel("");
+		searchIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				MainClass.masterControler.GMCont.checkClinicExist(frmtdtxtfldEnterClinicId.getText());
+			}
+		});
+		searchIcon.setBounds(388, 310, 29, 28);
+		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth(),searchIcon.getHeight()).image);
+		add(searchIcon);
 	}
 }

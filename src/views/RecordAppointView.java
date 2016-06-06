@@ -19,6 +19,7 @@ import javax.swing.JTextPane;
 
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 public class RecordAppointView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -35,9 +36,10 @@ public class RecordAppointView extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
-				
-		JTextPane record = new JTextPane();
-		record.setBounds(30, 212, 421, 221);
+		
+		JTextArea record = new JTextArea();
+		record.setLineWrap(true);
+		record.setBounds(28, 252, 435, 278);
 		add(record);
 		
 		JLabel lblExpert = new JLabel("Record Appointment");
@@ -93,6 +95,11 @@ public class RecordAppointView extends JPanel {
 		StarHour.setBounds(493, 288, 140, 20);
 		add(StarHour);
 		StarHour.setColumns(10);
+			
+		JLabel lblAppointmentRecord = new JLabel("Appointment Record :");
+		lblAppointmentRecord.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblAppointmentRecord.setBounds(28, 225, 173, 29);
+		add(lblAppointmentRecord);
 		
 	}
 }

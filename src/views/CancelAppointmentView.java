@@ -11,6 +11,8 @@ import mainPackage.MainClass;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Font;
 
 import javax.swing.JTextField;
@@ -61,15 +63,17 @@ public class CancelAppointmentView extends JPanel {
 		add(searchField);
 		searchField.setColumns(10);
 		
-		JButton btnSerch = new JButton("");
-		btnSerch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				MainClass.masterControler.CACont.toSQL(searchField.getText());
+		JLabel searchIcon = new JLabel("");
+		searchIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				MainClass.masterControler.CACont.searchAppointments();
 			}
 			});
 
-		btnSerch.setBounds(492, 279, 31, 21);
-		add(btnSerch);
+		searchIcon.setBounds(490, 280, 29, 28);
+		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth(),searchIcon.getHeight()).image);
+		add(searchIcon);
 		
 		comboBox = new JComboBox();
 		comboBox.addActionListener(new ActionListener() {

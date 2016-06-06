@@ -160,13 +160,11 @@ public class GHealthServer extends ObservableServer{
 				if (((LoginEntity)msg).getStatus()==1) SMC.LoginCont.sendLogOutToSql((LoginEntity)msg);
 				else SMC.LoginCont.toSQL((LoginEntity)msg); 
 				break;
-		/*
-			case "FuelingEntity":
-				if (((FuelingEntity)msg).write) 
-						SMC.fuelingVCont.writeFuelingToSQL((FuelingEntity)msg);
-				else 	SMC.fuelingVCont.getPriceFromSQL((FuelingEntity)msg);
+		
+			case "CancelAppointmentEntity":
+				SMC.CACont.searchAppintmentSQL((CancelAppointmentEntity)msg);
 				break;
-				
+		/*		
 			case "HeatingFuelEnt":{
 				
 				if (!((HeatingFuelEnt)msg).toUpdate)SMC.heatingfuelcont.GetPriceFromSQL((HeatingFuelEnt)msg);

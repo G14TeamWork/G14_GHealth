@@ -1,33 +1,41 @@
 package Entities;
 
-import java.util.Calendar;
-import java.sql.Time;
+import java.io.Serializable;
+import java.sql.*;
 
-public class Appointment {
+public class Appointment implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int idappointment;
 	private int idexpert;
 	private int idpatient;
-	private Calendar appdate;
+	private Timestamp appdate;
 	private Time start;
 	private Time end;
 	private String appstatus;
 	private String record;
 	private float price;
-	private String expertname;
-	private String expertise;
+	private Expert EX;
 	
-	public String getExpertname() {
-		return expertname;
+	public Appointment()
+	{
+		
 	}
-	public void setExpertname(String expertname) {
-		this.expertname = expertname;
+	public Appointment(Timestamp appdate,String experties,String firstname,String lastname)
+	{
+		this.appdate = appdate;
+		this.EX = new Expert(experties,firstname,lastname);
 	}
-	public String getExpertise() {
-		return expertise;
+	
+
+	public Expert getEX() {
+		return EX;
 	}
-	public void setExpertise(String expertise) {
-		this.expertise = expertise;
+	public void setEX(Expert eX) {
+		EX = eX;
 	}
 	public int getIdappointment() {
 		return idappointment;
@@ -47,10 +55,10 @@ public class Appointment {
 	public void setIdpatient(int idpatient) {
 		this.idpatient = idpatient;
 	}
-	public Calendar getAppdate() {
+	public Timestamp getAppdate() {
 		return appdate;
 	}
-	public void setAppdate(Calendar appdate) {
+	public void setAppdate(Timestamp appdate) {
 		this.appdate = appdate;
 	}
 	public Time getStart() {

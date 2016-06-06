@@ -2,6 +2,7 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -36,12 +37,12 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 								+" ghealth.appointments.idexpert = ghealth.expert.id AND"
 								+" ghealth.users.username = ghealth.expert.id";
 				arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-				System.out.println(arrList);
+				System.out.println(arrList  + arrList.get(0).getClass().getName() + arrList.get(1).getClass().getName() + arrList.get(2).getClass().getName() + arrList.get(3).getClass().getName());
 				
 
 				for (int i  = 0 ; i < arrList.size() ; i +=4)
 				{
-				//	cap.getAppList().add(new Appointment(arrList.get(i).toString(),(String)arrList.get(i+1),(String)arrList.get(i+2),(String)arrList.get(i+3)));
+					cap.getAppList().add(new Appointment((Timestamp)arrList.get(i),(String)arrList.get(i+1),(String)arrList.get(i+2),(String)arrList.get(i+3)));
 				}
 				
 	}
@@ -53,13 +54,19 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//if(arg)
-		/*if (arg instanceof Appointment )
+		
+		if (arg instanceof CancelAppointmentEntity )
 		{
 			
-			for (int i  = 0 ; i < appList.size() ; i ++)
-			CancelAppointmentview.getComboBox().addItem(appList.get(i).getAppDate()+" "+ appList.get(i).getExperties()+" "+appList.get(i).getFirstName()+" "+appList.get(i).getLastName());
+			for (int i  = 0 ; i < ((CancelAppointmentEntity)arg).getAppList().size() ; i ++)
+			CancelAppointmentview.getComboBox().addItem(
+					
+					((CancelAppointmentEntity)arg).getAppList().get(i).getAppdate().toString()
+					+" "+ ((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getFirstName()
+					+" "+((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getLastName()
+					+" "+((CancelAppointmentEntity)arg).getAppList().get(i).getEX().getExperties()
+					);
 			refreshView();
-		}*/
+		}
 	}
 }

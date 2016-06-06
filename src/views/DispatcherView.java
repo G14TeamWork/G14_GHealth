@@ -65,12 +65,23 @@ public class DispatcherView extends JPanel {
 				MainClass.masterControler.setView(
 						MainClass.masterControler.SACont.SetAppointmentview,
 						MainClass.masterControler.SACont);
+				MainClass.masterControler.SACont.SetAppointmentview.textField_first.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.textField_last.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.textField_phone.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.textField_email.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.textField_adress.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.lblFirstName.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.lblLastName.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.lblPhone.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.lblEmail.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.lblAdress.setVisible(false);
 				MainClass.masterControler.SACont.SetAppointmentview.textField_first.setText("");	
 				MainClass.masterControler.SACont.SetAppointmentview.textField_last.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.textFieldid.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.textField_phone.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.textField_email.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.textField_adress.setText("");
+				MainClass.masterControler.SACont.SetAppointmentview.Jlabel_first.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.btnNewPatient.setVisible(false);
 				MainClass.masterControler.SACont.SetAppointmentview.btnsearch.setVisible(true);
 			}

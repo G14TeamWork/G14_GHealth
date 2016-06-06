@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.awt.event.KeyAdapter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -53,6 +54,8 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 			fillERR+="last name, ";
 		if(newPatient.getPhone().length()<1)
 			fillERR+="phone, ";
+		if(newPatient.getEmail().length()<1)
+			fillERR+="email, ";
 		if(newPatient.getAddress().length()<1)
 			fillERR+="address";
 		if (fillERR.equals("Please enter "))
@@ -107,54 +110,51 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
+		if (arg instanceof Patient)
+		{
+			JOptionPane.showMessageDialog(null,"A new patient was entered the system successfully" );
+		}
 		if (arg instanceof SetAppointmentEntity)
 		{
 			if((((SetAppointmentEntity) arg).pat.getId()!=null) &&(((SetAppointmentEntity) arg).pat.getFirstname()==null)&& !SetAppointmentview.textFieldid.getText().equals(null))
 			{
 				if(JOptionPane.showConfirmDialog(null, "Patient not found, are you want to enter new patient?",null,JOptionPane.YES_NO_OPTION)==0)
 				{	
-					SetAppointmentview.textField_first.setEditable(true);
-					SetAppointmentview.textField_last.setEditable(true);
-					SetAppointmentview.textField_phone.setEditable(true);
-					SetAppointmentview.textField_email.setEditable(true);
-					SetAppointmentview.textField_adress.setEditable(true);
-					SetAppointmentview.textField_first.setText("");
-					SetAppointmentview.textField_last.setText("");
-					SetAppointmentview.textField_phone.setText("");
-					SetAppointmentview.textField_email.setText("");
-					SetAppointmentview.textField_adress.setText("");
+					SetAppointmentview.Jlabel_first.setText("");
+					SetAppointmentview.textField_first.setVisible(true);
+					SetAppointmentview.textField_last.setVisible(true);
+					SetAppointmentview.textField_phone.setVisible(true);
+					SetAppointmentview.textField_email.setVisible(true);
+					SetAppointmentview.textField_adress.setVisible(true);
+					SetAppointmentview.lblFirstName.setVisible(true);
+					SetAppointmentview.lblLastName.setVisible(true);
+					SetAppointmentview.lblPhone.setVisible(true);
+					SetAppointmentview.lblEmail.setVisible(true);
+					SetAppointmentview.lblAdress.setVisible(true);
 					SetAppointmentview.btnNewPatient.setVisible(true);
 					SetAppointmentview.btnsearch.setVisible(false);
+////////////////???	SetAppointmentview.textFieldid.removeKeyListener();
 					}
 				else
 				{
-
-					SetAppointmentview.textField_first.setEditable(false);
-					SetAppointmentview.textField_last.setEditable(false);
-					SetAppointmentview.textField_phone.setEditable(false);
-					SetAppointmentview.	textField_email.setEditable(false);
-					SetAppointmentview.textField_adress.setEditable(false);
+					SetAppointmentview.textField_first.setVisible(false);
+					SetAppointmentview.textField_last.setVisible(false);
+					SetAppointmentview.textField_phone.setVisible(false);
+					SetAppointmentview.textField_email.setVisible(false);
+					SetAppointmentview.textField_adress.setVisible(false);
+					SetAppointmentview.lblFirstName.setVisible(false);
+					SetAppointmentview.lblLastName.setVisible(false);
+					SetAppointmentview.lblPhone.setVisible(false);
+					SetAppointmentview.lblEmail.setVisible(false);
+					SetAppointmentview.lblAdress.setVisible(false);
+					SetAppointmentview.btnNewPatient.setVisible(false);
+					SetAppointmentview.btnsearch.setVisible(true);
 				}
 			}
 			else
 			{
-				SApat1.pat.setFirstname(((SetAppointmentEntity) arg).pat.getFirstname());
-				SApat1.pat.setLastname(((SetAppointmentEntity) arg).pat.getLastname());
-				SApat1.pat.setPhone(((SetAppointmentEntity) arg).pat.getPhone());
-				SApat1.pat.setEmail(((SetAppointmentEntity) arg).pat.getEmail());
-				SApat1.pat.setAddress(((SetAppointmentEntity) arg).pat.getAddress());
-				SetAppointmentview.textField_first.setText(SApat1.pat.getFirstname());
-				SetAppointmentview.textField_last.setText(SApat1.pat.getLastname());
-				SetAppointmentview.textField_phone.setText(SApat1.pat.getPhone());
-				SetAppointmentview.textField_email.setText(SApat1.pat.getEmail());
-				SetAppointmentview.textField_adress.setText(SApat1.pat.getAddress());
-				SetAppointmentview.textField_first.setEditable(false);
-				SetAppointmentview.textField_last.setEditable(false);
-				SetAppointmentview.textField_phone.setEditable(false);
-				SetAppointmentview.	textField_email.setEditable(false);
-				SetAppointmentview.textField_adress.setEditable(false);
+				SetAppointmentview.Jlabel_first.setText(((SetAppointmentEntity) arg).pat.getFirstname()+" "+((SetAppointmentEntity) arg).pat.getLastname());
 			}
-			refreshView();
 		}
 	}
 }

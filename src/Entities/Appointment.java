@@ -3,7 +3,7 @@ package Entities;
 import java.util.Calendar;
 import java.sql.Time;
 
-public class AppEntity {
+public class Appointment {
 
 	private int idappointment;
 	private int idexpert;

@@ -6,6 +6,6 @@ public class RecordAppointmentEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public AppEntity appointment = new AppEntity();
+	public Appointment appointment = new Appointment();
 	
 }

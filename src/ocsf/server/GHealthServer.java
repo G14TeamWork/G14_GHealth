@@ -169,11 +169,7 @@ public class GHealthServer extends ObservableServer{
 					SMC.CACont.deleteAppintmentSQL(((CancelAppointmentEntity)msg));
 				break;
 			case "Patient":
-			{
-				System.out.println("before AddNewPatient");
 				SMC.SACont.AddNewPatient((Patient)msg);
-				System.out.println("after AddNewPatient");
-			}
 				break;
 		/*		
 			case "HeatingFuelEnt":{

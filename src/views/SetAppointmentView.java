@@ -2,6 +2,7 @@ package views;
 
 import graphics.GUIimage;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -66,8 +67,20 @@ public class SetAppointmentView extends JPanel {
 		textFieldid.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) { // ENTER pressed
-				if (arg0.getKeyChar()==10&& !textFieldid.getText().equals(null))
+				if (arg0.getKeyChar()==10)
+				{
 					MainClass.masterControler.SACont.setPatient();
+				}
+/*				else
+					if(arg0.getKeyChar()<48 || arg0.getKeyChar()>57 )
+					{
+						if( arg0.getKeyChar()!=127 && arg0.getKeyChar()!=8)
+						{
+						JOptionPane.showMessageDialog(null,"Enter only numbers in ID field");
+						if(textFieldid.getText().length()>0)
+							textFieldid.setText(textFieldid.getText().substring(0, textFieldid.getText().length()-1));
+						}
+					}*/
 				}
 			});
 		add(textFieldid);
@@ -121,6 +134,20 @@ public class SetAppointmentView extends JPanel {
 		textField_phone.setEditable(false);
 		textField_phone.setColumns(10);
 		textField_phone.setBounds(154, 250, 148, 28);
+/*		textField_phone.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) { // ENTER pressed
+					if( arg0.getKeyChar()<48 || arg0.getKeyChar()>57 )
+					{
+						if( arg0.getKeyChar()!=127 && arg0.getKeyChar()!=8)
+						{
+							JOptionPane.showMessageDialog(null,"Enter only numbers in Phone field");
+							if(textFieldid.getText().length()>0)
+								textField_phone.setText(textField_phone.getText().substring(0, textField_phone.getText().length()-1));
+						}
+					}
+				}
+			});*/
 		add(textField_phone);
 		
 		textField_email = new JTextField();
@@ -146,8 +173,10 @@ public class SetAppointmentView extends JPanel {
 		add(lblAdress);
 		
 		btnNewPatient = new JButton("Enter new Patient");
-		btnNewPatient.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnNewPatient.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				MainClass.masterControler.SACont.setNewPatient();
 			}
 		});
 		btnNewPatient.setBounds(490, 366, 140, 55);

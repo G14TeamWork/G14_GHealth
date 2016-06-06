@@ -68,6 +68,9 @@ public class DispatcherView extends JPanel {
 				MainClass.masterControler.SACont.SetAppointmentview.textField_first.setText("");	
 				MainClass.masterControler.SACont.SetAppointmentview.textField_last.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.textFieldid.setText("");
+				MainClass.masterControler.SACont.SetAppointmentview.textField_phone.setText("");
+				MainClass.masterControler.SACont.SetAppointmentview.textField_email.setText("");
+				MainClass.masterControler.SACont.SetAppointmentview.textField_adress.setText("");
 			}
 		});
 		btnSetappointment.setText("Set appointment");

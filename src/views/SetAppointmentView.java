@@ -11,6 +11,8 @@ import mainPackage.MainClass;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.Font;
 
 import javax.swing.JTextField;
@@ -32,6 +34,8 @@ public class SetAppointmentView extends JPanel {
 	public JTextField textField_phone;
 	public JTextField textField_email;
 	public JTextField textField_adress;
+	public JButton btnNewPatient;
+	public JButton btnsearch;
 	public SetAppointmentView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -59,6 +63,13 @@ public class SetAppointmentView extends JPanel {
 		textFieldid = new JTextField();
 		textFieldid.setColumns(10);
 		textFieldid.setBounds(154, 171, 148, 28);
+		textFieldid.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) { // ENTER pressed
+				if (arg0.getKeyChar()==10&& !textFieldid.getText().equals(null))
+					MainClass.masterControler.SACont.setPatient();
+				}
+			});
 		add(textFieldid);
 		
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");
@@ -67,16 +78,17 @@ public class SetAppointmentView extends JPanel {
 		add(lblEnterPatientId);
 		
 		
-		JButton searchIcon = new JButton("");
-		searchIcon.addMouseListener(new MouseAdapter() {
+		btnsearch = new JButton("");
+		btnsearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				MainClass.masterControler.SACont.setPatient();
 			}
 		});
-		searchIcon.setBounds(314, 171, 29, 28);
-		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth()-7,searchIcon.getHeight()-7).image);
-		this.add(searchIcon);
+		
+		btnsearch.setBounds(314, 171, 29, 28);
+		btnsearch.setIcon(new GUIimage("search",btnsearch.getWidth()-7,btnsearch.getHeight()-7).image);
+		this.add(btnsearch);
 		
 		textField_first = new JTextField();
 		textField_first.setEditable(false);
@@ -132,5 +144,14 @@ public class SetAppointmentView extends JPanel {
 		lblAdress.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblAdress.setBounds(22, 292, 120, 28);
 		add(lblAdress);
+		
+		btnNewPatient = new JButton("Enter new Patient");
+		btnNewPatient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewPatient.setBounds(490, 366, 140, 55);
+		btnNewPatient.setVisible(false);
+		add(btnNewPatient);
 	}
 }

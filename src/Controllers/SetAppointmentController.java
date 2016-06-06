@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JOptionPane;
+
 import mainPackage.MainClass;
 import ocsf.server.GHealthServer;
 import views.SetAppointmentView;
@@ -65,16 +67,35 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 //			System.out.println("Fname"+((SetAppointmentEntity) arg).pat.getFirstname());
 			if((((SetAppointmentEntity) arg).pat.getId()!=null) &&(((SetAppointmentEntity) arg).pat.getFirstname()==null))
 			{
-				SetAppointmentview.textField_first.setEditable(true);
-				SetAppointmentview.textField_last.setEditable(true);
-				SetAppointmentview.textField_phone.setEditable(true);
-				SetAppointmentview.textField_email.setEditable(true);
-				SetAppointmentview.textField_adress.setEditable(true);
+				if(JOptionPane.showConfirmDialog(null, "Patient not found, are you want to enter new patient?",null,JOptionPane.YES_NO_OPTION)==0)
+				{	SetAppointmentview.textField_first.setEditable(true);
+					SetAppointmentview.textField_last.setEditable(true);
+					SetAppointmentview.textField_phone.setEditable(true);
+					SetAppointmentview.textField_email.setEditable(true);
+					SetAppointmentview.textField_adress.setEditable(true);
+					SetAppointmentview.textField_first.setText("");
+					SetAppointmentview.textField_last.setText("");
+					SetAppointmentview.textField_phone.setText("");
+					SetAppointmentview.textField_email.setText("");
+					SetAppointmentview.textField_adress.setText("");
+					SetAppointmentview.btnNewPatient.setVisible(true);
+					SetAppointmentview.btnsearch.setVisible(false);
+					}
+				else
+				{
+
+					SetAppointmentview.textField_first.setEditable(false);
+					SetAppointmentview.textField_last.setEditable(false);
+					SetAppointmentview.textField_phone.setEditable(false);
+					SetAppointmentview.	textField_email.setEditable(false);
+					SetAppointmentview.textField_adress.setEditable(false);
+				}
+						
 //				System.out.println("editable");
 			}
 			else
 			{
-//				System.out.println("NOTeditable");
+				System.out.println("NOTeditable");
 				SApat1.pat.setFirstname(((SetAppointmentEntity) arg).pat.getFirstname());
 				SApat1.pat.setLastname(((SetAppointmentEntity) arg).pat.getLastname());
 				SApat1.pat.setPhone(((SetAppointmentEntity) arg).pat.getPhone());

@@ -22,6 +22,8 @@ import java.awt.Button;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FillTestResView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -57,6 +59,13 @@ public class FillTestResView extends JPanel {
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
 		textFieldid = new JTextField();
+		textFieldid.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) { // ENTER pressed
+				if (arg0.getKeyChar()==10)
+					MainClass.masterControler.FTRCont.setFTR_Patient();
+			}
+		});
 		//textFieldid.setText("");
 		textFieldid.setColumns(10);
 		textFieldid.setBounds(128, 194, 148, 28);
@@ -65,6 +74,7 @@ public class FillTestResView extends JPanel {
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");
 		lblEnterPatientId.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblEnterPatientId.setBounds(12, 193, 120, 28);
+
 		add(lblEnterPatientId);
 		
 		JButton searchIcon = new JButton("");
@@ -108,7 +118,6 @@ public class FillTestResView extends JPanel {
 		add(lblTestResult);
 		
 		btnAddPhoto = new JButton("<html>Add photo<br />(Optional)</html>");
-		btnAddPhoto.setEnabled(false);
 		btnAddPhoto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -127,10 +136,14 @@ public class FillTestResView extends JPanel {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(JOptionPane.showConfirmDialog(null, "Save data?",null,JOptionPane.YES_NO_OPTION)==0) //if pressed yes
-					System.out.println("yessss");
+					{
+						System.out.println("yessss");
+						btnSave.setEnabled(false);
+						btnAddPhoto.setEnabled(false);
+						MainClass.masterControler.setView(MainClass.masterControler.LWCont.labworkerview);
+					}
 			}
 		});
-		btnSave.setEnabled(false);
 		btnSave.setBounds(490, 374, 140, 53);
 		add(btnSave);
 		

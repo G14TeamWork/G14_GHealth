@@ -38,7 +38,6 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	public void searchAppointmentSQL(CancelAppointmentEntity cap )
 	{
 		cap.setAppList(new ArrayList<Appointment>());
-		cap.
 				ArrayList<Object> arrList = new ArrayList<Object>();
 				String query="SELECT ghealth.appointments.appdate,ghealth.expert.experties,ghealth.users.firstname,ghealth.users.lastname,ghealth.appointments.idappointment"
 								+" FROM ghealth.appointments,ghealth.users,ghealth.expert" 

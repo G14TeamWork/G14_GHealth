@@ -12,10 +12,13 @@ import mainPackage.MainClass;
 import ocsf.server.GHealthServer;
 import views.RecordAppointView;
 import Controllers.IRefresh;
+import Entities.FillTestResEntity;
+import Entities.RecordAppointmentEntity;
 
 public class  RecordAppointController implements Observer,IRefresh  {
 	private static final long serialVersionUID = 1L;
 	public RecordAppointView RecordAppointview;
+	public RecordAppointmentEntity ape;
 	
 	public RecordAppointController() {
 		int flag = 1;
@@ -27,11 +30,9 @@ public class  RecordAppointController implements Observer,IRefresh  {
 		while (flag != 0){
 			try {
 				String appID = JOptionPane.showInputDialog(null, "Please enter appointment number:");
-				System.out.println(appID);
-				query = "SELECT * FROM ghealth.appointments WHERE username = \"" + Integer.parseInt(appID) + "\"";
+				query = "SELECT * FROM ghealth.appointments WHERE idappointment = \"" + appID + "\"";
 				arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-				if (arrList.isEmpty()) System.out.println("array empty!!!");
-				System.out.println(arrList);
+				
 				/* ************************************************************************** */
 				for ( int i = 0 ; i< arrList.size() ; i++)
 					JOptionPane.showMessageDialog(null, arrList.get(i));
@@ -53,12 +54,21 @@ public class  RecordAppointController implements Observer,IRefresh  {
 	}
 	@Override
 	public void refreshView() {
-		// TODO Auto-generated method stub
-		
+			//MainClass.masterControler.setView(panel, cont);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
+		if (arg instanceof RecordAppointmentEntity)
+		{
+			FTRpat1.pat.setFirstname(((FillTestResEntity) arg).pat.getFirstname());
+			FTRpat1.pat.setLastname(((FillTestResEntity) arg).pat.getLastname());
+			FillTestResview.textField_first.setText(FTRpat1.pat.getFirstname());
+			FillTestResview.textField_last.setText(FTRpat1.pat.getLastname());
+			FillTestResview.textField_TestResult.setEditable(true);
+			
+			refreshView();
+		
 	}
 }

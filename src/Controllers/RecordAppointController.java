@@ -18,10 +18,13 @@ public class  RecordAppointController implements Observer,IRefresh  {
 	public RecordAppointView RecordAppointview;
 	
 	public RecordAppointController() {
-		
+		RecordAppointview = new RecordAppointView();
 		
 	}
-	
+	public void saveRecord(){
+		String str = RecordAppointview.record.getText();
+		
+	}
 	
 	@Override
 	public void refreshView() {

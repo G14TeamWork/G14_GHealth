@@ -4,6 +4,7 @@ import Controllers.*;
 import graphics.GUIimage;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -18,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
+
 import java.awt.Font;
 
 public class ExpView extends JPanel {
@@ -60,11 +62,22 @@ public class ExpView extends JPanel {
 		btnRecordAppointment = new JButton();
 		btnRecordAppointment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MainClass.masterControler.RACont = new RecordAppointController();
-				MainClass.masterControler.setView(
+				if (arg0.getSource()==btnRecordAppointment){
+					try{
+						String appID = JOptionPane.showInputDialog(null, "Insert appointment number : ");
+						MainClass.masterControler.EXPVCont.checkApp(appID);
+					}catch(Exception e){
+						
+					}
+				}
+				/*if (MainClass.masterControler.EXPVCont.checkApp(appID)){
+					MainClass.masterControler.RACont = new RecordAppointController();
+					MainClass.masterControler.setView(
 						MainClass.masterControler.RACont.RecordAppointview,
-						MainClass.masterControler.RACont);
+							MainClass.masterControler.RACont);
+				}*/
 			}
+				
 		});
 		btnRecordAppointment.setText("Record Appointment");
 		btnRecordAppointment.setBounds(469, 372, 161, 55);

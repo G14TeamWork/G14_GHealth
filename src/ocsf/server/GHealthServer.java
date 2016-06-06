@@ -139,6 +139,15 @@ public class GHealthServer extends ObservableServer{
 			case "String":
 				break;
 				
+			case "RecordAppointmentEntity":
+			{
+				System.out.println("GHealth server going to checkappsql");
+				if(((RecordAppointmentEntity)msg).taskToDo.equals("search")){
+					SMC.EXPVCont.checkAppSQL();
+				}
+				
+				break;
+			}	
 			case "FillTestResEntity":
 				SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
 				break;

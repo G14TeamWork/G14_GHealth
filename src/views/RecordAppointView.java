@@ -27,9 +27,11 @@ public class RecordAppointView extends JPanel {
 	private JTextField patientID;
 	private JTextField appID;
 	private JTextField StarHour;
-	
+	public JTextArea record;
+	public String appNo;
 	//public RecordAppointView(){};
 	public RecordAppointView() {
+		//appNo = JOptionPane.showInputDialog(null,"Enter appointment number : ");
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
@@ -37,9 +39,9 @@ public class RecordAppointView extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
-		JTextArea record = new JTextArea();
+		record = new JTextArea();
 		record.setLineWrap(true);
-		record.setBounds(28, 252, 435, 278);
+		record.setBounds(28, 273, 435, 278);
 		add(record);
 		
 		JLabel lblExpert = new JLabel("Record Appointment");
@@ -66,6 +68,7 @@ public class RecordAppointView extends JPanel {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
+					
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);
 					
 					record.setText("");
@@ -100,6 +103,24 @@ public class RecordAppointView extends JPanel {
 		lblAppointmentRecord.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblAppointmentRecord.setBounds(28, 225, 173, 29);
 		add(lblAppointmentRecord);
-		
+			
+	}
+	public JTextField getPatientID() {
+		return patientID;
+	}
+	public void setPatientID(JTextField patientID) {
+		this.patientID = patientID;
+	}
+	public JTextField getAppID() {
+		return appID;
+	}
+	public void setAppID(JTextField appID) {
+		this.appID = appID;
+	}
+	public String getAppNo() {
+		return appNo;
+	}
+	public void setAppNo(String appNo) {
+		this.appNo = appNo;
 	}
 }

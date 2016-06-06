@@ -67,6 +67,7 @@ public class GHealthClient extends ObservableClient{
 			} catch (IOException e) {
 				System.err.println("sendToServer");
 				e.printStackTrace();
+				System.out.println("Message to Server ERROR");
 			}
 	}
 

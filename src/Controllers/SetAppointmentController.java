@@ -20,6 +20,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	ArrayList<Object> arrList = new ArrayList<>();
 	
 	public SetAppointmentEntity SApat1;
+	public Patient newPatient;
 	
 	public SetAppointmentController() {
 		SetAppointmentview = new SetAppointmentView();
@@ -28,10 +29,40 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	public void setPatient()
 	{
 		SApat1=new SetAppointmentEntity();
-		
-		SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
-		MainClass.ghealth.sendMessegeToServer(SApat1);
+		if(!SetAppointmentview.textFieldid.getText().equals(null))
+		{
+			SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
+			MainClass.ghealth.sendMessegeToServer(SApat1);
+		}
 	}
+	
+	public void setNewPatient() {
+		newPatient=new Patient();
+		newPatient.setId(SetAppointmentview.textFieldid.getText());
+		newPatient.setFirstname(SetAppointmentview.textField_first.getText());
+		newPatient.setLastname(SetAppointmentview.textField_last.getText());
+		newPatient.setPhone(SetAppointmentview.textField_phone.getText());
+		newPatient.setEmail(SetAppointmentview.textField_email.getText());
+		newPatient.setAddress(SetAppointmentview.textField_adress.getText());
+		String fillERR = "Please enter ";
+		if(newPatient.getId().length()<1)
+			fillERR+="id, ";
+		if(newPatient.getFirstname().length()<1)
+			fillERR+="first name, ";
+		if(newPatient.getLastname().length()<1)
+			fillERR+="last name, ";
+		if(newPatient.getPhone().length()<1)
+			fillERR+="phone, ";
+		if(newPatient.getAddress().length()<1)
+			fillERR+="address";
+		if (fillERR.equals("Please enter "))
+			MainClass.ghealth.sendMessegeToServer(newPatient);
+		else
+		{
+			JOptionPane.showMessageDialog(null,fillERR);
+		}
+	}
+	
 	public void checkExistanceSql(SetAppointmentEntity SApat)
 	{
 		String query = "";
@@ -63,12 +94,11 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		// TODO Auto-generated method stub
 		if (arg instanceof SetAppointmentEntity)
 		{
-//			System.out.println("id="+((SetAppointmentEntity) arg).pat.getId());
-//			System.out.println("Fname"+((SetAppointmentEntity) arg).pat.getFirstname());
-			if((((SetAppointmentEntity) arg).pat.getId()!=null) &&(((SetAppointmentEntity) arg).pat.getFirstname()==null))
+			if((((SetAppointmentEntity) arg).pat.getId()!=null) &&(((SetAppointmentEntity) arg).pat.getFirstname()==null)&& !SetAppointmentview.textFieldid.getText().equals(null))
 			{
 				if(JOptionPane.showConfirmDialog(null, "Patient not found, are you want to enter new patient?",null,JOptionPane.YES_NO_OPTION)==0)
-				{	SetAppointmentview.textField_first.setEditable(true);
+				{	
+					SetAppointmentview.textField_first.setEditable(true);
 					SetAppointmentview.textField_last.setEditable(true);
 					SetAppointmentview.textField_phone.setEditable(true);
 					SetAppointmentview.textField_email.setEditable(true);
@@ -90,12 +120,9 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 					SetAppointmentview.	textField_email.setEditable(false);
 					SetAppointmentview.textField_adress.setEditable(false);
 				}
-						
-//				System.out.println("editable");
 			}
 			else
 			{
-				System.out.println("NOTeditable");
 				SApat1.pat.setFirstname(((SetAppointmentEntity) arg).pat.getFirstname());
 				SApat1.pat.setLastname(((SetAppointmentEntity) arg).pat.getLastname());
 				SApat1.pat.setPhone(((SetAppointmentEntity) arg).pat.getPhone());

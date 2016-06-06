@@ -34,6 +34,7 @@ public class FillTestResView extends JPanel {
 	public JTextArea  textField_TestResult;
 	public JButton 	  btnSave;
 	public JButton	  btnAddPhoto;
+	//public boolean flagg;
 	public FillTestResView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -64,6 +65,9 @@ public class FillTestResView extends JPanel {
 			public void keyPressed(KeyEvent arg0) { // ENTER pressed
 				if (arg0.getKeyChar()==10)
 					MainClass.masterControler.FTRCont.setFTR_Patient();
+				//btnSave.setEnabled(false);
+				//btnAddPhoto.setEnabled(false);
+					
 			}
 		});
 		//textFieldid.setText("");
@@ -82,6 +86,8 @@ public class FillTestResView extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				MainClass.masterControler.FTRCont.setFTR_Patient();
+				//btnSave.setEnabled(false);
+				//btnAddPhoto.setEnabled(false);
 			}
 		});
 		searchIcon.setBounds(288, 194, 29, 28);
@@ -127,6 +133,7 @@ public class FillTestResView extends JPanel {
 		add(btnAddPhoto);
 		
 		textField_TestResult = new JTextArea();
+		textField_TestResult.setEditable(false);
 		textField_TestResult.setLineWrap(true);
 		textField_TestResult.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textField_TestResult.setBounds(32, 312, 390, 183);
@@ -146,6 +153,8 @@ public class FillTestResView extends JPanel {
 		});
 		btnSave.setBounds(490, 374, 140, 53);
 		add(btnSave);
+		//btnSave.setEnabled(false);
+		//btnAddPhoto.setEnabled(false);
 		
 
 	}

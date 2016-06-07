@@ -148,6 +148,13 @@ public class GHealthServer extends ObservableServer{
 				}
 				break;
 				
+			case "ViewHistoryEntity":
+				//if(!((FillTestResEntity)msg).updateFlag)
+				//	SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
+				//else 
+				SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);
+				break;
+				
 			case "FillTestResEntity":
 				if(!((FillTestResEntity)msg).updateFlag)
 					SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);

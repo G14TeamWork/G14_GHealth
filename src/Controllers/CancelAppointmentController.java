@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -43,16 +44,12 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 		query = "SELECT firstname,lastname FROM ghealth.patient where "
 				+ "id = \"" + cap.getIdPatient() + "\"";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		if (arrList.isEmpty())
-		{
-			cap.setTaskToDo("Error! enter valid patient ID!");
-			
-		}
-		else
-		{
-			cap.setTaskToDo("search");
-			arrList.clear();
-		}
+		if (arrList.isEmpty()) cap.setTaskToDo("Error! enter valid patient ID!");
+		else{
+				cap.setFirstName((String)arrList.get(0));
+				cap.setLastName((String)arrList.get(1));
+				arrList.clear();
+			}
 		
 	}
 	public void searchAppointmentSQL(CancelAppointmentEntity cap )
@@ -88,7 +85,11 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("search") )
 		{
-			
+			CancelAppointmentview.getNotificationlbl().setText("ID : "+
+					((CancelAppointmentEntity)arg).getIdPatient()+" "+
+					((CancelAppointmentEntity)arg).getFirstName()+" "+
+					((CancelAppointmentEntity)arg).getLastName());
+			CancelAppointmentview.getNotificationlbl().setForeground(Color.BLACK);
 			CancelAppointmentview.getComboBox().removeAllItems();
 			if(((CancelAppointmentEntity)arg).getAppList().size() != 0)
 			{

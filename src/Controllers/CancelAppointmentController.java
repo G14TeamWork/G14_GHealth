@@ -26,7 +26,7 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 
 	}
 	public void searchAppointments(){
-		CAP = new CancelAppointmentEntity("search" , CancelAppointmentview.getSearchField().getText());
+		this.CAP = new CancelAppointmentEntity("search" , CancelAppointmentview.getSearchField().getText());
 		 MainClass.ghealth.sendMessegeToServer(CAP);
 	}
 	public void cancelAppointment()
@@ -60,7 +60,7 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 		
 	@Override
 	public void refreshView() {
-		MainClass.masterControler.setView(MainClass.masterControler.CACont.CancelAppointmentview);		
+		MainClass.masterControler.setView(CancelAppointmentview);	
 	}
 
 	@Override
@@ -68,18 +68,19 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("search") )
 		{
+			CancelAppointmentview.getComboBox().removeAllItems();
 			if(((CancelAppointmentEntity)arg).getAppList().size() != 0)
 			{
 				setFlag(true);
-				CancelAppointmentview.getComboBox().removeAll();
+
+				CAP = ((CancelAppointmentEntity)arg);
 				for (int i  = 0 ; i < ((CancelAppointmentEntity)arg).getAppList().size() ; i ++)
 					CancelAppointmentview.getComboBox().addItem(((CancelAppointmentEntity)arg).getAppList().get(i));
 				
-				CAP = ((CancelAppointmentEntity)arg);
 				System.out.println(CAP.toString() );
 			}
 			else setFlag(false);
-			refreshView();
+
 		}
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("delete") )
 		{

@@ -14,6 +14,8 @@ public class CancelAppointmentEntity implements Serializable{
 	private String taskToDo;
 	private String idPatient;
 	private String idapp;
+	private String firstName;
+	private String lastName;
 	
 	public CancelAppointmentEntity(String task , String id)
 	{
@@ -61,6 +63,22 @@ public class CancelAppointmentEntity implements Serializable{
 	public void setIdapp(String idapp) {
 		this.idapp = idapp;
 	}
-	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
 
 }

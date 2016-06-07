@@ -33,7 +33,7 @@ public class CancelAppointmentView extends JPanel {
 	private JTextField searchField;
 	private JButton btnSerch;
 	private JComboBox comboBox;
-	
+	private JLabel Notificationlbl;
 	public CancelAppointmentView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -41,6 +41,12 @@ public class CancelAppointmentView extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
+		Notificationlbl = new JLabel("");
+		Notificationlbl.setEnabled(false);
+		Notificationlbl.setForeground(Color.RED);
+		Notificationlbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		Notificationlbl.setBounds(73, 352, 354, 28);
+		add(Notificationlbl);
 		
 		JLabel lblExpert = new JLabel("Cancel Appointment");
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
@@ -61,8 +67,7 @@ public class CancelAppointmentView extends JPanel {
 		searchField = new JTextField();
 		searchField.setForeground(new Color(0, 0, 0));
 		searchField.setToolTipText("");
-		searchField.setText("type patient id ");
-		searchField.setBounds(73, 280, 401, 28);
+		searchField.setBounds(193, 314, 234, 28);
 		add(searchField);
 		searchField.setColumns(10);
 		
@@ -74,23 +79,22 @@ public class CancelAppointmentView extends JPanel {
 			}
 			});
 
-		searchIcon.setBounds(490, 280, 29, 28);
+		searchIcon.setBounds(437, 314, 29, 28);
 		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth(),searchIcon.getHeight()).image);
 		add(searchIcon);
 		
 		comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
-		comboBox.setBounds(73, 334, 401, 28);
+		comboBox.setBounds(73, 401, 401, 28);
 		add(comboBox);
 		
 		JButton btnCancelApp = new JButton("Cancel Appointment");
 		btnCancelApp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				if(comboBox.getItemCount() == 0 )
+				{
+					Notificationlbl.setText("No appointment to delete");
+					return;
+				}	
 				MainClass.masterControler.CACont.cancelAppointment();
 					
 				
@@ -98,6 +102,13 @@ public class CancelAppointmentView extends JPanel {
 		});
 		btnCancelApp.setBounds(490, 374, 140, 55);
 		add(btnCancelApp);
+		
+		JLabel lbEnterPatientId = new JLabel(" Enter Patient ID :");
+		lbEnterPatientId.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lbEnterPatientId.setBounds(73, 313, 110, 28);
+		add(lbEnterPatientId);
+		
+
 	}
 	public JComboBox getComboBox() {
 		return comboBox;
@@ -116,5 +127,12 @@ public class CancelAppointmentView extends JPanel {
 	}
 	public void setBtnSerch(JButton btnSerch) {
 		this.btnSerch = btnSerch;
+	}
+	
+	public JLabel getNotificationlbl() {
+		return Notificationlbl;
+	}
+	public void setNotificationlbl(JLabel notificationlbl) {
+		Notificationlbl = notificationlbl;
 	}
 }

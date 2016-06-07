@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLayeredPane;
 import javax.swing.JDesktopPane;
@@ -24,7 +25,9 @@ import javax.swing.JList;
 import javax.swing.JComboBox;
 
 import ocsf.server.GHealthServer;
+
 import java.awt.Color;
+
 import javax.swing.DropMode;
 
 public class CancelAppointmentView extends JPanel {
@@ -90,14 +93,8 @@ public class CancelAppointmentView extends JPanel {
 		JButton btnCancelApp = new JButton("Cancel Appointment");
 		btnCancelApp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if(comboBox.getItemCount() == 0 )
-				{
-					Notificationlbl.setText("No appointment to delete");
-					return;
-				}	
-				MainClass.masterControler.CACont.cancelAppointment();
-					
-				
+				if(JOptionPane.showConfirmDialog(null, "remove appointment ?", null,JOptionPane.YES_NO_OPTION )== 0)
+				MainClass.masterControler.CACont.cancelAppointment();	
 			}
 		});
 		btnCancelApp.setBounds(490, 374, 140, 55);

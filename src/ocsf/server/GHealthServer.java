@@ -155,7 +155,12 @@ public class GHealthServer extends ObservableServer{
 				break;
 				
 			case "SetAppointmentEntity":
-				SMC.SACont.checkExistanceSql((SetAppointmentEntity)msg);
+			{
+				if(((SetAppointmentEntity)msg).pat.getTask()=="searchPatient")
+					SMC.SACont.checkExistanceSql((SetAppointmentEntity)msg);
+				if(((SetAppointmentEntity)msg).pat.getTask()=="searchExpert");
+					
+			}
 				break;
 				
 				

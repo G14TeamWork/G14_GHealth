@@ -25,6 +25,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 public class SetAppointmentView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;
@@ -207,17 +209,31 @@ public class SetAppointmentView extends JPanel {
 		add(btnNewPatient);
 		
 		comboBox_expertise = new JComboBox();
+		comboBox_expertise.setFont(new Font("Dialog", Font.PLAIN, 14));
+		comboBox_expertise.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				MainClass.masterControler.SACont.searchExperts(comboBox_expertise.getSelectedItem());
+			}
+		});
+		comboBox_expertise.setEditable(true); 
+		comboBox_expertise.setAlignmentX(CENTER_ALIGNMENT);
 		comboBox_expertise.setBounds(194, 250, 140, 26);
+		comboBox_expertise.setSelectedItem("");
 		comboBox_expertise.addItem("Cardiologist");
 		comboBox_expertise.addItem("Gynecologist");
 		comboBox_expertise.addItem("Neurologist");
+		comboBox_expertise.addItem("Oncologist");
+		comboBox_expertise.addItem("Orthopedic Surgeon");
 		comboBox_expertise.setVisible(false);
 //		comboBox_expertise.addItemListener(aListener);
 		add(comboBox_expertise);
 		
 		comboBox_doctors = new JComboBox();
 		comboBox_doctors.setFont(new Font("Dialog", Font.PLAIN, 14));
+		comboBox_doctors.setEditable(true); 
+		comboBox_doctors.setAlignmentX(CENTER_ALIGNMENT);
 		comboBox_doctors.setBounds(194, 291, 140, 26);
+		comboBox_expertise.setSelectedItem("");
 		comboBox_doctors.setVisible(false);
 		add(comboBox_doctors);
 		
@@ -234,10 +250,6 @@ public class SetAppointmentView extends JPanel {
 		add(lblDoctors);
 		
 		btnSetAppointment = new JButton("Set Appointment");
-		btnSetAppointment.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnSetAppointment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {

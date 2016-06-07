@@ -1,6 +1,5 @@
 package Controllers;
 
-import java.awt.event.KeyAdapter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -33,6 +32,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		if(!SetAppointmentview.textFieldid.getText().equals(null))
 		{
 			SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
+			SApat1.pat.setTask("searchPatient");
 			MainClass.ghealth.sendMessegeToServer(SApat1);
 		}
 	}
@@ -101,6 +101,11 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 	}
 	
+	public void searchExperts(Object object) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public void refreshView() {
 		MainClass.masterControler.setView(MainClass.masterControler.SACont.SetAppointmentview);
@@ -149,6 +154,11 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 					SetAppointmentview.lblAdress.setVisible(true);
 					SetAppointmentview.btnNewPatient.setVisible(true);
 					SetAppointmentview.btnsearch.setVisible(false);
+					SetAppointmentview.lblDoctors.setVisible(false);
+					SetAppointmentview.lblExpertType.setVisible(false);
+					SetAppointmentview.comboBox_expertise.setVisible(false);
+					SetAppointmentview.comboBox_doctors.setVisible(false);
+					SetAppointmentview.btnSetAppointment.setVisible(false);
 					}
 				else
 				{

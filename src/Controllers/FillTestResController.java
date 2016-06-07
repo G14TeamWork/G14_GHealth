@@ -69,16 +69,17 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	public void insertTestResSql(FillTestResEntity FTRpat)
 	{
 		String query = "";
+		String labworker =FTRpat.labworkerFirstName+" "+FTRpat.labworkerLastName;
 		String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
-		query = "INSERT INTO ghealth.test_results (patientid, date, testtype, testresult, photo)"+
+		query = "INSERT INTO ghealth.test_results (patientid, date, testtype, testresult, photo, labworker)"+
 		"VALUES ("+FTRpat.pat.getId()+
 		", \""+ timeStamp+"\""+
 		", \""+FTRpat.TestType+
 		"\", \""+FTRpat.TestRes+
-		"\", \""+FTRpat.PhotoFile+"\");";
+		"\", \""+FTRpat.PhotoFile+
+		"\", \""+labworker+"\");";
 		FTRpat.updateFlag=true;
 		GHealthServer.sqlConn.sendSqlUpdate(query);	
-		//FTRpat=new FillTestResEntity();    בעיה - ברגע שבוחרים קובץ ועושים חזור הקובץ נשמר לפעם הבאה
 	}
 	
 	@Override

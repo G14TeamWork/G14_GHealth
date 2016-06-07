@@ -26,6 +26,7 @@ public class ClinicManagerView extends JPanel {
 	public JSeparator separator;
 	public JButton btnViewReports;
 	public JButton btnProducemonthlyreport;
+	public JLabel lblClinicManagername;
 	public ClinicManagerView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -34,10 +35,17 @@ public class ClinicManagerView extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
-		JLabel lblExpert = new JLabel("Clinic Manager");
-		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(211, 182, 253, 118);
-		add(lblExpert);
+		JLabel lblClinicManager = new JLabel("Clinic Manager");
+		lblClinicManager.setFont(new Font("Lucida Grande", Font.BOLD, 22));
+		lblClinicManager.setBounds(243, 151, 166, 65);
+		add(lblClinicManager);
+		
+		lblClinicManagername = new JLabel("");
+		lblClinicManagername.setHorizontalAlignment(SwingConstants.CENTER);
+		lblClinicManagername.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblClinicManagername.setBounds(194, 203, 238, 31);
+		add(lblClinicManagername);
+		
 		
 		btnLogout = new JButton();
 		btnLogout.setText("Logout");

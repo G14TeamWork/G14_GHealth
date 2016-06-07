@@ -18,11 +18,14 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.Component;
+import javax.swing.SwingConstants;
 
 public class LabWorkerView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JButton btnLogout;
 	public JSeparator separator;
+	public JLabel lblLabworkername;
 	public LabWorkerView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -31,10 +34,16 @@ public class LabWorkerView extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
-		JLabel lblExpert = new JLabel("Lab Worker");
-		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(211, 182, 253, 118);
-		add(lblExpert);
+		JLabel lblLabWorker = new JLabel("Lab Worker");
+		lblLabWorker.setFont(new Font("Dialog", Font.BOLD, 26));
+		lblLabWorker.setBounds(243, 151, 166, 65);
+		add(lblLabWorker);
+		
+		lblLabworkername = new JLabel("");
+		lblLabworkername.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLabworkername.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblLabworkername.setBounds(194, 203, 238, 31);
+		add(lblLabworkername);
 		
 		btnLogout = new JButton();
 		btnLogout.setText("Logout");
@@ -83,5 +92,7 @@ public class LabWorkerView extends JPanel {
 		btnFillTestResult.setText("Fill test result");
 		btnFillTestResult.setBounds(469, 304, 161, 55);
 		add(btnFillTestResult);
+		
+
 	}
 }

@@ -132,7 +132,6 @@ public void setConnectionButton(String state){
 				// למלא פרטים להצגה בחלון הבא
 				break;
 			case "lab":
-			
 			    break; 
 			case "gmanager":
 				
@@ -201,27 +200,29 @@ public void setConnectionButton(String state){
 			switch(((LoginEntity)msg).getUsertype()){
 			case "exp":
 				System.out.println("Usertype: Expert");
-				//EVC.setLblUsernameVar(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
-				//EVC.setLblTelephonVAR(((LoginEntity)msg).getEmail());
-				//MainClass.masterControler.curStationName=((LoginEntity)msg).getStationName();
-				//EVC.stationManagerView.lblManagerView.setText(MainClass.masterControler.curStationName +" Station");
 				MainClass.masterControler.setView(EVC.expview);
+				MainClass.masterControler.EXPVCont.expview.lblExpname.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
+
 				break;
 			case "dis":
 				System.out.println("Usertype: Dispatcher");
 				MainClass.masterControler.setView(DVC.dispatcherview);
+				//MainClass.masterControler.DISCont.dispatcherview.lblDisname.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
 				break;	
 			case "lab":
 				System.out.println("Usertype: Lab Worker");
 				MainClass.masterControler.setView(LWC.labworkerview);
+				MainClass.masterControler.LWCont.labworkerview.lblLabworkername.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
 				break;
 			case "man":
 				System.out.println("Usertype: Clinic Manager");
 				MainClass.masterControler.setView(CMC.clinicmanagerview);
+				MainClass.masterControler.CMCont.clinicmanagerview.lblClinicManagername.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
 				break;
 			case "gmanager":
 				System.out.println("Usertype: General Manager");
 				MainClass.masterControler.setView(GMC.generalmanagerview);
+				MainClass.masterControler.GMCont.generalmanagerview.lblGeneralManagername.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
 				break;
 			}
 		}

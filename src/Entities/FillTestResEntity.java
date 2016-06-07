@@ -3,6 +3,8 @@ package Entities;
 import java.io.File;
 import java.io.Serializable;
 
+import mainPackage.MainClass;
+
 public class FillTestResEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -13,5 +15,7 @@ public class FillTestResEntity implements Serializable{
 	//public String PhotoPath="";
 	public File PhotoFile;
 	public boolean updateFlag = false;
+	public String labworkerFirstName=MainClass.masterControler.LoginCont.loginEntity.getFirstname();
+	public String labworkerLastName=MainClass.masterControler.LoginCont.loginEntity.getLastname();
 }
 

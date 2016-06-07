@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import mainPackage.MainClass;
 
@@ -32,6 +33,7 @@ public class GeneralManagerView extends JPanel {
 	public JButton btnLogout;
 	public JSeparator separator;
 	public JButton btnViewWeeklyReport;
+	public JLabel lblGeneralManagername;
 	
 	public GeneralManagerView() {
 		setLayout(null);
@@ -41,10 +43,16 @@ public class GeneralManagerView extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
-		JLabel Titel = new JLabel("General Manager");
-		Titel.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		Titel.setBounds(195, 181, 253, 118);
-		add(Titel);
+		JLabel GeneralManager = new JLabel("General Manager");
+		GeneralManager.setFont(new Font("Lucida Grande", Font.BOLD, 22));
+		GeneralManager.setBounds(241, 151, 181, 65);
+		add(GeneralManager);
+		
+		lblGeneralManagername = new JLabel("");
+		lblGeneralManagername.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGeneralManagername.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblGeneralManagername.setBounds(198, 203, 238, 31);
+		add(lblGeneralManagername);
 		
 		btnLogout = new JButton();
 		btnLogout.setText("Logout");

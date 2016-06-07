@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import mainPackage.MainClass;
 
@@ -29,6 +30,7 @@ public class ExpView extends JPanel {
 	public JButton btnRecordAppointment;
 	public JButton btnRequstDetails;
 	public JButton btnViewMedicalHistory;
+	public JLabel lblExpname;
 	
 	public ExpView() {
 		setLayout(null);
@@ -40,8 +42,14 @@ public class ExpView extends JPanel {
 		
 		JLabel lblExpert = new JLabel("Expert");
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(211, 182, 253, 118);
+		lblExpert.setBounds(290, 151, 181, 65);
 		add(lblExpert);
+	
+		lblExpname = new JLabel("");
+		lblExpname.setHorizontalAlignment(SwingConstants.CENTER);
+		lblExpname.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblExpname.setBounds(198, 203, 238, 31);
+		add(lblExpname);
 		
 		btnLogout = new JButton();
 		btnLogout.setText("Logout");

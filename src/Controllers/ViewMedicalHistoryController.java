@@ -1,20 +1,19 @@
 package Controllers;
 
 import graphics.GUIimage;
-
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.ViewMedicalHistoryView;
 import Controllers.IRefresh;
-import Entities.FillTestResEntity;
 import Entities.ViewHistoryEntity;
 
-public class ViewMedicalHistoryController implements Observer,IRefresh  {
+public class ViewMedicalHistoryController implements Observer,IRefresh,Serializable {
+	private static final long serialVersionUID = 1L;
 	public ViewMedicalHistoryView ViewMedicalHistoryview;
 	public ViewHistoryEntity VHEnt1;
 	ArrayList<Object> arrList = new ArrayList<>();
@@ -58,10 +57,10 @@ public class ViewMedicalHistoryController implements Observer,IRefresh  {
 	{
 		if (arg instanceof ViewHistoryEntity)
 		{
-			VHEnt1.pat.setFirstname(((FillTestResEntity) arg).pat.getFirstname());
-			VHEnt1.pat.setLastname(((FillTestResEntity) arg).pat.getLastname());
+			VHEnt1.pat.setFirstname(((ViewHistoryEntity) arg).pat.getFirstname());
+			VHEnt1.pat.setLastname(((ViewHistoryEntity) arg).pat.getLastname());
 			ViewMedicalHistoryview.textField_patname.setText("Patient name: "+ VHEnt1.pat.getFirstname()+" "+VHEnt1.pat.getLastname());
-			VHEnt1.showbuttonflag=((FillTestResEntity) arg).showbuttonflag;
+			VHEnt1.showbuttonflag=((ViewHistoryEntity) arg).showbuttonflag;
 			if (VHEnt1.showbuttonflag)
 			{
 				ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(true);

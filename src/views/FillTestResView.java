@@ -140,7 +140,8 @@ public class FillTestResView extends JPanel {
 		
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) 
+			{
 				if (textField_TestResult.getText().isEmpty()) 
 					JOptionPane.showMessageDialog(null, "You cannot enter empty test result!","",JOptionPane.ERROR_MESSAGE);//.showConfirmDialog(null, "ytry",null,JOptionPane.ERROR_MESSAGE);
 				else if (comboBox_test.getSelectedItem()=="") 
@@ -152,7 +153,7 @@ public class FillTestResView extends JPanel {
 							MainClass.masterControler.setView(MainClass.masterControler.LWCont.labworkerview);
 							MainClass.masterControler.FTRCont.insertTestRes();
 						}
-								}
+			}
 		});
 		btnSave.setBounds(490, 374, 140, 53);
 		add(btnSave);

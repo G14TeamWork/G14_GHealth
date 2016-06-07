@@ -105,7 +105,10 @@ public class ExpView extends JPanel {
 		btnViewMedicalHistory = new JButton();
 		btnViewMedicalHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
+				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.textField_patname.setVisible(false);
+				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.textFieldid.setText("");
+				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.btnViewLabHis.setEnabled(false);
+				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(false);
 					MainClass.masterControler.setView(
 						MainClass.masterControler.VMHCont.ViewMedicalHistoryview,MainClass.masterControler.VMHCont);
 			

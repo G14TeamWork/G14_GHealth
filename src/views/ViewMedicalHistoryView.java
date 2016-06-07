@@ -68,13 +68,13 @@ public class ViewMedicalHistoryView extends JPanel {
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
 		textFieldid = new JTextField();
-		textFieldid.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) { // ENTER pressed
-				if (arg0.getKeyChar()==10){}
-					MainClass.masterControler.VMHCont.setVHEnt_Patient();					
-			}
-		});
+	//	textFieldid.addKeyListener(new KeyAdapter() {
+		//	@Override
+		//	public void keyPressed(KeyEvent arg0) { // ENTER pressed
+		//		if (arg0.getKeyChar()==10){}
+			//		MainClass.masterControler.VMHCont.setVHEnt_Patient();					
+		//}
+	//	});
 		textFieldid.setColumns(10);
 		textFieldid.setBounds(149, 194, 148, 28);
 		add(textFieldid);
@@ -88,7 +88,8 @@ public class ViewMedicalHistoryView extends JPanel {
 		searchIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				MainClass.masterControler.FTRCont.setFTR_Patient();
+				textField_patname.setVisible(true);
+				MainClass.masterControler.VMHCont.setVHEnt_Patient();
 			}
 		});
 		searchIcon.setBounds(309, 194, 29, 28);

@@ -89,7 +89,6 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		if (arg instanceof FillTestResEntity)
 		{
 			FTRpat1.pat.setFirstname(((FillTestResEntity) arg).pat.getFirstname());

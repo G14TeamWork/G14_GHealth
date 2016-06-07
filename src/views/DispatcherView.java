@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import mainPackage.MainClass;
 
@@ -19,6 +20,7 @@ public class DispatcherView extends JPanel {
 	public JSeparator separator;
 	public JButton btnSetappointment;
 	public JButton btnCancelAppointment;
+	public JLabel lblDisname;
 	public DispatcherView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -27,10 +29,17 @@ public class DispatcherView extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
-		JLabel lblExpert = new JLabel("Dispatcher");
-		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(211, 182, 253, 118);
-		add(lblExpert);
+		JLabel lblDisName = new JLabel("Dispatcher");
+		lblDisName.setFont(new Font("Lucida Grande", Font.BOLD, 22));
+		lblDisName.setBounds(266, 151, 166, 65);
+		add(lblDisName);
+		
+		lblDisname = new JLabel("");
+		lblDisname.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDisname.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDisname.setBounds(198, 203, 238, 31);
+		add(lblDisname);
+		
 		
 		btnLogout = new JButton();
 		btnLogout.setText("Logout");

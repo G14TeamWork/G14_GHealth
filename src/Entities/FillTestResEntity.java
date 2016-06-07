@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class FillTestResEntity implements Serializable{
@@ -9,5 +10,8 @@ public class FillTestResEntity implements Serializable{
 	public boolean showbuttonflag;
 	public String TestRes="";
 	public String TestType="";
+	//public String PhotoPath="";
+	public File PhotoFile;
+	public boolean updateFlag = false;
 }
 

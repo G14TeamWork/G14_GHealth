@@ -77,6 +77,7 @@ public class LabWorkerView extends JPanel {
 				MainClass.masterControler.FTRCont.FillTestResview.btnSave.setEnabled(false);
 				MainClass.masterControler.FTRCont.FillTestResview.comboBox_test.setVisible(false);
 				MainClass.masterControler.FTRCont.FillTestResview.comboBox_test.setSelectedItem("");
+				MainClass.masterControler.FTRCont.FillTestResview.lblTesttype.setVisible(false);
 			}
 		});
 		btnFillTestResult.setText("Fill test result");

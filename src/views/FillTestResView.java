@@ -27,9 +27,12 @@ import javax.swing.JTextArea;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+import java.io.File;
 
 public class FillTestResView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -38,9 +41,11 @@ public class FillTestResView extends JPanel {
 	public JTextArea  textField_TestResult;
 	public JButton 	  btnSave;
 	public JButton	  btnAddPhoto;
-	public String file_path="";
+	//public String file_path="";
+	public File file;
 	public JLabel textField_first;
 	public JComboBox comboBox_test;
+	public JLabel lblTesttype;
 	//public boolean flagg;
 	public FillTestResView() {
 		setLayout(null);
@@ -58,6 +63,7 @@ public class FillTestResView extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				file=null;
 				MainClass.masterControler.setView(
 						MainClass.masterControler.LWCont.labworkerview);
 			}
@@ -92,6 +98,7 @@ public class FillTestResView extends JPanel {
 		searchIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				btnAddPhoto.setIcon(new GUIimage("xSign", 25, 23).image);
 				MainClass.masterControler.FTRCont.setFTR_Patient();
 			}
 		});
@@ -112,7 +119,8 @@ public class FillTestResView extends JPanel {
 				if (filebutton.showOpenDialog(null)==JFileChooser.APPROVE_OPTION)
 				{
 					btnAddPhoto.setIcon(new GUIimage("vSign", 25, 23).image);
-					file_path=filebutton.getSelectedFile().getPath();
+					//file_path=filebutton.getSelectedFile().getPath();
+					file = filebutton.getSelectedFile().getAbsoluteFile();
 				}
 				else btnAddPhoto.setIcon(new GUIimage("xSign", 25, 23).image);
 				
@@ -142,7 +150,7 @@ public class FillTestResView extends JPanel {
 							btnSave.setEnabled(false);
 							btnAddPhoto.setEnabled(false);
 							MainClass.masterControler.setView(MainClass.masterControler.LWCont.labworkerview);
-							MainClass.masterControler.FTRCont.SaveTestResult();
+							MainClass.masterControler.FTRCont.insertTestRes();
 						}
 								}
 		});
@@ -155,13 +163,19 @@ public class FillTestResView extends JPanel {
 		add(textField_first);
 		
 		comboBox_test = new JComboBox();
-		comboBox_test.setEditable(true);
-		comboBox_test.setBounds(490, 235, 140, 22);
+		comboBox_test.setEditable(true); 
+		comboBox_test.setBounds(490, 270, 140, 22);
 		comboBox_test.setAlignmentX(CENTER_ALIGNMENT);
 		comboBox_test.setSelectedItem("");
 		comboBox_test.addItem("Blood");
 		comboBox_test.addItem("Rentgen");
 		comboBox_test.setVisible(false);
 		add(comboBox_test);
+		
+		lblTesttype = new JLabel("Choose test type:");
+		lblTesttype.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTesttype.setBounds(490, 235, 140, 28);
+		lblTesttype.setVisible(false);
+		add(lblTesttype);
 	}
 }

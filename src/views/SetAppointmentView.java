@@ -24,6 +24,7 @@ import Controllers.MasterController;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 public class SetAppointmentView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;
@@ -40,7 +41,12 @@ public class SetAppointmentView extends JPanel {
 	public JLabel lblAdress;
 	public JButton btnNewPatient;
 	public JButton btnsearch;
-	public JLabel Jlabel_first;
+	public JButton btnSetAppointment;
+	public JLabel Jlabel_patientName;
+	public JComboBox comboBox_expertise;
+	public JComboBox comboBox_doctors;
+	public JLabel lblExpertType;
+	public JLabel lblDoctors;
 	public SetAppointmentView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -83,13 +89,12 @@ public class SetAppointmentView extends JPanel {
 		textFieldid.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) { // ENTER pressed
-				if (arg0.getKeyChar()==10)
+				if (arg0.getKeyChar()==10 && textFieldid.getText().length()>=1 )
 				{
 					MainClass.masterControler.SACont.setPatient();
 				}
 				}
 			});
-		
 		add(textFieldid);
 		
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");
@@ -99,13 +104,14 @@ public class SetAppointmentView extends JPanel {
 		
 		
 		btnsearch = new JButton("");
+		btnsearch.setToolTipText("Press for search patient");
 		btnsearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				MainClass.masterControler.SACont.setPatient();
+				if(textFieldid.getText().length()>=1)
+					MainClass.masterControler.SACont.setPatient();
 			}
 		});
-		
 		btnsearch.setBounds(314, 171, 29, 28);
 		btnsearch.setIcon(new GUIimage("search",btnsearch.getWidth()-7,btnsearch.getHeight()-7).image);
 		this.add(btnsearch);
@@ -122,10 +128,10 @@ public class SetAppointmentView extends JPanel {
 		textField_last.setVisible(false);
 		add(textField_last);
 		
-		Jlabel_first = new JLabel("");
-		Jlabel_first.setFont(new Font("Tahoma", Font.BOLD, 17));
-		Jlabel_first.setBounds(32, 208, 306, 29);
-		add(Jlabel_first);
+		Jlabel_patientName = new JLabel("");
+		Jlabel_patientName.setFont(new Font("Dialog", Font.BOLD, 16));
+		Jlabel_patientName.setBounds(32, 208, 306, 29);
+		add(Jlabel_patientName);
 		
 		lblFirstName = new JLabel("First name:");
 		lblFirstName.setFont(new Font("Dialog", Font.PLAIN, 16));
@@ -178,7 +184,7 @@ public class SetAppointmentView extends JPanel {
 		
 		textField_adress = new JTextField();
 		textField_adress.setColumns(10);
-		textField_adress.setBounds(154, 292, 148, 28);
+		textField_adress.setBounds(154, 291, 148, 28);
 		textField_adress.setVisible(false);
 		add(textField_adress);
 		
@@ -188,7 +194,7 @@ public class SetAppointmentView extends JPanel {
 		lblAdress.setVisible(false);
 		add(lblAdress);
 		
-		btnNewPatient = new JButton("Enter new Patient");
+		btnNewPatient = new JButton("Add Patient");
 		btnNewPatient.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -197,7 +203,51 @@ public class SetAppointmentView extends JPanel {
 		});
 		btnNewPatient.setBounds(490, 366, 140, 55);
 		btnNewPatient.setVisible(false);
+		btnNewPatient.setIcon(new GUIimage("Adduser",25,25).image);
 		add(btnNewPatient);
+		
+		comboBox_expertise = new JComboBox();
+		comboBox_expertise.setBounds(194, 250, 140, 26);
+		comboBox_expertise.addItem("Cardiologist");
+		comboBox_expertise.addItem("Gynecologist");
+		comboBox_expertise.addItem("Neurologist");
+		comboBox_expertise.setVisible(false);
+//		comboBox_expertise.addItemListener(aListener);
+		add(comboBox_expertise);
+		
+		comboBox_doctors = new JComboBox();
+		comboBox_doctors.setFont(new Font("Dialog", Font.PLAIN, 14));
+		comboBox_doctors.setBounds(194, 291, 140, 26);
+		comboBox_doctors.setVisible(false);
+		add(comboBox_doctors);
+		
+		lblExpertType = new JLabel("Choose expert type:");
+		lblExpertType.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblExpertType.setBounds(22, 250, 148, 28);
+		lblExpertType.setVisible(false);
+		add(lblExpertType);
+		
+		lblDoctors = new JLabel("Choose specific expert:");
+		lblDoctors.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblDoctors.setBounds(22, 290, 172, 28);
+		lblDoctors.setVisible(false);
+		add(lblDoctors);
+		
+		btnSetAppointment = new JButton("Set Appointment");
+		btnSetAppointment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSetAppointment.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+			//	MainClass.masterControler.SACont.setNewPatient();
+			}
+		});
+		btnSetAppointment.setBounds(490, 366, 140, 55);
+		btnSetAppointment.setVisible(false);
+		btnSetAppointment.setIcon(new GUIimage("calendarAdd",25,25).image);
+		add(btnSetAppointment);
 		
 	}
 }

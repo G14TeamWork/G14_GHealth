@@ -113,6 +113,22 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		{
 			JOptionPane.showMessageDialog(null,"A new patient was entered into the system successfully" );
 			SetAppointmentview.btnNewPatient.setVisible(false);
+			SetAppointmentview.textField_first.setVisible(false);
+			SetAppointmentview.textField_last.setVisible(false);
+			SetAppointmentview.textField_phone.setVisible(false);
+			SetAppointmentview.textField_email.setVisible(false);
+			SetAppointmentview.textField_adress.setVisible(false);
+			SetAppointmentview.lblFirstName.setVisible(false);
+			SetAppointmentview.lblLastName.setVisible(false);
+			SetAppointmentview.lblPhone.setVisible(false);
+			SetAppointmentview.lblEmail.setVisible(false);
+			SetAppointmentview.lblAdress.setVisible(false);
+			SetAppointmentview.lblDoctors.setVisible(true);
+			SetAppointmentview.lblExpertType.setVisible(true);
+			SetAppointmentview.comboBox_expertise.setVisible(true);
+			SetAppointmentview.comboBox_doctors.setVisible(true);
+			SetAppointmentview.btnSetAppointment.setVisible(true);
+			SetAppointmentview.Jlabel_patientName.setText("Patient name: "+((Patient) arg).getFirstname()+" "+((Patient) arg).getLastname());
 		}
 		if (arg instanceof SetAppointmentEntity)
 		{
@@ -120,7 +136,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 			{
 				if(JOptionPane.showConfirmDialog(null, "Patient was not found, are you want to enter new patient?",null,JOptionPane.YES_NO_OPTION)==0)
 				{	
-					SetAppointmentview.Jlabel_first.setText("");
+					SetAppointmentview.Jlabel_patientName.setText("");
 					SetAppointmentview.textField_first.setVisible(true);
 					SetAppointmentview.textField_last.setVisible(true);
 					SetAppointmentview.textField_phone.setVisible(true);
@@ -133,7 +149,6 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 					SetAppointmentview.lblAdress.setVisible(true);
 					SetAppointmentview.btnNewPatient.setVisible(true);
 					SetAppointmentview.btnsearch.setVisible(false);
-////////////////???	SetAppointmentview.textFieldid.removeKeyListener();
 					}
 				else
 				{
@@ -149,11 +164,18 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 					SetAppointmentview.lblAdress.setVisible(false);
 					SetAppointmentview.btnNewPatient.setVisible(false);
 					SetAppointmentview.btnsearch.setVisible(true);
+					SetAppointmentview.lblDoctors.setVisible(false);
+					SetAppointmentview.lblExpertType.setVisible(false);
 				}
 			}
 			else
 			{
-				SetAppointmentview.Jlabel_first.setText(((SetAppointmentEntity) arg).pat.getFirstname()+" "+((SetAppointmentEntity) arg).pat.getLastname());
+				SetAppointmentview.Jlabel_patientName.setText("Patient name: "+((SetAppointmentEntity) arg).pat.getFirstname()+" "+((SetAppointmentEntity) arg).pat.getLastname());
+				SetAppointmentview.lblDoctors.setVisible(true);
+				SetAppointmentview.lblExpertType.setVisible(true);
+				SetAppointmentview.comboBox_expertise.setVisible(true);
+				SetAppointmentview.comboBox_doctors.setVisible(true);
+				SetAppointmentview.btnSetAppointment.setVisible(true);
 			}
 		}
 	}

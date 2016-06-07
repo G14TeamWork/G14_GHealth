@@ -57,6 +57,7 @@ public class DispatcherView extends JPanel {
 		});
 		btnCancelAppointment.setText("Cancel appointment");
 		btnCancelAppointment.setBounds(469, 372, 161, 55);
+		btnCancelAppointment.setIcon(new GUIimage("calendarCancel",26,26).image);
 		add(btnCancelAppointment);
 		
 		btnSetappointment = new JButton();
@@ -81,13 +82,19 @@ public class DispatcherView extends JPanel {
 				MainClass.masterControler.SACont.SetAppointmentview.textField_phone.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.textField_email.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.textField_adress.setText("");
-				MainClass.masterControler.SACont.SetAppointmentview.Jlabel_first.setText("");
+				MainClass.masterControler.SACont.SetAppointmentview.Jlabel_patientName.setText("");
 				MainClass.masterControler.SACont.SetAppointmentview.btnNewPatient.setVisible(false);
 				MainClass.masterControler.SACont.SetAppointmentview.btnsearch.setVisible(true);
+				MainClass.masterControler.SACont.SetAppointmentview.lblDoctors.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.lblExpertType.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.comboBox_expertise.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.comboBox_doctors.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.btnSetAppointment.setVisible(false);
 			}
 		});
 		btnSetappointment.setText("Set appointment");
 		btnSetappointment.setBounds(469, 304, 161, 55);
+		btnSetappointment.setIcon(new GUIimage("calendarAdd",26,26).image);
 		add(btnSetappointment);
 	}
 }

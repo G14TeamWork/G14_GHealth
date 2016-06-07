@@ -207,7 +207,7 @@ public void setConnectionButton(String state){
 			case "dis":
 				System.out.println("Usertype: Dispatcher");
 				MainClass.masterControler.setView(DVC.dispatcherview);
-				//MainClass.masterControler.DISCont.dispatcherview.lblDisname.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
+				MainClass.masterControler.DISCont.dispatcherview.lblDisname.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
 				break;	
 			case "lab":
 				System.out.println("Usertype: Lab Worker");

@@ -50,9 +50,12 @@ public class DispatcherView extends JPanel {
 		btnCancelAppointment = new JButton();
 		btnCancelAppointment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				MainClass.masterControler.CACont.CancelAppointmentview  = new CancelAppointmentView();
 				MainClass.masterControler.setView(
 						MainClass.masterControler.CACont.CancelAppointmentview,
 						MainClass.masterControler.CACont);
+				
+				
 			}
 		});
 		btnCancelAppointment.setText("Cancel appointment");

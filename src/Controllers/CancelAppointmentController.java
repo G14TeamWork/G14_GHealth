@@ -7,19 +7,20 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JOptionPane;
+
 import mainPackage.MainClass;
 import ocsf.server.GHealthServer;
 import views.CancelAppointmentView;
 import Controllers.IRefresh;
 import Entities.Appointment;
 import Entities.CancelAppointmentEntity;
+import Entities.FillTestResEntity;
 import Entities.Patient;
 
 public class CancelAppointmentController implements Observer,IRefresh  {
 	public  CancelAppointmentView  CancelAppointmentview;
 	public CancelAppointmentEntity CAP;
-	private boolean flag = false;
-	
 
 	public CancelAppointmentController() {
 		 CancelAppointmentview = new  CancelAppointmentView();
@@ -34,7 +35,26 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 		CAP = new CancelAppointmentEntity("delete" ,((Appointment)CancelAppointmentview.getComboBox().getSelectedItem()).getIdappointment());
 		MainClass.ghealth.sendMessegeToServer(CAP);
 	}
-	
+
+	public void checkExistanceSql(CancelAppointmentEntity cap)
+	{
+		ArrayList<Object> arrList = new ArrayList<Object>();
+		String query = "";
+		query = "SELECT firstname,lastname FROM ghealth.patient where "
+				+ "id = \"" + cap.getIdPatient() + "\"";
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		if (arrList.isEmpty())
+		{
+			cap.setTaskToDo("Error! enter valid patient ID!");
+			
+		}
+		else
+		{
+			cap.setTaskToDo("search");
+			arrList.clear();
+		}
+		
+	}
 	public void searchAppointmentSQL(CancelAppointmentEntity cap )
 	{
 		cap.setAppList(new ArrayList<Appointment>());
@@ -68,18 +88,21 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("search") )
 		{
+			
 			CancelAppointmentview.getComboBox().removeAllItems();
 			if(((CancelAppointmentEntity)arg).getAppList().size() != 0)
 			{
-				setFlag(true);
-
 				CAP = ((CancelAppointmentEntity)arg);
 				for (int i  = 0 ; i < ((CancelAppointmentEntity)arg).getAppList().size() ; i ++)
 					CancelAppointmentview.getComboBox().addItem(((CancelAppointmentEntity)arg).getAppList().get(i));
 				
 				System.out.println(CAP.toString() );
 			}
-			else setFlag(false);
+			else
+				{
+				CancelAppointmentview.getNotificationlbl().setText("No appointments to show");
+				}
+			CancelAppointmentview.getNotificationlbl().setEnabled(true);
 
 		}
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("delete") )
@@ -87,12 +110,5 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 			System.out.println("appointment"+((CancelAppointmentEntity)arg).getIdapp() + "deleted");
 		}
 		
-	}
-	
-	public boolean isFlag() {
-		return flag;
-	}
-	public void setFlag(boolean flag) {
-		this.flag = flag;
 	}
 }

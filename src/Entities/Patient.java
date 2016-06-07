@@ -11,7 +11,6 @@ public class Patient implements Serializable{
 	private String phone;
 	private String email;
 	private String address;
-	private String task;
 	
 	public String getId() {
 		return id;
@@ -48,12 +47,6 @@ public class Patient implements Serializable{
 	}
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	public String getTask() {
-		return task;
-	}
-	public void setTask(String task) {
-		this.task = task;
 	}
 
 }

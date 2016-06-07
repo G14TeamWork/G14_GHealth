@@ -20,6 +20,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	ArrayList<Object> arrList = new ArrayList<>();
 	
 	public SetAppointmentEntity SApat1;
+	public SetAppointmentEntity SAexp;
 	public Patient newPatient;
 	
 	public SetAppointmentController() {
@@ -32,7 +33,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		if(!SetAppointmentview.textFieldid.getText().equals(null))
 		{
 			SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
-			SApat1.pat.setTask("searchPatient");
+			SApat1.setTask("searchPatient");
 			MainClass.ghealth.sendMessegeToServer(SApat1);
 		}
 	}
@@ -102,14 +103,18 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	}
 	
 	public void searchExperts(Object object) {
-		SApat1=new SetAppointmentEntity();
-		if(!SetAppointmentview.textFieldid.getText().equals(null))
-		{
-	//		SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
-	//		SApat1.pat.setTask("searchExpert");
-	//		MainClass.ghealth.sendMessegeToServer(SApat1);
-		}
-		
+		SAexp=new SetAppointmentEntity();
+		SAexp.exp.setExperties(SetAppointmentview.textFieldid.getText());
+		SAexp.setTask("searchExpert");
+		MainClass.ghealth.sendMessegeToServer(SAexp);
+	}
+	
+	public void searchExpertSql(SetAppointmentEntity msg) {
+		// TODO Auto-generated method stub
+		String query = "";
+//		query = "SELECT firstname,lastname,phone,email,address FROM ghealth.patient where "
+//				+ "id = \"" + SApat.getId() + "\"";
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 	}
 	
 	@Override

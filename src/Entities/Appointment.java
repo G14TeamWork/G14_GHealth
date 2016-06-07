@@ -21,11 +21,11 @@ public class Appointment implements Serializable{
 	{
 		
 	}
-	public Appointment(Timestamp appdate,String experties,String firstname,String lastname,String idappointment)
+	public Appointment(Timestamp appdate,String expertise,String firstname,String lastname,String idappointment)
 	{
 		this.idappointment = idappointment;
 		this.appdate = appdate;
-		this.EX = new Expert(experties,firstname,lastname);
+		this.EX = new Expert(expertise,firstname,lastname);
 	}
 	
 

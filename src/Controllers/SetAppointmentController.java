@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,6 +12,7 @@ import mainPackage.MainClass;
 import ocsf.server.GHealthServer;
 import views.SetAppointmentView;
 import Controllers.IRefresh;
+import Entities.Expert;
 import Entities.Patient;
 import Entities.SetAppointmentEntity;
 
@@ -30,12 +32,12 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	public void setPatient()
 	{
 		SApat1=new SetAppointmentEntity();
-		if(!SetAppointmentview.textFieldid.getText().equals(null))
-		{
+/*		if(!SetAppointmentview.textFieldid.getText().equals(null))
+		{*/
 			SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
 			SApat1.setTask("searchPatient");
 			MainClass.ghealth.sendMessegeToServer(SApat1);
-		}
+//		}
 	}
 	
 	public void setNewPatient() {
@@ -102,9 +104,9 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 	}
 	
-	public void searchExperts(Object object) {
+	public void searchExperts(String Expertise) {
 		SAexp=new SetAppointmentEntity();
-		SAexp.exp.setExperties(SetAppointmentview.textFieldid.getText());
+		SAexp.exp.setExpertise(Expertise);
 		SAexp.setTask("searchExpert");
 		MainClass.ghealth.sendMessegeToServer(SAexp);
 	}
@@ -112,9 +114,13 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	public void searchExpertSql(SetAppointmentEntity msg) {
 		// TODO Auto-generated method stub
 		String query = "";
-//		query = "SELECT firstname,lastname,phone,email,address FROM ghealth.patient where "
-//				+ "id = \"" + SApat.getId() + "\"";
+		query = "SELECT distinct u.username, u.firstname, u.lastname, c.Name, e.StartWorkingHours, e.EndWorkingHours FROM ghealth.users as u, ghealth.clinic as c, ghealth.expert as e WHERE u.username=e.id and e.experties=\"" +((SetAppointmentEntity)msg).exp.getExpertise()+"\" and e.clinic=c.idclinic";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		
+		for (int i  = 0 ; i < arrList.size() ; i +=6)
+			msg.expList.add(new Expert((int)arrList.get(i), (String)arrList.get(i+1), (String)arrList.get(i+2), (String)arrList.get(i+3), (Time)arrList.get(i+4), (Time)arrList.get(i+5)));
+			
+		arrList.clear();
 	}
 	
 	@Override
@@ -146,58 +152,77 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 			SetAppointmentview.btnSetAppointment.setVisible(true);
 			SetAppointmentview.Jlabel_patientName.setText("Patient name: "+((Patient) arg).getFirstname()+" "+((Patient) arg).getLastname());
 		}
+		
 		if (arg instanceof SetAppointmentEntity)
 		{
-			if((((SetAppointmentEntity) arg).pat.getId()!=null) &&(((SetAppointmentEntity) arg).pat.getFirstname()==null)&& !SetAppointmentview.textFieldid.getText().equals(null))
+			if(((SetAppointmentEntity)arg).getTask().equals("searchExpert"))
 			{
-				if(JOptionPane.showConfirmDialog(null, "Patient was not found, are you want to enter new patient?",null,JOptionPane.YES_NO_OPTION)==0)
-				{	
-					SetAppointmentview.Jlabel_patientName.setText("");
-					SetAppointmentview.textField_first.setVisible(true);
-					SetAppointmentview.textField_last.setVisible(true);
-					SetAppointmentview.textField_phone.setVisible(true);
-					SetAppointmentview.textField_email.setVisible(true);
-					SetAppointmentview.textField_adress.setVisible(true);
-					SetAppointmentview.lblFirstName.setVisible(true);
-					SetAppointmentview.lblLastName.setVisible(true);
-					SetAppointmentview.lblPhone.setVisible(true);
-					SetAppointmentview.lblEmail.setVisible(true);
-					SetAppointmentview.lblAdress.setVisible(true);
-					SetAppointmentview.btnNewPatient.setVisible(true);
-					SetAppointmentview.btnsearch.setVisible(false);
-					SetAppointmentview.lblDoctors.setVisible(false);
-					SetAppointmentview.lblExpertType.setVisible(false);
-					SetAppointmentview.comboBox_expertise.setVisible(false);
-					SetAppointmentview.comboBox_doctors.setVisible(false);
-					SetAppointmentview.btnSetAppointment.setVisible(false);
+				SetAppointmentview.comboBox_doctors.removeAllItems();
+				for (int i  = 0 ; i < ((SetAppointmentEntity)arg).expList.size() ; i ++)
+					SetAppointmentview.comboBox_doctors.addItem(((SetAppointmentEntity)arg).expList.get(i).getFirstName()+" "+((SetAppointmentEntity)arg).expList.get(i).getLastName()+", Clinic name: "+((SetAppointmentEntity)arg).expList.get(i).getClinicName());
+				
+				((SetAppointmentEntity)arg).setTask("");
+			}
+			else if(((SetAppointmentEntity)arg).getTask().equals("searchPatient"))
+			{
+				SetAppointmentview.comboBox_doctors.removeAllItems();
+				SetAppointmentview.comboBox_doctors.setSelectedItem("");
+				SetAppointmentview.comboBox_expertise.setSelectedItem("");
+				if((((SetAppointmentEntity) arg).pat.getId()!=null) &&(((SetAppointmentEntity) arg).pat.getFirstname()==null)&& !SetAppointmentview.textFieldid.getText().equals(null))
+				{
+					if(JOptionPane.showConfirmDialog(null, "Patient was not found, are you want to enter new patient?",null,JOptionPane.YES_NO_OPTION)==0)
+					{	
+						SetAppointmentview.Jlabel_patientName.setText("");
+						SetAppointmentview.textField_first.setVisible(true);
+						SetAppointmentview.textField_last.setVisible(true);
+						SetAppointmentview.textField_phone.setVisible(true);
+						SetAppointmentview.textField_email.setVisible(true);
+						SetAppointmentview.textField_adress.setVisible(true);
+						SetAppointmentview.lblFirstName.setVisible(true);
+						SetAppointmentview.lblLastName.setVisible(true);
+						SetAppointmentview.lblPhone.setVisible(true);
+						SetAppointmentview.lblEmail.setVisible(true);
+						SetAppointmentview.lblAdress.setVisible(true);
+						SetAppointmentview.btnNewPatient.setVisible(true);
+						SetAppointmentview.btnsearch.setVisible(false);
+						SetAppointmentview.lblDoctors.setVisible(false);
+						SetAppointmentview.lblExpertType.setVisible(false);
+						SetAppointmentview.comboBox_expertise.setVisible(false);
+						SetAppointmentview.comboBox_doctors.setVisible(false);
+						SetAppointmentview.btnSetAppointment.setVisible(false);
 					}
+					else
+					{
+						SetAppointmentview.textField_first.setVisible(false);
+						SetAppointmentview.textField_last.setVisible(false);
+						SetAppointmentview.textField_phone.setVisible(false);
+						SetAppointmentview.textField_email.setVisible(false);
+						SetAppointmentview.textField_adress.setVisible(false);
+						SetAppointmentview.lblFirstName.setVisible(false);
+						SetAppointmentview.lblLastName.setVisible(false);
+						SetAppointmentview.lblPhone.setVisible(false);
+						SetAppointmentview.lblEmail.setVisible(false);
+						SetAppointmentview.lblAdress.setVisible(false);
+						SetAppointmentview.btnNewPatient.setVisible(false);
+						SetAppointmentview.btnsearch.setVisible(true);
+						SetAppointmentview.lblDoctors.setVisible(false);
+						SetAppointmentview.lblExpertType.setVisible(false);
+						SetAppointmentview.comboBox_expertise.setVisible(false);
+						SetAppointmentview.comboBox_doctors.setVisible(false);
+						SetAppointmentview.btnSetAppointment.setVisible(false);
+					}
+				}
 				else
 				{
-					SetAppointmentview.textField_first.setVisible(false);
-					SetAppointmentview.textField_last.setVisible(false);
-					SetAppointmentview.textField_phone.setVisible(false);
-					SetAppointmentview.textField_email.setVisible(false);
-					SetAppointmentview.textField_adress.setVisible(false);
-					SetAppointmentview.lblFirstName.setVisible(false);
-					SetAppointmentview.lblLastName.setVisible(false);
-					SetAppointmentview.lblPhone.setVisible(false);
-					SetAppointmentview.lblEmail.setVisible(false);
-					SetAppointmentview.lblAdress.setVisible(false);
-					SetAppointmentview.btnNewPatient.setVisible(false);
-					SetAppointmentview.btnsearch.setVisible(true);
-					SetAppointmentview.lblDoctors.setVisible(false);
-					SetAppointmentview.lblExpertType.setVisible(false);
+					SetAppointmentview.Jlabel_patientName.setText("Patient name: "+((SetAppointmentEntity) arg).pat.getFirstname()+" "+((SetAppointmentEntity) arg).pat.getLastname());
+					SetAppointmentview.lblDoctors.setVisible(true);
+					SetAppointmentview.lblExpertType.setVisible(true);
+					SetAppointmentview.comboBox_expertise.setVisible(true);
+					SetAppointmentview.comboBox_doctors.setVisible(true);
+					SetAppointmentview.btnSetAppointment.setVisible(true);
 				}
 			}
-			else
-			{
-				SetAppointmentview.Jlabel_patientName.setText("Patient name: "+((SetAppointmentEntity) arg).pat.getFirstname()+" "+((SetAppointmentEntity) arg).pat.getLastname());
-				SetAppointmentview.lblDoctors.setVisible(true);
-				SetAppointmentview.lblExpertType.setVisible(true);
-				SetAppointmentview.comboBox_expertise.setVisible(true);
-				SetAppointmentview.comboBox_doctors.setVisible(true);
-				SetAppointmentview.btnSetAppointment.setVisible(true);
-			}
+			((SetAppointmentEntity)arg).setTask("");
 		}
 	}
 }

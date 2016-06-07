@@ -212,7 +212,7 @@ public class SetAppointmentView extends JPanel {
 		comboBox_expertise.setFont(new Font("Dialog", Font.PLAIN, 14));
 		comboBox_expertise.setEditable(true); 
 		comboBox_expertise.setAlignmentX(CENTER_ALIGNMENT);
-		comboBox_expertise.setBounds(194, 250, 140, 26);
+		comboBox_expertise.setBounds(194, 250, 260, 28);
 		comboBox_expertise.setSelectedItem("");
 		comboBox_expertise.addItem("Cardiologist");
 		comboBox_expertise.addItem("Gynecologist");
@@ -221,7 +221,7 @@ public class SetAppointmentView extends JPanel {
 		comboBox_expertise.addItem("Orthopedic Surgeon");
 		comboBox_expertise.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				MainClass.masterControler.SACont.searchExperts(comboBox_expertise.getSelectedItem());
+				MainClass.masterControler.SACont.searchExperts((String)comboBox_expertise.getSelectedItem());
 			}
 		});
 		comboBox_expertise.setVisible(false);
@@ -231,7 +231,7 @@ public class SetAppointmentView extends JPanel {
 		comboBox_doctors.setFont(new Font("Dialog", Font.PLAIN, 14));
 		comboBox_doctors.setEditable(true); 
 		comboBox_doctors.setAlignmentX(CENTER_ALIGNMENT);
-		comboBox_doctors.setBounds(194, 291, 140, 26);
+		comboBox_doctors.setBounds(194, 291, 260, 28);
 		comboBox_expertise.setSelectedItem("");
 		comboBox_doctors.setVisible(false);
 		add(comboBox_doctors);

@@ -1,6 +1,8 @@
 package Entities;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Expert implements Serializable{
 	
@@ -12,23 +14,34 @@ public class Expert implements Serializable{
 	private int id;
 	private String firstName;
 	private String lastName;
-	private String experties;
+	private String expertise;
 	private String workingDays;
 	private String idClinic;
-	private String startWorkingHours;
-	private String endWorkingHours;
+	private String clinicName;
+	private Time startWorkingHours;
+	private Time endWorkingHours;
 	
 	public Expert()
 	{
 		
 	}
-	public Expert(String experties , String firstName ,String lastName)
+	public Expert(String expertise , String firstName ,String lastName)
 	{
-		this.experties = experties;
+		this.expertise = expertise;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 
+	public Expert(int id, String firstname, String lastname,
+			String clinicName, Time startWorking, Time endWorking) {
+		this.id=id;
+		this.firstName = firstname;
+		this.lastName = lastname;
+		this.clinicName=clinicName;
+		this.startWorkingHours=startWorking;
+		this.endWorkingHours=endWorking;
+		
+	}
 	public int getId() {
 		return id;
 	}
@@ -37,12 +50,12 @@ public class Expert implements Serializable{
 		this.id = id;
 	}
 
-	public String getExperties() {
-		return experties;
+	public String getExpertise() {
+		return expertise;
 	}
 
-	public void setExperties(String experties) {
-		this.experties = experties;
+	public void setExpertise(String expertise) {
+		this.expertise = expertise;
 	}
 
 	public String getWorkingDays() {
@@ -61,19 +74,19 @@ public class Expert implements Serializable{
 		this.idClinic = idClinic;
 	}
 
-	public String getStartWorkingHours() {
+	public Time getStartWorkingHours() {
 		return startWorkingHours;
 	}
 
-	public void setStartWorkingHours(String startWorkingHours) {
+	public void setStartWorkingHours(Time startWorkingHours) {
 		this.startWorkingHours = startWorkingHours;
 	}
 
-	public String getEndWorkingHours() {
+	public Time getEndWorkingHours() {
 		return endWorkingHours;
 	}
 
-	public void setEndWorkingHours(String endWorkingHours) {
+	public void setEndWorkingHours(Time endWorkingHours) {
 		this.endWorkingHours = endWorkingHours;
 	}
 	public String getFirstName() {
@@ -90,7 +103,13 @@ public class Expert implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return  firstName+" " + lastName +" "+  experties ;
+		return  firstName+" " + lastName +" "+  expertise ;
+	}
+	public String getClinicName() {
+		return clinicName;
+	}
+	public void setClinicName(String clinicName) {
+		this.clinicName = clinicName;
 	}
 
 }

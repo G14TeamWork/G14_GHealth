@@ -170,7 +170,6 @@ public class GHealthServer extends ObservableServer{
 			}
 				break;
 				
-				
 			case "LoginEntity":
 				if (((LoginEntity)msg).getStatus()==1) SMC.LoginCont.sendLogOutToSql((LoginEntity)msg);
 				else SMC.LoginCont.toSQL((LoginEntity)msg); 
@@ -186,114 +185,7 @@ public class GHealthServer extends ObservableServer{
 				break;
 			case "Patient":
 				SMC.SACont.AddNewPatient((Patient)msg);
-				break;
-		/*		
-			case "HeatingFuelEnt":{
-				
-				if (!((HeatingFuelEnt)msg).toUpdate)SMC.heatingfuelcont.GetPriceFromSQL((HeatingFuelEnt)msg);
-				else ((HeatingFuelEnt)msg).flag= SMC.heatingfuelcont.SendToDB((HeatingFuelEnt)msg);
-					
-				break;
-			}
-				
-			case "InventoryEntity":
-				if (!((InventoryEntity)msg).toUpdate)SMC.inventoryCont.getStockFromSQL((InventoryEntity)msg);
-				else SMC.inventoryCont.updateStockFromSql((InventoryEntity)msg);
-				break;
-				
-			case "ReportEntity":
-				{
-					String s=((ReportEntity)msg).getReportType();
-					switch (s){
-					case  "Incomes":
-						{
-							SMC.staMngReportsCont.getIncomesFromSQL((ReportEntity)msg);
-							break;
-						}
-					case "Purchases":
-						{	
-							for (int i=1 ; i<4 ; i++) SMC.staMngReportsCont.getFuelingFromSQL((ReportEntity)msg, i);
-							SMC.staMngReportsCont.getHomeHeatFromSql((ReportEntity)msg);
-							break;					
-						}
-					case "Inventory":
-						{
-							SMC.staMngReportsCont.getStockFromSQL((ReportEntity)msg);
-							break;
-						}
-					}
-					break;
-				}
-				
-			case "GasStationController":		
-				break;	
-				
-			case "StartNewCmpEntity":
-				if (((StartNewCmpEntity)msg).getDataUpload() == null) SMC.StartNewCmpCont.getCampaignsFromSql((StartNewCmpEntity)msg);
-				else SMC.StartNewCmpCont.updateCampaingSettings((StartNewCmpEntity)msg);
-				break;
-				
-			case "AnalyticSystemEntity":
-				SMC.marketManagCont.updateDataSql();
-				break;
-				
-			case "CustomerOrdersEntity":
-				SMC.OrderStatCont.getOrdersFromSQL((CustomerOrdersEntity)msg);
-				break;
-				
-			case "MngCustomersEntity":
-				int state = ((MngCustomersEntity)msg).state;
-				
-				switch (state) {
-				case 0:
-					SMC.mngCustomersCont.getCustomerFromSql(((MngCustomersEntity)msg));
-					break;
-				case 1:
-					SMC.mngCustomersCont.setCustomerToSql(((MngCustomersEntity)msg));
-					break;
-				case 2:
-					SMC.mngCustomersCont.getNetworksFromSql(((MngCustomersEntity)msg));
-					break;
-				case 3:
-					SMC.mngCustomersCont.createCustomerInSql(((MngCustomersEntity)msg));
-					break;
-				}
-
-				break;
-				
-			case "SetPriceEntity":
-				//if upload -> set, else -> get
-				if(((SetPriceEntity)msg).upload)SMC.setPriceController.setDatatoSql((SetPriceEntity)msg);
-				else SMC.setPriceController.getDataFromSql((SetPriceEntity)msg);
-				break;
-				
-			case "NetworkMngEntity":
-				//if upload -> set, else -> get
-				if(((NetworkMngEntity)msg).upload)SMC.networkMngController.setDataToSql((NetworkMngEntity)msg);//upload data
-				else SMC.networkMngController.getDataFromSql((NetworkMngEntity)msg);
-				break;
-			case "MarketingReportEnt":
-			{
-				
-				if (((MarketingReportEnt)msg).gettypes) {
-					SMC.marketManagCont.getTypes((MarketingReportEnt)msg);
-				} else {
-				
-					String s=((MarketingReportEnt)msg).getReportType();
-					switch (s){
-					case  "Customers by rate":
-						{
-							SMC.marketManagCont.getCostomerListFromSQL((MarketingReportEnt)msg);
-							break;
-						}
-					case "Fueling in sale":
-						{	
-							SMC.marketManagCont.getFuelingListFromSql((MarketingReportEnt)msg);
-							break;					
-						}
-					}
-					break;*/
-					
+				break;		
 				}
 			sendBackToClient(msg,client);	
 		}
@@ -302,8 +194,6 @@ public class GHealthServer extends ObservableServer{
 			
 		
 	//}
-
-
 
 	/** Send the object back to the client */
 	protected void sendBackToClient(Object msg, ConnectionToClient client) {

@@ -161,20 +161,7 @@ public class SetAppointmentView extends JPanel {
 		textField_phone.setColumns(10);
 		textField_phone.setBounds(154, 250, 148, 28);
 		textField_phone.setVisible(false);
-/*		textField_phone.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) { // ENTER pressed
-					if( arg0.getKeyChar()<48 || arg0.getKeyChar()>57 )
-					{
-						if( arg0.getKeyChar()!=127 && arg0.getKeyChar()!=8)
-						{
-							JOptionPane.showMessageDialog(null,"Enter only numbers in Phone field");
-							if(textFieldid.getText().length()>0)
-								textField_phone.setText(textField_phone.getText().substring(0, textField_phone.getText().length()-1));
-						}
-					}
-				}
-			});*/
+
 		add(textField_phone);
 		
 		textField_email = new JTextField();

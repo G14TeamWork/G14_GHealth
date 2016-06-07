@@ -99,7 +99,6 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		"\", \""+pat.getAddress()+"\");";
 		
 		GHealthServer.sqlConn.sendSqlUpdate(query);
-		
 	}
 	
 	@Override
@@ -112,13 +111,14 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		// TODO Auto-generated method stub
 		if (arg instanceof Patient)
 		{
-			JOptionPane.showMessageDialog(null,"A new patient was entered the system successfully" );
+			JOptionPane.showMessageDialog(null,"A new patient was entered into the system successfully" );
+			SetAppointmentview.btnNewPatient.setVisible(false);
 		}
 		if (arg instanceof SetAppointmentEntity)
 		{
 			if((((SetAppointmentEntity) arg).pat.getId()!=null) &&(((SetAppointmentEntity) arg).pat.getFirstname()==null)&& !SetAppointmentview.textFieldid.getText().equals(null))
 			{
-				if(JOptionPane.showConfirmDialog(null, "Patient not found, are you want to enter new patient?",null,JOptionPane.YES_NO_OPTION)==0)
+				if(JOptionPane.showConfirmDialog(null, "Patient was not found, are you want to enter new patient?",null,JOptionPane.YES_NO_OPTION)==0)
 				{	
 					SetAppointmentview.Jlabel_first.setText("");
 					SetAppointmentview.textField_first.setVisible(true);

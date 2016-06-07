@@ -83,16 +83,19 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	@Override
 	public void update(Observable o, Object arg) {
 	
-		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("search") )
+		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("search"))
 		{
-			CancelAppointmentview.getNotificationlbl().setText("ID : "+
-					((CancelAppointmentEntity)arg).getIdPatient()+" "+
-					((CancelAppointmentEntity)arg).getFirstName()+" "+
-					((CancelAppointmentEntity)arg).getLastName());
-			CancelAppointmentview.getNotificationlbl().setForeground(Color.BLACK);
+			
 			CancelAppointmentview.getComboBox().removeAllItems();
+			
 			if(((CancelAppointmentEntity)arg).getAppList().size() != 0)
 			{
+				CancelAppointmentview.getNotificationlbl().setText("ID : "+
+						((CancelAppointmentEntity)arg).getIdPatient()+" "+
+						((CancelAppointmentEntity)arg).getFirstName()+" "+
+						((CancelAppointmentEntity)arg).getLastName());
+				
+				CancelAppointmentview.getNotificationlbl().setForeground(Color.BLACK);
 				CAP = ((CancelAppointmentEntity)arg);
 				for (int i  = 0 ; i < ((CancelAppointmentEntity)arg).getAppList().size() ; i ++)
 					CancelAppointmentview.getComboBox().addItem(((CancelAppointmentEntity)arg).getAppList().get(i));
@@ -106,8 +109,15 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 			CancelAppointmentview.getNotificationlbl().setEnabled(true);
 
 		}
+		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("Error! enter valid patient ID!") )
+		{
+			CancelAppointmentview.getNotificationlbl().setText("No appointments to show");
+			CancelAppointmentview.getNotificationlbl().setEnabled(true);
+			
+		}
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("delete") )
 		{
+			JOptionPane.showMessageDialog(null,"appointment"+((CancelAppointmentEntity)arg).getIdapp() + "deleted");
 			System.out.println("appointment"+((CancelAppointmentEntity)arg).getIdapp() + "deleted");
 		}
 		

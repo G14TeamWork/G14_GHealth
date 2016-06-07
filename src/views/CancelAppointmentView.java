@@ -11,6 +11,7 @@ import mainPackage.MainClass;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
@@ -67,7 +68,19 @@ public class CancelAppointmentView extends JPanel {
 		add(btnBack);
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
-		searchField = new JTextField();
+		searchField = new JTextField(){
+			  /**
+			 * limit to only numbers
+			 */
+			private static final long serialVersionUID = 1L;
+			public void processKeyEvent(KeyEvent ev) {
+				    char c = ev.getKeyChar();
+				    int d = ev.getKeyCode();
+				    if ((c >= 48 && c <= 57) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39) { // c = '0' ... c = '9'
+				      super.processKeyEvent(ev);
+				    }
+				  }
+				};
 		searchField.setForeground(new Color(0, 0, 0));
 		searchField.setToolTipText("");
 		searchField.setBounds(193, 314, 234, 28);

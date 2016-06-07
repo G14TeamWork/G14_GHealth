@@ -102,7 +102,13 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	}
 	
 	public void searchExperts(Object object) {
-		// TODO Auto-generated method stub
+		SApat1=new SetAppointmentEntity();
+		if(!SetAppointmentview.textFieldid.getText().equals(null))
+		{
+	//		SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
+	//		SApat1.pat.setTask("searchExpert");
+	//		MainClass.ghealth.sendMessegeToServer(SApat1);
+		}
 		
 	}
 	

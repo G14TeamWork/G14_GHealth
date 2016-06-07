@@ -88,7 +88,7 @@ public class ExpView extends JPanel {
 				
 		});
 		btnRecordAppointment.setText("Record Appointment");
-		btnRecordAppointment.setBounds(469, 372, 161, 55);
+		btnRecordAppointment.setBounds(490, 372, 140, 55);
 		add(btnRecordAppointment);
 		
 		btnRequstDetails = new JButton();
@@ -99,7 +99,7 @@ public class ExpView extends JPanel {
 			}
 		});
 		btnRequstDetails.setText("Requst Details");
-		btnRequstDetails.setBounds(449, 304, 181, 55);
+		btnRequstDetails.setBounds(490, 304, 140, 55);
 		add(btnRequstDetails);
 		
 		btnViewMedicalHistory = new JButton();
@@ -112,7 +112,7 @@ public class ExpView extends JPanel {
 			}
 		});
 		btnViewMedicalHistory.setText("View medical history");
-		btnViewMedicalHistory.setBounds(469, 232, 161, 55);
+		btnViewMedicalHistory.setBounds(490, 232, 140, 55);
 		add(btnViewMedicalHistory);
 	}
 }

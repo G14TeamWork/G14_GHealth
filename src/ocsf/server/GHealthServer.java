@@ -148,6 +148,13 @@ public class GHealthServer extends ObservableServer{
 				}
 				break;
 				
+			case "ViewHistoryEntity":
+				//if(!((FillTestResEntity)msg).updateFlag)
+				//	SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
+				//else 
+				SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);
+				break;
+				
 			case "FillTestResEntity":
 				if(!((FillTestResEntity)msg).updateFlag)
 					SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
@@ -170,6 +177,8 @@ public class GHealthServer extends ObservableServer{
 				break;
 		
 			case "CancelAppointmentEntity":
+				if(((CancelAppointmentEntity)msg).getTaskToDo().equals("search"))
+					SMC.CACont.checkExistanceSql((CancelAppointmentEntity)msg);
 				if(((CancelAppointmentEntity)msg).getTaskToDo().equals("search"))
 					SMC.CACont.searchAppointmentSQL((CancelAppointmentEntity)msg);
 				else if(((CancelAppointmentEntity)msg).getTaskToDo().equals("delete"))

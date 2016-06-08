@@ -2,12 +2,11 @@ package views;
 
 import graphics.GUIimage;
 
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import mainPackage.MainClass;
 
@@ -18,13 +17,22 @@ import java.awt.event.KeyEvent;
 import java.awt.Font;
 
 import javax.swing.JTextField;
-import ocsf.server.GHealthServer;
-import Controllers.MasterController;
+
+import Entities.Appointment;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.JComboBox;
+
+import com.alee.extended.date.DateSelectionListener;
+import com.alee.extended.date.WebDateField;
+import com.alee.laf.list.WebList;
+import com.alee.laf.scroll.WebScrollPane;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 public class SetAppointmentView extends JPanel {
@@ -49,6 +57,11 @@ public class SetAppointmentView extends JPanel {
 	public JComboBox comboBox_doctors;
 	public JLabel lblExpertType;
 	public JLabel lblDoctors;
+	public ArrayList<Integer> AppointmentIDList;
+	public final WebDateField datePickerfrom;
+	public WebList editableList;
+	public WebScrollPane WebScrollPane1;
+	public boolean Flag=true;
 	public SetAppointmentView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -260,5 +273,71 @@ public class SetAppointmentView extends JPanel {
 		btnSetAppointment.setIcon(new GUIimage("calendarAdd",25,25).image);
 		add(btnSetAppointment);
 		
+		datePickerfrom = new WebDateField();
+		datePickerfrom.setBounds(336, 332, 118, 28);
+		String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+		datePickerfrom.setInputPrompt(timeStamp);
+	    datePickerfrom.setInputPromptPosition ( SwingConstants.CENTER );
+/*	    datePickerfrom.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Flag=true;
+			}
+		});*/
+	    datePickerfrom.addDateSelectionListener(new DateSelectionListener(){
+			@Override
+			public void dateSelected(Date date) {
+				if (Flag&&!comboBox_expertise.getSelectedItem().equals("")&& datePickerfrom.getDate()!=null) {
+					String timeStamp1 = new SimpleDateFormat("yyyyMMdd").format(datePickerfrom.getDate());
+					MainClass.masterControler.SACont.searchAvailableAppointment(MainClass.masterControler.SACont.expIDlist.get(comboBox_expertise.getSelectedIndex()),timeStamp1);
+					Flag=false;
+				}}});
+/*	    datePickerfrom.getDocument().addDocumentListener(new DocumentListener(){
+
+			public void changedUpdate(DocumentEvent arg0) {
+				tot();
+			}
+			public void insertUpdate(DocumentEvent arg0) {
+				tot();
+			}
+			public void removeUpdate(DocumentEvent arg0) {
+				tot();
+			}
+			public void tot() {
+				if (!comboBox_expertise.getSelectedItem().equals("")&& datePickerfrom.getDate()!=null) {
+					String timeStamp1 = new SimpleDateFormat("yyyyMMdd").format(datePickerfrom.getDate());
+					MainClass.masterControler.SACont.searchAvailableAppointment(MainClass.masterControler.SACont.expIDlist.get(comboBox_expertise.getSelectedIndex()),timeStamp1);
+				}
+/////////////////////////////////////////////////
+			}
+	    	
+	    });*/
+		add(datePickerfrom);
+		
+	       	editableList = new WebList ( createSampleData () );
+	        editableList.setVisibleRowCount ( 6 );
+	        editableList.setSelectedIndex ( 0 );
+	        editableList.setEditable ( false );
+	        WebScrollPane1 = new WebScrollPane ( editableList );
+	        WebScrollPane1.setBounds(50, 328, 250, 200);
+	        WebScrollPane1.setVisible(true);
+	        add(WebScrollPane1);
+	//        WebScrollPane1.removeAll();
+	    
 	}
+	public String[] createSampleData (ArrayList<Appointment> AppList)
+    {
+		String []st = new String[AppList.size()];
+		for (int i  = 0 ; i < AppList.size() ; i ++)
+		{
+			st[i]="Start Time: "+AppList.get(i).getStart()+", End Time: "+AppList.get(i).getEnd();
+			AppointmentIDList.add(i, Integer.valueOf(AppList.get(i).getIdappointment()));
+		}
+		return st;
+    }
+	public String[] createSampleData ()
+    {
+        
+		return new String[]{"aaa" };
+    }
 }

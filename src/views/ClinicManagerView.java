@@ -71,10 +71,10 @@ public class ClinicManagerView extends JPanel {
 			}
 		});
 		btnViewReports.setText("View reports");
-		btnViewReports.setBounds(469, 372, 161, 55);
+		btnViewReports.setBounds(490, 372, 140, 55);
 		add(btnViewReports);
 		
-		btnProducemonthlyreport = new JButton();
+		btnProducemonthlyreport = new JButton("<html>Produce monthly<br /><center>Report</center></html>");
 		btnProducemonthlyreport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainClass.masterControler.setView(
@@ -82,8 +82,7 @@ public class ClinicManagerView extends JPanel {
 						MainClass.masterControler.PMRCont);
 			}
 		});
-		btnProducemonthlyreport.setText("Produce monthly report");
-		btnProducemonthlyreport.setBounds(449, 304, 181, 55);
+		btnProducemonthlyreport.setBounds(490, 306, 140, 55);
 		add(btnProducemonthlyreport);
 	}
 }

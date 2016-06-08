@@ -1,14 +1,23 @@
 package views;
 
 import graphics.GUIimage;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+
 import mainPackage.MainClass;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import com.alee.laf.table.WebTable;
+
+import java.awt.Component;
 
 public class ViewReportsView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -36,5 +45,19 @@ public class ViewReportsView extends JPanel {
 		btnBack.setBounds(490, 440, 140, 55);
 		add(btnBack);
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
+/*
+		 WebTable table = new WebTable ( data, headers );
+	        table.setEditable ( false );
+	        table.setAutoResizeMode ( WebTable.AUTO_RESIZE_OFF );
+	        table.setRowSelectionAllowed ( false );
+	        table.setColumnSelectionAllowed ( true );
+	        table.setPreferredScrollableViewportSize ( new Dimension ( 300, 100 ) );
+	        return new WebScrollPane ( table );*/
+
 	}
 }
+
+
+
+
+

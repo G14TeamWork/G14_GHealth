@@ -1,18 +1,21 @@
 package Controllers;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.JOptionPane;
+
 import mainPackage.MainClass;
 import ocsf.server.GHealthServer;
 import views.RecordAppointView;
 import Controllers.IRefresh;
 import Entities.FillTestResEntity;
 import Entities.RecordAppointmentEntity;
-public class  RecordAppointController implements Observer,IRefresh  {
+public class  RecordAppointController implements Observer,IRefresh, Serializable  {
 	
 	private static final long serialVersionUID = 1L;
 	public RecordAppointView RecordAppointview;

@@ -10,9 +10,8 @@ public class RecordAppointmentEntity implements Serializable {
 	public String taskToDo ;
 	public String appID="";
 	
-	public RecordAppointmentEntity( String appid, String tasktodo){
-		this.appID = appid;
-		this.taskToDo = tasktodo;
+	public RecordAppointmentEntity(){
+
 		appointment = new Appointment();
 	}
 	

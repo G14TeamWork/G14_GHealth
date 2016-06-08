@@ -138,21 +138,21 @@ public class GHealthServer extends ObservableServer{
 	
 			case "String":
 				break;
-				
 			case "RecordAppointmentEntity":
-				
+			{	
 				if(((RecordAppointmentEntity)msg).taskToDo.equals("search")){
 					System.out.println("GHealth server going to checkappsql");
 					SMC.EXPVCont.checkAppSQL((RecordAppointmentEntity)msg);
 					System.out.println("GHealth server coming back from checkappsql");
 				}
+			}
 				break;
 				
 			case "ViewHistoryEntity":
-				//if(!((FillTestResEntity)msg).updateFlag)
-				//	SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
-				//else 
-				SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);
+				if(((ViewHistoryEntity)msg).photoflag)
+					SMC.VMHCont.askPhotoFromTestResSql((ViewHistoryEntity)msg);
+				else 
+					SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);
 				break;
 				
 			case "FillTestResEntity":
@@ -195,6 +195,7 @@ public class GHealthServer extends ObservableServer{
 				SMC.SACont.AddNewPatient((Patient)msg);
 				break;		
 				}
+			
 			sendBackToClient(msg,client);	
 		}
 	//}
@@ -206,7 +207,7 @@ public class GHealthServer extends ObservableServer{
 	/** Send the object back to the client */
 	protected void sendBackToClient(Object msg, ConnectionToClient client) {
 		try {client.sendToClient(msg);} 
-		catch (IOException e) { 
+		catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("SendToClient: " + msg.getClass().getSimpleName());}
 	}

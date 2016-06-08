@@ -25,6 +25,7 @@ public class ViewMedicalHistoryView extends JPanel {
 	public JButton	  btnViewmedicalHis;
 	public JLabel     textField_patname;
 	public File 	  file;
+	public JPanel 	  photoPanel;
 	public ViewMedicalHistoryView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -41,7 +42,7 @@ public class ViewMedicalHistoryView extends JPanel {
 		btnViewLabHis = new JButton("View lab history");
 		btnViewLabHis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				MainClass.masterControler.VMHCont.askPhoto_Patient();
 			}
 		});
 		btnViewLabHis.setBounds(479, 306, 151, 53);
@@ -100,6 +101,10 @@ public class ViewMedicalHistoryView extends JPanel {
 		textField_patname.setFont(new Font("Tahoma", Font.BOLD, 17));
 		textField_patname.setBounds(32, 235, 306, 29);
 		add(textField_patname);
+		
+		photoPanel = new JPanel();
+		photoPanel.setBounds(42, 277, 148, 118);
+		add(photoPanel);
 	}
 }
 

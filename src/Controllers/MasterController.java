@@ -32,6 +32,7 @@ public class MasterController {
 	public ViewPeriodicReportController    VPRCont;
 	public RequestDetailsController	       RDCont;
 	public ViewReportsController		   VRCont;
+	public viewLabResuControlller	  	   VLRCont;
 	/*
 	public StationManagerController stationManagerCont;
 	
@@ -88,6 +89,7 @@ public class MasterController {
 					VPRCont= new ViewPeriodicReportController();
 					RDCont = new RequestDetailsController();
 					VRCont = new ViewReportsController();
+					VLRCont= new viewLabResuControlller();
 				}
 				/*
 				 * 

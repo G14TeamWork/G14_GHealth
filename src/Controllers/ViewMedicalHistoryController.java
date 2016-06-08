@@ -1,15 +1,24 @@
 package Controllers;
 
 import graphics.GUIimage;
+
 import java.awt.Color;
+import java.io.File;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.Icon;
+import javax.swing.JLabel;
+
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.ViewMedicalHistoryView;
 import Controllers.IRefresh;
+import Entities.FillTestResEntity;
 import Entities.ViewHistoryEntity;
 
 public class ViewMedicalHistoryController implements Observer,IRefresh,Serializable {
@@ -46,6 +55,32 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 			arrList.clear();
 		}
 	}
+	public void askPhoto_Patient()
+	{
+		VHEnt1.photoflag=true;
+		 MainClass.ghealth.sendMessegeToServer(VHEnt1);
+	}
+	public void askPhotoFromTestResSql(ViewHistoryEntity VHEnt)
+	{
+		String query = "";
+		VHEnt.date="07.06.2016 20:05:01";
+		query = "SELECT photo FROM ghealth.test_results WHERE "
+				+ "patientid = \"" + VHEnt.pat.getId() + "\" AND date =\"" +VHEnt.date+ "\"";
+		
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		if (arrList.isEmpty())
+		{
+			System.out.println("noooooooooo");
+			VHEnt.photoflag=false;
+		}
+		else
+		{
+			VHEnt.photoflag=true;////////
+			VHEnt.photo=((File)arrList.get(0));
+			arrList.clear();
+		}
+	}
+	
 	@Override
 	public void refreshView() {
 		// TODO Auto-generated method stub
@@ -57,23 +92,31 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	{
 		if (arg instanceof ViewHistoryEntity)
 		{
-			VHEnt1.pat.setFirstname(((ViewHistoryEntity) arg).pat.getFirstname());
-			VHEnt1.pat.setLastname(((ViewHistoryEntity) arg).pat.getLastname());
-			ViewMedicalHistoryview.textField_patname.setText("Patient name: "+ VHEnt1.pat.getFirstname()+" "+VHEnt1.pat.getLastname());
-			VHEnt1.showbuttonflag=((ViewHistoryEntity) arg).showbuttonflag;
-			if (VHEnt1.showbuttonflag)
+			if (VHEnt1.photoflag)
 			{
-				ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(true);
-				ViewMedicalHistoryview.btnViewLabHis.setEnabled(true);
-				ViewMedicalHistoryview.textField_patname.setForeground(Color.BLACK);
+				//ViewMedicalHistoryview.photoPanel.add(new JLabel((Icon)VHEnt1.photo));
 			}
-			else 
-			{
-				ViewMedicalHistoryview.btnViewLabHis.setEnabled(false);
-				ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(false);
-				ViewMedicalHistoryview.textField_patname.setText("Error! enter valid patient ID!");
-				ViewMedicalHistoryview.textField_patname.setForeground(Color.RED);
-			}
+			else
+				{
+					VHEnt1.pat.setFirstname(((ViewHistoryEntity) arg).pat.getFirstname());
+					VHEnt1.pat.setLastname(((ViewHistoryEntity) arg).pat.getLastname());
+					ViewMedicalHistoryview.textField_patname.setText("Patient name: "+ VHEnt1.pat.getFirstname()+" "+VHEnt1.pat.getLastname());
+					VHEnt1.showbuttonflag=((ViewHistoryEntity) arg).showbuttonflag;
+					VHEnt1.photoflag=((ViewHistoryEntity) arg).photoflag;
+					if (VHEnt1.showbuttonflag)
+					{
+						ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(true);
+						ViewMedicalHistoryview.btnViewLabHis.setEnabled(true);
+						ViewMedicalHistoryview.textField_patname.setForeground(Color.BLACK);
+					}
+					else 
+					{
+						ViewMedicalHistoryview.btnViewLabHis.setEnabled(false);
+						ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(false);
+						ViewMedicalHistoryview.textField_patname.setText("Error! enter valid patient ID!");
+						ViewMedicalHistoryview.textField_patname.setForeground(Color.RED);
+					}
+				}
 		}
 	}
 }

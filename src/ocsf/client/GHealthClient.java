@@ -120,9 +120,10 @@ public class GHealthClient extends ObservableClient{
 	 */
 	public void addAllControllersAsObservers(MasterController master){
 		//addObserver(master.LoginCont);
+		addObserver(master.EXPVCont);
 		addObserver(master.FTRCont); //???
 		addObserver(master.VRDCont);
-		//addObserver(master.RACont);
+		addObserver(master.RACont);
 		addObserver(master.PMRCont);
 		addObserver(master.VMHCont);
 		addObserver(master.CACont);
@@ -130,19 +131,6 @@ public class GHealthClient extends ObservableClient{
 		addObserver(master.VPRCont);
 		addObserver(master.RDCont);
 		addObserver(master.VRCont);
-		/*
-		addObserver(master.minLvcont);
-		addObserver(master.fuelingVCont);
-		addObserver(master.heatingfuelcont);
-		addObserver(master.inventoryCont);
-		addObserver(master.staMngReportsCont);
-		addObserver(master.StartNewCmpCont);
-		addObserver(master.mngCustomersCont);
-		addObserver(master.marketManagCont);
-		addObserver(master.OrderStatCont);
-		addObserver(master.setPriceController);
-		addObserver(master.networkMngController);
-		addObserver(master.nfcController);
-		*/
+		addObserver(master.VLRCont);
 	}
 }

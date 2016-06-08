@@ -41,7 +41,11 @@ public class ViewMedicalHistoryView extends JPanel {
 		btnViewLabHis = new JButton("View lab history");
 		btnViewLabHis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				MainClass.masterControler.VMHCont.askPhoto_Patient();
+				MainClass.masterControler.setView(
+							MainClass.masterControler.VLRCont.viewLabResuview,
+							MainClass.masterControler.VLRCont);	
+				MainClass.masterControler.VLRCont.viewLabResuview.labelPatName.setText(textField_patname.getText());
 			}
 		});
 		btnViewLabHis.setBounds(479, 306, 151, 53);
@@ -49,7 +53,7 @@ public class ViewMedicalHistoryView extends JPanel {
 		
 		btnViewmedicalHis = new JButton("View medical history");
 		btnViewmedicalHis.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				
 			}
 		});

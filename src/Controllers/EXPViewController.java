@@ -1,5 +1,6 @@
 package Controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,17 +12,21 @@ import views.LoginView;
 import Controllers.IRefresh;
 import Entities.RecordAppointmentEntity;
 
-public class EXPViewController implements Observer,IRefresh  {
+public class EXPViewController implements Observer,IRefresh, Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	public ExpView expview;
-	public RecordAppointmentEntity RAE;
+	public RecordAppointmentEntity RAE1 = new RecordAppointmentEntity();
 	public EXPViewController() {
 		expview = new ExpView();
 	}
 	
 	public void checkApp(String appID1){
-		RAE = new RecordAppointmentEntity(appID1,"search");
-		MainClass.ghealth.sendMessegeToServer(RAE);
-		//System.out.println(MainClass.masterControler.EXPVCont.RAE.appointment.getIdpatient());
+	//	RAE = new RecordAppointmentEntity(appID1,"search");
+		RAE1.appID=appID1;
+		RAE1.taskToDo="search";
+		MainClass.ghealth.sendMessegeToServer(RAE1);
+		System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
 		//RAE.appointment.getIdpatient();
 	}
 	public void checkAppSQL(RecordAppointmentEntity rae) {
@@ -42,12 +47,11 @@ public class EXPViewController implements Observer,IRefresh  {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
-		System.out.println("In Update!");
+		System.out.println("updateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
 		if(arg instanceof RecordAppointmentEntity){
 		
-			RAE.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
-			System.out.println(RAE.appointment.getIdpatient()+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+			RAE1.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
 			refreshView();
 		}
 		

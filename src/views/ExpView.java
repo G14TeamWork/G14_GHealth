@@ -77,13 +77,13 @@ public class ExpView extends JPanel {
 					try{
 						String appID = JOptionPane.showInputDialog(null, "Insert appointment number : ");
 						MainClass.masterControler.EXPVCont.checkApp(appID);
-						//Thread.sleep(1000);
-						if(MainClass.masterControler.EXPVCont.RAE.appointment.getIdpatient()!=null){
-							MainClass.masterControler.RACont.RecordAppointview.idPatientLabel.setText("Patient : " + MainClass.masterControler.EXPVCont.RAE.appointment.getIdpatient());
+						System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
+						if(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient()!=null){
+							MainClass.masterControler.RACont.RecordAppointview.idPatientLabel.setText("Patient : " + MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
 							MainClass.masterControler.RACont.RecordAppointview.appNoLabel.setText("Appointment : " + appID);
 							tmp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
 							MainClass.masterControler.RACont.RecordAppointview.startHourLabel.setText("Start Time : " + tmp);
-							MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview);
+							MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview,MainClass.masterControler.RACont);
 						}
 						else JOptionPane.showMessageDialog(null, "No matching appointment in data server!");
 					}catch(Exception e){

@@ -201,7 +201,6 @@ public class GHealthServer extends ObservableServer{
 	protected void sendBackToClient(Object msg, ConnectionToClient client) {
 		try {client.sendToClient(msg);} 
 		catch (IOException e) {
-			 System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			e.printStackTrace();
 			System.err.println("SendToClient: " + msg.getClass().getSimpleName());}
 	}

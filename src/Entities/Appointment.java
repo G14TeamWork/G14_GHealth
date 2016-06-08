@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.sql.*;
+import java.util.Date;
 
 public class Appointment implements Serializable{
 
@@ -9,7 +10,8 @@ public class Appointment implements Serializable{
 	private String idappointment;
 	private int idexpert;
 	private String idpatient;
-	private Timestamp appdate;
+	private Date appdate;
+	private String AppdateString;
 	private Time start;
 	private Time end;
 	private String appstatus;
@@ -28,7 +30,12 @@ public class Appointment implements Serializable{
 		this.EX = new Expert(expertise,firstname,lastname);
 	}
 	
-
+	public Appointment(int idAppointment, Date date, Time time, Time time2) {
+		this.appdate=date;
+		this.start=time;
+		this.end=time2;
+		this.idappointment=String.valueOf(idAppointment);
+	}
 	public Expert getEX() {
 		return EX;
 	}
@@ -53,11 +60,11 @@ public class Appointment implements Serializable{
 	public void setIdpatient(String appID) {
 		this.idpatient = appID;
 	}
-	public Timestamp getAppdate() {
+	public Date getAppdate() {
 		return appdate;
 	}
-	public void setAppdate(Timestamp appdate) {
-		this.appdate = appdate;
+	public void setAppdate(Date date) {
+		this.appdate = date;
 	}
 	public Time getStart() {
 		return start;
@@ -97,5 +104,11 @@ public class Appointment implements Serializable{
 	/**
 	 * 
 	 */
+	public void setAppdateString(String timeStamp1) {
+		this.AppdateString=timeStamp1;
+	}
+	public String getAppdateString() {
+		return AppdateString;
+	}
 
 }

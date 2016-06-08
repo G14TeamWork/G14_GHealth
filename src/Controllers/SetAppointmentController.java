@@ -2,16 +2,22 @@ package Controllers;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
+import com.alee.laf.list.WebList;
+import com.alee.laf.scroll.WebScrollPane;
+
 import mainPackage.MainClass;
 import ocsf.server.GHealthServer;
 import views.SetAppointmentView;
 import Controllers.IRefresh;
+import Entities.Appointment;
 import Entities.Expert;
 import Entities.Patient;
 import Entities.SetAppointmentEntity;
@@ -20,11 +26,12 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	private static final long serialVersionUID = 1L;
 	public SetAppointmentView SetAppointmentview;
 	ArrayList<Object> arrList = new ArrayList<>();
-	
+	public Appointment AppToSet=new Appointment();
 	public SetAppointmentEntity SApat1;
 	public SetAppointmentEntity SAexp;
+	public SetAppointmentEntity SAapp;
 	public Patient newPatient;
-	
+	public ArrayList<Integer> expIDlist;
 	public SetAppointmentController() {
 		SetAppointmentview = new SetAppointmentView();
 	}
@@ -32,12 +39,9 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	public void setPatient()
 	{
 		SApat1=new SetAppointmentEntity();
-/*		if(!SetAppointmentview.textFieldid.getText().equals(null))
-		{*/
-			SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
-			SApat1.setTask("searchPatient");
-			MainClass.ghealth.sendMessegeToServer(SApat1);
-//		}
+		SApat1.pat.setId(SetAppointmentview.textFieldid.getText());
+		SApat1.setTask("searchPatient");
+		MainClass.ghealth.sendMessegeToServer(SApat1);
 	}
 	
 	public void setNewPatient() {
@@ -123,6 +127,28 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		arrList.clear();
 	}
 	
+	public void searchAvailableAppointment(int id, String timeStamp1) {
+		// TODO Auto-generated method stub
+		SAapp=new SetAppointmentEntity();
+		SAapp.app.setAppdateString(timeStamp1);
+		SAapp.app.setIdexpert(id);
+		SAapp.setTask("searchAvailableAppointment");
+		System.out.println(SAapp.toString());
+		MainClass.ghealth.sendMessegeToServer(SAapp);
+		System.out.println("after send message to server--->"+SAapp.toString());
+	}
+	
+	public void searchAvailableAppointmentSql(SetAppointmentEntity msg) {
+		String query = "";
+		query = "SELECT idappointment,appdate,start,end FROM ghealth.appointments WHERE idexpert="+((SetAppointmentEntity)msg).app.getIdexpert()+" AND appstatus=0 AND appdate="+((SetAppointmentEntity)msg).app.getAppdateString();
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		
+		for (int i  = 0 ; i < arrList.size() ; i +=4)
+			((SetAppointmentEntity)msg).AppList.add(new Appointment((int)arrList.get(i),(Date)arrList.get(i+1), (Time)arrList.get(i+2), (Time)arrList.get(i+3)));
+			
+		arrList.clear();
+	}
+	
 	@Override
 	public void refreshView() {
 		MainClass.masterControler.setView(MainClass.masterControler.SACont.SetAppointmentview);
@@ -157,11 +183,14 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		{
 			if(((SetAppointmentEntity)arg).getTask().equals("searchExpert"))
 			{
+				expIDlist = new ArrayList<Integer>();
 				SetAppointmentview.comboBox_doctors.removeAllItems();
 				for (int i  = 0 ; i < ((SetAppointmentEntity)arg).expList.size() ; i ++)
+				{
 					SetAppointmentview.comboBox_doctors.addItem(((SetAppointmentEntity)arg).expList.get(i).getFirstName()+" "+((SetAppointmentEntity)arg).expList.get(i).getLastName()+", Clinic name: "+((SetAppointmentEntity)arg).expList.get(i).getClinicName());
-				
-				((SetAppointmentEntity)arg).setTask("");
+					expIDlist.add(i, ((SetAppointmentEntity)arg).expList.get(i).getId());
+				}
+			
 			}
 			else if(((SetAppointmentEntity)arg).getTask().equals("searchPatient"))
 			{
@@ -193,6 +222,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 					}
 					else
 					{
+						SetAppointmentview.Jlabel_patientName.setText("");
 						SetAppointmentview.textField_first.setVisible(false);
 						SetAppointmentview.textField_last.setVisible(false);
 						SetAppointmentview.textField_phone.setVisible(false);
@@ -221,6 +251,16 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 					SetAppointmentview.comboBox_doctors.setVisible(true);
 					SetAppointmentview.btnSetAppointment.setVisible(true);
 				}
+			}
+			else if(((SetAppointmentEntity)arg).getTask().equals("searchAvailableAppointment"))
+			{
+				SetAppointmentview.editableList = new WebList ( SetAppointmentview.createSampleData (((SetAppointmentEntity)arg).AppList) );
+				SetAppointmentview.editableList.setVisibleRowCount ( 6 );
+				SetAppointmentview.editableList.setSelectedIndex ( 0 );
+				SetAppointmentview.editableList.setEditable ( false );
+				SetAppointmentview.WebScrollPane1 = new WebScrollPane ( SetAppointmentview.editableList );
+				SetAppointmentview.WebScrollPane1.setBounds(50, 328, 250, 200);
+				SetAppointmentview.WebScrollPane1.setVisible(true);				
 			}
 			((SetAppointmentEntity)arg).setTask("");
 		}

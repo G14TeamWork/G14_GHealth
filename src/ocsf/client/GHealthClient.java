@@ -131,19 +131,6 @@ public class GHealthClient extends ObservableClient{
 		addObserver(master.VPRCont);
 		addObserver(master.RDCont);
 		addObserver(master.VRCont);
-		/*
-		addObserver(master.minLvcont);
-		addObserver(master.fuelingVCont);
-		addObserver(master.heatingfuelcont);
-		addObserver(master.inventoryCont);
-		addObserver(master.staMngReportsCont);
-		addObserver(master.StartNewCmpCont);
-		addObserver(master.mngCustomersCont);
-		addObserver(master.marketManagCont);
-		addObserver(master.OrderStatCont);
-		addObserver(master.setPriceController);
-		addObserver(master.networkMngController);
-		addObserver(master.nfcController);
-		*/
+		addObserver(master.VLRCont);
 	}
 }

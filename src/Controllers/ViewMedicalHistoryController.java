@@ -94,7 +94,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 		{
 			if (VHEnt1.photoflag)
 			{
-				ViewMedicalHistoryview.photoPanel.add(new JLabel((Icon)VHEnt1.photo));
+				//ViewMedicalHistoryview.photoPanel.add(new JLabel((Icon)VHEnt1.photo));
 			}
 			else
 				{

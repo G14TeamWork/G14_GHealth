@@ -138,7 +138,6 @@ public class GHealthServer extends ObservableServer{
 	
 			case "String":
 				break;
-				
 			case "RecordAppointmentEntity":
 			{	
 				if(((RecordAppointmentEntity)msg).taskToDo.equals("search")){

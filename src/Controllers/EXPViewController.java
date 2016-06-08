@@ -42,17 +42,14 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 		//MainClass.masterControler.setView(
 			//	MainClass.masterControler.RACont.RecordAppointview,
 			//		MainClass.masterControler.RACont);
-			MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview);
+			//MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("updateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-
-		if(arg instanceof RecordAppointmentEntity){
-		
-			RAE1.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
-			refreshView();
+			if(arg instanceof RecordAppointmentEntity){
+				RAE1.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
+			//refreshView();
 		}
 		
 	}

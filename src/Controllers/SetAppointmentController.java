@@ -175,6 +175,10 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 			SetAppointmentview.lblExpertType.setVisible(true);
 			SetAppointmentview.comboBox_expertise.setVisible(true);
 			SetAppointmentview.comboBox_doctors.setVisible(true);
+			SetAppointmentview.lblAvailableAppointmentsDates.setVisible(true);
+			SetAppointmentview.lblAvailableAppointmentsHours.setVisible(true);
+			SetAppointmentview.comboBox_AvailableAppointmentsDates.setVisible(true);
+			SetAppointmentview.comboBox_AvailableAppointmentsHours.setVisible(true);
 			SetAppointmentview.btnSetAppointment.setVisible(true);
 			SetAppointmentview.Jlabel_patientName.setText("Patient name: "+((Patient) arg).getFirstname()+" "+((Patient) arg).getLastname());
 		}
@@ -214,11 +218,6 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 						SetAppointmentview.lblAdress.setVisible(true);
 						SetAppointmentview.btnNewPatient.setVisible(true);
 						SetAppointmentview.btnsearch.setVisible(false);
-						SetAppointmentview.lblDoctors.setVisible(false);
-						SetAppointmentview.lblExpertType.setVisible(false);
-						SetAppointmentview.comboBox_expertise.setVisible(false);
-						SetAppointmentview.comboBox_doctors.setVisible(false);
-						SetAppointmentview.btnSetAppointment.setVisible(false);
 					}
 					else
 					{
@@ -235,12 +234,16 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 						SetAppointmentview.lblAdress.setVisible(false);
 						SetAppointmentview.btnNewPatient.setVisible(false);
 						SetAppointmentview.btnsearch.setVisible(true);
-						SetAppointmentview.lblDoctors.setVisible(false);
-						SetAppointmentview.lblExpertType.setVisible(false);
-						SetAppointmentview.comboBox_expertise.setVisible(false);
-						SetAppointmentview.comboBox_doctors.setVisible(false);
-						SetAppointmentview.btnSetAppointment.setVisible(false);
 					}
+					SetAppointmentview.lblDoctors.setVisible(false);
+					SetAppointmentview.lblExpertType.setVisible(false);
+					SetAppointmentview.comboBox_expertise.setVisible(false);
+					SetAppointmentview.comboBox_doctors.setVisible(false);
+					SetAppointmentview.lblAvailableAppointmentsDates.setVisible(false);
+					SetAppointmentview.lblAvailableAppointmentsHours.setVisible(false);
+					SetAppointmentview.comboBox_AvailableAppointmentsDates.setVisible(false);
+					SetAppointmentview.comboBox_AvailableAppointmentsHours.setVisible(false);
+					SetAppointmentview.btnSetAppointment.setVisible(false);
 				}
 				else
 				{
@@ -250,17 +253,15 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 					SetAppointmentview.comboBox_expertise.setVisible(true);
 					SetAppointmentview.comboBox_doctors.setVisible(true);
 					SetAppointmentview.btnSetAppointment.setVisible(true);
+					SetAppointmentview.lblAvailableAppointmentsDates.setVisible(true);
+					SetAppointmentview.lblAvailableAppointmentsHours.setVisible(true);
+					SetAppointmentview.comboBox_AvailableAppointmentsDates.setVisible(true);
+					SetAppointmentview.comboBox_AvailableAppointmentsHours.setVisible(true);
 				}
 			}
 			else if(((SetAppointmentEntity)arg).getTask().equals("searchAvailableAppointment"))
 			{
-				SetAppointmentview.editableList = new WebList ( SetAppointmentview.createSampleData (((SetAppointmentEntity)arg).AppList) );
-				SetAppointmentview.editableList.setVisibleRowCount ( 6 );
-				SetAppointmentview.editableList.setSelectedIndex ( 0 );
-				SetAppointmentview.editableList.setEditable ( false );
-				SetAppointmentview.WebScrollPane1 = new WebScrollPane ( SetAppointmentview.editableList );
-				SetAppointmentview.WebScrollPane1.setBounds(50, 328, 250, 200);
-				SetAppointmentview.WebScrollPane1.setVisible(true);				
+					//TODO!!!!!////////////////
 			}
 			((SetAppointmentEntity)arg).setTask("");
 		}

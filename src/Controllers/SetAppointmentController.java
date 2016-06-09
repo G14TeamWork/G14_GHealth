@@ -144,8 +144,10 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		
 		for (int i  = 0 ; i < arrList.size() ; i +=4)
+			{
 			((SetAppointmentEntity)msg).AppList.add(new Appointment((int)arrList.get(i),(Date)arrList.get(i+1), (Time)arrList.get(i+2), (Time)arrList.get(i+3)));
-			
+			System.out.println(((SetAppointmentEntity)msg).AppList.get(i/4).toString());
+			}
 		arrList.clear();
 	}
 	

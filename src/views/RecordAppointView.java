@@ -87,13 +87,16 @@ public class RecordAppointView extends JPanel {
 					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
 					if (notappear.isSelected())
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setStatus("2");
-					else
+					else{
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setStatus("1");
-					MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
 					//MainClass.masterControler.EXPVCont.RAE1.appointment.setStart(start);
-					
+					//update start time end time TBD
+					}
+					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);//back to exp window
 					record.setText("");
+					notappear.setSelected(false);
 				}
 			}
 		});

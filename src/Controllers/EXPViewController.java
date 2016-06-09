@@ -26,7 +26,7 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 		RAE1.appID=appID1;
 		RAE1.taskToDo="search";
 		MainClass.ghealth.sendMessegeToServer(RAE1);
-		System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
+		//System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
 		//RAE.appointment.getIdpatient();
 	}
 	public void checkAppSQL(RecordAppointmentEntity rae) {

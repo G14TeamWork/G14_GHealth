@@ -145,9 +145,9 @@ public class GHealthServer extends ObservableServer{
 			case "RecordAppointmentEntity":
 			{	
 				if(((RecordAppointmentEntity)msg).taskToDo.equals("search")){
-					System.out.println("GHealth server going to checkappsql");
+					//System.out.println("GHealth server going to checkappsql");
 					SMC.EXPVCont.checkAppSQL((RecordAppointmentEntity)msg);
-					System.out.println("GHealth server coming back from checkappsql");
+					//System.out.println("GHealth server coming back from checkappsql");
 				}
 			}
 				break;

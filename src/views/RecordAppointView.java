@@ -21,6 +21,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+import javax.swing.JCheckBox;
 
 public class RecordAppointView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -30,6 +31,7 @@ public class RecordAppointView extends JPanel {
 	public JLabel idPatientLabel ;
 	public JLabel appNoLabel;
 	public JLabel startHourLabel;
+	public JCheckBox notappear;
 	//public RecordAppointView(){};
 	public RecordAppointView() {
 		//appNo = JOptionPane.showInputDialog(null,"Enter appointment number : ");
@@ -40,6 +42,17 @@ public class RecordAppointView extends JPanel {
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
 		
+		notappear = new JCheckBox("Patient didn't appear");
+		notappear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(notappear.isSelected())
+					record.setEditable(false);
+				else record.setEditable(true);
+			}
+		});
+		notappear.setBounds(229, 230, 140, 24);
+		add(notappear);
+		
 		record = new JTextArea();
 		record.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		record.setForeground(Color.BLACK);
@@ -49,7 +62,7 @@ public class RecordAppointView extends JPanel {
 		
 		JLabel lblExpert = new JLabel("Record Appointment");
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(192, 136, 253, 118);
+		lblExpert.setBounds(192, 136, 243, 89);
 		add(lblExpert);
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -71,9 +84,15 @@ public class RecordAppointView extends JPanel {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
+					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
+					if (notappear.isSelected())
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setStatus("2");
+					else
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setStatus("1");
+					MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
+					//MainClass.masterControler.EXPVCont.RAE1.appointment.setStart(start);
 					
-					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);
-					
+					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);//back to exp window
 					record.setText("");
 				}
 			}
@@ -87,11 +106,11 @@ public class RecordAppointView extends JPanel {
 		add(lblAppointmentRecord);
 		
 		appNoLabel = new JLabel("");
-		appNoLabel.setBounds(493, 215, 132, 22);
+		appNoLabel.setBounds(493, 212, 132, 22);
 		add(appNoLabel);
 		
 		idPatientLabel = new JLabel("");
-		idPatientLabel.setBounds(501, 268, 132, 22);
+		idPatientLabel.setBounds(493, 268, 132, 22);
 		add(idPatientLabel);
 		
 		startHourLabel = new JLabel("");
@@ -117,5 +136,4 @@ public class RecordAppointView extends JPanel {
 	public void setAppNo(String appNo) {
 		this.appNo = appNo;
 	}
-
 }

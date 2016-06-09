@@ -12,6 +12,7 @@ public class Appointment implements Serializable{
 	private String idpatient;
 	private Date appdate;
 	private String AppdateString;
+	private String Status;
 	private Time start;
 	private Time end;
 	private String appstatus;
@@ -101,14 +102,16 @@ public class Appointment implements Serializable{
 	public String toString() {
 		return "Appointment ["+idappointment+"] " + appdate+" " + EX;
 	}
-	/**
-	 * 
-	 */
 	public void setAppdateString(String timeStamp1) {
 		this.AppdateString=timeStamp1;
 	}
 	public String getAppdateString() {
 		return AppdateString;
 	}
-
+	public String getStatus() {
+		return Status;
+	}
+	public void setStatus(String status) {
+		Status = status;
+	}
 }

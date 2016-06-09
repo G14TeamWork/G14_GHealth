@@ -77,6 +77,7 @@ public class ExpView extends JPanel {
 					try{
 						String appID = JOptionPane.showInputDialog(null, "Insert appointment number : ");
 						MainClass.masterControler.EXPVCont.checkApp(appID);
+						Thread.sleep(100);
 						System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
 						if(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient()!=null){
 							MainClass.masterControler.RACont.RecordAppointview.idPatientLabel.setText("Patient : " + MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());

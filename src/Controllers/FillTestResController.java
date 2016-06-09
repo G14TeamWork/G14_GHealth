@@ -5,7 +5,9 @@ import graphics.GUIimage;
 import java.awt.Color;
 import java.io.Serializable;
 import java.security.Timestamp;
+import java.util.Date;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -61,7 +63,7 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		FTRpat1.TestRes=FillTestResview.textField_TestResult.getText();
 		FTRpat1.TestType=(String)FillTestResview.comboBox_test.getSelectedItem();
 		//FTRpat1.PhotoPath=FillTestResview.file_path;
-		FTRpat1.PhotoFile=FillTestResview.file;
+		FTRpat1.PhotoPath=FillTestResview.file_path;
 		FTRpat1.updateFlag=true;
 		MainClass.ghealth.sendMessegeToServer(FTRpat1);
 	}
@@ -70,13 +72,18 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	{
 		String query = "";
 		String labworker =FTRpat.labworkerFirstName+" "+FTRpat.labworkerLastName;
-		String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
-		query = "INSERT INTO ghealth.test_results (patientid, date, testtype, testresult, photo, labworker)"+
+		
+		String date = new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime());;
+	    String filledtime = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+		//String filledtime = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+		query = "INSERT INTO ghealth.test_results (patientid, date, filledtime, testtype, testresult, photo, labworker)"+
 		"VALUES ("+FTRpat.pat.getId()+
-		", \""+ timeStamp+"\""+
+		", \""+date+"\""+
+		", \""+ filledtime+"\""+
 		", \""+FTRpat.TestType+
 		"\", \""+FTRpat.TestRes+
-		"\", \""+FTRpat.PhotoFile+
+		//"\", \""+FTRpat.PhotoFile+
+		"\", \""+FTRpat.PhotoPath+
 		"\", \""+labworker+"\");";
 		FTRpat.updateFlag=true;
 		GHealthServer.sqlConn.sendSqlUpdate(query);	

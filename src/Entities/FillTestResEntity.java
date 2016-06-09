@@ -12,8 +12,8 @@ public class FillTestResEntity implements Serializable{
 	public boolean showbuttonflag;
 	public String TestRes="";
 	public String TestType="";
-	//public String PhotoPath="";
-	public File PhotoFile;
+	public String PhotoPath="";
+	//public File PhotoFile;
 	public boolean updateFlag = false;
 	public String labworkerFirstName=MainClass.masterControler.LoginCont.loginEntity.getFirstname();
 	public String labworkerLastName=MainClass.masterControler.LoginCont.loginEntity.getLastname();

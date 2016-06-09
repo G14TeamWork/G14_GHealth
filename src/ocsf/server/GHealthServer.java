@@ -255,7 +255,7 @@ public class GHealthServer extends ObservableServer{
 				}
 			});
 			t.setPriority(Thread.MIN_PRIORITY);
-			t.start();
+		//	t.start(); **************************************************************************************************
 	}			
 		
 	

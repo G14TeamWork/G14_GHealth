@@ -72,7 +72,8 @@ public class RecordAppointView extends JPanel {
 				if(JOptionPane.showConfirmDialog(null, "Cancel record?",null,JOptionPane.YES_NO_OPTION)==0){
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);
 					record.setText("");
-					
+					notappear.setSelected(false);
+					record.setEditable(true);
 				}
 			}
 		});
@@ -85,18 +86,22 @@ public class RecordAppointView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
 					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
-					if (notappear.isSelected())
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setStatus("2");
-					else{
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setStatus("1");
+					if (notappear.isSelected()){
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("2");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Patient didn't appear!");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setStart(null);
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setEnd(null);
+					}else{
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("1");
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
-					//MainClass.masterControler.EXPVCont.RAE1.appointment.setStart(start);
-					//update start time end time TBD
+						//MainClass.masterControler.EXPVCont.RAE1.appointment.setEnd();
+						//MainClass.masterControler.EXPVCont.RAE1.appointment.setStart();
 					}
 					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);//back to exp window
 					record.setText("");
 					notappear.setSelected(false);
+					record.setEditable(true);
 				}
 			}
 		});

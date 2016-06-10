@@ -28,7 +28,7 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 	}
 	public void checkAppSQL(RecordAppointmentEntity rae) {
 		ArrayList<Object> arrList = new ArrayList<Object>();
-		String query = "SELECT * FROM ghealth.appointments WHERE idappointment =" + rae.appID ;
+		String query = "SELECT * FROM ghealth.appointments WHERE idappointment ='" + rae.appID+"'" ;
 			arrList=GHealthServer.sqlConn.sendSqlQuery(query);
 		if (!arrList.isEmpty())
 			rae.appointment.setIdpatient(String.valueOf((int)arrList.get(2)));

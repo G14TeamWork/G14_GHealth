@@ -30,7 +30,7 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 	public void serverGetMedicalFile(MedicalFile MF){
 		ArrayList<Object> arrList = new ArrayList<Object>();
 	
-		String query = "SELECT * FROM ghealth.medicalfile WHERE idpatient=" + MF.getPatID() ;
+		String query = "SELECT * FROM ghealth.medicalfile WHERE idpatient='" + MF.getPatID()+"'" ;
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (!arrList.isEmpty()){
 			MF.exists = true;
@@ -39,7 +39,7 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 			MF.setNeuro((String)arrList.get(2));
 			MF.setGenyc((String)arrList.get(3));
 			MF.setOnco((String)arrList.get(4));
-			query = "SELECT * FROM ghealth.patient WHERE id=" + MF.getPatID() ;
+			query = "SELECT * FROM ghealth.patient WHERE id='" + MF.getPatID()+"'" ;
 			arrList = new ArrayList<Object>();
 			arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 			if (arrList.isEmpty()){
@@ -68,11 +68,41 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 			if (((MedicalFile)arg).exists){
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setText("Patient Name: " + mf.getPatName());
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setForeground(Color.BLACK);
+				MainClass.masterControler.RDCont.RequestDetailsview.btnEntireFile.setEnabled(true);
+				MainClass.masterControler.RDCont.RequestDetailsview.btnBySpec.setEnabled(true);
 			}
 			else{
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setText("Please enter valid patient ID.");
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setForeground(Color.RED);
+				MainClass.masterControler.RDCont.RequestDetailsview.btnEntireFile.setEnabled(false);
+				MainClass.masterControler.RDCont.RequestDetailsview.btnBySpec.setEnabled(false);
 			}
+		}
+	}
+	public String entireFileFormat(){
+		String str="";
+		str = str + "Patient name : " + mf.getPatName() + "  Patient ID = " + mf.getPatID();
+		str = str + "\n";
+		str = str + "Cardiology history : " + mf.getCardio();
+		str = str + "\n";
+		str = str + "Neurology history : " + mf.getNeuro();
+		str = str + "\n";
+		str = str + "Genycology history : " + mf.getGenyc();
+		str = str + "\n";
+		str = str + "Oncology history : " + mf.getOnco();
+		
+		return  str;
+	}
+	
+	public void manageComboBox(){
+		if (RequestDetailsview.specs.getSelectedItem().equals("Cardiology")){
+			RequestDetailsview.fileArea.setText("Cardiology history : " + mf.getCardio());
+		}else if (RequestDetailsview.specs.getSelectedItem().equals("Neurology")){
+			RequestDetailsview.fileArea.setText("Neurology history : " + mf.getNeuro());
+		}else if (RequestDetailsview.specs.getSelectedItem().equals("Genycology")){
+			RequestDetailsview.fileArea.setText("Genycology history : " + mf.getGenyc());
+		}else if (RequestDetailsview.specs.getSelectedItem().equals("Oncology")){
+			RequestDetailsview.fileArea.setText("Oncology history : " + mf.getOnco());
 		}
 	}
 }

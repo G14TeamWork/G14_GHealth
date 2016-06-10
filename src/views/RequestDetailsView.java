@@ -20,6 +20,9 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import javax.swing.JComboBox;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class RequestDetailsView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +30,9 @@ public class RequestDetailsView extends JPanel {
 	public JTextArea fileArea ;
 	public JTextField idrec;
 	public JLabel errorlbl; 
+	public JComboBox specs;
+	public JButton btnEntireFile;
+	public JButton btnBySpec;
 	
 	public RequestDetailsView() {
 		setLayout(null);
@@ -47,25 +53,34 @@ public class RequestDetailsView extends JPanel {
 				fileArea.setText("");
 				idrec.setText("");
 				errorlbl.setText("");
+				specs.setVisible(false);
+				MainClass.masterControler.RDCont.mf=null;
 				MainClass.masterControler.setView(
 						MainClass.masterControler.EXPVCont.expview);
 			}
 		});
-		btnBack.setBounds(490, 440, 140, 55);
+		btnBack.setBounds(490, 466, 140, 55);
 		add(btnBack);
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
-		JButton btnEntireFile = new JButton("View entire medical file");
+		btnEntireFile = new JButton("View entire medical file");
+		btnEntireFile.setEnabled(false);
 		btnEntireFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				specs.setVisible(false);
+				if (MainClass.masterControler.RDCont.mf != null){
+					fileArea.setText(MainClass.masterControler.RDCont.entireFileFormat());
+				}
 			}
 		});
 		btnEntireFile.setBounds(488, 274, 142, 55);
 		add(btnEntireFile);
 		
-		JButton btnBySpec = new JButton("View by speciality");
+		btnBySpec = new JButton("View by speciality");
+		btnBySpec.setEnabled(false);
 		btnBySpec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				specs.setVisible(true);
 			}
 		});
 		btnBySpec.setBounds(490, 356, 140, 55);
@@ -76,7 +91,7 @@ public class RequestDetailsView extends JPanel {
 		fileArea.setEditable(false);
 		fileArea.setLineWrap(true);
 		fileArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		fileArea.setBounds(70, 315, 394, 180);
+		fileArea.setBounds(75, 315, 389, 206);
 		add(fileArea);
 	
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");
@@ -87,7 +102,9 @@ public class RequestDetailsView extends JPanel {
 		JButton searchIcon = new JButton("");
 		searchIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (idrec.getText().equals("")){//////////////////////////////////////////////////////////////////////////////
+				specs.setVisible(false);
+				specs.setSelectedItem("");
+				if (idrec.getText().equals("")){
 					errorlbl.setForeground(Color.RED);
 					errorlbl.setText("Please enter patient id!");
 				} else MainClass.masterControler.RDCont.getMedicalFile(idrec.getText()); 
@@ -112,6 +129,24 @@ public class RequestDetailsView extends JPanel {
 		errorlbl.setFont(new Font("Tahoma", Font.BOLD, 17));
 		errorlbl.setBounds(70, 255, 255, 28);
 		add(errorlbl);
+		
+		specs = new JComboBox();
+		specs.addItem("");
+		specs.addItem("Cardiology");
+		specs.addItem("Neurology");
+		specs.addItem("Genycology");
+		specs.addItem("Oncology");
+		specs.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if((e.getStateChange()==ItemEvent.SELECTED)&&(!(((String)specs.getSelectedItem()).equals(""))))
+						MainClass.masterControler.RDCont.manageComboBox();
+				else fileArea.setText("");
+			}
+		});
+
+		specs.setBounds(490, 422, 140, 33);
+		specs.setVisible(false);
+		add(specs);
 
 	}
 }

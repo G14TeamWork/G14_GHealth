@@ -107,7 +107,7 @@ public class RecordAppointView extends JPanel {
 				}
 			}
 		});
-		btnSave.setBounds(493, 348, 140, 55);
+		btnSave.setBounds(493, 348, 132, 55);
 		add(btnSave);
 			
 		JLabel lblAppointmentRecord = new JLabel("Appointment Record :");

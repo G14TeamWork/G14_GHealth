@@ -243,7 +243,7 @@ public class GHealthServer extends ObservableServer{
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		
 		
-		Max = Min = (((Date)arrList.get(2)).getTime() + ((Time)arrList.get(3)).getTime() ) - ( ((Time)arrList.get(0)).getTime() + ((Date)arrList.get(1)).getTime() ) ;
+		Max = Min = (((Date)arrList.get(3)).getTime() + ((Time)arrList.get(2)).getTime() ) - ( ((Time)arrList.get(1)).getTime() + ((Date)arrList.get(0)).getTime() ) ;
 		Avg = Sd = Cut = 0;
 
 		for (int i  = 0 ; i < arrList.size() ; i+=4)

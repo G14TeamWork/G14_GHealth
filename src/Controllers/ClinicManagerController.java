@@ -35,7 +35,7 @@ public class ClinicManagerController implements Observer,IRefresh  {
 	public void returnExpertClinic()
 	{
 		PRE.setTaskToDo("search clinic id");
-		PRE.setId(MainClass.masterControler.LoginCont.loginEntity.getUsername());
+		PRE.setId(Integer.valueOf(MainClass.masterControler.LoginCont.loginEntity.getUsername()));
 		 MainClass.ghealth.sendMessegeToServer(PRE);
 	}
 	

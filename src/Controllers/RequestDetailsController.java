@@ -39,21 +39,16 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 			MF.setNeuro((String)arrList.get(2));
 			MF.setGenyc((String)arrList.get(3));
 			MF.setOnco((String)arrList.get(4));
-			
 			query = "SELECT * FROM ghealth.patient WHERE id=" + MF.getPatID() ;
-			
 			arrList = new ArrayList<Object>();
 			arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-			
 			if (arrList.isEmpty()){
 				MF.exists = false;
 			}
 			else MF.setPatName((String)arrList.get(1)+" "+(String)arrList.get(2));
 		}
 		else
-			MF.exists = false;
-	
-	
+			MF.exists = false;	
 	}
 	
 	@Override
@@ -70,7 +65,6 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 			mf.setOnco(((MedicalFile)arg).getOnco());
 			mf.setNeuro(((MedicalFile)arg).getNeuro());
 			mf.setPatName(((MedicalFile)arg).getPatName());
-			
 			if (((MedicalFile)arg).exists){
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setText("Patient Name: " + mf.getPatName());
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setForeground(Color.BLACK);

@@ -45,6 +45,8 @@ public class RequestDetailsView extends JPanel {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fileArea.setText("");
+				idrec.setText("");
+				errorlbl.setText("");
 				MainClass.masterControler.setView(
 						MainClass.masterControler.EXPVCont.expview);
 			}
@@ -86,7 +88,6 @@ public class RequestDetailsView extends JPanel {
 		searchIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (idrec.getText().equals("")){//////////////////////////////////////////////////////////////////////////////
-					//System.out.println("in the IF, REQDETVIEW, LINE 89, getTEXT ==\"\"");
 					errorlbl.setForeground(Color.RED);
 					errorlbl.setText("Please enter patient id!");
 				} else MainClass.masterControler.RDCont.getMedicalFile(idrec.getText()); 
@@ -107,7 +108,7 @@ public class RequestDetailsView extends JPanel {
 		add(idrec);
 		idrec.setColumns(10);
 		
-		errorlbl = new JLabel("New label");
+		errorlbl = new JLabel("");
 		errorlbl.setFont(new Font("Tahoma", Font.BOLD, 17));
 		errorlbl.setBounds(70, 255, 255, 28);
 		add(errorlbl);

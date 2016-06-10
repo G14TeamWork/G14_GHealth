@@ -95,7 +95,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		arrList.clear();
 	}
 	
-	public void AddNewPatient(Patient pat)
+	public void AddNewPatientSql(Patient pat)
 	{
 		String query = "";
 		query = "INSERT INTO ghealth.patient (id, firstname, lastname, phone, email, address)"+
@@ -107,6 +107,10 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		"\", \""+pat.getAddress()+"\");";
 		
 		GHealthServer.sqlConn.sendSqlUpdate(query);
+		query = "INSERT INTO ghealth.medicalfile (idpatient) "+
+				"VALUES ("+pat.getId()+");";
+		GHealthServer.sqlConn.sendSqlUpdate(query);
+		
 	}
 	
 	public void searchExperts(String Expertise) {
@@ -147,14 +151,12 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 
 
 	public void searchAvailableAppointmentHours(java.sql.Date date) {
-		// TODO Auto-generated method stub
 		SAapp.app.setAppdate(date);
 		SAapp.setTask("searchAvailableAppointmentHours");
 		MainClass.ghealth.sendMessegeToServer(SAapp);
 	}
 	
 	public void searchAvailableAppointmentHoursSql(SetAppointmentEntity msg) {
-	///TODO
 		String query = "";
 		query = "SELECT idappointment,start,end FROM ghealth.appointments WHERE idexpert="+((SetAppointmentEntity)msg).app.getIdexpert()+" AND appstatus=0 AND appdate='"+((SetAppointmentEntity)msg).app.getAppdate()+"'";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
@@ -170,6 +172,29 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		arrList.clear();
 	}
 
+	public void setNewAppointment(Integer expID, String patID,
+			java.sql.Date appDate, String appStart, String appEnd) {
+		AppToSet.setIdexpert(expID);
+		AppToSet.setIdpatient(patID);
+		AppToSet.setAppdate(appDate);
+		AppToSet.setStartS(appStart);
+		AppToSet.setEndS(appEnd);
+		AppToSet.setAppstatus("1");
+		MainClass.ghealth.sendMessegeToServer(AppToSet);
+	}
+	
+	public void SetAppointmentSql(Appointment appointment) {
+		// TODO Auto-generated method stub
+/*		String query="UPDATE ghealth. SET status=0 " +
+				"WHERE username =" + LE.getUsername();
+		GHealthServer.sqlConn.sendSqlUpdate(query);
+		
+		UPDATE ghealth.appointments          ////////      מנסה לעדכן בלי מפתח!! נוט גוד
+SET idpatient=1234, appstatus=1
+WHERE idexpert=8 AND appdate=2014-06-21 AND start=080000 AND end=083000
+		*/
+		
+	}	
 	
 	@Override
 	public void refreshView() {
@@ -297,7 +322,6 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 			}
 			else if(((SetAppointmentEntity)arg).getTask().equals("searchAvailableAppointmentHours"))
 			{
-				///TODO
 				SetAppointmentview.comboBox_AvailableAppointmentsHours.removeAllItems();
 				for (int i  = 0 ; i < ((SetAppointmentEntity)arg).HourList.size() ; i +=2)
 				{
@@ -306,6 +330,13 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 					}	
 			}
 			((SetAppointmentEntity)arg).setTask("");
+		}
+		if(arg instanceof Appointment)
+		{
+			//TODO
+			JOptionPane.showMessageDialog(null,"New appointment was scheduled");
+			MainClass.masterControler.setView(
+					MainClass.masterControler.DISCont.dispatcherview);
 		}
 	}
 }

@@ -216,9 +216,14 @@ public class GHealthServer extends ObservableServer{
 					SMC.CACont.deleteAppintmentSQL(((CancelAppointmentEntity)msg));
 				break;
 			case "Patient":
-				SMC.SACont.AddNewPatient((Patient)msg);
+				SMC.SACont.AddNewPatientSql((Patient)msg);
 				break;		
-				}
+				
+			case "Appointment":
+				//TODO
+				SMC.SACont.SetAppointmentSql(((Appointment)msg));
+				break;
+		}
 			
 			sendBackToClient(msg,client);	
 		}

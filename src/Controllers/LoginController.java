@@ -217,7 +217,6 @@ public void setConnectionButton(String state){
 				System.out.println("Usertype: Clinic Manager");
 				MainClass.masterControler.setView(CMC.clinicmanagerview);
 				MainClass.masterControler.CMCont.clinicmanagerview.lblClinicManagername.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
-				MainClass.masterControler.CMCont.
 				break;
 			case "gmanager":
 				System.out.println("Usertype: General Manager");

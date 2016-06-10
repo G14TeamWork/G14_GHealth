@@ -12,7 +12,7 @@ public class FillTestResEntity implements Serializable{
 	public boolean showbuttonflag;
 	public String TestRes="";
 	public String TestType="";
-	public String PhotoPath="";
+	public String PhotoPath="photo-not-available";
 	//public File PhotoFile;
 	public boolean updateFlag = false;
 	//public boolean testResultsFlag = false;

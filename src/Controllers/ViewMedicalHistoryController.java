@@ -35,7 +35,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	{
 		VHEnt1 = new ViewHistoryEntity();
 		VHEnt1.pat.setId(ViewMedicalHistoryview.textFieldid.getText());
-		 MainClass.ghealth.sendMessegeToServer(VHEnt1);
+		MainClass.ghealth.sendMessegeToServer(VHEnt1);
 	}
 	public void checkExistanceSql(ViewHistoryEntity VHEnt)
 	{
@@ -114,7 +114,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	*/
 	@Override
 	public void refreshView() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -125,14 +125,13 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 		{
 			if (((ViewHistoryEntity)arg).testResultsFlag)
 			{
-				System.out.println(((ViewHistoryEntity)arg).arrTest+ "111111111111111");
+				System.out.println(((ViewHistoryEntity)arg).arrTest);
 				VHEnt1.arrTest=(ArrayList<Object>) ((ViewHistoryEntity)arg).arrTest;
-				VHEnt1.arrTest.toString();
+				
+				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.removeAllItems();;
 				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem("");
 				for (int i=0;i<VHEnt1.arrTest.size();i+=4)
-				{
 					MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem(VHEnt1.arrTest.get(0+i)+" "+VHEnt1.arrTest.get(1+i));
-				}
 				MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewLabResuview);
 			}
 			else 

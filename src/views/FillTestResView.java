@@ -41,7 +41,7 @@ public class FillTestResView extends JPanel {
 	public JTextArea  textField_TestResult;
 	public JButton 	  btnSave;
 	public JButton	  btnAddPhoto;
-	public String file_path;
+	public String file_path="photo-not-available";
 	//public File file;
 	public JLabel textField_first;
 	public JComboBox comboBox_test;
@@ -54,7 +54,7 @@ public class FillTestResView extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
-		file_path="";
+		file_path="photo-not-available";
 		JLabel lblExpert = new JLabel("Filling Test Result");
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
 		lblExpert.setBounds(247, 134, 222, 47);
@@ -63,7 +63,7 @@ public class FillTestResView extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				file_path="";
+				file_path="photo-not-available";
 				MainClass.masterControler.setView(
 						MainClass.masterControler.LWCont.labworkerview);
 			}
@@ -169,7 +169,7 @@ public class FillTestResView extends JPanel {
 		comboBox_test.setAlignmentX(CENTER_ALIGNMENT);
 		comboBox_test.setSelectedItem("");
 		comboBox_test.addItem("Blood");
-		comboBox_test.addItem("Rentgen");
+		comboBox_test.addItem("Rentgen");//הוספת בדיקות
 		comboBox_test.setVisible(false);
 		add(comboBox_test);
 		

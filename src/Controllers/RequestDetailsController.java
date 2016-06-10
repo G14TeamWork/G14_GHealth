@@ -70,6 +70,14 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setForeground(Color.BLACK);
 				MainClass.masterControler.RDCont.RequestDetailsview.btnEntireFile.setEnabled(true);
 				MainClass.masterControler.RDCont.RequestDetailsview.btnBySpec.setEnabled(true);
+				if(mf.getCardio()==null) 
+					mf.setCardio("No cardiology history.");
+				if(mf.getNeuro()==null)
+					mf.setNeuro("No neurology history.");
+				if(mf.getGenyc()==null) 
+					mf.setGenyc("No cardiology history.");
+				if(mf.getOnco()==null)
+					mf.setOnco("No neurology history.");
 			}
 			else{
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setText("Please enter valid patient ID.");
@@ -81,15 +89,16 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 	}
 	public String entireFileFormat(){
 		String str="";
-		str = str + "Patient name : " + mf.getPatName() + "  Patient ID = " + mf.getPatID();
-		str = str + "\n";
-		str = str + "Cardiology history : " + mf.getCardio();
-		str = str + "\n";
-		str = str + "Neurology history : " + mf.getNeuro();
-		str = str + "\n";
-		str = str + "Genycology history : " + mf.getGenyc();
-		str = str + "\n";
-		str = str + "Oncology history : " + mf.getOnco();
+		
+		str = str + "Patient name : \t" + mf.getPatName() + "  \tPatient ID = " + mf.getPatID();
+		str = str + "\n\n";
+		str = str + "Cardiology history : \t" + mf.getCardio();
+		str = str + "\n\n";
+		str = str + "Neurology history : \t" + mf.getNeuro();
+		str = str + "\n\n";
+		str = str + "Genycology history : \t" + mf.getGenyc();
+		str = str + "\n\n";
+		str = str + "Oncology history : \t" + mf.getOnco();
 		
 		return  str;
 	}

@@ -107,7 +107,9 @@ public class ExpView extends JPanel {
 		btnRequstDetails = new JButton();
 		btnRequstDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-					MainClass.masterControler.setView(
+				MainClass.masterControler.RDCont.RequestDetailsview.btnBySpec.setEnabled(false);
+				MainClass.masterControler.RDCont.RequestDetailsview.btnEntireFile.setEnabled(false);
+				MainClass.masterControler.setView(
 						MainClass.masterControler.RDCont.RequestDetailsview,MainClass.masterControler.RDCont);
 			}
 		});

@@ -22,12 +22,9 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 	}
 	
 	public void checkApp(String appID1){
-	//	RAE = new RecordAppointmentEntity(appID1,"search");
 		RAE1.appID=appID1;
 		RAE1.taskToDo="search";
 		MainClass.ghealth.sendMessegeToServer(RAE1);
-		//System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
-		//RAE.appointment.getIdpatient();
 	}
 	public void checkAppSQL(RecordAppointmentEntity rae) {
 		ArrayList<Object> arrList = new ArrayList<Object>();
@@ -37,27 +34,18 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 			rae.appointment.setIdpatient(String.valueOf((int)arrList.get(2)));
 		else
 			rae.appointment.setIdpatient(null);
-		//System.out.println(rae.appointment.getIdpatient());
 	}
 	
 	@Override
 	public void refreshView() {
-		//MainClass.masterControler.setView(
-			//	MainClass.masterControler.RACont.RecordAppointview,
-			//		MainClass.masterControler.RACont);
-			//MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview);
+		
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-			if(arg instanceof RecordAppointmentEntity){
+			if(arg instanceof RecordAppointmentEntity)
 				if(((RecordAppointmentEntity)arg).taskToDo.equals("search")){
-					System.out.println(((RecordAppointmentEntity)arg).appointment.getIdpatient());
 					MainClass.masterControler.EXPVCont.RAE1.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
-				}else{
-					
-				}
-				//refreshView();
 		}
 		
 	}

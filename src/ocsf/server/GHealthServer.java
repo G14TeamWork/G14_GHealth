@@ -7,9 +7,16 @@ import java.awt.Color;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.*;
+import java.time.*;
+
+import com.mysql.jdbc.ResultSetMetaData;
 
 import mainPackage.MainClass;
 import ocsf.client.GHealthClient;
@@ -55,6 +62,7 @@ public class GHealthServer extends ObservableServer{
 		StartServer(5555);
 		ConnectToSQL("root","Braude");
 		sendAutoEmailAlert();
+		autoInsertToRef(1234);
 		
 		
 		
@@ -142,6 +150,12 @@ public class GHealthServer extends ObservableServer{
 	
 			case "String":
 				break;
+				
+			case"MedicalFile":
+			{
+				SMC.RDCont.serverGetMedicalFile((MedicalFile)msg);
+			}
+				break; 
 			case "RecordAppointmentEntity":
 			{	
 				if(((RecordAppointmentEntity)msg).taskToDo.equals("search")){
@@ -209,53 +223,125 @@ public class GHealthServer extends ObservableServer{
 			
 		
 	//}
+	
+	public static void autoInsertToRef(int idclinic)
+	{
+		
+		ArrayList<Object> arrList = new ArrayList<Object>();
+		Calendar calendar = Calendar.getInstance();
+		int day = calendar.get(Calendar.DAY_OF_WEEK);
+		long Max,Min,Avg,corent,Sd;
+		int Cut;
+
+		
+		String query = "SELECT ghealth.appointments.dispatcherSettingDate,"
+		+"ghealth.appointments.dispatcherSettingHour,ghealth.appointments.appdate,ghealth.appointments.start"
+		+" FROM ghealth.appointments"
+		+" WHERE ghealth.appointments.appstatus = 2 and ghealth.appointments.appdate = current_date() and ghealth.appointments.idclinic="+String.valueOf(idclinic)+";";
+		
+		
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		
+		
+		Max = Min = (((Date)arrList.get(2)).getTime() + ((Time)arrList.get(3)).getTime() ) - ( ((Time)arrList.get(1)).getTime() + ((Date)arrList.get(0)).getTime() ) ;
+		Avg = Sd = Cut = 0;
+
+		for (int i  = 0 ; i < arrList.size() ; i+=4)
+		{
+			corent =(((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i+1)).getTime() + ((Date)arrList.get(i)).getTime() ) ;
+			Max = Max >= corent ? Max : corent;
+			Min = Min <= corent ? Min : corent;
+			Avg += corent;
+			Cut++;
+			
+		}
+		Avg = (Avg /(long)Cut);
+			
+		for (int i  = 0 ; i < arrList.size() ; i+=4)
+		{
+			corent = (((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i+1)).getTime() + ((Date)arrList.get(i)).getTime() - Avg) ;
+			Sd += Math.pow(corent,(long)2.0);
+		}
+		Sd = Sd/(long)(Cut);
+		Sd =  (long)Math.sqrt(Sd);
+		String newRow = "INSERT INTO ghealth.daylyreport (idclinic, day, clientstreated, maxwaittime, minwitetime, avgwaittime, sdwaittime)"
+				+" VALUES ("+String.valueOf(idclinic)+","+String.valueOf(day)+","+String.valueOf(Cut)+","+String.valueOf(Max)+","+String.valueOf(Min)+","+String.valueOf(Avg)+","+String.valueOf(Sd)+");";
+		GHealthServer.sqlConn.sendSqlUpdate(newRow);
+		
+		long diffSeconds = Avg / 1000 % 60;
+		long diffMinutes = Avg / (60 * 1000) % 60;
+		long diffHours = Avg / (60 * 60 * 1000) % 24;
+		long diffDays = Avg / (24 * 60 * 60 * 1000);
+		
+		System.out.print(diffDays + " days, ");
+		System.out.print(diffHours + " hours, ");
+		System.out.print(diffMinutes + " minutes, ");
+		System.out.print(diffSeconds + " seconds.");
+		
+		diffSeconds = Max / 1000 % 60;
+		diffMinutes = Max / (60 * 1000) % 60;
+		diffHours = Max / (60 * 60 * 1000) % 24;
+		diffDays = Max / (24 * 60 * 60 * 1000);
+		
+		System.out.print(diffDays + " days, ");
+		System.out.print(diffHours + " hours, ");
+		System.out.print(diffMinutes + " minutes, ");
+		System.out.print(diffSeconds + " seconds.");
+	}
 
 	public static void sendAutoEmailAlert()	
 	{
+		long timeOut = 600000;
 			Thread t = new Thread(new Runnable() {
 				@Override
 				public void run() {
 					
-					ArrayList<Object> arrList = new ArrayList<Object>();
-					String query =	"select ghealth.appointments.idappointment,ghealth.appointments.dispatcherSettingHour,ghealth.patient.email,"
-									+"ghealth.expert.experties,ghealth.users.firstname,ghealth.users.lastname,"
-									+"ghealth.clinic.Name,ghealth.clinic.Address,ghealth.clinic.Phone,ghealth.appointments.sentemail,"
-									+"ghealth.patient.firstname,ghealth.patient.lastname "
-									+"FROM "
-									+"ghealth.expert,ghealth.patient,ghealth.appointments,ghealth.users,ghealth.clinic "
-									+"WHERE "
-									+"ghealth.appointments.appdate  = current_date()+ INTERVAL +1 DAY and ghealth.expert.id = ghealth.appointments.idexpert "
-									+"and ghealth.patient.id  = ghealth.appointments.idpatient and ghealth.users.username = ghealth.appointments.idexpert "
-									+"and ghealth.clinic.idclinic = ghealth.appointments.idclinic and ghealth.appointments.sentemail = 0";
-							
-					String query2  = "UPDATE ghealth.appointments SET ghealth.appointments.sentemail=1 WHERE ghealth.appointments.idappointment=";
-					
-					arrList = GHealthServer.sqlConn.sendSqlQuery(query);		
-					
-					for(int i = 0 ; i < arrList.size() ; i +=12)
+					while(true)
 					{
-						System.out.println(arrList.get(0));
-						GHealthServer.sqlConn.sendSqlUpdate(query2+String.valueOf(arrList.get(i))+";");
-						// mail: 		ghealthg14@gmail.com
-						// password: 	g14ghealth
-						SendEmail.sendFromGMail("ghealthg14@gmail.com", "g14ghealth"
-								,(String)arrList.get(i+2) , "Alert appointment with a specialist",
-								"Hello "+(String)arrList.get(i+10)+" "+(String)arrList.get(i+11)
-								+"\nTomorrow you will have an appointment at "+(Time)arrList.get(i+1)
-								+" with our "+(String)arrList.get(i+3)
-								+" "+(String)arrList.get(i+4)+" "+(String)arrList.get(i+5)
-								+"\nin clinic: "+(String)arrList.get(i+6)
-								+"\nAddress: "+(String)arrList.get(i+7)
-								+"\nClinic phone number: "+(String)arrList.get(i+8)
-								+"\nThank you,\n     Ghealth");
-					}
-					
-			
-					
+							ArrayList<Object> arrList = new ArrayList<Object>();
+							String query =	"select ghealth.appointments.idappointment,ghealth.appointments.dispatcherSettingHour,ghealth.patient.email,"
+											+"ghealth.expert.experties,ghealth.users.firstname,ghealth.users.lastname,"
+											+"ghealth.clinic.Name,ghealth.clinic.Address,ghealth.clinic.Phone,ghealth.appointments.sentemail,"
+											+"ghealth.patient.firstname,ghealth.patient.lastname "
+											+"FROM "
+											+"ghealth.expert,ghealth.patient,ghealth.appointments,ghealth.users,ghealth.clinic "
+											+"WHERE "
+											+"ghealth.appointments.appdate  = current_date()+ INTERVAL +1 DAY and ghealth.expert.id = ghealth.appointments.idexpert "
+											+"and ghealth.patient.id  = ghealth.appointments.idpatient and ghealth.users.username = ghealth.appointments.idexpert "
+											+"and ghealth.clinic.idclinic = ghealth.appointments.idclinic and ghealth.appointments.appstatus = 1 and ghealth.appointments.sentemail = 0";
+									
+							String query2  = "UPDATE ghealth.appointments SET ghealth.appointments.sentemail=1 WHERE ghealth.appointments.idappointment=";
+							
+							arrList = GHealthServer.sqlConn.sendSqlQuery(query);		
+							
+							for(int i = 0 ; i < arrList.size() ; i +=12)
+							{
+								System.out.println(arrList.get(0));
+								GHealthServer.sqlConn.sendSqlUpdate(query2+String.valueOf(arrList.get(i))+";");
+								// mail: 		ghealthg14@gmail.com
+								// password: 	g14ghealth
+								SendEmail.sendFromGMail("ghealthg14@gmail.com", "g14ghealth"
+										,(String)arrList.get(i+2) , "Alert appointment with a specialist",
+										"Hello "+(String)arrList.get(i+10)+" "+(String)arrList.get(i+11)
+										+"\nTomorrow you will have an appointment at "+(Time)arrList.get(i+1)
+										+" with our "+(String)arrList.get(i+3)
+										+" "+(String)arrList.get(i+4)+" "+(String)arrList.get(i+5)
+										+"\nin clinic: "+(String)arrList.get(i+6)
+										+"\nAddress: "+(String)arrList.get(i+7)
+										+"\nClinic phone number: "+(String)arrList.get(i+8)
+										+"\nThank you,\n     Ghealth");
+							}
+							
+							try {
+								Thread.sleep(timeOut);
+								} catch (InterruptedException e) {
+								e.printStackTrace();
+								}
+					}	
 				}
 			});
 			t.setPriority(Thread.MIN_PRIORITY);
-		//	t.start(); **************************************************************************************************
+			t.start();
 	}			
 		
 	

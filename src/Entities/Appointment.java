@@ -13,7 +13,9 @@ public class Appointment implements Serializable{
 	private Date appdate;
 	private String AppdateString;
 	private Time start;
+	private String startS;
 	private Time end;
+	private String endS;
 	private String appstatus;
 	private String record;
 	private float price;
@@ -104,5 +106,16 @@ public class Appointment implements Serializable{
 	public String getAppdateString() {
 		return AppdateString;
 	}
-
+	public String getStartS() {
+		return startS;
+	}
+	public void setStartS(String startS) {
+		this.startS = startS;
+	}
+	public String getEndS() {
+		return endS;
+	}
+	public void setEndS(String endS) {
+		this.endS = endS;
+	}
 }

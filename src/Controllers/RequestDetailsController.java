@@ -1,17 +1,50 @@
 package Controllers;
 
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import ocsf.server.GHealthServer;
+import mainPackage.MainClass;
 import views.RequestDetailsView;
 import Controllers.IRefresh;
+import Entities.MedicalFile;
 
 public class RequestDetailsController implements Observer,IRefresh  {
 	public RequestDetailsView RequestDetailsview;
+	public MedicalFile mf;
 	
 	public RequestDetailsController() {
 		RequestDetailsview = new RequestDetailsView();
 	}
+	
+	public void getMedicalFile(String patID){
+		mf = new MedicalFile(patID);
+		MainClass.ghealth.sendMessegeToServer(mf);
+	}
+	
+	public void serverGetMedicalFile(MedicalFile MF){
+		ArrayList<Object> arrList = new ArrayList<Object>();
+		String query = "SELECT * FROM ghealth.medicalfile WHERE idpatient =" + MF.getPatID() ;
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		if (!arrList.isEmpty()){
+			MF.exists = true;
+			MF.setCardio((String)arrList.get(1));
+			MF.setNeuro((String)arrList.get(2));
+			MF.setGenyc((String)arrList.get(3));
+			MF.setOnco((String)arrList.get(4));
+			query = "SELECT firstname, lastname FROM ghealth.patient WHERE idpatient =" + MF.getPatID() ;
+			arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+			if (arrList.isEmpty())
+				MF.exists = false;
+			else MF.setPatName((String)arrList.get(0)+(String)arrList.get(1));
+		}
+		else
+			MF.exists = false;
+	
+	}
+	
 	@Override
 	public void refreshView() {
 		// TODO Auto-generated method stub
@@ -20,6 +53,21 @@ public class RequestDetailsController implements Observer,IRefresh  {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		if (arg instanceof MedicalFile){
+			mf.setCardio(((MedicalFile)arg).getCardio());
+			mf.setGenyc(((MedicalFile)arg).getGenyc());
+			mf.setOnco(((MedicalFile)arg).getOnco());
+			mf.setNeuro(((MedicalFile)arg).getNeuro());
+			mf.setPatName(((MedicalFile)arg).getPatName());
+			
+			if (mf.exists){
+				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setText("Patient Name: " + mf.getPatName());
+				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setForeground(Color.BLACK);
+			}
+			else{
+				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setText("Please enter valid patient ID.");
+				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setForeground(Color.RED);
+			}
+		}
 	}
 }

@@ -3,11 +3,15 @@ package Entities;
 public class MedicalFile {
 
 	private String patID;
-	private String genyc;
-	private String onco;
 	private String cardio;
 	private String neuro;
+	private String genyc;
+	private String onco;
+	private String patName;
 	
+	public boolean exists; //flag
+	
+/**constructors*/
 	public MedicalFile(){
 		
 	}
@@ -15,7 +19,7 @@ public class MedicalFile {
 		this.patID=patID;
 	}
 	
-	
+/**getters setters*/	
 	public String getPatID() {
 		return patID;
 	}
@@ -45,5 +49,11 @@ public class MedicalFile {
 	}
 	public void setNeuro(String neuro) {
 		this.neuro = neuro;
+	}
+	public String getPatName() {
+		return patName;
+	}
+	public void setPatName(String patName) {
+		this.patName = patName;
 	}
 }

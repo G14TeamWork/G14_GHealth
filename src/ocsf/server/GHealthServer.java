@@ -154,9 +154,8 @@ public class GHealthServer extends ObservableServer{
 			case"MedicalFile":
 			{
 				SMC.RDCont.serverGetMedicalFile((MedicalFile)msg);
-				
-				
 			}
+				break; 
 			case "RecordAppointmentEntity":
 			{	
 				if(((RecordAppointmentEntity)msg).taskToDo.equals("search")){

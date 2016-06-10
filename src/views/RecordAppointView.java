@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 
 public class RecordAppointView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -35,6 +36,9 @@ public class RecordAppointView extends JPanel {
 	public JLabel appNoLabel;
 	public JLabel startHourLabel;
 	public JCheckBox notappear;
+	public JComboBox rtypes;
+	public JButton btnproduce;
+	public JButton btnProduceLabReference ;
 	//public RecordAppointView(){};
 	public RecordAppointView() {
 		//appNo = JOptionPane.showInputDialog(null,"Enter appointment number : ");
@@ -48,24 +52,26 @@ public class RecordAppointView extends JPanel {
 		notappear = new JCheckBox("Patient didn't appear");
 		notappear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(notappear.isSelected())
+				if(notappear.isSelected()){
+					
 					record.setEditable(false);
+				}
 				else record.setEditable(true);
 			}
 		});
-		notappear.setBounds(229, 230, 140, 24);
+		notappear.setBounds(33, 229, 140, 24);
 		add(notappear);
 		
 		record = new JTextArea();
 		record.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		record.setForeground(Color.BLACK);
 		record.setLineWrap(true);
-		record.setBounds(28, 273, 435, 206);
+		record.setBounds(33, 273, 435, 206);
 		add(record);
 		
 		JLabel lblExpert = new JLabel("Record Appointment");
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(192, 136, 243, 89);
+		lblExpert.setBounds(160, 126, 243, 59);
 		add(lblExpert);
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -80,7 +86,7 @@ public class RecordAppointView extends JPanel {
 				}
 			}
 		});
-		btnCancel.setBounds(493, 424, 140, 55);
+		btnCancel.setBounds(478, 424, 155, 55);
 		add(btnCancel);
 		btnCancel.setIcon(null);
 		
@@ -107,25 +113,38 @@ public class RecordAppointView extends JPanel {
 				}
 			}
 		});
-		btnSave.setBounds(493, 348, 132, 55);
+		btnSave.setBounds(478, 358, 155, 55);
 		add(btnSave);
 			
 		JLabel lblAppointmentRecord = new JLabel("Appointment Record :");
 		lblAppointmentRecord.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblAppointmentRecord.setBounds(28, 225, 173, 29);
+		lblAppointmentRecord.setBounds(33, 193, 173, 29);
 		add(lblAppointmentRecord);
 		
-		appNoLabel = new JLabel("");
-		appNoLabel.setBounds(493, 212, 132, 22);
+		appNoLabel = new JLabel("ap");
+		appNoLabel.setBounds(243, 196, 155, 22);
 		add(appNoLabel);
 		
-		idPatientLabel = new JLabel("");
-		idPatientLabel.setBounds(493, 268, 132, 22);
+		idPatientLabel = new JLabel("pt");
+		idPatientLabel.setBounds(243, 218, 155, 22);
 		add(idPatientLabel);
 		
-		startHourLabel = new JLabel("");
-		startHourLabel.setBounds(493, 301, 132, 22);
+		startHourLabel = new JLabel("hr");
+		startHourLabel.setBounds(243, 240, 155, 22);
 		add(startHourLabel);
+		
+		btnProduceLabReference = new JButton("Produce Lab Reference");
+		btnProduceLabReference.setBounds(478, 169, 155, 59);
+		add(btnProduceLabReference);
+		
+		rtypes = new JComboBox();
+		
+		rtypes.setBounds(478, 241, 155, 35);
+		add(rtypes);
+		
+		btnproduce = new JButton("Produce");
+		btnproduce.setBounds(478, 296, 155, 40);
+		add(btnproduce);
 			
 	}
 	public JSeparator getSeparator() {

@@ -243,12 +243,12 @@ public class GHealthServer extends ObservableServer{
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		
 		
-		Max = Min = (((Date)arrList.get(3)).getTime() + ((Time)arrList.get(2)).getTime() ) - ( ((Time)arrList.get(1)).getTime() + ((Date)arrList.get(0)).getTime() ) ;
+		Max = Min = (((Date)arrList.get(2)).getTime() + ((Time)arrList.get(3)).getTime() ) - ( ((Time)arrList.get(1)).getTime() + ((Date)arrList.get(0)).getTime() ) ;
 		Avg = Sd = Cut = 0;
 
 		for (int i  = 0 ; i < arrList.size() ; i+=4)
 		{
-			corent =(((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i)).getTime() + ((Date)arrList.get(i+1)).getTime() ) ;
+			corent =(((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i+1)).getTime() + ((Date)arrList.get(i)).getTime() ) ;
 			Max = Max >= corent ? Max : corent;
 			Min = Min <= corent ? Min : corent;
 			Avg += corent;
@@ -259,7 +259,7 @@ public class GHealthServer extends ObservableServer{
 			
 		for (int i  = 0 ; i < arrList.size() ; i+=4)
 		{
-			corent =(((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i)).getTime() + ((Date)arrList.get(i+1)).getTime() ) ;
+			corent = (((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i+1)).getTime() + ((Date)arrList.get(i)).getTime() ) ;
 			Sd += Math.pow(corent,(long)2.0);
 		}
 		Sd = Sd/(long)(Cut);

@@ -38,7 +38,7 @@ import javax.swing.JTextArea;
 public class viewLabResuView extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	public static String photoPath="";
+	public static String photoPath="photo-not-available";
 	public JPanel panel1;
 	public JPanel panel2;
 	public JLabel labelPatName;
@@ -46,6 +46,9 @@ public class viewLabResuView extends JPanel {
 	public JComboBox comboBoxChooseTest;
 	private JLabel lblLblphoto;
 	private JButton btnBiggerPhoto;
+	public JTextArea txtrTestresult;
+	public  String testRes;
+	public  String selectedItem="";
 	public viewLabResuView() {
 		
 		this.setBounds(0, 0, 677, 562);
@@ -64,6 +67,12 @@ public class viewLabResuView extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//String id = MainClass.masterControler.VMHCont.VHEnt1.pat.getId();
+				//MainClass.masterControler.VMHCont.VHEnt1.
+				//MainClass.masterControler.VMHCont.VHEnt1.testResultsFlag=false;
+				MainClass.masterControler.VMHCont.setVHEnt_Patient();
+				//MainClass.masterControler.VMHCont.VHEnt1.arrTest.clear();
+				MainClass.masterControler.VMHCont.askForTestResultSql(MainClass.masterControler.VMHCont.VHEnt1);;
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VMHCont.ViewMedicalHistoryview);
 			}
@@ -88,7 +97,10 @@ public class viewLabResuView extends JPanel {
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				if (tabbedPane.getSelectedComponent()==panel2)
+				{
+					//btnBiggerPhoto.setEnabled(false);
 					btnBiggerPhoto.setVisible(true);
+				}
 				else btnBiggerPhoto.setVisible(false);
 			}
 		});
@@ -101,7 +113,8 @@ public class viewLabResuView extends JPanel {
 		panel1.setLayout(null);
 		tabbedPane.addTab("result", null, panel1, null);
 		
-		JTextArea txtrTestresult = new JTextArea();
+	    txtrTestresult = new JTextArea();
+	    txtrTestresult.setEditable(false);
 		txtrTestresult.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtrTestresult.setBounds(0, 0, 598, 188);
 		panel1.add(txtrTestresult);
@@ -128,7 +141,27 @@ public class viewLabResuView extends JPanel {
 		comboBoxChooseTest.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBoxChooseTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if ((selectedItem=(String) comboBoxChooseTest.getSelectedItem())!= "")
+				{
+					lblLblphoto.setIcon(new GUIimage("photo-not-available", lblLblphoto.getWidth(), lblLblphoto.getHeight()).image);
+					MainClass.masterControler.VLRCont.viewLabResuview.txtrTestresult.setText("");
+					
+					int testResIndex = (comboBoxChooseTest.getSelectedIndex()-1)*4+2 ;
+				    testRes = (String) MainClass.masterControler.VMHCont.VHEnt1.arrTest.get(testResIndex);
+					MainClass.masterControler.VLRCont.viewLabResuview.txtrTestresult.append(testRes);
+					photoPath=(String)MainClass.masterControler.VMHCont.VHEnt1.arrTest.get(testResIndex+1);
+					if (photoPath!="photo-not-available")
+					{
+						btnBiggerPhoto.setEnabled(true);
+						lblLblphoto.setIcon(new GUIimage(photoPath, lblLblphoto.getWidth(), lblLblphoto.getHeight()).image);
+					}
+					else 
+						{
+							photoPath="photo-not-available";
+							lblLblphoto.setIcon(new GUIimage(photoPath, lblLblphoto.getWidth(), lblLblphoto.getHeight()).image);
+							btnBiggerPhoto.setEnabled(false);
+						}
+				}
 			}
 		});
 		comboBoxChooseTest.setBounds(398, 212, 245, 29);

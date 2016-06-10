@@ -202,7 +202,6 @@ public void setConnectionButton(String state){
 				System.out.println("Usertype: Expert");
 				MainClass.masterControler.setView(EVC.expview,EVC);//???
 				MainClass.masterControler.EXPVCont.expview.lblExpname.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
-
 				break;
 			case "dis":
 				System.out.println("Usertype: Dispatcher");
@@ -218,6 +217,7 @@ public void setConnectionButton(String state){
 				System.out.println("Usertype: Clinic Manager");
 				MainClass.masterControler.setView(CMC.clinicmanagerview);
 				MainClass.masterControler.CMCont.clinicmanagerview.lblClinicManagername.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
+				MainClass.masterControler.CMCont.
 				break;
 			case "gmanager":
 				System.out.println("Usertype: General Manager");

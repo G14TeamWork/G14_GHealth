@@ -74,14 +74,16 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		
 		String date = new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime());;
 	    String filledtime = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-		//String filledtime = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+		if (FTRpat.PhotoPath.contains("."))
+			FTRpat.PhotoPath=FTRpat.PhotoPath.substring(0, FTRpat.PhotoPath.lastIndexOf("."));
+		System.out.println(FTRpat.PhotoPath);
+
 		query = "INSERT INTO ghealth.test_results (patientid, date, filledtime, testtype, testresult, photo, labworker)"+
 		"VALUES ("+FTRpat.pat.getId()+
 		", \""+date+"\""+
 		", \""+ filledtime+"\""+
 		", \""+FTRpat.TestType+
 		"\", \""+FTRpat.TestRes+
-		//"\", \""+FTRpat.PhotoFile+
 		"\", \""+FTRpat.PhotoPath+
 		"\", \""+labworker+"\");";
 		FTRpat.updateFlag=true;

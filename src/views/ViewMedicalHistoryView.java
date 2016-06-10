@@ -7,15 +7,14 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+
 import mainPackage.MainClass;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
-import java.io.File;
 
 public class ViewMedicalHistoryView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +23,7 @@ public class ViewMedicalHistoryView extends JPanel {
 	public JButton 	  btnViewLabHis;
 	public JButton	  btnViewmedicalHis;
 	public JLabel     textField_patname;
+	public String 	  id;
 	public ViewMedicalHistoryView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -40,13 +40,12 @@ public class ViewMedicalHistoryView extends JPanel {
 		btnViewLabHis = new JButton("View lab history");
 		btnViewLabHis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				MainClass.masterControler.setView(
-							MainClass.masterControler.VLRCont.viewLabResuview,
+						MainClass.masterControler.VLRCont.viewLabResuview,
 							MainClass.masterControler.VLRCont);	
 				MainClass.masterControler.VLRCont.viewLabResuview.labelPatName.setText(textField_patname.getText());
-				//MainClass.masterControler.VLRCont.getTestResults();
-				MainClass.masterControler.VMHCont.getTestResults();
+				
+				MainClass.masterControler.VLRCont.getTestResults();
 			}
 		});
 		btnViewLabHis.setBounds(479, 306, 151, 53);
@@ -94,6 +93,7 @@ public class ViewMedicalHistoryView extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				textField_patname.setVisible(true);
+				id=textFieldid.getText();
 				MainClass.masterControler.VMHCont.setVHEnt_Patient();
 			}
 		});

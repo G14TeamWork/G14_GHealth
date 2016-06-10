@@ -202,7 +202,6 @@ public void setConnectionButton(String state){
 				System.out.println("Usertype: Expert");
 				MainClass.masterControler.setView(EVC.expview,EVC);//???
 				MainClass.masterControler.EXPVCont.expview.lblExpname.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
-
 				break;
 			case "dis":
 				System.out.println("Usertype: Dispatcher");

@@ -9,9 +9,10 @@ public class ViewHistoryEntity implements Serializable{
 	public boolean showbuttonflag;
 	public String date;
 	public boolean photoflag=false;
-	public String PhotoPath="";
-	public boolean testResultsFlag = false;
-	public ArrayList<Object> arrTest;
+	//public String PhotoPath="photo-not-available";
+	//public boolean testResultsFlag = false;
+	//public ArrayList<Object> arrTest;
+	
 	
 
 }

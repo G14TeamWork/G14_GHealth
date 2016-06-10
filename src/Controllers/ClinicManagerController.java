@@ -17,6 +17,7 @@ import javax.mail.internet.MimeMessage;
 
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
+import Entities.ProduceReportEntity;
 import Entities.SendEmail;
 import views.ClinicManagerView;
 import views.DispatcherView;
@@ -26,12 +27,29 @@ import Entities.Appointment;
 
 public class ClinicManagerController implements Observer,IRefresh  {
 	public ClinicManagerView clinicmanagerview;
-	
+	private ProduceReportEntity PRE = new ProduceReportEntity();
 	public ClinicManagerController() {
 		clinicmanagerview = new ClinicManagerView();
 	}
 	
+	public void returnExpertClinic()
+	{
+		PRE.setTaskToDo("search clinic id");
+		PRE.setId(Integer.valueOf(MainClass.masterControler.LoginCont.loginEntity.getUsername()));
+		 MainClass.ghealth.sendMessegeToServer(PRE);
+	}
 	
+	public ProduceReportEntity getPRE() {
+		return PRE;
+	}
+
+	public void setPRE(ProduceReportEntity pRE) {
+		PRE = pRE;
+	}
+
+	public void createDaylyReport() {
+		
+	}
 	
 	
 	

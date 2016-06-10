@@ -62,7 +62,7 @@ public class GHealthServer extends ObservableServer{
 		StartServer(5555);
 		ConnectToSQL("root","Braude");
 		sendAutoEmailAlert();
-		autoInsertToRef(1);
+		autoInsertToRef(1234);
 		
 		
 		
@@ -230,7 +230,7 @@ public class GHealthServer extends ObservableServer{
 		String query = "SELECT ghealth.appointments.dispatcherSettingDate,"
 		+"ghealth.appointments.dispatcherSettingHour,ghealth.appointments.appdate,ghealth.appointments.start"
 		+" FROM ghealth.appointments"
-		+" WHERE ghealth.appointments.appstatus = 2 and ghealth.appointments.appdate = current_date() and ghealth.appointments.idclinic"+String.valueOf(idclinic)+";";
+		+" WHERE ghealth.appointments.appstatus = 2 and ghealth.appointments.appdate = current_date() and ghealth.appointments.idclinic="+String.valueOf(idclinic)+";";
 		
 		
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);

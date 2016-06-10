@@ -8,6 +8,7 @@ import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.viewLabResuView;
 import Controllers.IRefresh;
+import Entities.ViewHistoryEntity;
 import Entities.ViewLabResEntity;
 
 public class viewLabResuControlller implements Observer,IRefresh  {
@@ -16,6 +17,34 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	public viewLabResuControlller() {
 		viewLabResuview = new viewLabResuView();
 	}
+	
+	public void getTestResults()
+	{
+		VLREnt1=new ViewLabResEntity();
+		VLREnt1.testResultsFlag=true;
+		VLREnt1.pat.setId(MainClass.masterControler.VMHCont.VHEnt1.pat.getId());
+		MainClass.ghealth.sendMessegeToServer(VLREnt1);
+	}
+	
+	public void askForTestResultSql(ViewLabResEntity VLREnt)
+	{
+		String query = "";
+		query = "SELECT date ,testtype, testresult,photo FROM ghealth.test_results WHERE "
+				+ "patientid = \"" + VLREnt.pat.getId() + "\"";
+		ArrayList<Object> arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		if (arrList.isEmpty())
+		{
+			System.out.println("noooooooooo");
+			VLREnt.testResultsFlag=false;
+		}
+		else
+		{
+			VLREnt.testResultsFlag=true;
+			VLREnt.arrTest=arrList;
+			//arrList.clear();
+		}
+	}
+	
 	/*
 	public void getTestResults()
 	{
@@ -56,15 +85,17 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	{
 		if (arg instanceof ViewLabResEntity)
 		{
-			/*
-			VLREnt1.arrTest=((ViewLabResEntity)arg).arrTest;
-			for (int i=0;i<VLREnt1.arrTest.size();i+=3)
+			//if (((ViewHistoryEntity)arg).testResultsFlag)
 			{
-				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem(VLREnt1.arrTest.get(0+i)+" "+VLREnt1.arrTest.get(1+i));
+				System.out.println(((ViewLabResEntity)arg).arrTest);
+				VLREnt1.arrTest=(ArrayList<Object>) ((ViewLabResEntity)arg).arrTest;
 				
+				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.removeAllItems();;
+				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem("");
+				for (int i=0;i<VLREnt1.arrTest.size();i+=4)
+					MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem(VLREnt1.arrTest.get(0+i)+" "+VLREnt1.arrTest.get(1+i));
+				MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewLabResuview);
 			}
-			MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewLabResuview);
-			*/
 		}
 	}
 }

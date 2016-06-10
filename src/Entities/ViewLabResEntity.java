@@ -10,6 +10,9 @@ public class ViewLabResEntity implements Serializable{
 	//public String PhotoPath="";
 	//public boolean testResultsFlag = false;
     //public ArrayList<Object> arrTest;
+	public boolean testResultsFlag=false;
+	public ArrayList<Object> arrTest;
+	public String PhotoPath="photo-not-available";
 	
 
 }

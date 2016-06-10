@@ -167,12 +167,16 @@ public class GHealthServer extends ObservableServer{
 				}
 			}
 				break;
-				
+			case "ViewLabResEntity":
+			{
+				 if (((ViewLabResEntity)msg).testResultsFlag)
+					 SMC.VLRCont.askForTestResultSql((ViewLabResEntity)msg);
+			}
+				break;
 			case "ViewHistoryEntity":
 				//if(!((ViewHistoryEntity)msg).photoflag)
-				 if (((ViewHistoryEntity)msg).testResultsFlag)
-					 SMC.VMHCont.askForTestResultSql((ViewHistoryEntity)msg);
-				 else
+				
+				 //else
 					SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);		
 				break;
 				

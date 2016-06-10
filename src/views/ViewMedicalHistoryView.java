@@ -12,13 +12,9 @@ import mainPackage.MainClass;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
-import java.io.File;
-import java.util.ArrayList;
 
 public class ViewMedicalHistoryView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -44,14 +40,12 @@ public class ViewMedicalHistoryView extends JPanel {
 		btnViewLabHis = new JButton("View lab history");
 		btnViewLabHis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-	
-				//view =new  MainClass.masterControler.VLRCont.viewLabResuView();//????
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VLRCont.viewLabResuview,
 							MainClass.masterControler.VLRCont);	
 				MainClass.masterControler.VLRCont.viewLabResuview.labelPatName.setText(textField_patname.getText());
-				//MainClass.masterControler.VMHCont.VHEnt1.arrTest.clear();
-				MainClass.masterControler.VMHCont.getTestResults();
+				
+				MainClass.masterControler.VLRCont.getTestResults();
 			}
 		});
 		btnViewLabHis.setBounds(479, 306, 151, 53);

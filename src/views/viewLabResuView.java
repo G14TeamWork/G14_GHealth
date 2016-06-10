@@ -26,6 +26,9 @@ import java.io.InputStream;
 
 import javax.swing.border.BevelBorder;
 
+import Controllers.ViewMedicalHistoryController;
+import Controllers.viewLabResuControlller;
+
 import com.alee.laf.progressbar.WebProgressBar;
 
 import javax.swing.SwingConstants;
@@ -66,22 +69,10 @@ public class viewLabResuView extends JPanel {
 
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.textField_patname.setVisible(false);
-				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.textFieldid.setText(MainClass.masterControler.VMHCont.ViewMedicalHistoryview.id);
-				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.btnViewLabHis.setEnabled(false);
-				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(false);
-				MainClass.masterControler.VMHCont.setVHEnt_Patient();
+			public void actionPerformed(ActionEvent arg0) {
 					MainClass.masterControler.setView(
 						MainClass.masterControler.VMHCont.ViewMedicalHistoryview,MainClass.masterControler.VMHCont);
-				//String id = MainClass.masterControler.VMHCont.VHEnt1.pat.getId();
-				//MainClass.masterControler.VMHCont.VHEnt1.
-				//MainClass.masterControler.VMHCont.VHEnt1.testResultsFlag=false;
-				//MainClass.masterControler.VMHCont.setVHEnt_Patient();
-				//MainClass.masterControler.VMHCont.VHEnt1.arrTest.clear();
-				//MainClass.masterControler.VMHCont.askForTestResultSql(MainClass.masterControler.VMHCont.VHEnt1);
-			//	MainClass.masterControler.setView(
-					//	MainClass.masterControler.VMHCont.ViewMedicalHistoryview);
+			
 			}
 		});
 		btnBack.setBounds(479, 455, 151, 55);
@@ -154,9 +145,9 @@ public class viewLabResuView extends JPanel {
 					MainClass.masterControler.VLRCont.viewLabResuview.txtrTestresult.setText("");
 					
 					int testResIndex = (comboBoxChooseTest.getSelectedIndex()-1)*4+2 ;
-				    testRes = (String) MainClass.masterControler.VMHCont.VHEnt1.arrTest.get(testResIndex);
+				    testRes = (String) MainClass.masterControler.VLRCont.VLREnt1.arrTest.get(testResIndex);
 					MainClass.masterControler.VLRCont.viewLabResuview.txtrTestresult.append(testRes);
-					photoPath=(String)MainClass.masterControler.VMHCont.VHEnt1.arrTest.get(testResIndex+1);
+					photoPath=(String)MainClass.masterControler.VLRCont.VLREnt1.arrTest.get(testResIndex+1);
 					if (photoPath!="photo-not-available")
 					{
 						btnBiggerPhoto.setEnabled(true);

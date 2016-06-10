@@ -169,7 +169,14 @@ public class FillTestResView extends JPanel {
 		comboBox_test.setAlignmentX(CENTER_ALIGNMENT);
 		comboBox_test.setSelectedItem("");
 		comboBox_test.addItem("Blood");
-		comboBox_test.addItem("Rentgen");//הוספת בדיקות
+		comboBox_test.addItem("rentgen - hand");
+		comboBox_test.addItem("rentgen - chest");
+		comboBox_test.addItem("rentgen - basin");
+		comboBox_test.addItem("ct - neck");
+		comboBox_test.addItem("ct - brain");
+		comboBox_test.addItem("mri - brain");
+		comboBox_test.addItem("mri - knee");
+		comboBox_test.addItem("mri - shoulder");
 		comboBox_test.setVisible(false);
 		add(comboBox_test);
 		

@@ -26,14 +26,16 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	private static final long serialVersionUID = 1L;
 	public ViewMedicalHistoryView ViewMedicalHistoryview;
 	public ViewHistoryEntity VHEnt1;
-	ArrayList<Object> arrList = new ArrayList<>();
+	ArrayList<Object> arrList;
 	public ViewMedicalHistoryController() {
 		ViewMedicalHistoryview = new ViewMedicalHistoryView();
 	}
 	
 	public void setVHEnt_Patient()
 	{
+	
 		VHEnt1 = new ViewHistoryEntity();
+		arrList = new ArrayList<>();
 		VHEnt1.pat.setId(ViewMedicalHistoryview.textFieldid.getText());
 		MainClass.ghealth.sendMessegeToServer(VHEnt1);
 	}
@@ -57,32 +59,6 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 		}
 	}
 	
-	public void getTestResults()
-	{
-		//VHEnt1=new ViewHistoryEntity();
-		VHEnt1.testResultsFlag=true;
-		VHEnt1.pat.setId(MainClass.masterControler.VMHCont.VHEnt1.pat.getId());
-		 MainClass.ghealth.sendMessegeToServer(VHEnt1);
-	}
-	
-	public void askForTestResultSql(ViewHistoryEntity VHEnt)
-	{
-		String query = "";
-		query = "SELECT date ,testtype, testresult,photo FROM ghealth.test_results WHERE "
-				+ "patientid = \"" + VHEnt.pat.getId() + "\"";
-		ArrayList<Object> arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		if (arrList.isEmpty())
-		{
-			System.out.println("noooooooooo");
-			VHEnt.testResultsFlag=false;
-		}
-		else
-		{
-			VHEnt.testResultsFlag=true;
-			VHEnt.arrTest=arrList;
-			//arrList.clear();
-		}
-	}
 	
 	
 	/*
@@ -112,10 +88,10 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 		}
 	}
 	*/
+
 	@Override
 	public void refreshView() {
-		
-		
+		//
 	}
 
 	@Override
@@ -123,6 +99,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	{
 		if (arg instanceof ViewHistoryEntity)
 		{
+			/*
 			if (((ViewHistoryEntity)arg).testResultsFlag)
 			{
 				System.out.println(((ViewHistoryEntity)arg).arrTest);
@@ -133,8 +110,8 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 				for (int i=0;i<VHEnt1.arrTest.size();i+=4)
 					MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem(VHEnt1.arrTest.get(0+i)+" "+VHEnt1.arrTest.get(1+i));
 				MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewLabResuview);
-			}
-			else 
+			}*/
+			//else 
 			{
 				VHEnt1.pat.setFirstname(((ViewHistoryEntity) arg).pat.getFirstname());
 				VHEnt1.pat.setLastname(((ViewHistoryEntity) arg).pat.getLastname());

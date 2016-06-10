@@ -72,7 +72,7 @@ public class viewLabResuView extends JPanel {
 				//MainClass.masterControler.VMHCont.VHEnt1.testResultsFlag=false;
 				MainClass.masterControler.VMHCont.setVHEnt_Patient();
 				//MainClass.masterControler.VMHCont.VHEnt1.arrTest.clear();
-				MainClass.masterControler.VMHCont.askForTestResultSql(MainClass.masterControler.VMHCont.VHEnt1);;
+				//MainClass.masterControler.VMHCont.askForTestResultSql(MainClass.masterControler.VMHCont.VHEnt1);
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VMHCont.ViewMedicalHistoryview);
 			}

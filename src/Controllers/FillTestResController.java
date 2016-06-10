@@ -62,7 +62,6 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	{
 		FTRpat1.TestRes=FillTestResview.textField_TestResult.getText();
 		FTRpat1.TestType=(String)FillTestResview.comboBox_test.getSelectedItem();
-		//FTRpat1.PhotoPath=FillTestResview.file_path;
 		FTRpat1.PhotoPath=FillTestResview.file_path;
 		FTRpat1.updateFlag=true;
 		MainClass.ghealth.sendMessegeToServer(FTRpat1);

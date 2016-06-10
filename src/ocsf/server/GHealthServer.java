@@ -112,7 +112,7 @@ public class GHealthServer extends ObservableServer{
 
 		}catch (Exception ex){
 			//System.err.println("Sql Connection error");
-			}// exception thrown in the constructor if needed.
+			}
 		
 		if (sqlConn != null) {
 			String query = "UPDATE ghealth.users SET status=0";
@@ -155,16 +155,16 @@ public class GHealthServer extends ObservableServer{
 				break;
 				
 			case "ViewHistoryEntity":
-				if(((ViewHistoryEntity)msg).photoflag)
-					SMC.VMHCont.askPhotoFromTestResSql((ViewHistoryEntity)msg);
-				else 
-					SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);
+				//if(!((ViewHistoryEntity)msg).photoflag)
+				 if (((ViewHistoryEntity)msg).testResultsFlag)
+					 SMC.VMHCont.askForTestResultSql((ViewHistoryEntity)msg);
+				 else
+					SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);		
 				break;
 				
 			case "FillTestResEntity":
 				if(!((FillTestResEntity)msg).updateFlag)
 					SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
-				else SMC.FTRCont.insertTestResSql((FillTestResEntity)msg);
 				break;
 				
 			case "SetAppointmentEntity":

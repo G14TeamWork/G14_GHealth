@@ -121,7 +121,7 @@ public class GHealthClient extends ObservableClient{
 	public void addAllControllersAsObservers(MasterController master){
 		//addObserver(master.LoginCont);
 		addObserver(master.EXPVCont);
-		addObserver(master.FTRCont); //???
+		addObserver(master.FTRCont); 
 		addObserver(master.VRDCont);
 		addObserver(master.RACont);
 		addObserver(master.PMRCont);

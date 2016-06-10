@@ -33,6 +33,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JComboBox;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JTextArea;
 
 public class viewLabResuView extends JPanel {
 	
@@ -100,6 +101,11 @@ public class viewLabResuView extends JPanel {
 		panel1.setLayout(null);
 		tabbedPane.addTab("result", null, panel1, null);
 		
+		JTextArea txtrTestresult = new JTextArea();
+		txtrTestresult.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtrTestresult.setBounds(0, 0, 598, 188);
+		panel1.add(txtrTestresult);
+		
 		
 		panel2 = new JPanel();
 		panel2.setLayout(null);
@@ -119,15 +125,20 @@ public class viewLabResuView extends JPanel {
 		add(labelPatName);
 		
 		comboBoxChooseTest = new JComboBox();
-		comboBoxChooseTest.setBounds(398, 219, 245, 22);
-		comboBoxChooseTest.setEditable(true); 
+		comboBoxChooseTest.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		comboBoxChooseTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		comboBoxChooseTest.setBounds(398, 212, 245, 29);
 		comboBoxChooseTest.setAlignmentX(CENTER_ALIGNMENT);
 		comboBoxChooseTest.setSelectedItem("");
 		add(comboBoxChooseTest);
 		
 		lblTesttype = new JLabel("Choose test:");
 		lblTesttype.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblTesttype.setBounds(398, 192, 245, 22);
+		lblTesttype.setBounds(398, 191, 245, 22);
 		lblTesttype.setVisible(true);
 		add(lblTesttype);
 		

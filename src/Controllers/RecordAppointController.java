@@ -28,7 +28,11 @@ public class  RecordAppointController implements Observer,IRefresh, Serializable
 		MainClass.ghealth.sendMessegeToServer(RAE);
 	}
 	public void serverSaveRecord(RecordAppointmentEntity rae){
-		String query = "UPDATE ghealth.appointments SET appointments.record='" + rae.appointment.getRecord() + "' WHERE idappointment=" + rae.appID;
+		System.out.println(rae.appID);
+		String query = "UPDATE ghealth.appointments SET record='" + rae.appointment.getRecord() + 
+				"', appStatus='" + rae.appointment.getAppstatus() + "',realStart='"+ rae.appointment.getStartS()
+				+ "', realEnd='" + rae.appointment.getEndS() + "' WHERE idappointment=" + rae.appID;
+		System.out.println(query);
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 		//"UPDATE ghealth.users SET status=0 " +
 	//	"WHERE username =" + LE.getUsername();

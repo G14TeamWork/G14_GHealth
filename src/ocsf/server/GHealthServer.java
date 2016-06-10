@@ -120,7 +120,7 @@ public class GHealthServer extends ObservableServer{
 
 		}catch (Exception ex){
 			//System.err.println("Sql Connection error");
-			}// exception thrown in the constructor if needed.
+			}
 		
 		if (sqlConn != null) {
 			String query = "UPDATE ghealth.users SET status=0";
@@ -163,16 +163,16 @@ public class GHealthServer extends ObservableServer{
 				break;
 				
 			case "ViewHistoryEntity":
-				if(((ViewHistoryEntity)msg).photoflag)
-					SMC.VMHCont.askPhotoFromTestResSql((ViewHistoryEntity)msg);
-				else 
-					SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);
+				//if(!((ViewHistoryEntity)msg).photoflag)
+				 if (((ViewHistoryEntity)msg).testResultsFlag)
+					 SMC.VMHCont.askForTestResultSql((ViewHistoryEntity)msg);
+				 else
+					SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);		
 				break;
 				
 			case "FillTestResEntity":
 				if(!((FillTestResEntity)msg).updateFlag)
 					SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
-				else SMC.FTRCont.insertTestResSql((FillTestResEntity)msg);
 				break;
 				
 			case "SetAppointmentEntity":
@@ -183,12 +183,11 @@ public class GHealthServer extends ObservableServer{
 				{
 					if(((SetAppointmentEntity)msg).getTask().equals("searchExpert"))
 						SMC.SACont.searchExpertSql((SetAppointmentEntity)msg); 
-					else if(((SetAppointmentEntity)msg).getTask().equals("searchAvailableAppointment"))
-						SMC.SACont.searchAvailableAppointmentSql((SetAppointmentEntity)msg);
+					else if(((SetAppointmentEntity)msg).getTask().equals("searchAvailableAppointmentDates"))
+						SMC.SACont.searchAvailableAppointmentDatesSql((SetAppointmentEntity)msg);
+						else if(((SetAppointmentEntity)msg).getTask().equals("searchAvailableAppointmentHours"))
+							SMC.SACont.searchAvailableAppointmentHoursSql((SetAppointmentEntity)msg);
 				}
-						
-				
-				
 			}
 				break;
 				

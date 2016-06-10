@@ -20,6 +20,7 @@ import views.ViewMedicalHistoryView;
 import Controllers.IRefresh;
 import Entities.FillTestResEntity;
 import Entities.ViewHistoryEntity;
+import Entities.ViewLabResEntity;
 
 public class ViewMedicalHistoryController implements Observer,IRefresh,Serializable {
 	private static final long serialVersionUID = 1L;
@@ -55,6 +56,36 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 			arrList.clear();
 		}
 	}
+	
+	public void getTestResults()
+	{
+		//VHEnt1=new ViewHistoryEntity();
+		VHEnt1.testResultsFlag=true;
+		VHEnt1.pat.setId(MainClass.masterControler.VMHCont.VHEnt1.pat.getId());
+		 MainClass.ghealth.sendMessegeToServer(VHEnt1);
+	}
+	
+	public void askForTestResultSql(ViewHistoryEntity VHEnt)
+	{
+		String query = "";
+		query = "SELECT date ,testtype, testresult,photo FROM ghealth.test_results WHERE "
+				+ "patientid = \"" + VHEnt.pat.getId() + "\"";
+		ArrayList<Object> arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		if (arrList.isEmpty())
+		{
+			System.out.println("noooooooooo");
+			VHEnt.testResultsFlag=false;
+		}
+		else
+		{
+			VHEnt.testResultsFlag=true;
+			VHEnt.arrTest=arrList;
+			//arrList.clear();
+		}
+	}
+	
+	
+	/*
 	public void askPhoto_Patient()
 	{
 		VHEnt1.photoflag=true;
@@ -76,11 +107,11 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 		else
 		{
 			VHEnt.photoflag=true;////////
-			VHEnt.photo=((File)arrList.get(0));
+			VHEnt.PhotoPath=(String) arrList.get(0);
 			arrList.clear();
 		}
 	}
-	
+	*/
 	@Override
 	public void refreshView() {
 		// TODO Auto-generated method stub
@@ -92,31 +123,39 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	{
 		if (arg instanceof ViewHistoryEntity)
 		{
-			if (VHEnt1.photoflag)
+			if (((ViewHistoryEntity)arg).testResultsFlag)
 			{
-				//ViewMedicalHistoryview.photoPanel.add(new JLabel((Icon)VHEnt1.photo));
-			}
-			else
+				System.out.println(((ViewHistoryEntity)arg).arrTest+ "111111111111111");
+				VHEnt1.arrTest=(ArrayList<Object>) ((ViewHistoryEntity)arg).arrTest;
+				VHEnt1.arrTest.toString();
+				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem("");
+				for (int i=0;i<VHEnt1.arrTest.size();i+=4)
 				{
-					VHEnt1.pat.setFirstname(((ViewHistoryEntity) arg).pat.getFirstname());
-					VHEnt1.pat.setLastname(((ViewHistoryEntity) arg).pat.getLastname());
-					ViewMedicalHistoryview.textField_patname.setText("Patient name: "+ VHEnt1.pat.getFirstname()+" "+VHEnt1.pat.getLastname());
-					VHEnt1.showbuttonflag=((ViewHistoryEntity) arg).showbuttonflag;
-					VHEnt1.photoflag=((ViewHistoryEntity) arg).photoflag;
-					if (VHEnt1.showbuttonflag)
-					{
-						ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(true);
-						ViewMedicalHistoryview.btnViewLabHis.setEnabled(true);
-						ViewMedicalHistoryview.textField_patname.setForeground(Color.BLACK);
-					}
-					else 
-					{
-						ViewMedicalHistoryview.btnViewLabHis.setEnabled(false);
-						ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(false);
-						ViewMedicalHistoryview.textField_patname.setText("Error! enter valid patient ID!");
-						ViewMedicalHistoryview.textField_patname.setForeground(Color.RED);
-					}
+					MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem(VHEnt1.arrTest.get(0+i)+" "+VHEnt1.arrTest.get(1+i));
 				}
+				MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewLabResuview);
+			}
+			else 
+			{
+				VHEnt1.pat.setFirstname(((ViewHistoryEntity) arg).pat.getFirstname());
+				VHEnt1.pat.setLastname(((ViewHistoryEntity) arg).pat.getLastname());
+				ViewMedicalHistoryview.textField_patname.setText("Patient name: "+ VHEnt1.pat.getFirstname()+" "+VHEnt1.pat.getLastname());
+				VHEnt1.showbuttonflag=((ViewHistoryEntity) arg).showbuttonflag;
+				VHEnt1.photoflag=((ViewHistoryEntity) arg).photoflag;
+				if (VHEnt1.showbuttonflag)
+				{
+					ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(true);
+					ViewMedicalHistoryview.btnViewLabHis.setEnabled(true);
+					ViewMedicalHistoryview.textField_patname.setForeground(Color.BLACK);
+				}
+				else 
+				{
+					ViewMedicalHistoryview.btnViewLabHis.setEnabled(false);
+					ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(false);
+					ViewMedicalHistoryview.textField_patname.setText("Error! enter valid patient ID!");
+					ViewMedicalHistoryview.textField_patname.setForeground(Color.RED);	
+				}
+			}
 		}
 	}
 }

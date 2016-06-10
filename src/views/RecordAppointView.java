@@ -18,6 +18,9 @@ import java.awt.Font;
 import javax.swing.JTextPane;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
@@ -72,7 +75,8 @@ public class RecordAppointView extends JPanel {
 				if(JOptionPane.showConfirmDialog(null, "Cancel record?",null,JOptionPane.YES_NO_OPTION)==0){
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);
 					record.setText("");
-					
+					notappear.setSelected(false);
+					record.setEditable(true);
 				}
 			}
 		});
@@ -85,18 +89,21 @@ public class RecordAppointView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
 					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
-					if (notappear.isSelected())
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setStatus("2");
-					else{
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setStatus("1");
+					if (notappear.isSelected()){
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("3");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Patient didnt appear!");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setStartS("00:00:00");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS("00:00:00");
+					}else{
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("2");
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
-					//MainClass.masterControler.EXPVCont.RAE1.appointment.setStart(start);
-					//update start time end time TBD
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
 					}
 					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);//back to exp window
 					record.setText("");
 					notappear.setSelected(false);
+					record.setEditable(true);
 				}
 			}
 		});

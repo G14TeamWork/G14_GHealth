@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 import mainPackage.MainClass;
 
@@ -22,16 +21,10 @@ import Entities.Appointment;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.JComboBox;
-
-import com.alee.extended.date.DateSelectionListener;
-import com.alee.extended.date.WebDateField;
-import com.alee.laf.list.WebList;
-import com.alee.laf.scroll.WebScrollPane;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -55,13 +48,17 @@ public class SetAppointmentView extends JPanel {
 	public JLabel Jlabel_patientName;
 	public JComboBox comboBox_expertise;
 	public JComboBox comboBox_doctors;
+	public JComboBox comboBox_AvailableAppointmentsDates;
+	public JComboBox comboBox_AvailableAppointmentsHours;
 	public JLabel lblExpertType;
 	public JLabel lblDoctors;
+	public JLabel lblAvailableAppointmentsDates;
+	public JLabel lblAvailableAppointmentsHours;
 	public ArrayList<Integer> AppointmentIDList;
-	public final WebDateField datePickerfrom;
-	public WebList editableList;
-	public WebScrollPane WebScrollPane1;
 	public boolean Flag=true;
+	public boolean FLAGcomboBox_doctors=true;
+	public boolean FLAGcomboBox_expertise=true;
+	public boolean FLAGcomboBox_AvailableAppointmentsDates=false;
 	public SetAppointmentView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -232,9 +229,14 @@ public class SetAppointmentView extends JPanel {
 		comboBox_expertise.addItem("Neurologist");
 		comboBox_expertise.addItem("Oncologist");
 		comboBox_expertise.addItem("Orthopedic Surgeon");
+		comboBox_expertise.setEditable(false);
 		comboBox_expertise.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				MainClass.masterControler.SACont.searchExperts((String)comboBox_expertise.getSelectedItem());
+				if(FLAGcomboBox_expertise)
+				{
+					MainClass.masterControler.SACont.searchExperts((String)comboBox_expertise.getSelectedItem());
+					FLAGcomboBox_expertise=false;
+				}
 			}
 		});
 		comboBox_expertise.setVisible(false);
@@ -242,12 +244,53 @@ public class SetAppointmentView extends JPanel {
 		
 		comboBox_doctors = new JComboBox();
 		comboBox_doctors.setFont(new Font("Dialog", Font.PLAIN, 14));
-		comboBox_doctors.setEditable(true); 
+		comboBox_doctors.setEditable(false);
 		comboBox_doctors.setAlignmentX(CENTER_ALIGNMENT);
 		comboBox_doctors.setBounds(194, 291, 260, 28);
-		comboBox_expertise.setSelectedItem("");
+		comboBox_doctors.setSelectedItem("");
+		comboBox_doctors.addItemListener(new ItemListener() {
+	        public void itemStateChanged(ItemEvent arg0) {
+	        	if(FLAGcomboBox_doctors)
+	        	{
+	        		////TODO  arg0.getItemSelectable();
+	        		FLAGcomboBox_AvailableAppointmentsDates=false;
+	        		MainClass.masterControler.SACont.searchAvailableAppointmentDates(MainClass.masterControler.SACont.expIDlist.get(comboBox_doctors.getSelectedIndex()));
+	        		FLAGcomboBox_expertise=true;
+	        		FLAGcomboBox_doctors=true;
+	        	}
+	        }
+	    });
 		comboBox_doctors.setVisible(false);
 		add(comboBox_doctors);
+		
+		comboBox_AvailableAppointmentsDates = new JComboBox();
+		comboBox_AvailableAppointmentsDates.setFont(new Font("Dialog", Font.PLAIN, 14));
+		comboBox_AvailableAppointmentsDates.setEditable(false); 
+		comboBox_AvailableAppointmentsDates.setAlignmentX(CENTER_ALIGNMENT);
+		comboBox_AvailableAppointmentsDates.setBounds(194, 332, 260, 28);
+		comboBox_AvailableAppointmentsDates.setSelectedItem("");
+		comboBox_AvailableAppointmentsDates.addItemListener(new ItemListener() {
+	        public void itemStateChanged(ItemEvent arg0) {
+	        	if(FLAGcomboBox_AvailableAppointmentsDates)
+	        	{
+	        		FLAGcomboBox_AvailableAppointmentsDates=false;
+	        		MainClass.masterControler.SACont.searchAvailableAppointmentHours(/*MainClass.masterControler.SACont.expIDlist.get(comboBox_doctors.getSelectedIndex()),*/(Date)comboBox_AvailableAppointmentsDates.getSelectedItem());
+	        		FLAGcomboBox_expertise=true;
+	        		FLAGcomboBox_doctors=true;
+	        	}
+	        }
+	    });
+		comboBox_AvailableAppointmentsDates.setVisible(false);
+		add(comboBox_AvailableAppointmentsDates);
+
+		comboBox_AvailableAppointmentsHours = new JComboBox();
+		comboBox_AvailableAppointmentsHours.setFont(new Font("Dialog", Font.PLAIN, 14));
+		comboBox_AvailableAppointmentsHours.setEditable(false); 
+		comboBox_AvailableAppointmentsHours.setAlignmentX(CENTER_ALIGNMENT);
+		comboBox_AvailableAppointmentsHours.setBounds(194, 373, 260, 28);
+		comboBox_AvailableAppointmentsHours.setSelectedItem("");
+		comboBox_AvailableAppointmentsHours.setVisible(false);
+		add(comboBox_AvailableAppointmentsHours);
 		
 		lblExpertType = new JLabel("Choose expert type:");
 		lblExpertType.setFont(new Font("Dialog", Font.PLAIN, 16));
@@ -261,83 +304,29 @@ public class SetAppointmentView extends JPanel {
 		lblDoctors.setVisible(false);
 		add(lblDoctors);
 		
+		lblAvailableAppointmentsDates = new JLabel("Choose Date:");
+		lblAvailableAppointmentsDates.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblAvailableAppointmentsDates.setBounds(22, 332, 172, 28);
+		lblAvailableAppointmentsDates.setVisible(false);
+		add(lblAvailableAppointmentsDates);
+		
+		lblAvailableAppointmentsHours = new JLabel("Choose Hour:");
+		lblAvailableAppointmentsHours.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblAvailableAppointmentsHours.setBounds(22, 373, 172, 28);
+		lblAvailableAppointmentsHours.setVisible(false);
+		add(lblAvailableAppointmentsHours);
+		
 		btnSetAppointment = new JButton("Set Appointment");
 		btnSetAppointment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-			//	MainClass.masterControler.SACont.setNewPatient();
+			// TODO	MainClass.masterControler.SACont.setNewPatient();
 			}
 		});
 		btnSetAppointment.setBounds(490, 366, 140, 55);
 		btnSetAppointment.setVisible(false);
 		btnSetAppointment.setIcon(new GUIimage("calendarAdd",25,25).image);
 		add(btnSetAppointment);
-		
-		datePickerfrom = new WebDateField();
-		datePickerfrom.setBounds(336, 332, 118, 28);
-		String timeStamp = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
-		datePickerfrom.setInputPrompt(timeStamp);
-	    datePickerfrom.setInputPromptPosition ( SwingConstants.CENTER );
-/*	    datePickerfrom.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				Flag=true;
-			}
-		});*/
-	    datePickerfrom.addDateSelectionListener(new DateSelectionListener(){
-			@Override
-			public void dateSelected(Date date) {
-				if (Flag&&!comboBox_expertise.getSelectedItem().equals("")&& datePickerfrom.getDate()!=null) {
-					String timeStamp1 = new SimpleDateFormat("yyyyMMdd").format(datePickerfrom.getDate());
-					MainClass.masterControler.SACont.searchAvailableAppointment(MainClass.masterControler.SACont.expIDlist.get(comboBox_expertise.getSelectedIndex()),timeStamp1);
-					Flag=false;
-				}}});
-/*	    datePickerfrom.getDocument().addDocumentListener(new DocumentListener(){
-
-			public void changedUpdate(DocumentEvent arg0) {
-				tot();
-			}
-			public void insertUpdate(DocumentEvent arg0) {
-				tot();
-			}
-			public void removeUpdate(DocumentEvent arg0) {
-				tot();
-			}
-			public void tot() {
-				if (!comboBox_expertise.getSelectedItem().equals("")&& datePickerfrom.getDate()!=null) {
-					String timeStamp1 = new SimpleDateFormat("yyyyMMdd").format(datePickerfrom.getDate());
-					MainClass.masterControler.SACont.searchAvailableAppointment(MainClass.masterControler.SACont.expIDlist.get(comboBox_expertise.getSelectedIndex()),timeStamp1);
-				}
-/////////////////////////////////////////////////
-			}
-	    	
-	    });*/
-		add(datePickerfrom);
-		
-	       	editableList = new WebList ( createSampleData () );
-	        editableList.setVisibleRowCount ( 6 );
-	        editableList.setSelectedIndex ( 0 );
-	        editableList.setEditable ( false );
-	        WebScrollPane1 = new WebScrollPane ( editableList );
-	        WebScrollPane1.setBounds(50, 328, 250, 200);
-	        WebScrollPane1.setVisible(true);
-	        add(WebScrollPane1);
-	//        WebScrollPane1.removeAll();
 	    
 	}
-	public String[] createSampleData (ArrayList<Appointment> AppList)
-    {
-		String []st = new String[AppList.size()];
-		for (int i  = 0 ; i < AppList.size() ; i ++)
-		{
-			st[i]="Start Time: "+AppList.get(i).getStart()+", End Time: "+AppList.get(i).getEnd();
-			AppointmentIDList.add(i, Integer.valueOf(AppList.get(i).getIdappointment()));
-		}
-		return st;
-    }
-	public String[] createSampleData ()
-    {
-        
-		return new String[]{"aaa" };
-    }
 }

@@ -1,6 +1,7 @@
 package Entities;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class SetAppointmentEntity implements Serializable{
@@ -9,8 +10,9 @@ public class SetAppointmentEntity implements Serializable{
 	public Expert exp = new Expert();
 	public Appointment app = new Appointment();
 	private String task;
-	public ArrayList<Expert> expList=new ArrayList<Expert>();
+	public ArrayList<Expert> ExpList=new ArrayList<Expert>();
 	public ArrayList<Appointment> AppList=new ArrayList<Appointment>();
+	public ArrayList<Time> HourList=new ArrayList<Time>();
 	public String getTask() {
 		return task;
 	}

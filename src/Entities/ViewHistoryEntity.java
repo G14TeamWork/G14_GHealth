@@ -1,9 +1,7 @@
 package Entities;
 
-import java.io.File;
 import java.io.Serializable;
-
-import javax.swing.Icon;
+import java.util.ArrayList;
 
 public class ViewHistoryEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -11,7 +9,9 @@ public class ViewHistoryEntity implements Serializable{
 	public boolean showbuttonflag;
 	public String date;
 	public boolean photoflag=false;
-	public File photo;
+	public String PhotoPath="";
+	public boolean testResultsFlag = false;
+	public ArrayList<Object> arrTest;
 	
 
 }

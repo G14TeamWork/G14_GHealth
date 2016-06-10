@@ -12,9 +12,10 @@ public class Appointment implements Serializable{
 	private String idpatient;
 	private Date appdate;
 	private String AppdateString;
-	private String Status;
 	private Time start;
+	private String startS;
 	private Time end;
+	private String endS;
 	private String appstatus;
 	private String record;
 	private float price;
@@ -31,11 +32,8 @@ public class Appointment implements Serializable{
 		this.EX = new Expert(expertise,firstname,lastname);
 	}
 	
-	public Appointment(int idAppointment, Date date, Time time, Time time2) {
+	public Appointment(Date date) {
 		this.appdate=date;
-		this.start=time;
-		this.end=time2;
-		this.idappointment=String.valueOf(idAppointment);
 	}
 	public Expert getEX() {
 		return EX;
@@ -108,10 +106,16 @@ public class Appointment implements Serializable{
 	public String getAppdateString() {
 		return AppdateString;
 	}
-	public String getStatus() {
-		return Status;
+	public String getStartS() {
+		return startS;
 	}
-	public void setStatus(String status) {
-		Status = status;
+	public void setStartS(String startS) {
+		this.startS = startS;
+	}
+	public String getEndS() {
+		return endS;
+	}
+	public void setEndS(String endS) {
+		this.endS = endS;
 	}
 }

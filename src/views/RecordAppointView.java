@@ -18,6 +18,9 @@ import java.awt.Font;
 import javax.swing.JTextPane;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
@@ -87,15 +90,14 @@ public class RecordAppointView extends JPanel {
 				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
 					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
 					if (notappear.isSelected()){
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("2");
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Patient didn't appear!");
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setStart(null);
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setEnd(null);
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("3");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Patient didnt appear!");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setStartS("00:00:00");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS("00:00:00");
 					}else{
-						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("1");
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("2");
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
-						//MainClass.masterControler.EXPVCont.RAE1.appointment.setEnd();
-						//MainClass.masterControler.EXPVCont.RAE1.appointment.setStart();
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
 					}
 					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);//back to exp window

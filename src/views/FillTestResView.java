@@ -41,8 +41,8 @@ public class FillTestResView extends JPanel {
 	public JTextArea  textField_TestResult;
 	public JButton 	  btnSave;
 	public JButton	  btnAddPhoto;
-	//public String file_path="";
-	public File file;
+	public String file_path;
+	//public File file;
 	public JLabel textField_first;
 	public JComboBox comboBox_test;
 	public JLabel lblTesttype;
@@ -54,7 +54,7 @@ public class FillTestResView extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 126, 677, 12);
 		add(separator);
-		
+		file_path="";
 		JLabel lblExpert = new JLabel("Filling Test Result");
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
 		lblExpert.setBounds(247, 134, 222, 47);
@@ -63,7 +63,7 @@ public class FillTestResView extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				file=null;
+				file_path="";
 				MainClass.masterControler.setView(
 						MainClass.masterControler.LWCont.labworkerview);
 			}
@@ -119,8 +119,8 @@ public class FillTestResView extends JPanel {
 				if (filebutton.showOpenDialog(null)==JFileChooser.APPROVE_OPTION)
 				{
 					btnAddPhoto.setIcon(new GUIimage("vSign", 25, 23).image);
-					//file_path=filebutton.getSelectedFile().getPath();
-					file = filebutton.getSelectedFile().getAbsoluteFile();
+					file_path=filebutton.getSelectedFile().getName();
+					//file = filebutton.getSelectedFile().getAbsoluteFile();
 				}
 				else btnAddPhoto.setIcon(new GUIimage("xSign", 25, 23).image);
 				
@@ -135,7 +135,7 @@ public class FillTestResView extends JPanel {
 		textField_TestResult.setEditable(false);
 		textField_TestResult.setLineWrap(true);
 		textField_TestResult.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_TestResult.setBounds(32, 312, 390, 183);
+		textField_TestResult.setBounds(32, 312, 437, 183);
 		add(textField_TestResult);
 		
 		btnSave = new JButton("Save");

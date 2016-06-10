@@ -27,6 +27,7 @@ public class ViewMedicalHistoryView extends JPanel {
 	public JButton 	  btnViewLabHis;
 	public JButton	  btnViewmedicalHis;
 	public JLabel     textField_patname;
+	public String 	  id;
 	public ViewMedicalHistoryView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -98,6 +99,7 @@ public class ViewMedicalHistoryView extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				textField_patname.setVisible(true);
+				id=textFieldid.getText();
 				MainClass.masterControler.VMHCont.setVHEnt_Patient();
 			}
 		});

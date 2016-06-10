@@ -85,9 +85,11 @@ public class RequestDetailsView extends JPanel {
 		JButton searchIcon = new JButton("");
 		searchIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (idrec.getText()=="")//////////////////////////////////////////////////////////////////////////////
+				if (idrec.getText().equals("")){//////////////////////////////////////////////////////////////////////////////
+					//System.out.println("in the IF, REQDETVIEW, LINE 89, getTEXT ==\"\"");
 					errorlbl.setForeground(Color.RED);
 					errorlbl.setText("Please enter patient id!");
+				} else MainClass.masterControler.RDCont.getMedicalFile(idrec.getText()); 
 			}
 		});
 		searchIcon.addMouseListener(new MouseAdapter() {

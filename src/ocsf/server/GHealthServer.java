@@ -62,7 +62,7 @@ public class GHealthServer extends ObservableServer{
 		StartServer(5555);
 		ConnectToSQL("root","Braude");
 		sendAutoEmailAlert();
-		autoInsertToRef(1234);
+	//	autoInsertToRef(1234);
 		
 		
 		
@@ -223,7 +223,7 @@ public class GHealthServer extends ObservableServer{
 		
 	//}
 	
-	public static void autoInsertToRef(int idclinic)
+/*	public static void autoInsertToRef(int idclinic)
 	{
 		
 		ArrayList<Object> arrList = new ArrayList<Object>();
@@ -286,7 +286,7 @@ public class GHealthServer extends ObservableServer{
 		System.out.print(diffHours + " hours, ");
 		System.out.print(diffMinutes + " minutes, ");
 		System.out.print(diffSeconds + " seconds.");
-	}
+	}*/
 
 	public static void sendAutoEmailAlert()	
 	{

@@ -1,7 +1,10 @@
 package Entities;
 
-public class MedicalFile {
+import java.io.Serializable;
 
+public class MedicalFile implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String patID;
 	private String cardio;
 	private String neuro;

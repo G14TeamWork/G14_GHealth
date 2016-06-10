@@ -105,6 +105,8 @@ public class DispatcherView extends JPanel {
 				MainClass.masterControler.SACont.SetAppointmentview.lblAvailableAppointmentsHours.setVisible(false);
 				MainClass.masterControler.SACont.SetAppointmentview.comboBox_expertise.setVisible(false);
 				MainClass.masterControler.SACont.SetAppointmentview.comboBox_doctors.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.comboBox_AvailableAppointmentsDates.setVisible(false);
+				MainClass.masterControler.SACont.SetAppointmentview.comboBox_AvailableAppointmentsHours.setVisible(false);
 				MainClass.masterControler.SACont.SetAppointmentview.btnSetAppointment.setVisible(false);
 			}
 		});

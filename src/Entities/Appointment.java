@@ -30,11 +30,8 @@ public class Appointment implements Serializable{
 		this.EX = new Expert(expertise,firstname,lastname);
 	}
 	
-	public Appointment(int idAppointment, Date date, Time time, Time time2) {
+	public Appointment(Date date) {
 		this.appdate=date;
-		this.start=time;
-		this.end=time2;
-		this.idappointment=String.valueOf(idAppointment);
 	}
 	public Expert getEX() {
 		return EX;

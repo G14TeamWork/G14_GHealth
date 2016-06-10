@@ -259,7 +259,7 @@ public class GHealthServer extends ObservableServer{
 			
 		for (int i  = 0 ; i < arrList.size() ; i+=4)
 		{
-			corent = (((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i+1)).getTime() + ((Date)arrList.get(i)).getTime() ) ;
+			corent = (((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i+1)).getTime() + ((Date)arrList.get(i)).getTime() - Avg) ;
 			Sd += Math.pow(corent,(long)2.0);
 		}
 		Sd = Sd/(long)(Cut);
@@ -267,68 +267,26 @@ public class GHealthServer extends ObservableServer{
 		String newRow = "INSERT INTO ghealth.daylyreport (idclinic, day, clientstreated, maxwaittime, minwitetime, avgwaittime, sdwaittime)"
 				+" VALUES ("+String.valueOf(idclinic)+","+String.valueOf(day)+","+String.valueOf(Cut)+","+String.valueOf(Max)+","+String.valueOf(Min)+","+String.valueOf(Avg)+","+String.valueOf(Sd)+");";
 		GHealthServer.sqlConn.sendSqlUpdate(newRow);
-		System.out.println("enddddddd");
 		
-	/*
-		String query = "SELECT ghealth.appointments.idclinic,ghealth.appointments.dispatcherSettingDate,"
-						+"ghealth.appointments.dispatcherSettingHour,ghealth.appointments.appdate,ghealth.appointments.start"
-						+" FROM ghealth.appointments"
-						+" WHERE ghealth.appointments.idappointment=90;";//+String.valueOf(appid)+";";
-		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		System.out.println("sql1");
-		do{
-		query = "SELECT * FROM ghealth.daylyreport WHERE ghealth.daylyreport.day="+String.valueOf(day)+" and ghealth.daylyreport.idclinic =1234;";//"+String.valueOf((int)arrList.indexOf(0))+" ;";
-		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query);
-		System.out.println("sql2");
-		if(arrList2.isEmpty()) {
-			String newRow = "INSERT INTO `ghealth`.`daylyreport` (`idclinic`, `day`, `clientstreated`, `maxwaittime`, `minwitetime`, `avgwaittime`, `sdwaittime`)"
-					+" VALUES ("+"1234"+","+String.valueOf(day)+", '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');";
-			GHealthServer.sqlConn.sendSqlUpdate(newRow);
-		}
-		}while(arrList2.isEmpty());
-		query = "SELECT ghealth.appointments.dispatcherSettingDate,ghealth.appointments.dispatcherSettingHour,ghealth.appointments.appdate,ghealth.appointments.start"
-				+" FROM ghealth.appointments"
-				+" WHERE ghealth.appointments.appdate = current_date() and ghealth.appointments.idclinic = "+String.valueOf(((int)arrList.get(0)))+" and ghealth.appointments.appstatus =2;";
-		arrList3 = GHealthServer.sqlConn.sendSqlQuery(query);
+		long diffSeconds = Avg / 1000 % 60;
+		long diffMinutes = Avg / (60 * 1000) % 60;
+		long diffHours = Avg / (60 * 60 * 1000) % 24;
+		long diffDays = Avg / (24 * 60 * 60 * 1000);
 		
-		System.out.println("sql3");
-		corent = (((Date)arrList.get(3)).getTime() + ((Time)arrList.get(4)).getTime() ) - ( ((Time)arrList.get(2)).getTime() + ((Date)arrList.get(1)).getTime() ) ;
-		Max = ((Timestamp)arrList2.get(3)).getTime() ;
-		Min = ((Timestamp)arrList2.get(4)).getTime();
-		Avg  = ((Timestamp)arrList2.get(5)).getTime();
-		Sd = ((Timestamp)arrList2.get(5)).getTime();
-		System.out.println("Math");
-		Max = Max >= corent ? Max : corent;
-		Min = Min <= corent ? Min : corent;
-		Cut = ((int)arrList2.get(2))+1;
-		System.out.println("sets");
-		for (int i  = 0 ; i < arrList3.size() ; i+=4)
-			Sd += Math.pow( (( (((Date)arrList3.get(i+2)).getTime() + ((Time)arrList3.get(i+3)).getTime() )  - ((Date)arrList3.get(i)).getTime() + ((Time)arrList3.get(i+1)).getTime() ) - Avg),(long)2.0);
-		System.out.println("sd---->");
-		Sd +=Math.pow(corent - Avg,(long)2.0);
-		Sd = Sd/(long)(Cut);
-		System.out.println("pow");
-
-		 Avg = ((Cut * Avg) + corent ) / (Avg+1);
-		 System.out.println("Avg");
-		 Math.sqrt(Avg);
-		 System.out.println("sd end");
-		 Timestamp  min=new Timestamp(Min);
-		 Timestamp	max=new Timestamp(Max);
-		 Timestamp	avg=new Timestamp(Avg);
-		 Timestamp	sd =new Timestamp(Sd);
-		 System.out.println("convert to timestamp");
-		 
+		System.out.print(diffDays + " days, ");
+		System.out.print(diffHours + " hours, ");
+		System.out.print(diffMinutes + " minutes, ");
+		System.out.print(diffSeconds + " seconds.");
 		
-		 
-		 
-		String udpate = "UPDATE ghealth.daylyreport SET ghealth.daylyreport.idclinic="+String.valueOf(((int)arrList.get(0)))+",ghealth.daylyreport.day="+String.valueOf(day)+","
-				+"ghealth.daylyreport.clientstreated ="+String.valueOf(Cut)+",ghealth.daylyreport.maxwaittime='"+max.toString()+"',ghealth.daylyreport.minwitetime='"+min.toString()+"',ghealth.daylyreport.avgwaittime='"+avg.toString()+"',ghealth.daylyreport.sdwaittime='"+sd.toString()+"' WHERE ghealth.daylyreport.idclinic="+String.valueOf((int)arrList.get(0))+" and ghealth.daylyreport.day ="+String.valueOf(day)+";";
-
-		sqlConn.sendSqlUpdate(udpate);
-		System.out.println("sql update");
+		diffSeconds = Max / 1000 % 60;
+		diffMinutes = Max / (60 * 1000) % 60;
+		diffHours = Max / (60 * 60 * 1000) % 24;
+		diffDays = Max / (24 * 60 * 60 * 1000);
 		
-		*/
+		System.out.print(diffDays + " days, ");
+		System.out.print(diffHours + " hours, ");
+		System.out.print(diffMinutes + " minutes, ");
+		System.out.print(diffSeconds + " seconds.");
 	}
 
 	public static void sendAutoEmailAlert()	

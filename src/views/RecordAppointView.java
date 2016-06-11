@@ -148,7 +148,7 @@ public class RecordAppointView extends JPanel {
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
 					}
 					MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Appointment Searial No. : " + MainClass.masterControler.EXPVCont.RAE1.appID +
-							"\nAppointment Date : " + new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()) + "\n"+
+							"\nAppointment Date : " + new SimpleDateFormat("dd/MM/yyyy   HH:mm").format(Calendar.getInstance().getTime()) + "\n\n"+
 							MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
 					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
 					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);

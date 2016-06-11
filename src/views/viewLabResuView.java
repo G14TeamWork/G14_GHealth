@@ -28,6 +28,7 @@ import javax.swing.border.BevelBorder;
 
 import Controllers.ViewMedicalHistoryController;
 import Controllers.viewLabResuControlller;
+import Entities.ViewHistoryEntity;
 
 import com.alee.laf.progressbar.WebProgressBar;
 
@@ -70,9 +71,13 @@ public class viewLabResuView extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.taskToDo="secTime";
 					MainClass.masterControler.setView(
-						MainClass.masterControler.VMHCont.ViewMedicalHistoryview,MainClass.masterControler.VMHCont);
-			
+						MainClass.masterControler.VMHCont.ViewMedicalHistoryview);
+					//MainClass.masterControler.setView(
+						//masterControler.VMHCont.ViewMedicalHistoryview,MainClass.masterControler.VMHCont);
+					///MainClass.masterControler.VMHCont.setVHEnt_Patient();
+					
 			}
 		});
 		btnBack.setBounds(479, 455, 151, 55);
@@ -141,9 +146,9 @@ public class viewLabResuView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if ((selectedItem=(String) comboBoxChooseTest.getSelectedItem())!= "")
 				{
+					
 					lblLblphoto.setIcon(new GUIimage("photo-not-available", lblLblphoto.getWidth(), lblLblphoto.getHeight()).image);
 					MainClass.masterControler.VLRCont.viewLabResuview.txtrTestresult.setText("");
-					
 					int testResIndex = (comboBoxChooseTest.getSelectedIndex()-1)*4+2 ;
 				    testRes = (String) MainClass.masterControler.VLRCont.VLREnt1.arrTest.get(testResIndex);
 					MainClass.masterControler.VLRCont.viewLabResuview.txtrTestresult.append(testRes);

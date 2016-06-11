@@ -1,12 +1,11 @@
 package Controllers;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -56,22 +55,22 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	{
 		cap.setAppList(new ArrayList<Appointment>());
 				ArrayList<Object> arrList = new ArrayList<Object>();
-				String query="SELECT ghealth.appointments.appdate,ghealth.expert.experties,ghealth.users.firstname,ghealth.users.lastname,ghealth.appointments.idappointment"
+				String query="SELECT ghealth.appointments.appdate,ghealth.appointments.start,ghealth.appointments.end,ghealth.expert.experties,ghealth.users.firstname,ghealth.users.lastname,ghealth.appointments.idappointment"
 								+" FROM ghealth.appointments,ghealth.users,ghealth.expert" 
 								+" WHERE ghealth.appointments.idpatient=" + cap.getIdPatient()+" AND"
 								+" ghealth.appointments.idexpert = ghealth.expert.id AND"
-								+" ghealth.users.username = ghealth.expert.id";
+								+" ghealth.users.username = ghealth.expert.id AND ghealth.appointments.appstatus=1";
 				arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 			
 
-				for (int i  = 0 ; i < arrList.size() ; i +=5)
-					cap.getAppList().add(new Appointment((Timestamp)arrList.get(i),(String)arrList.get(i+1),(String)arrList.get(i+2),(String)arrList.get(i+3),String.valueOf((int)arrList.get(i+4))));
+				for (int i  = 0 ; i < arrList.size() ; i +=7)
+					cap.getAppList().add(new Appointment((Date)arrList.get(i),(Time)arrList.get(i+1),(Time)arrList.get(i+2),(String)arrList.get(i+3),(String)arrList.get(i+4),(String)arrList.get(i+5),String.valueOf((int)arrList.get(i+6))));
 
 	}
 	
 	public void deleteAppintmentSQL(CancelAppointmentEntity cap )
 	{
-		String query="DELETE FROM ghealth.appointments WHERE idappointment="+ cap.getIdapp();
+		String query="UPDATE ghealth.appointments SET idpatient=0, appstatus=0, dispatcherSettingDate=00000000 ,dispatcherSettingHour=000000,sentemail=0 WHERE idappointment="+cap.getIdapp();
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 	}
 		
@@ -91,7 +90,7 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 			if(((CancelAppointmentEntity)arg).getAppList().size() != 0)
 			{
 				CancelAppointmentview.getNotificationlbl().setText("ID : "+
-						((CancelAppointmentEntity)arg).getIdPatient()+" "+
+						((CancelAppointmentEntity)arg).getIdPatient()+", Patient name: "+
 						((CancelAppointmentEntity)arg).getFirstName()+" "+
 						((CancelAppointmentEntity)arg).getLastName());
 				
@@ -99,26 +98,27 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 				CAP = ((CancelAppointmentEntity)arg);
 				for (int i  = 0 ; i < ((CancelAppointmentEntity)arg).getAppList().size() ; i ++)
 					CancelAppointmentview.getComboBox().addItem(((CancelAppointmentEntity)arg).getAppList().get(i));
-				
-				System.out.println(CAP.toString() );
 			}
 			else
-				{
-				CancelAppointmentview.getNotificationlbl().setText("No appointments to show");
-				}
+			{
+				CancelAppointmentview.getNotificationlbl().setText("Patient name: "+((CancelAppointmentEntity)arg).getFirstName()+" "+((CancelAppointmentEntity)arg).getLastName()+" No appointments to show");
+			}
 			CancelAppointmentview.getNotificationlbl().setEnabled(true);
 
 		}
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("Error! enter valid patient ID!") )
 		{
-			CancelAppointmentview.getNotificationlbl().setText("No appointments to show");
+			CancelAppointmentview.getComboBox().removeAllItems();
+			CancelAppointmentview.getNotificationlbl().setText("Patient doesn't exist");
 			CancelAppointmentview.getNotificationlbl().setEnabled(true);
 			
 		}
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("delete") )
 		{
-			JOptionPane.showMessageDialog(null,"appointment"+((CancelAppointmentEntity)arg).getIdapp() + "deleted");
+			JOptionPane.showMessageDialog(null,"Appointment "+((CancelAppointmentEntity)arg).getIdapp() + " deleted");
 			System.out.println("appointment"+((CancelAppointmentEntity)arg).getIdapp() + "deleted");
+			MainClass.masterControler.setView(
+					MainClass.masterControler.DISCont.dispatcherview);
 		}
 		
 	}

@@ -25,7 +25,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	public SetAppointmentView SetAppointmentview;
 	ArrayList<Object> arrList = new ArrayList<>();
 	ArrayList<Object> arrList1 = new ArrayList<>();
-	public Appointment AppToSet=new Appointment();
+	public Appointment AppToSet= new Appointment();
 	public SetAppointmentEntity SApat1;
 	public SetAppointmentEntity SAexp;
 	public SetAppointmentEntity SAapp;

@@ -218,9 +218,10 @@ public class GHealthServer extends ObservableServer{
 		
 			case "CancelAppointmentEntity":
 				if(((CancelAppointmentEntity)msg).getTaskToDo().equals("search"))
+				{
 					SMC.CACont.checkExistanceSql((CancelAppointmentEntity)msg);
-				if(((CancelAppointmentEntity)msg).getTaskToDo().equals("search"))
 					SMC.CACont.searchAppointmentSQL((CancelAppointmentEntity)msg);
+				}
 				else if(((CancelAppointmentEntity)msg).getTaskToDo().equals("delete"))
 					SMC.CACont.deleteAppintmentSQL(((CancelAppointmentEntity)msg));
 				break;
@@ -229,7 +230,6 @@ public class GHealthServer extends ObservableServer{
 				break;		
 				
 			case "Appointment":
-				//TODO
 				SMC.SACont.SetAppointmentSql(((Appointment)msg));
 				break;
 		}

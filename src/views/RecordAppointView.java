@@ -92,7 +92,7 @@ public class RecordAppointView extends JPanel {
 		scrollPane.setBounds(43, 262, 406, 213);
 		add(scrollPane);
 		
-		record = new WebEditorPane("text/html","");
+		record = new WebEditorPane("","");
 		record.setText("");
 		record.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		scrollPane.setViewportView(record);

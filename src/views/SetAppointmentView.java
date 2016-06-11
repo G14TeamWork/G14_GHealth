@@ -18,8 +18,6 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 
-import Entities.Appointment;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
@@ -207,7 +205,8 @@ public class SetAppointmentView extends JPanel {
 		btnNewPatient.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				MainClass.masterControler.SACont.setNewPatient();
+				if(JOptionPane.showConfirmDialog(null, "Save changes?","Confirmation",JOptionPane.YES_NO_OPTION)==0)
+					MainClass.masterControler.SACont.setNewPatient();
 			}
 		});
 		btnNewPatient.setBounds(490, 366, 140, 55);
@@ -231,7 +230,7 @@ public class SetAppointmentView extends JPanel {
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED)
 				{
-					MainClass.masterControler.SACont.searchExperts((String)comboBox_expertise.getSelectedItem());
+					MainClass.masterControler.SACont.searchExperts((String)comboBox_expertise.getSelectedItem(),textFieldid.getText());
 				}
 			}
 		});
@@ -246,10 +245,15 @@ public class SetAppointmentView extends JPanel {
 		comboBox_doctors.setSelectedItem("");
 		comboBox_doctors.addItemListener(new ItemListener() {
 	        public void itemStateChanged(ItemEvent arg0) {
-	        	if(arg0.getStateChange()==ItemEvent.SELECTED&&!((String)comboBox_doctors.getSelectedItem()).equals(""))
+	        	if(arg0.getStateChange()==ItemEvent.SELECTED && !((String)comboBox_doctors.getSelectedItem()).equals(""))
 	        	{
 	        		if(comboBox_doctors.getSelectedIndex()>0)
 	        			MainClass.masterControler.SACont.searchAvailableAppointmentDates(MainClass.masterControler.SACont.expIDlist.get(comboBox_doctors.getSelectedIndex()-1));
+	        	}
+	        	if(arg0.getStateChange()==ItemEvent.SELECTED && ((String)comboBox_doctors.getSelectedItem()).equals(""))
+	        	{
+	        		comboBox_AvailableAppointmentsDates.removeAllItems();
+	        		comboBox_AvailableAppointmentsHours.removeAllItems();
 	        	}
 	        }
 	    });
@@ -316,7 +320,6 @@ public class SetAppointmentView extends JPanel {
 				{
 					if(JOptionPane.showConfirmDialog(null, "Save changes?","Confirmation",JOptionPane.YES_NO_OPTION)==0)
 					{
-						//TODO
 						MainClass.masterControler.SACont.setNewAppointment(MainClass.masterControler.SACont.SApat1.pat.getId(),String.valueOf(MainClass.masterControler.SACont.AppIDlist.get(comboBox_AvailableAppointmentsHours.getSelectedIndex())));
 					}
 				}

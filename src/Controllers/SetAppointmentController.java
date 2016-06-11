@@ -2,7 +2,6 @@ package Controllers;
 
 import java.io.Serializable;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,9 +10,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JOptionPane;
-
-import com.alee.laf.list.WebList;
-import com.alee.laf.scroll.WebScrollPane;
 
 import mainPackage.MainClass;
 import ocsf.server.GHealthServer;
@@ -28,6 +24,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	private static final long serialVersionUID = 1L;
 	public SetAppointmentView SetAppointmentview;
 	ArrayList<Object> arrList = new ArrayList<>();
+	ArrayList<Object> arrList1 = new ArrayList<>();
 	public Appointment AppToSet=new Appointment();
 	public SetAppointmentEntity SApat1;
 	public SetAppointmentEntity SAexp;
@@ -84,7 +81,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrList.isEmpty())
 		{
-			System.out.println("arrList is empty!!!!!!!");
+			System.out.println("Patient not found!");
 		}
 		else
 		{
@@ -115,9 +112,10 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		
 	}
 	
-	public void searchExperts(String Expertise) {
+	public void searchExperts(String Expertise, String patientID) {
 		SAexp=new SetAppointmentEntity();
 		SAexp.exp.setExpertise(Expertise);
+		SAexp.exp.setPatID(patientID);
 		SAexp.setTask("searchExpert");
 		MainClass.ghealth.sendMessegeToServer(SAexp);
 	}
@@ -126,11 +124,32 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		String query = "";
 		query = "SELECT distinct u.username, u.firstname, u.lastname, c.Name, e.StartWorkingHours, e.EndWorkingHours FROM ghealth.users as u, ghealth.clinic as c, ghealth.expert as e WHERE u.username=e.id and e.experties=\"" +((SetAppointmentEntity)msg).exp.getExpertise()+"\" and e.clinic=c.idclinic";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		//TODO
+		query = "SELECT DISTINCT ghealth.appointments.idexpert "
+		+"FROM ghealth.appointments, (SELECT ghealth.expert.id FROM ghealth.expert WHERE ghealth.expert.experties='"+((SetAppointmentEntity)msg).exp.getExpertise()+"') as e "
+		+"WHERE ghealth.appointments.idpatient="+((SetAppointmentEntity)msg).exp.getPatID()+" AND ghealth.appointments.appstatus='2' AND ghealth.appointments.idexpert=e.id "
+		+"ORDER BY ghealth.appointments.appdate DESC";
+		arrList1 = GHealthServer.sqlConn.sendSqlQuery(query);
 		
-		for (int i  = 0 ; i < arrList.size() ; i +=6)
-			msg.ExpList.add(new Expert((int)arrList.get(i), (String)arrList.get(i+1), (String)arrList.get(i+2), (String)arrList.get(i+3), (Time)arrList.get(i+4), (Time)arrList.get(i+5)));
-			
+		for (int i  = 0 ; i < arrList1.size() ; i ++)
+			for (int j  = 0 ; j < arrList.size() ; j +=6)
+			{
+				if((int)arrList1.get(i)==(int)arrList.get(j))
+					msg.ExpList.add(new Expert((int)arrList.get(j), (String)arrList.get(j+1), (String)arrList.get(j+2), (String)arrList.get(j+3), (Time)arrList.get(j+4), (Time)arrList.get(j+5)));
+			}
+		for (int j  = 0 ; j < arrList.size() ; j +=6)
+		{
+			boolean flag=true;
+			for (int i  = 0 ; i < msg.ExpList.size() ; i ++)
+			{
+					if((int)arrList.get(j)==msg.ExpList.get(i).getId())
+						flag=false;
+			}
+			if(flag)
+				msg.ExpList.add(new Expert((int)arrList.get(j), (String)arrList.get(j+1), (String)arrList.get(j+2), (String)arrList.get(j+3), (Time)arrList.get(j+4), (Time)arrList.get(j+5)));		
+		}
 		arrList.clear();
+		arrList1.clear();
 	}
 	
 	public void searchAvailableAppointmentDates(int id) {
@@ -174,12 +193,11 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	public void setNewAppointment(String patID, String appID) {
 
 		AppToSet.setIdpatient(patID);
-		AppToSet.setIdappointment(appID);;
+		AppToSet.setIdappointment(appID);
 		MainClass.ghealth.sendMessegeToServer(AppToSet);
 	}
 	
 	public void SetAppointmentSql(Appointment msg) {
-		// TODO Auto-generated method stub
 		String Hour = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
 		String Date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
 		
@@ -314,7 +332,6 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 			else if(((SetAppointmentEntity)arg).getTask().equals("searchAvailableAppointmentHours"))
 			{
 				SetAppointmentview.comboBox_AvailableAppointmentsHours.removeAllItems();
-	/////TODO	AppIDlist= new ArrayList<Integer>();
 				for (int i  = 0 ; i < ((SetAppointmentEntity)arg).HourList.size() ; i +=2)
 					SetAppointmentview.comboBox_AvailableAppointmentsHours.addItem(((SetAppointmentEntity)arg).HourList.get(i)+"-"+((SetAppointmentEntity)arg).HourList.get(i+1));	
 				for (int i  = 0 ; i < ((SetAppointmentEntity)arg).AppIDlist.size() ; i ++)
@@ -325,7 +342,6 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		}
 		if(arg instanceof Appointment)
 		{
-			//TODO
 			JOptionPane.showMessageDialog(null,"New appointment was scheduled");
 			MainClass.masterControler.setView(
 					MainClass.masterControler.DISCont.dispatcherview);

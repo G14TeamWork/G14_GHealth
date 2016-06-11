@@ -20,6 +20,7 @@ public class Expert implements Serializable{
 	private String clinicName;
 	private Time startWorkingHours;
 	private Time endWorkingHours;
+	private String patID;
 	
 	public Expert()
 	{
@@ -110,6 +111,12 @@ public class Expert implements Serializable{
 	}
 	public void setClinicName(String clinicName) {
 		this.clinicName = clinicName;
+	}
+	public String getPatID() {
+		return patID;
+	}
+	public void setPatID(String patID) {
+		this.patID = patID;
 	}
 
 }

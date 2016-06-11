@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.ViewMedicalHistoryView;
+import views.viewLabResuView;
 import Controllers.IRefresh;
 import Entities.FillTestResEntity;
 import Entities.ViewHistoryEntity;
@@ -26,7 +27,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	private static final long serialVersionUID = 1L;
 	public ViewMedicalHistoryView ViewMedicalHistoryview;
 	public ViewHistoryEntity VHEnt1;
-	ArrayList<Object> arrList;
+	ArrayList<Object> arrList = new ArrayList<>();
 	public ViewMedicalHistoryController() {
 		ViewMedicalHistoryview = new ViewMedicalHistoryView();
 	}
@@ -35,7 +36,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	{
 	
 		VHEnt1 = new ViewHistoryEntity();
-		arrList = new ArrayList<>();
+		arrList.clear();
 		VHEnt1.pat.setId(ViewMedicalHistoryview.textFieldid.getText());
 		MainClass.ghealth.sendMessegeToServer(VHEnt1);
 	}
@@ -91,7 +92,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 
 	@Override
 	public void refreshView() {
-		//
+		MainClass.masterControler.VLRCont.viewLabResuview= new viewLabResuView();
 	}
 
 	@Override
@@ -113,6 +114,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 			}*/
 			//else 
 			{
+				
 				VHEnt1.pat.setFirstname(((ViewHistoryEntity) arg).pat.getFirstname());
 				VHEnt1.pat.setLastname(((ViewHistoryEntity) arg).pat.getLastname());
 				ViewMedicalHistoryview.textField_patname.setText("Patient name: "+ VHEnt1.pat.getFirstname()+" "+VHEnt1.pat.getLastname());

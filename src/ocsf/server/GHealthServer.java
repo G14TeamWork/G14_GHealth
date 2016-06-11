@@ -29,7 +29,6 @@ import Entities.*;
 public class GHealthServer extends ObservableServer{
 
 	public static Boolean debug = false;
-	
 	public static SQLconnection sqlConn;
 	public static GHealthServer ghealth_server;
 	public static MasterController ServerMasterCont;
@@ -181,9 +180,12 @@ public class GHealthServer extends ObservableServer{
 				break;
 				
 			case "FillTestResEntity":
-				if(!((FillTestResEntity)msg).updateFlag)
+				 if (((FillTestResEntity)msg).taskToDo.equals("searchPat"))
 					SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
-				else SMC.FTRCont.insertTestResSql((FillTestResEntity)msg);
+			 	else if (((FillTestResEntity)msg).taskToDo.equals("searchRef"))
+					SMC.FTRCont.checkExistanceReferenceSql((FillTestResEntity)msg);
+				else if (((FillTestResEntity)msg).taskToDo.equals("insertTest"))
+					SMC.FTRCont.insertTestResSql((FillTestResEntity)msg);
 				break;
 				
 			case "SetAppointmentEntity":

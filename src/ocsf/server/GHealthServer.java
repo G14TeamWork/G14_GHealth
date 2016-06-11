@@ -149,7 +149,6 @@ public class GHealthServer extends ObservableServer{
 	
 			case "String":
 				break;
-				//TODO reference details
 			case "RefDetailsEntity":
 			{
 				SMC.VRDCont.serverGetPatientRefs((RefDetailsEntity)msg);
@@ -173,6 +172,8 @@ public class GHealthServer extends ObservableServer{
 					SMC.RACont.serverSaveRecord((RecordAppointmentEntity)msg);
 				}else if(((RecordAppointmentEntity)msg).taskToDo.equals("rmref")){
 					SMC.RACont.serverRemoveReferences((RecordAppointmentEntity)msg);
+				}else if(((RecordAppointmentEntity)msg).taskToDo.equals("getRecord")){
+					SMC.VRDCont.serverGetRecord((RecordAppointmentEntity)msg);
 				}
 			}
 				break;

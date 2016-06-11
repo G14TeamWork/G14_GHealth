@@ -4,18 +4,11 @@ import graphics.GUIimage;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.security.Timestamp;
-import java.util.Date;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
-
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.FillTestResView;
@@ -62,7 +55,6 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	}
 	public void findRef()
 	{
-		// FTRpat1.searchRef=true;
 		 FTRpat1.taskToDo="searchRef";
 		 MainClass.ghealth.sendMessegeToServer(FTRpat1);
 	}
@@ -74,7 +66,7 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrList.isEmpty())
 		{
-			System.out.println("noooooooooo");
+			//System.out.println("No");
 			FTRpat.taskToDo="noRef";
 		}
 		else
@@ -89,7 +81,6 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		FTRpat1.TestRes=FillTestResview.textField_TestResult.getText();
 		FTRpat1.TestType=(String)FillTestResview.comboBox_test.getSelectedItem();
 		FTRpat1.PhotoPath=FillTestResview.file_path;
-		//FTRpat1.updateFlag=true;
 		FTRpat1.taskToDo="insertTest";
 		FTRpat1.arrRefid.clear();
 		FTRpat1.testIndex=MainClass.masterControler.FTRCont.FillTestResview.comboBox_test.getSelectedIndex()-1;
@@ -105,7 +96,6 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	    String filledtime = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 		if (FTRpat.PhotoPath.contains("."))
 			FTRpat.PhotoPath=FTRpat.PhotoPath.substring(0, FTRpat.PhotoPath.lastIndexOf("."));
-		System.out.println(FTRpat.PhotoPath);
 
 		query = "INSERT INTO ghealth.test_results (idref, patientid, date, filledtime, testtype, testresult, photo, labworker)"+
 		"VALUES ("+(String)(FTRpat.arrRef.get(((int)(FTRpat.testIndex))*2))+
@@ -116,8 +106,6 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		"\", \""+FTRpat.TestRes+
 		"\", \""+FTRpat.PhotoPath+
 		"\", \""+labworker+"\");";
-		//FTRpat.updateFlag=true;
-		//FTRpat.taskToDo="updateFlag";
 		GHealthServer.sqlConn.sendSqlUpdate(query);	
 		
 		query="DELETE FROM ghealth.references WHERE idreferences='"
@@ -146,7 +134,7 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 			FillTestResview.textField_first.setForeground(Color.BLACK);
 			FillTestResview.comboBox_test.setVisible(true);
 			FillTestResview.lblTesttype.setVisible(true);
-				MainClass.masterControler.FTRCont.findRef();	
+			MainClass.masterControler.FTRCont.findRef();	
 			}
 		    else if (((FillTestResEntity) arg).taskToDo.equals("noPat"))
 			{
@@ -191,9 +179,6 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 				FillTestResview.comboBox_test.addItem(FTRpat1.arrRef.get(i+1));
 				FTRpat1.arrRefid.add(FTRpat1.arrRef.get(i));
 			 }
-			// FTRpat1.arrRef.clear();
-			 System.out.println(FTRpat1.arrRefid);
-			 System.out.println(FTRpat1.arrRef);
 		    }
 
 		

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 
 import mainPackage.MainClass;
@@ -23,18 +24,22 @@ import java.util.Calendar;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 
+import com.alee.laf.text.WebEditorPane;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.ComponentOrientation;
 
 public class RecordAppointView extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;
-	public JTextArea record;
+	public WebEditorPane record;
 	public String appNo;
 	public JLabel idPatientLabel ;
 	public JLabel appNoLabel;
@@ -72,13 +77,28 @@ public class RecordAppointView extends JPanel {
 		});
 		notappear.setBounds(33, 229, 140, 24);
 		add(notappear);
-		
+		/*
 		record = new JTextArea();
 		record.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		record.setForeground(Color.BLACK);
 		record.setLineWrap(true);
 		record.setBounds(33, 273, 435, 206);
 		add(record);
+		*/
+		JScrollPane scrollPane = new JScrollPane();
+
+		scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setBounds(43, 262, 406, 213);
+		add(scrollPane);
+		
+		record = new WebEditorPane("","");
+		record.setText("");
+		record.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		scrollPane.setViewportView(record);
+		record.setEditable(true);
+		record.setFont(new Font("Dialog", Font.PLAIN, 14));
+		
 		
 		JLabel lblExpert = new JLabel("Record Appointment");
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
@@ -127,6 +147,9 @@ public class RecordAppointView extends JPanel {
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
 					}
+					MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Appointment Searial No. : " + MainClass.masterControler.EXPVCont.RAE1.appID +
+							"\nAppointment Date : " + new SimpleDateFormat("dd/MM/yyyy   HH:mm").format(Calendar.getInstance().getTime()) + "\n\n"+
+							MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
 					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
 					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);//back to exp window
@@ -225,10 +248,10 @@ public class RecordAppointView extends JPanel {
 	public void setSeparator(JSeparator separator) {
 		this.separator = separator;
 	}
-	public JTextArea getRecord() {
+	public WebEditorPane getRecord() {
 		return record;
 	}
-	public void setRecord(JTextArea record) {
+	public void setRecord(WebEditorPane record) {
 		this.record = record;
 	}
 	public String getAppNo() {

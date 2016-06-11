@@ -71,9 +71,10 @@ public class viewLabResuView extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.taskToDo="secTime";
 					MainClass.masterControler.setView(
-						MainClass.masterControler.VMHCont.ViewMedicalHistoryview);
+						MainClass.masterControler.VMHCont.ViewMedicalHistoryview,MainClass.masterControler.VMHCont);
 					//MainClass.masterControler.setView(
 						//masterControler.VMHCont.ViewMedicalHistoryview,MainClass.masterControler.VMHCont);
 					///MainClass.masterControler.VMHCont.setVHEnt_Patient();

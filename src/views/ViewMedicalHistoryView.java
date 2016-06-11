@@ -93,6 +93,7 @@ public class ViewMedicalHistoryView extends JPanel {
 		searchIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				MainClass.masterControler.VLRCont.viewLabResuview= new viewLabResuView();
 				textField_patname.setVisible(true);
 				id=textFieldid.getText();
 				taskToDo="firstTime";

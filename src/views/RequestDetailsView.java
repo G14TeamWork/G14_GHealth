@@ -5,6 +5,7 @@ import graphics.GUIimage;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 
 import mainPackage.MainClass;
@@ -17,12 +18,18 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+
 import javax.swing.JComboBox;
+
+import com.alee.laf.text.WebEditorPane;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import javax.swing.ScrollPaneConstants;
 
 public class RequestDetailsView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -87,14 +94,32 @@ public class RequestDetailsView extends JPanel {
 		btnBySpec.setBounds(490, 356, 140, 55);
 		add(btnBySpec);
 		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setBounds(45, 288, 433, 233);
+		add(scrollPane);
+		
+		
+		
+		
 		fileArea = new JTextArea();
+		fileArea.setLineWrap(true);
+		scrollPane.setViewportView(fileArea);
+		fileArea.setEditable(false);
+		fileArea.setFont(new Font("Dialog", Font.PLAIN, 14));
+		
+		/*
 		fileArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		fileArea.setEditable(false);
 		fileArea.setLineWrap(true);
 		fileArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		fileArea.setBounds(75, 288, 389, 233);
 		add(fileArea);
-	
+	*/
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");
 		lblEnterPatientId.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblEnterPatientId.setBounds(70, 216, 120, 28);

@@ -130,7 +130,7 @@ public class ExpView extends JPanel {
 				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.btnViewLabHis.setEnabled(false);
 				MainClass.masterControler.VMHCont.ViewMedicalHistoryview.btnViewmedicalHis.setEnabled(false);
 					MainClass.masterControler.setView(
-						MainClass.masterControler.VMHCont.ViewMedicalHistoryview,MainClass.masterControler.VMHCont);
+						MainClass.masterControler.VMHCont.ViewMedicalHistoryview);
 			
 			}
 		});

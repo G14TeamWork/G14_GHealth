@@ -74,7 +74,7 @@ public class RequestDetailsView extends JPanel {
 				}
 			}
 		});
-		btnEntireFile.setBounds(488, 274, 142, 55);
+		btnEntireFile.setBounds(490, 288, 142, 55);
 		add(btnEntireFile);
 		
 		btnBySpec = new JButton("View by speciality");
@@ -92,7 +92,7 @@ public class RequestDetailsView extends JPanel {
 		fileArea.setEditable(false);
 		fileArea.setLineWrap(true);
 		fileArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		fileArea.setBounds(75, 315, 389, 206);
+		fileArea.setBounds(75, 288, 389, 233);
 		add(fileArea);
 	
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");

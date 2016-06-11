@@ -22,7 +22,7 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	{
 		VLREnt1=new ViewLabResEntity();
 		VLREnt1.testResultsFlag=true;
-		VLREnt1.pat.setId(MainClass.masterControler.VMHCont.VHEnt1.pat.getId());
+		VLREnt1.pat.setId(MainClass.masterControler.VMHCont.ViewMedicalHistoryview.id);
 		MainClass.ghealth.sendMessegeToServer(VLREnt1);
 	}
 	
@@ -78,6 +78,7 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	public void refreshView() {
 		// TODO Auto-generated method stub
 		
+		
 	}
 	
 	@Override
@@ -85,12 +86,14 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	{
 		if (arg instanceof ViewLabResEntity)
 		{
-			//if (((ViewHistoryEntity)arg).testResultsFlag)
+			if (MainClass.masterControler.VMHCont.ViewMedicalHistoryview.taskToDo.equals("firstTime"))
+			
 			{
 				System.out.println(((ViewLabResEntity)arg).arrTest);
+				//VLREnt1.arrTest.clear();
 				VLREnt1.arrTest=(ArrayList<Object>) ((ViewLabResEntity)arg).arrTest;
 				
-				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.removeAllItems();;
+				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.removeAllItems();
 				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem("");
 				for (int i=0;i<VLREnt1.arrTest.size();i+=4)
 					MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem(VLREnt1.arrTest.get(0+i)+" "+VLREnt1.arrTest.get(1+i));

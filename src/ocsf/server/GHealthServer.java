@@ -151,6 +151,11 @@ public class GHealthServer extends ObservableServer{
 			case "String":
 				break;
 				
+			case "Reference":
+			{
+				SMC.RACont.serverCreateRef((Reference)msg);
+			}
+				break; 
 			case"MedicalFile":
 			{
 				SMC.RDCont.serverGetMedicalFile((MedicalFile)msg);
@@ -159,11 +164,11 @@ public class GHealthServer extends ObservableServer{
 			case "RecordAppointmentEntity":
 			{	
 				if(((RecordAppointmentEntity)msg).taskToDo.equals("search")){
-					//System.out.println("GHealth server going to checkappsql");
 					SMC.EXPVCont.checkAppSQL((RecordAppointmentEntity)msg);
-					//System.out.println("GHealth server coming back from checkappsql");
 				}else if(((RecordAppointmentEntity)msg).taskToDo.equals("update")){
 					SMC.RACont.serverSaveRecord((RecordAppointmentEntity)msg);
+				}else if(((RecordAppointmentEntity)msg).taskToDo.equals("rmref")){
+					SMC.RACont.serverRemoveReferences((RecordAppointmentEntity)msg);
 				}
 			}
 				break;

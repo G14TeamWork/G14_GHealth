@@ -82,8 +82,13 @@ public class ExpView extends JPanel {
 							MainClass.masterControler.RACont.RecordAppointview.idPatientLabel.setText("Patient : " + MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
 							MainClass.masterControler.RACont.RecordAppointview.appNoLabel.setText("Appointment : " + appID);
 							tmp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+							MainClass.masterControler.RACont.RecordAppointview.newRefs = false;
 							MainClass.masterControler.RACont.RecordAppointview.startHourLabel.setText("Start Time : " + tmp);
 							MainClass.masterControler.EXPVCont.RAE1.appointment.setStartS(tmp);
+							MainClass.masterControler.RACont.RecordAppointview.btnProduceLabReference.setVisible(true);
+							MainClass.masterControler.RACont.RecordAppointview.record.setText(MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
+							if (MainClass.masterControler.RACont.RecordAppointview.record.getText().equals("0"))
+								MainClass.masterControler.RACont.RecordAppointview.record.setText("");
 							MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview,MainClass.masterControler.RACont);
 						}
 						else JOptionPane.showMessageDialog(null, "No matching appointment in data server!");

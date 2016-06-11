@@ -27,7 +27,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+
 public class RecordAppointView extends JPanel {
+
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;
 	public JTextArea record;
@@ -36,12 +40,13 @@ public class RecordAppointView extends JPanel {
 	public JLabel appNoLabel;
 	public JLabel startHourLabel;
 	public JCheckBox notappear;
+	public JButton btnSave;
 	public JComboBox rtypes;
 	public JButton btnproduce;
 	public JButton btnProduceLabReference ;
-	//public RecordAppointView(){};
+	public boolean newRefs = false;
+	
 	public RecordAppointView() {
-		//appNo = JOptionPane.showInputDialog(null,"Enter appointment number : ");
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
 		this.setLayout(null);
@@ -53,10 +58,16 @@ public class RecordAppointView extends JPanel {
 		notappear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(notappear.isSelected()){
-					
+					rtypes.setVisible(false);
+					btnproduce.setVisible(false);
+					btnProduceLabReference.setVisible(false);
 					record.setEditable(false);
+				}else{
+					record.setEditable(true);
+					//rtypes.setVisible(true);
+					//btnproduce.setVisible(true);
+					btnProduceLabReference.setVisible(true);
 				}
-				else record.setEditable(true);
 			}
 		});
 		notappear.setBounds(33, 229, 140, 24);
@@ -83,6 +94,16 @@ public class RecordAppointView extends JPanel {
 					record.setText("");
 					notappear.setSelected(false);
 					record.setEditable(true);
+					rtypes.setEditable(false); 
+					rtypes.setVisible(false);
+					rtypes.setSelectedItem("");
+					btnproduce.setVisible(false);
+					btnproduce.setEnabled(false);
+					//TODO if new refs, delete refs
+					if (newRefs){
+						MainClass.masterControler.RACont.removeReferences();
+						newRefs = false;
+					}
 				}
 			}
 		});
@@ -90,26 +111,36 @@ public class RecordAppointView extends JPanel {
 		add(btnCancel);
 		btnCancel.setIcon(null);
 		
-		JButton btnSave = new JButton("Save");
+		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
-					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
 					if (notappear.isSelected()){
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("3");
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Patient didnt appear!");
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setStartS("00:00:00");
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS("00:00:00");
+						MainClass.masterControler.RACont.removeReferences();
+						//System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
 					}else{
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setAppstatus("2");
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
 					}
+					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
 					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);//back to exp window
 					record.setText("");
+					System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
+
 					notappear.setSelected(false);
 					record.setEditable(true);
+					btnproduce.setVisible(false);
+					btnproduce.setEnabled(false);
+					newRefs = false;
+					rtypes.setVisible(false);
+					rtypes.setSelectedItem("");
+					
 				}
 			}
 		});
@@ -121,29 +152,70 @@ public class RecordAppointView extends JPanel {
 		lblAppointmentRecord.setBounds(33, 193, 173, 29);
 		add(lblAppointmentRecord);
 		
-		appNoLabel = new JLabel("ap");
+		appNoLabel = new JLabel("");
 		appNoLabel.setBounds(243, 196, 155, 22);
 		add(appNoLabel);
 		
-		idPatientLabel = new JLabel("pt");
+		idPatientLabel = new JLabel("");
 		idPatientLabel.setBounds(243, 218, 155, 22);
 		add(idPatientLabel);
 		
-		startHourLabel = new JLabel("hr");
+		startHourLabel = new JLabel("");
 		startHourLabel.setBounds(243, 240, 155, 22);
 		add(startHourLabel);
 		
 		btnProduceLabReference = new JButton("Produce Lab Reference");
+		btnProduceLabReference.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rtypes.setVisible(true);
+				btnproduce.setVisible(true);
+			}
+		});
 		btnProduceLabReference.setBounds(478, 169, 155, 59);
 		add(btnProduceLabReference);
 		
 		rtypes = new JComboBox();
-		
+		rtypes.setEditable(false); 
+		rtypes.setVisible(false);
+		rtypes.setBounds(490, 270, 140, 22);
+		rtypes.setAlignmentX(CENTER_ALIGNMENT);
+		rtypes.addItem("");
+		rtypes.addItem("Blood");
+		rtypes.addItem("rentgen - hand");
+		rtypes.addItem("rentgen - chest");
+		rtypes.addItem("rentgen - basin");
+		rtypes.addItem("ct - neck");
+		rtypes.addItem("ct - brain");
+		rtypes.addItem("mri - brain");
+		rtypes.addItem("mri - knee");
+		rtypes.addItem("mri - shoulder");
 		rtypes.setBounds(478, 241, 155, 35);
+		rtypes.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if((e.getStateChange()==ItemEvent.SELECTED)&&(!(((String)rtypes.getSelectedItem()).equals("")))){
+					btnproduce.setEnabled(true);
+					btnSave.setEnabled(false);
+				//	MainClass.masterControler.RDCont.manageComboBox();//TODO
+				}else{
+					btnproduce.setEnabled(false);
+					btnSave.setEnabled(true);
+				}	
+			}
+		});
 		add(rtypes);
 		
 		btnproduce = new JButton("Produce");
+		btnproduce.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainClass.masterControler.RACont.handleProduceBtn((String)rtypes.getSelectedItem());
+				btnproduce.setEnabled(false);
+				rtypes.setSelectedItem("");
+				newRefs = true;
+			}
+		});
 		btnproduce.setBounds(478, 296, 155, 40);
+		btnproduce.setEnabled(false);
+		btnproduce.setVisible(false);
 		add(btnproduce);
 			
 	}

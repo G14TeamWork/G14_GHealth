@@ -168,7 +168,7 @@ public class SetAppointmentView extends JPanel {
 			public void processKeyEvent(KeyEvent ev) {
 				    char c = ev.getKeyChar();
 				    int d = ev.getKeyCode();
-				    if ((c >= 48 && c <= 57) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39) { // c = '0' ... c = '9'
+				    if ((c >= 48 && c <= 57 && textField_phone.getText().length()<15) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39) { // c = '0' ... c = '9'
 				      super.processKeyEvent(ev);
 				    }
 				  }
@@ -266,6 +266,7 @@ public class SetAppointmentView extends JPanel {
 	        public void itemStateChanged(ItemEvent arg0) {
 	        	if(arg0.getStateChange()==ItemEvent.SELECTED && !(comboBox_AvailableAppointmentsDates.getSelectedIndex()==0))
 	        	{
+	        		MainClass.masterControler.SACont.AppIDlist= new ArrayList<Integer>();
 	        		MainClass.masterControler.SACont.searchAvailableAppointmentHours((Date)comboBox_AvailableAppointmentsDates.getSelectedItem());
 	        	}
 	        }
@@ -311,15 +312,14 @@ public class SetAppointmentView extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				//																				idexpert																idpatient,										appointmentDate			
-				if(!(comboBox_expertise.getSelectedItem().equals(""))&&!(comboBox_doctors.getSelectedItem().equals("")&&!(comboBox_AvailableAppointmentsDates.getSelectedItem().equals("")&&!(comboBox_AvailableAppointmentsHours.getSelectedItem().equals("")))))
+				if(!(comboBox_expertise.getSelectedItem().equals(""))&&!(comboBox_doctors.getSelectedItem().equals(""))&&!(comboBox_AvailableAppointmentsDates.getSelectedItem().equals(""))&&!(comboBox_AvailableAppointmentsHours.getSelectedItem().equals("")))
 				{
 					if(JOptionPane.showConfirmDialog(null, "Save changes?","Confirmation",JOptionPane.YES_NO_OPTION)==0)
 					{
 						//TODO
-						String[] Hours = ((String)comboBox_AvailableAppointmentsHours.getSelectedItem()).split(",");
-						MainClass.masterControler.SACont.setNewAppointment(MainClass.masterControler.SACont.expIDlist.get(comboBox_doctors.getSelectedIndex()-1),MainClass.masterControler.SACont.SApat1.pat.getId(),(Date)comboBox_AvailableAppointmentsDates.getSelectedItem(),Hours[0],Hours[1]);
+						MainClass.masterControler.SACont.setNewAppointment(MainClass.masterControler.SACont.SApat1.pat.getId(),String.valueOf(MainClass.masterControler.SACont.AppIDlist.get(comboBox_AvailableAppointmentsHours.getSelectedIndex())));
 					}
-					}
+				}
 				else  
 					{
 					JOptionPane.showMessageDialog(null,"Please fill all the mandatory fields" );

@@ -3,7 +3,9 @@ package Controllers;
 import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
@@ -160,40 +162,30 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		String query = "";
 		query = "SELECT idappointment,start,end FROM ghealth.appointments WHERE idexpert="+((SetAppointmentEntity)msg).app.getIdexpert()+" AND appstatus=0 AND appdate='"+((SetAppointmentEntity)msg).app.getAppdate()+"'";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		
 		for (int i  = 0 ; i < arrList.size() ; i +=3)
 		{
-			((SetAppointmentEntity)msg).HourList.add(((Time)arrList.get(i+1)));
-			((SetAppointmentEntity)msg).HourList.add(((Time)arrList.get(i+2)));
-			///////********************************************//////////////
-			/////TODO set array for id appointments
-		///////********************************************//////////////
+			((SetAppointmentEntity)msg).AppIDlist.add((Integer)arrList.get(i));
+			((SetAppointmentEntity)msg).HourList.add((Time)arrList.get(i+1));
+			((SetAppointmentEntity)msg).HourList.add((Time)arrList.get(i+2));
 		}
 		arrList.clear();
 	}
 
-	public void setNewAppointment(Integer expID, String patID,
-			java.sql.Date appDate, String appStart, String appEnd) {
-		AppToSet.setIdexpert(expID);
+	public void setNewAppointment(String patID, String appID) {
+
 		AppToSet.setIdpatient(patID);
-		AppToSet.setAppdate(appDate);
-		AppToSet.setStartS(appStart);
-		AppToSet.setEndS(appEnd);
-		AppToSet.setAppstatus("1");
+		AppToSet.setIdappointment(appID);;
 		MainClass.ghealth.sendMessegeToServer(AppToSet);
 	}
 	
-	public void SetAppointmentSql(Appointment appointment) {
+	public void SetAppointmentSql(Appointment msg) {
 		// TODO Auto-generated method stub
-/*		String query="UPDATE ghealth. SET status=0 " +
-				"WHERE username =" + LE.getUsername();
+		String Hour = new SimpleDateFormat("HHmmss").format(Calendar.getInstance().getTime());
+		String Date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+		
+		String query="UPDATE ghealth.appointments SET idpatient="+((Appointment)msg).getIdpatient()+", appstatus=1, dispatcherSettingDate="+Date+" ,dispatcherSettingHour="+Hour+" WHERE idappointment="+((Appointment)msg).getIdappointment();
 		GHealthServer.sqlConn.sendSqlUpdate(query);
-		
-		UPDATE ghealth.appointments          ////////      מנסה לעדכן בלי מפתח!! נוט גוד
-SET idpatient=1234, appstatus=1
-WHERE idexpert=8 AND appdate=2014-06-21 AND start=080000 AND end=083000
-		*/
-		
+	
 	}	
 	
 	@Override
@@ -311,7 +303,6 @@ WHERE idexpert=8 AND appdate=2014-06-21 AND start=080000 AND end=083000
 			}
 			else if(((SetAppointmentEntity)arg).getTask().equals("searchAvailableAppointmentDates"))
 			{
-				AppIDlist = new ArrayList<Integer>();
 				SetAppointmentview.comboBox_AvailableAppointmentsHours.removeAllItems();
 				SetAppointmentview.comboBox_AvailableAppointmentsDates.removeAllItems();
 				SetAppointmentview.comboBox_AvailableAppointmentsDates.addItem("");
@@ -323,11 +314,12 @@ WHERE idexpert=8 AND appdate=2014-06-21 AND start=080000 AND end=083000
 			else if(((SetAppointmentEntity)arg).getTask().equals("searchAvailableAppointmentHours"))
 			{
 				SetAppointmentview.comboBox_AvailableAppointmentsHours.removeAllItems();
+	/////TODO	AppIDlist= new ArrayList<Integer>();
 				for (int i  = 0 ; i < ((SetAppointmentEntity)arg).HourList.size() ; i +=2)
-				{
-					
-					SetAppointmentview.comboBox_AvailableAppointmentsHours.addItem(((SetAppointmentEntity)arg).HourList.get(i)+"-"+((SetAppointmentEntity)arg).HourList.get(i+1));				
-					}	
+					SetAppointmentview.comboBox_AvailableAppointmentsHours.addItem(((SetAppointmentEntity)arg).HourList.get(i)+"-"+((SetAppointmentEntity)arg).HourList.get(i+1));	
+				for (int i  = 0 ; i < ((SetAppointmentEntity)arg).AppIDlist.size() ; i ++)
+					AppIDlist.add(((SetAppointmentEntity)arg).AppIDlist.get(i));	
+
 			}
 			((SetAppointmentEntity)arg).setTask("");
 		}

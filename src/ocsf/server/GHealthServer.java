@@ -187,7 +187,6 @@ public class GHealthServer extends ObservableServer{
 				break;
 				
 			case "SetAppointmentEntity":
-			{
 				if(((SetAppointmentEntity)msg).getTask().equals("searchPatient"))
 					SMC.SACont.checkExistanceSql((SetAppointmentEntity)msg);
 				else 
@@ -198,9 +197,7 @@ public class GHealthServer extends ObservableServer{
 						SMC.SACont.searchAvailableAppointmentDatesSql((SetAppointmentEntity)msg);
 						else if(((SetAppointmentEntity)msg).getTask().equals("searchAvailableAppointmentHours"))
 							SMC.SACont.searchAvailableAppointmentHoursSql((SetAppointmentEntity)msg);
-				}
-			}
-				break;
+				}break;
 				
 			case "LoginEntity":
 				if (((LoginEntity)msg).getStatus()==1) SMC.LoginCont.sendLogOutToSql((LoginEntity)msg);

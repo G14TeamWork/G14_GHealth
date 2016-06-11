@@ -13,6 +13,7 @@ public class SetAppointmentEntity implements Serializable{
 	public ArrayList<Expert> ExpList=new ArrayList<Expert>();
 	public ArrayList<Appointment> AppList=new ArrayList<Appointment>();
 	public ArrayList<Time> HourList=new ArrayList<Time>();
+	public ArrayList<Integer> AppIDlist=new ArrayList<Integer>();
 	public String getTask() {
 		return task;
 	}

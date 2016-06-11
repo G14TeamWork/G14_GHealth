@@ -33,6 +33,16 @@ import javax.swing.border.LineBorder;
 
 import java.awt.Color;
 import java.io.File;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 public class FillTestResView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -63,8 +73,16 @@ public class FillTestResView extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				file_path="photo-not-available";
-				MainClass.masterControler.setView(
+				if (lblTesttype.isShowing())
+				{
+					if(JOptionPane.showConfirmDialog(null, "Are you sure?",null,JOptionPane.YES_NO_OPTION)==0) //if pressed yes
+					{
+						file_path="photo-not-available";
+						MainClass.masterControler.setView(
+								MainClass.masterControler.LWCont.labworkerview);
+					}
+				}
+				else	MainClass.masterControler.setView(
 						MainClass.masterControler.LWCont.labworkerview);
 			}
 		});
@@ -123,8 +141,6 @@ public class FillTestResView extends JPanel {
 					//file = filebutton.getSelectedFile().getAbsoluteFile();
 				}
 				else btnAddPhoto.setIcon(new GUIimage("xSign", 25, 23).image);
-				
-				
 			}
 		});
 		btnAddPhoto.setBounds(490, 305, 140, 55);
@@ -152,6 +168,7 @@ public class FillTestResView extends JPanel {
 							btnAddPhoto.setEnabled(false);
 							MainClass.masterControler.setView(MainClass.masterControler.LWCont.labworkerview);
 							MainClass.masterControler.FTRCont.insertTestRes();
+							MainClass.masterControler.FTRCont.FTRpat1.taskToDo="";
 						}
 			}
 		});
@@ -159,28 +176,37 @@ public class FillTestResView extends JPanel {
 		add(btnSave);
 		
 		textField_first = new JLabel("");
+		
+		
+
+
+
 		textField_first.setFont(new Font("Tahoma", Font.BOLD, 17));
 		textField_first.setBounds(32, 235, 306, 29);
 		add(textField_first);
 		
 		comboBox_test = new JComboBox();
+	//	comboBox_test.addActionListener(new ActionListener() {
+	//		public void actionPerformed(ActionEvent arg0) {
+	//			MainClass.masterControler.FTRCont.FTRpat1.testIndex=comboBox_test.getSelectedIndex();
+	//		}
+	//	});
 		comboBox_test.setEditable(true); 
 		comboBox_test.setBounds(490, 270, 140, 22);
 		comboBox_test.setAlignmentX(CENTER_ALIGNMENT);
 		comboBox_test.setSelectedItem("");
-		comboBox_test.addItem("Blood");
-		comboBox_test.addItem("rentgen - hand");
-		comboBox_test.addItem("rentgen - chest");
-		comboBox_test.addItem("rentgen - basin");
-		comboBox_test.addItem("ct - neck");
-		comboBox_test.addItem("ct - brain");
-		comboBox_test.addItem("mri - brain");
-		comboBox_test.addItem("mri - knee");
-		comboBox_test.addItem("mri - shoulder");
+		//לשמור אינדקס קומבו שנבחר
 		comboBox_test.setVisible(false);
 		add(comboBox_test);
 		
 		lblTesttype = new JLabel("Choose test type:");
+		lblTesttype.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				MainClass.masterControler.FTRCont.FTRpat1.taskToDo="searchRef";
+				MainClass.masterControler.FTRCont.findRef();
+			}
+		});
 		lblTesttype.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTesttype.setBounds(490, 235, 140, 28);
 		lblTesttype.setVisible(false);

@@ -34,6 +34,7 @@ public class RequestDetailsView extends JPanel {
 	public JButton btnEntireFile;
 	public JButton btnBySpec;
 	
+	
 	public RequestDetailsView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);

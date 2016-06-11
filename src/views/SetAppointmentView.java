@@ -2,6 +2,7 @@ package views;
 
 import graphics.GUIimage;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -55,10 +56,6 @@ public class SetAppointmentView extends JPanel {
 	public JLabel lblAvailableAppointmentsDates;
 	public JLabel lblAvailableAppointmentsHours;
 	public ArrayList<Integer> AppointmentIDList;
-	public boolean Flag=true;
-	public boolean FLAGcomboBox_doctors=true;
-	public boolean FLAGcomboBox_expertise=true;
-	public boolean FLAGcomboBox_AvailableAppointmentsDates=false;
 	public SetAppointmentView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -91,7 +88,7 @@ public class SetAppointmentView extends JPanel {
 			public void processKeyEvent(KeyEvent ev) {
 				    char c = ev.getKeyChar();
 				    int d = ev.getKeyCode();
-				    if ((c >= 48 && c <= 57) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39 || ev.getKeyChar()==10) { // c = '0' ... c = '9'
+				    if ((c >= 48 && c <= 57 && textFieldid.getText().length()<10) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39 || ev.getKeyChar()==10) { // c = '0' ... c = '9'
 				      super.processKeyEvent(ev);
 				    }
 				  }
@@ -171,7 +168,7 @@ public class SetAppointmentView extends JPanel {
 			public void processKeyEvent(KeyEvent ev) {
 				    char c = ev.getKeyChar();
 				    int d = ev.getKeyCode();
-				    if ((c >= 48 && c <= 57) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39) { // c = '0' ... c = '9'
+				    if ((c >= 48 && c <= 57 && textField_phone.getText().length()<15) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39) { // c = '0' ... c = '9'
 				      super.processKeyEvent(ev);
 				    }
 				  }
@@ -232,14 +229,13 @@ public class SetAppointmentView extends JPanel {
 		comboBox_expertise.setEditable(false);
 		comboBox_expertise.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				if(FLAGcomboBox_expertise)
+				if(arg0.getStateChange()==ItemEvent.SELECTED)
 				{
 					MainClass.masterControler.SACont.searchExperts((String)comboBox_expertise.getSelectedItem());
-					FLAGcomboBox_expertise=false;
 				}
 			}
 		});
-		comboBox_expertise.setVisible(false);
+		comboBox_expertise.setVisible(true);
 		add(comboBox_expertise);
 		
 		comboBox_doctors = new JComboBox();
@@ -250,13 +246,10 @@ public class SetAppointmentView extends JPanel {
 		comboBox_doctors.setSelectedItem("");
 		comboBox_doctors.addItemListener(new ItemListener() {
 	        public void itemStateChanged(ItemEvent arg0) {
-	        	if(FLAGcomboBox_doctors)
+	        	if(arg0.getStateChange()==ItemEvent.SELECTED&&!((String)comboBox_doctors.getSelectedItem()).equals(""))
 	        	{
-	        		////TODO  arg0.getItemSelectable();
-	        		FLAGcomboBox_AvailableAppointmentsDates=false;
-	        		MainClass.masterControler.SACont.searchAvailableAppointmentDates(MainClass.masterControler.SACont.expIDlist.get(comboBox_doctors.getSelectedIndex()));
-	        		FLAGcomboBox_expertise=true;
-	        		FLAGcomboBox_doctors=true;
+	        		if(comboBox_doctors.getSelectedIndex()>0)
+	        			MainClass.masterControler.SACont.searchAvailableAppointmentDates(MainClass.masterControler.SACont.expIDlist.get(comboBox_doctors.getSelectedIndex()-1));
 	        	}
 	        }
 	    });
@@ -271,12 +264,10 @@ public class SetAppointmentView extends JPanel {
 		comboBox_AvailableAppointmentsDates.setSelectedItem("");
 		comboBox_AvailableAppointmentsDates.addItemListener(new ItemListener() {
 	        public void itemStateChanged(ItemEvent arg0) {
-	        	if(FLAGcomboBox_AvailableAppointmentsDates)
+	        	if(arg0.getStateChange()==ItemEvent.SELECTED && !(comboBox_AvailableAppointmentsDates.getSelectedIndex()==0))
 	        	{
-	        		FLAGcomboBox_AvailableAppointmentsDates=false;
-	        		MainClass.masterControler.SACont.searchAvailableAppointmentHours(/*MainClass.masterControler.SACont.expIDlist.get(comboBox_doctors.getSelectedIndex()),*/(Date)comboBox_AvailableAppointmentsDates.getSelectedItem());
-	        		FLAGcomboBox_expertise=true;
-	        		FLAGcomboBox_doctors=true;
+	        		MainClass.masterControler.SACont.AppIDlist= new ArrayList<Integer>();
+	        		MainClass.masterControler.SACont.searchAvailableAppointmentHours((Date)comboBox_AvailableAppointmentsDates.getSelectedItem());
 	        	}
 	        }
 	    });
@@ -320,8 +311,20 @@ public class SetAppointmentView extends JPanel {
 		btnSetAppointment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-			// TODO	MainClass.masterControler.SACont.setNewPatient();
-			}
+				//																				idexpert																idpatient,										appointmentDate			
+				if(!(comboBox_expertise.getSelectedItem().equals(""))&&!(comboBox_doctors.getSelectedItem().equals(""))&&!(comboBox_AvailableAppointmentsDates.getSelectedItem().equals(""))&&!(comboBox_AvailableAppointmentsHours.getSelectedItem().equals("")))
+				{
+					if(JOptionPane.showConfirmDialog(null, "Save changes?","Confirmation",JOptionPane.YES_NO_OPTION)==0)
+					{
+						//TODO
+						MainClass.masterControler.SACont.setNewAppointment(MainClass.masterControler.SACont.SApat1.pat.getId(),String.valueOf(MainClass.masterControler.SACont.AppIDlist.get(comboBox_AvailableAppointmentsHours.getSelectedIndex())));
+					}
+				}
+				else  
+					{
+					JOptionPane.showMessageDialog(null,"Please fill all the mandatory fields" );
+					}
+			}			
 		});
 		btnSetAppointment.setBounds(490, 366, 140, 55);
 		btnSetAppointment.setVisible(false);

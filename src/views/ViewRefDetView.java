@@ -5,6 +5,7 @@ import graphics.GUIimage;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 
 import mainPackage.MainClass;
@@ -17,11 +18,15 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
+import com.alee.laf.text.WebEditorPane;
 
 import java.awt.Color;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class ViewRefDetView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -82,7 +87,8 @@ public class ViewRefDetView extends JPanel {
 		add(btnSearch);
 		
 		lblErrorLabel = new JLabel("Error  Label");
-		lblErrorLabel.setBounds(68, 241, 201, 22);
+		lblErrorLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblErrorLabel.setBounds(68, 241, 244, 22);
 		add(lblErrorLabel);
 		
 		comboRefs= new JComboBox();
@@ -100,13 +106,28 @@ public class ViewRefDetView extends JPanel {
 		lblChooseRef = new JLabel("Choose Reference:");
 		lblChooseRef.setBounds(366, 206, 107, 25);
 		add(lblChooseRef);
-		
-		redDetails = new JTextArea();
+	/*
 		redDetails.setEditable(false);
 		redDetails.setLineWrap(true);
 		redDetails.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		redDetails.setBounds(68, 285, 529, 146);
 		add(redDetails);
+		*/
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setBounds(68, 285, 529, 146);
+		add(scrollPane);
+		
+		redDetails = new JTextArea();
+		scrollPane.setViewportView(redDetails);
+		redDetails.setLineWrap(true);
+		//redDetails = new WebEditorPane("text/html","");
+		redDetails.setEditable(false);
+		redDetails.setFont(new Font("Dialog", Font.PLAIN, 14));
+		
 	}
 	
 }

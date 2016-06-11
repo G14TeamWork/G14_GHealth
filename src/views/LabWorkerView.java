@@ -56,10 +56,10 @@ public class LabWorkerView extends JPanel {
 				// change user status to false
 			}
 		});
-		btnLogout.setBounds(490, 440, 140, 55);
+		btnLogout.setBounds(469, 440, 161, 55);
 		add(btnLogout);
 		btnLogout.setIcon(new GUIimage("logout", 25, 23).image);
-		
+		// TODO TODO  all initial actions of view reference details window
 		JButton btnViewReferenceDetails = new JButton();
 		btnViewReferenceDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

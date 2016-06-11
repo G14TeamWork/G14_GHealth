@@ -150,7 +150,12 @@ public class GHealthServer extends ObservableServer{
 	
 			case "String":
 				break;
-				
+				//TODO reference details
+			case "RefDetailsEntity":
+			{
+				SMC.VRDCont.serverGetPatientRefs((RefDetailsEntity)msg);
+			}
+				break;
 			case "Reference":
 			{
 				SMC.RACont.serverCreateRef((Reference)msg);

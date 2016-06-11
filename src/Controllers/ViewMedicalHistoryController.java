@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.ViewMedicalHistoryView;
+import views.viewLabResuView;
 import Controllers.IRefresh;
 import Entities.FillTestResEntity;
 import Entities.ViewHistoryEntity;
@@ -91,7 +92,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 
 	@Override
 	public void refreshView() {
-		//
+		MainClass.masterControler.VLRCont.viewLabResuview= new viewLabResuView();
 	}
 
 	@Override

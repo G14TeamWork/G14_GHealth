@@ -30,8 +30,10 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		String query = "SELECT * FROM ghealth.appointments WHERE idappointment ='" + rae.appID+"'" ;
 			arrList=GHealthServer.sqlConn.sendSqlQuery(query);
-		if (!arrList.isEmpty())
+		if (!arrList.isEmpty()){
 			rae.appointment.setIdpatient(String.valueOf((int)arrList.get(2)));
+			rae.appointment.setRecord((String)arrList.get(11));
+		}
 		else
 			rae.appointment.setIdpatient(null);
 	}
@@ -46,7 +48,8 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 			if(arg instanceof RecordAppointmentEntity)
 				if(((RecordAppointmentEntity)arg).taskToDo.equals("search")){
 					MainClass.masterControler.EXPVCont.RAE1.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
-		}
+					MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(((RecordAppointmentEntity)arg).appointment.getRecord());
+				}
 		
 	}
 }

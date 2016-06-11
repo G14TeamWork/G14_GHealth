@@ -63,6 +63,11 @@ public class LabWorkerView extends JPanel {
 		JButton btnViewReferenceDetails = new JButton();
 		btnViewReferenceDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				MainClass.masterControler.VRDCont.ViewRefDetview.comboRefs.setEnabled(false);
+				MainClass.masterControler.VRDCont.ViewRefDetview.lblErrorLabel.setText("");
+				MainClass.masterControler.VRDCont.ViewRefDetview.inputPatId.setText("");
+				MainClass.masterControler.VRDCont.ViewRefDetview.redDetails.setText("");
+				MainClass.masterControler.VRDCont.ViewRefDetview.comboRefs.removeAllItems();
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VRDCont.ViewRefDetview,
 						MainClass.masterControler.VRDCont);

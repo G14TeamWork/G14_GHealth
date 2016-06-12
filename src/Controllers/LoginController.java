@@ -57,12 +57,14 @@ public void setConnectionButton(String state){
 		case "connected":
 			loginView.status.setVisible(true);
 			loginView.btnLogin.setEnabled(true);
+			loginView.btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 			loginView.status.setIcon(new GUIimage("connect",loginView.status.getWidth(),loginView.status.getHeight()).image);
 			break;
 
 		case "disconnected":
 			loginView.status.setVisible(true);
 			loginView.btnLogin.setEnabled(false);
+			loginView.btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 			loginView.status.setIcon(new GUIimage("disconnect",loginView.status.getWidth(),loginView.status.getHeight()).image);
 			break;
 			
@@ -119,24 +121,7 @@ public void setConnectionButton(String state){
 			
 			GHealthServer.sqlConn.sendSqlUpdate(query);
 			
-			arrList.clear();
-			String userType=LE.getUsertype();
-			switch (userType) {
-			case "exp":
-				//query="SELECT stationName FROM ghealth.station,g.workers "
-					//	+ "WHERE workers.username = "+ LE.getUsername() +" AND station.idStation = workers.stationID";
-				//arrList= GasServer.sqlConn.sendSqlQuery(query);
-				//LE.setStationName((String)arrList.get(0));
-				break;
-			case "dis":
-				// למלא פרטים להצגה בחלון הבא
-				break;
-			case "lab":
-			    break; 
-			case "gmanager":
-				
-				break;
-			}	
+			arrList.clear();			
 		}
 		else{
 			LE.setArrayListReturnedEmpty(true);
@@ -190,6 +175,7 @@ public void setConnectionButton(String state){
 					LV.popover.show(LV.btnLogin);
 					loginView.loadingAnimation.stop();
 					loginView.btnLogin.setText("Login");
+					loginView.btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 					
 				}
 			};
@@ -253,6 +239,7 @@ public void setConnectionButton(String state){
 	public void refreshView() {
 		
 		loginView.btnLogin.setText("Login");
+		loginView.btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 		loginView.loadingAnimation.stop();
 		
 		if (loginEntity!=null && loginEntity.isConnectionLost()) {

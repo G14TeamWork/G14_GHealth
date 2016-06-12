@@ -27,7 +27,6 @@ import Entities.*;
 public class GHealthServer extends ObservableServer{
 
 	public static Boolean debug = false;
-	
 	public static SQLconnection sqlConn;
 	public static GHealthServer ghealth_server;
 	public static MasterController ServerMasterCont;
@@ -60,10 +59,6 @@ public class GHealthServer extends ObservableServer{
 		StartServer(5555);
 		ConnectToSQL("root","Braude");
 		sendAutoEmailAlert();
-	//	createDaylyReport(1234);
-		
-		
-		
 	}
 
 	
@@ -155,7 +150,22 @@ public class GHealthServer extends ObservableServer{
 				
 			}
 				break;
-			case"MedicalFile":
+			case "ScheduleEntity":
+			{
+				SMC.EXPVCont.serverShowSchedule((ScheduleEntity)msg);
+			}
+				break;
+			case "RefDetailsEntity":
+			{
+				SMC.VRDCont.serverGetPatientRefs((RefDetailsEntity)msg);
+			}
+				break;
+			case "Reference":
+			{
+				SMC.RACont.serverCreateRef((Reference)msg);
+			}
+				break; 
+			case "MedicalFile":
 			{
 				SMC.RDCont.serverGetMedicalFile((MedicalFile)msg);
 			}
@@ -163,31 +173,45 @@ public class GHealthServer extends ObservableServer{
 			case "RecordAppointmentEntity":
 			{	
 				if(((RecordAppointmentEntity)msg).taskToDo.equals("search")){
-					//System.out.println("GHealth server going to checkappsql");
 					SMC.EXPVCont.checkAppSQL((RecordAppointmentEntity)msg);
-					//System.out.println("GHealth server coming back from checkappsql");
 				}else if(((RecordAppointmentEntity)msg).taskToDo.equals("update")){
 					SMC.RACont.serverSaveRecord((RecordAppointmentEntity)msg);
+				}else if(((RecordAppointmentEntity)msg).taskToDo.equals("rmref")){
+					SMC.RACont.serverRemoveReferences((RecordAppointmentEntity)msg);
+				}else if(((RecordAppointmentEntity)msg).taskToDo.equals("getRecord")){
+					SMC.VRDCont.serverGetRecord((RecordAppointmentEntity)msg);
 				}
 			}
 				break;
-				
+			case "ViewLabResEntity":
+			{
+				 if (((ViewLabResEntity)msg).testResultsFlag)
+					 SMC.VLRCont.askForTestResultSql((ViewLabResEntity)msg);
+				 break;
+			}
+			case "ViewAppHistoryEntity":
+			{
+				 if (((ViewAppHistoryEntity)msg).appResultsFlag)
+					 SMC.VLRCont.askForAppRecordSql((ViewAppHistoryEntity)msg);
+				 break;
+			}
 			case "ViewHistoryEntity":
 				//if(!((ViewHistoryEntity)msg).photoflag)
-				 if (((ViewHistoryEntity)msg).testResultsFlag)
-					 SMC.VMHCont.askForTestResultSql((ViewHistoryEntity)msg);
-				 else
+				
+				 //else
 					SMC.VMHCont.checkExistanceSql((ViewHistoryEntity)msg);		
 				break;
 				
 			case "FillTestResEntity":
-				if(!((FillTestResEntity)msg).updateFlag)
+				 if (((FillTestResEntity)msg).taskToDo.equals("searchPat"))
 					SMC.FTRCont.checkExistanceSql((FillTestResEntity)msg);
-				else SMC.FTRCont.insertTestResSql((FillTestResEntity)msg);
+			 	else if (((FillTestResEntity)msg).taskToDo.equals("searchRef"))
+					SMC.FTRCont.checkExistanceReferenceSql((FillTestResEntity)msg);
+				else if (((FillTestResEntity)msg).taskToDo.equals("insertTest"))
+					SMC.FTRCont.insertTestResSql((FillTestResEntity)msg);
 				break;
 				
 			case "SetAppointmentEntity":
-			{
 				if(((SetAppointmentEntity)msg).getTask().equals("searchPatient"))
 					SMC.SACont.checkExistanceSql((SetAppointmentEntity)msg);
 				else 
@@ -198,9 +222,7 @@ public class GHealthServer extends ObservableServer{
 						SMC.SACont.searchAvailableAppointmentDatesSql((SetAppointmentEntity)msg);
 						else if(((SetAppointmentEntity)msg).getTask().equals("searchAvailableAppointmentHours"))
 							SMC.SACont.searchAvailableAppointmentHoursSql((SetAppointmentEntity)msg);
-				}
-			}
-				break;
+				}break;
 				
 			case "LoginEntity":
 				if (((LoginEntity)msg).getStatus()==1) SMC.LoginCont.sendLogOutToSql((LoginEntity)msg);
@@ -209,16 +231,21 @@ public class GHealthServer extends ObservableServer{
 		
 			case "CancelAppointmentEntity":
 				if(((CancelAppointmentEntity)msg).getTaskToDo().equals("search"))
+				{
 					SMC.CACont.checkExistanceSql((CancelAppointmentEntity)msg);
-				if(((CancelAppointmentEntity)msg).getTaskToDo().equals("search"))
 					SMC.CACont.searchAppointmentSQL((CancelAppointmentEntity)msg);
+				}
 				else if(((CancelAppointmentEntity)msg).getTaskToDo().equals("delete"))
 					SMC.CACont.deleteAppintmentSQL(((CancelAppointmentEntity)msg));
 				break;
 			case "Patient":
-				SMC.SACont.AddNewPatient((Patient)msg);
+				SMC.SACont.AddNewPatientSql((Patient)msg);
 				break;		
-				}
+				
+			case "Appointment":
+				SMC.SACont.SetAppointmentSql(((Appointment)msg));
+				break;
+		}
 			
 			sendBackToClient(msg,client);	
 		}
@@ -232,7 +259,7 @@ public class GHealthServer extends ObservableServer{
 
 	public static void sendAutoEmailAlert()	
 	{
-		long timeOut = 600000;
+		long timeOut = 60000;
 			Thread t = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -257,19 +284,19 @@ public class GHealthServer extends ObservableServer{
 							
 							for(int i = 0 ; i < arrList.size() ; i +=12)
 							{
-								System.out.println(arrList.get(0));
+								//System.out.println(arrList.get(0));
 								GHealthServer.sqlConn.sendSqlUpdate(query2+String.valueOf(arrList.get(i))+";");
 								// mail: 		ghealthg14@gmail.com
 								// password: 	g14ghealth
 								SendEmail.sendFromGMail("ghealthg14@gmail.com", "g14ghealth"
-										,(String)arrList.get(i+2) , "Alert appointment with a specialist",
+										,(String)arrList.get(i+2) , "Appointment Reminder",
 										"Hello "+(String)arrList.get(i+10)+" "+(String)arrList.get(i+11)
-										+"\nTomorrow you will have an appointment at "+(Time)arrList.get(i+1)
+										+",\nYou have an appointment scheduled for tommorow at "+((Time)arrList.get(i+1)).toString().substring(0, 5)
 										+" with our "+(String)arrList.get(i+3)
-										+" "+(String)arrList.get(i+4)+" "+(String)arrList.get(i+5)
-										+"\nin clinic: "+(String)arrList.get(i+6)
-										+"\nAddress: "+(String)arrList.get(i+7)
-										+"\nClinic phone number: "+(String)arrList.get(i+8)
+										+" "+(String)arrList.get(i+4)+" "+(String)arrList.get(i+5)+"."
+										+"\nThe appointment will take place at clinic: "+(String)arrList.get(i+6)
+										+"\nClinic's address: "+(String)arrList.get(i+7)
+										+"\nClinic's phone number: "+(String)arrList.get(i+8)
 										+"\nThank you,\n     Ghealth");
 							}
 							

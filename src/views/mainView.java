@@ -69,8 +69,6 @@ public class mainView {
 		frame.getContentPane().setLayout(null);
 		
 		slideContainer = new SlideContainer();
-		//slideContainer.setBounds(0, 0, 677, 562);
-		//slideContainer.setLayout(null);
 		
 		Logo = new JLabel("");
 		Logo.setBounds(0, 0, 677, 123);
@@ -112,41 +110,7 @@ public class mainView {
 				} catch (Exception x) {}
 				
 				System.exit(0);
-
-			}
-				
+			}	
 		});
-    
 	}
 }
-
-
-
-
-
-
-
-
-/*
- 
- 
- 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int locationX = dim.width /2-(677/2); 
-		int	locationY = dim.height/2-(562/2);
-		
-		if(GasServer.ChangeTitleBool){
-//			frame.setBounds(690, 100, 677, 562);
-			frame.setBounds(locationX, locationY, 677, 562);
-			frame.setTitle("Server - GHealth");
-			GasServer.ChangeTitleBool = false;
-		}
-		else{ 
-			frame.setTitle("Client - GHealth");
-//			frame.setBounds(10, 100, 677, 562);
-			frame.setBounds(locationX,locationY ,677, 562);
-		}
- 
- 
- 
- 
- */

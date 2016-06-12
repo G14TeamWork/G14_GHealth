@@ -11,6 +11,7 @@ import mainPackage.MainClass;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -38,6 +39,8 @@ public class CancelAppointmentView extends JPanel {
 	private JButton btnSerch;
 	private JComboBox comboBox;
 	private JLabel Notificationlbl;
+	public JButton btnsearch;
+	public JButton btnCancelApp;
 	public CancelAppointmentView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -47,14 +50,13 @@ public class CancelAppointmentView extends JPanel {
 		add(separator);
 		Notificationlbl = new JLabel("");
 		Notificationlbl.setEnabled(false);
-		Notificationlbl.setForeground(Color.RED);
-		Notificationlbl.setFont(new Font("Tahoma", Font.BOLD, 14));
-		Notificationlbl.setBounds(73, 352, 354, 28);
+		Notificationlbl.setFont(new Font("Dialog", Font.BOLD, 16));
+		Notificationlbl.setBounds(60, 229, 462, 28);
 		add(Notificationlbl);
 		
 		JLabel lblExpert = new JLabel("Cancel Appointment");
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(211, 182, 253, 118);
+		lblExpert.setBounds(210, 115, 253, 83);
 		add(lblExpert);
 		
 		JButton btnBack = new JButton("Back");
@@ -76,48 +78,67 @@ public class CancelAppointmentView extends JPanel {
 			public void processKeyEvent(KeyEvent ev) {
 				    char c = ev.getKeyChar();
 				    int d = ev.getKeyCode();
-				    if ((c >= 48 && c <= 57) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39) { // c = '0' ... c = '9'
+				    if ((c >= 48 && c <= 57 && searchField.getText().length()<10) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39 || ev.getKeyChar()==10) { // c = '0' ... c = '9'
 				      super.processKeyEvent(ev);
 				    }
 				  }
 				};
-		searchField.setForeground(new Color(0, 0, 0));
-		searchField.setToolTipText("");
-		searchField.setBounds(193, 314, 234, 28);
+		searchField.setBounds(198, 188, 130, 28);
+		searchField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) { // ENTER pressed
+				if (arg0.getKeyChar()==10 && searchField.getText().length()>=1 )
+				{
+					MainClass.masterControler.CACont.searchAppointments();
+				}
+				}
+			});
 		add(searchField);
 		searchField.setColumns(10);
 		
-		JLabel searchIcon = new JLabel("");
-		searchIcon.addMouseListener(new MouseAdapter() {
+		
+		btnsearch = new JButton("");
+		btnsearch.setToolTipText("Press for search patient");
+		btnsearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				MainClass.masterControler.CACont.searchAppointments();
+				if(searchField.getText().length()>=1)
+					MainClass.masterControler.CACont.searchAppointments();
 			}
-			});
-
-		searchIcon.setBounds(437, 314, 29, 28);
-		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth(),searchIcon.getHeight()).image);
-		add(searchIcon);
+		});
+		
+		btnsearch.setBounds(341, 188, 29, 28);
+		btnsearch.setIcon(new GUIimage("search",btnsearch.getWidth()-7,btnsearch.getHeight()-7).image);
+		this.add(btnsearch);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(73, 401, 401, 28);
+		comboBox.setMaximumRowCount(5);
+		comboBox.setFont(new Font("Dialog", Font.PLAIN, 15));
+		comboBox.setAlignmentX(CENTER_ALIGNMENT);
+		comboBox.setBounds(12, 311, 510, 28);
 		add(comboBox);
-		
-		JButton btnCancelApp = new JButton("Cancel Appointment");
+
+		btnCancelApp = new JButton("<html><center>Cancel<br />Appointment</html>");
 		btnCancelApp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "remove appointment ?", null,JOptionPane.YES_NO_OPTION )== 0)
-				MainClass.masterControler.CACont.cancelAppointment();	
+					MainClass.masterControler.CACont.cancelAppointment();
 			}
 		});
+		btnCancelApp.setEnabled(false);
 		btnCancelApp.setBounds(490, 374, 140, 55);
+		btnCancelApp.setIcon(new GUIimage("xSign", 25, 23).image);
 		add(btnCancelApp);
 		
 		JLabel lbEnterPatientId = new JLabel(" Enter Patient ID :");
-		lbEnterPatientId.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lbEnterPatientId.setBounds(73, 313, 110, 28);
+		lbEnterPatientId.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lbEnterPatientId.setBounds(56, 187, 130, 28);
 		add(lbEnterPatientId);
 		
+		JLabel lblPatientApp = new JLabel("Open appointments:");
+		lblPatientApp.setFont(new Font("Dialog", Font.PLAIN, 16));
+		lblPatientApp.setBounds(161, 270, 197, 28);
+		add(lblPatientApp);
 
 	}
 	public JComboBox getComboBox() {

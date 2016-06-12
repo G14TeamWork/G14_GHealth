@@ -25,7 +25,7 @@ public class LoginView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldUserName;
 	private JPasswordField pwdPassword;
-	
+
 	public JLabel lblError;	
 	public JTextField textFieldServerIP;
 	public JButton btnLogin;
@@ -96,7 +96,7 @@ public class LoginView extends JPanel {
 		add(status);
 		
 		loadingAnimation = new InfiniteProgressPanel(1.5);
-		loadingAnimation.setBounds(218, 424, 163, 53);
+		loadingAnimation.setBounds(252, 402, 163, 53);
 		add(loadingAnimation);
 		loadingAnimation.stop();
 		
@@ -106,6 +106,7 @@ public class LoginView extends JPanel {
 		smallLoadingAnimation.stop();
 		
 		btnLogin = new JButton("Login");
+		btnLogin.setFont(new Font("Dialog", Font.PLAIN, 14));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				popover = new WebPopOver();
@@ -119,14 +120,16 @@ public class LoginView extends JPanel {
 				if(MainClass.ghealth.isConnected()) {
 					loadingAnimation.start();
 					btnLogin.setText("");
+					btnLogin.setIcon(null);
 					MainClass.ghealth.sendMessegeToServer(logEnt);
 				}
 				else MainClass.masterControler.LoginCont.setConnectionButton("disconnected");
 				
 			}
 		});
-	
-		btnLogin.setBounds(218, 424, 163, 53);
+		btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
+		btnLogin.setIconTextGap(10);
+		btnLogin.setBounds(252, 402, 163, 53);
 		btnLogin.setEnabled(false);
 		this.add(btnLogin);
 		
@@ -190,90 +193,18 @@ public class LoginView extends JPanel {
 		});
 		
 	}
-	
-}
-
-
-
-/*package views;
-
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-
-import mainPackage.MainClass;
-import Entities.LoginEntity;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-
-public class LoginView extends JPanel {
-	private JTextField UserTf;
-	private JTextField PasswordTf;
-	public JLabel lblError;	
-	public JTextField textFieldServerIP;
-	
-	
-	public LoginView() {
-		this.setBounds(0, 0, 677, 562);
-		this.setLayout(null);
-		
-		JLabel lblGhealth = new JLabel("GHealth");
-		lblGhealth.setFont(new Font("Tahoma", Font.BOLD, 40));
-		lblGhealth.setBounds(243, 69, 286, 53);
-		add(lblGhealth);
-		
-		UserTf = new JTextField();
-		UserTf.setBounds(265, 160, 116, 22);
-		add(UserTf);
-		UserTf.setColumns(10);
-		
-		PasswordTf = new JTextField();
-		PasswordTf.setBounds(265, 210, 116, 22);
-		add(PasswordTf);
-		PasswordTf.setColumns(10);
-		
-		JLabel lblUsername = new JLabel("UserName");
-		lblUsername.setBounds(191, 156, 91, 30);
-		add(lblUsername);
-		
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(191, 213, 56, 16);
-		add(lblPassword);
-		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				LoginEntity logEnt = new Entities.LoginEntity(UserTf.getText(),PasswordTf.getText());
-				MainClass.ghealth.sendMessegeToServer(logEnt);
-				
-			}
-		});
-		btnLogin.setBounds(261, 286, 97, 25);
-		add(btnLogin);
-		textFieldServerIP = new JTextField();
-		textFieldServerIP.setText("localhost:5555");
-		textFieldServerIP.setColumns(10);
-		textFieldServerIP.setBounds(298, 333, 165, 28);
-		add(textFieldServerIP);
-		
-		
-		//select all when clicked.
-		textFieldServerIP.addFocusListener(new FocusListener() {
-			public void focusLost(FocusEvent e) {}
-			public void focusGained(FocusEvent e) {textFieldServerIP.selectAll();}
-		});
-		textFieldServerIP.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MainClass.ghealth.ConnectToServer();
-			}
-		});
+	public JTextField getTextFieldUserName() {
+		return textFieldUserName;
 	}
+
+	public void setTextFieldUserName(JTextField textFieldUserName) {
+		this.textFieldUserName = textFieldUserName;
+	}
+	public JPasswordField getPwdPassword() {
+		return pwdPassword;
+	}
+	public void setPwdPassword(JPasswordField pwdPassword) {
+		this.pwdPassword = pwdPassword;
+	}
+	
 }
-*/

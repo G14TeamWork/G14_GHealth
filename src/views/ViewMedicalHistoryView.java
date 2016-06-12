@@ -12,13 +12,9 @@ import mainPackage.MainClass;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
-import java.io.File;
-import java.util.ArrayList;
 
 public class ViewMedicalHistoryView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +23,8 @@ public class ViewMedicalHistoryView extends JPanel {
 	public JButton 	  btnViewLabHis;
 	public JButton	  btnViewmedicalHis;
 	public JLabel     textField_patname;
+	public String 	  id;
+	public String 	  taskToDo="firstTime";
 	public ViewMedicalHistoryView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -43,14 +41,12 @@ public class ViewMedicalHistoryView extends JPanel {
 		btnViewLabHis = new JButton("View lab history");
 		btnViewLabHis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-	
-				//view =new  MainClass.masterControler.VLRCont.viewLabResuView();//????
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VLRCont.viewLabResuview,
 							MainClass.masterControler.VLRCont);	
 				MainClass.masterControler.VLRCont.viewLabResuview.labelPatName.setText(textField_patname.getText());
-				//MainClass.masterControler.VMHCont.VHEnt1.arrTest.clear();
-				MainClass.masterControler.VMHCont.getTestResults();
+				
+				MainClass.masterControler.VLRCont.getTestResults();
 			}
 		});
 		btnViewLabHis.setBounds(479, 306, 151, 53);
@@ -58,10 +54,13 @@ public class ViewMedicalHistoryView extends JPanel {
 		
 		btnViewmedicalHis = new JButton("View medical history");
 		btnViewmedicalHis.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
+		public void actionPerformed(ActionEvent e) {
+			MainClass.masterControler.setView(
+					MainClass.masterControler.VLRCont.viewapphistoryview);	
+			MainClass.masterControler.VLRCont.viewapphistoryview.labelPatName.setText(textField_patname.getText());
+			MainClass.masterControler.VLRCont.getAppRecord();
+		  }
+	    });
 		btnViewmedicalHis.setBounds(479, 372, 151, 55);
 		add(btnViewmedicalHis);
 		
@@ -97,7 +96,10 @@ public class ViewMedicalHistoryView extends JPanel {
 		searchIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				MainClass.masterControler.VLRCont.viewLabResuview= new viewLabResuView();
 				textField_patname.setVisible(true);
+				id=textFieldid.getText();
+				taskToDo="firstTime";
 				MainClass.masterControler.VMHCont.setVHEnt_Patient();
 			}
 		});

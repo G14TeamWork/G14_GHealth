@@ -8,8 +8,8 @@ import java.util.*;
 
 public class SendEmail {
 	
-	// mail: 		group10mygas@gmail.com
-	// password: 	elibaryahalom
+	// mail: 		ghealthg14@gmail.com
+	// password: 	g14ghealth
 	
 	public static void sendFromGMail(String from, String pass, String to, String subject, String body) {
         Properties props = System.getProperties();

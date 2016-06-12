@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Component;
 import javax.swing.SwingConstants;
+import java.awt.Insets;
 
 public class LabWorkerView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -50,6 +51,8 @@ public class LabWorkerView extends JPanel {
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainClass.masterControler.LoginCont.loginEntity.setLogout(true);
+				MainClass.masterControler.LoginCont.loginView.getTextFieldUserName().setText("");
+				MainClass.masterControler.LoginCont.loginView.getPwdPassword().setText("");
 				MainClass.masterControler.setView(
 						MainClass.masterControler.LoginCont.loginView,
 						MainClass.masterControler.LoginCont);
@@ -59,17 +62,25 @@ public class LabWorkerView extends JPanel {
 		btnLogout.setBounds(490, 440, 140, 55);
 		add(btnLogout);
 		btnLogout.setIcon(new GUIimage("logout", 25, 23).image);
-		
+		// TODO TODO  all initial actions of view reference details window
 		JButton btnViewReferenceDetails = new JButton();
+		btnViewReferenceDetails.setMargin(new Insets(2, 7, 2, 7));
+		btnViewReferenceDetails.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btnViewReferenceDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				MainClass.masterControler.VRDCont.ViewRefDetview.comboRefs.setEnabled(false);
+				MainClass.masterControler.VRDCont.ViewRefDetview.lblErrorLabel.setText("");
+				MainClass.masterControler.VRDCont.ViewRefDetview.inputPatId.setText("");
+				MainClass.masterControler.VRDCont.ViewRefDetview.redDetails.setText("");
+				MainClass.masterControler.VRDCont.ViewRefDetview.comboRefs.removeAllItems();
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VRDCont.ViewRefDetview,
 						MainClass.masterControler.VRDCont);
 			}
 		});
-		btnViewReferenceDetails.setText("View reference details");
-		btnViewReferenceDetails.setBounds(469, 372, 161, 55);
+		btnViewReferenceDetails.setText("<html><center>View reference<br />details</html>");
+		btnViewReferenceDetails.setBounds(490, 372, 140, 55);
+		btnViewReferenceDetails.setIcon(new GUIimage("eye", 25, 23).image);
 		add(btnViewReferenceDetails);
 		
 		JButton btnFillTestResult = new JButton();
@@ -89,7 +100,8 @@ public class LabWorkerView extends JPanel {
 			}
 		});
 		btnFillTestResult.setText("Fill test result");
-		btnFillTestResult.setBounds(469, 304, 161, 55);
+		btnFillTestResult.setBounds(490, 304, 140, 55);
+		btnFillTestResult.setIcon(new GUIimage("pen", 25, 23).image);
 		add(btnFillTestResult);
 		
 

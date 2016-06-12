@@ -13,8 +13,7 @@ import com.alee.laf.optionpane.WebOptionPane;
  * <b>!!!!!!!!OVERWRITES YOUR CURRENT DB!!!!!!!</b></br>
  * Resets your DB with the SQL-start.sql file
  * in the OtherProjectFiles folder.
- * you can change to path to any local directory.</br> example: 
- * <code>"C:\\Giler\\Drive\\EclipseWS32\\G10_MyGas\\OtherProjectFiles\\SQL-start.sql"</code>
+ * you can change to path to any local directory.</br> 
  * 
  * @from http://stackoverflow.com/a/1498029
  * 

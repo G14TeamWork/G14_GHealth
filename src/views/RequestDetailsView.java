@@ -5,6 +5,7 @@ import graphics.GUIimage;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 
 import mainPackage.MainClass;
@@ -17,9 +18,17 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+
+import javax.swing.JComboBox;
+
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import javax.swing.ScrollPaneConstants;
+import java.awt.Insets;
 
 public class RequestDetailsView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +36,10 @@ public class RequestDetailsView extends JPanel {
 	public JTextArea fileArea ;
 	public JTextField idrec;
 	public JLabel errorlbl; 
+	public JComboBox specs;
+	public JButton btnEntireFile;
+	public JButton btnBySpec;
+	
 	
 	public RequestDetailsView() {
 		setLayout(null);
@@ -45,37 +58,64 @@ public class RequestDetailsView extends JPanel {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fileArea.setText("");
+				idrec.setText("");
+				errorlbl.setText("");
+				specs.setVisible(false);
+				MainClass.masterControler.RDCont.mf=null;
 				MainClass.masterControler.setView(
 						MainClass.masterControler.EXPVCont.expview);
 			}
 		});
-		btnBack.setBounds(490, 440, 140, 55);
+		btnBack.setBounds(490, 452, 140, 55);
 		add(btnBack);
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
-		JButton btnEntireFile = new JButton("View entire medical file");
+		btnEntireFile = new JButton("<html><center>View entire<br />medical file</html>");
+		btnEntireFile.setMargin(new Insets(2, 10, 2, 10));
+		btnEntireFile.setEnabled(false);
 		btnEntireFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				specs.setVisible(false);
+				if (MainClass.masterControler.RDCont.mf != null){
+					fileArea.setText(MainClass.masterControler.RDCont.entireFileFormat());
+				}
 			}
 		});
-		btnEntireFile.setBounds(488, 274, 142, 55);
+		btnEntireFile.setBounds(490, 288, 142, 55);
+		btnEntireFile.setIcon(new GUIimage("medicalFile", 25, 23).image);
+		btnEntireFile.setIconTextGap(10);
+		btnEntireFile.setBounds(490, 386, 140, 55);
 		add(btnEntireFile);
-		
-		JButton btnBySpec = new JButton("View by speciality");
+
+		btnBySpec = new JButton("<html><center>View by<br />speciality</html>");
+		btnBySpec.setEnabled(false);
 		btnBySpec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				specs.setVisible(true);
+				specs.setSelectedItem("");
 			}
 		});
-		btnBySpec.setBounds(490, 356, 140, 55);
+		btnBySpec.setIcon(new GUIimage("medicalDocument", 25, 23).image);
+		btnBySpec.setIconTextGap(11);
+		btnBySpec.setBounds(490, 322, 140, 55);
 		add(btnBySpec);
 		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setBounds(45, 288, 433, 233);
+		add(scrollPane);
+		
+				
 		fileArea = new JTextArea();
 		fileArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		fileArea.setEditable(false);
 		fileArea.setLineWrap(true);
-		fileArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		fileArea.setBounds(70, 315, 394, 180);
-		add(fileArea);
+		scrollPane.setViewportView(fileArea);
+		fileArea.setEditable(false);
+		fileArea.setFont(new Font("Dialog", Font.PLAIN, 14));
 	
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");
 		lblEnterPatientId.setFont(new Font("Dialog", Font.PLAIN, 16));
@@ -85,8 +125,9 @@ public class RequestDetailsView extends JPanel {
 		JButton searchIcon = new JButton("");
 		searchIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (idrec.getText().equals("")){//////////////////////////////////////////////////////////////////////////////
-					//System.out.println("in the IF, REQDETVIEW, LINE 89, getTEXT ==\"\"");
+				specs.setVisible(false);
+				specs.setSelectedItem("");
+				if (idrec.getText().equals("")){
 					errorlbl.setForeground(Color.RED);
 					errorlbl.setText("Please enter patient id!");
 				} else MainClass.masterControler.RDCont.getMedicalFile(idrec.getText()); 
@@ -98,19 +139,38 @@ public class RequestDetailsView extends JPanel {
 				
 			}
 		});
-		searchIcon.setBounds(296, 216, 29, 28);
+		searchIcon.setBounds(303, 218, 29, 28);
 		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth()-7,searchIcon.getHeight()-7).image);
 		this.add(searchIcon);
 		
 		idrec = new JTextField();
-		idrec.setBounds(200, 222, 86, 20);
+		idrec.setBounds(190, 222, 101, 20);
 		add(idrec);
 		idrec.setColumns(10);
 		
-		errorlbl = new JLabel("New label");
+		errorlbl = new JLabel("");
 		errorlbl.setFont(new Font("Tahoma", Font.BOLD, 17));
-		errorlbl.setBounds(70, 255, 255, 28);
+		errorlbl.setBounds(70, 255, 306, 28);
 		add(errorlbl);
+		
+		specs = new JComboBox();
+		specs.setMaximumRowCount(4);
+		specs.addItem("");
+		specs.addItem("Cardiology");
+		specs.addItem("Neurology");
+		specs.addItem("Genycology");
+		specs.addItem("Oncology");
+		specs.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if((e.getStateChange()==ItemEvent.SELECTED)&&(!(((String)specs.getSelectedItem()).equals(""))))
+						MainClass.masterControler.RDCont.manageComboBox();
+				else fileArea.setText("");
+			}
+		});
+
+		specs.setBounds(490, 276, 140, 33);
+		specs.setVisible(false);
+		add(specs);
 
 	}
 }

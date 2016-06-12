@@ -18,24 +18,50 @@ import Entities.CancelAppointmentEntity;
 import Entities.FillTestResEntity;
 import Entities.Patient;
 
+/**
+ *  This class is the the class that is in charge of canceling appointment feature.
+ *  @param CancelAppointmentview - panel with all needed components for canceling an appointment.
+ *  @param CAP - CancelAppointmentEntity, is being sent to server as message after filling it with needed data.
+ * @author Ruslan
+ *
+ */
 public class CancelAppointmentController implements Observer,IRefresh  {
 	public  CancelAppointmentView  CancelAppointmentview;
 	public CancelAppointmentEntity CAP;
 
+	/**
+	 * This class is a constructor for cancel appointment controller.
+	 * The only action needed in the beginning is creating view
+	 * @return it is a constructor
+	 */
 	public CancelAppointmentController() {
 		 CancelAppointmentview = new  CancelAppointmentView();
 
 	}
+	/**
+	 * this method is in charge of initializing CAP and sending it to server with task search appointments
+	 */
 	public void searchAppointments(){
 		this.CAP = new CancelAppointmentEntity("search" , CancelAppointmentview.getSearchField().getText());
 		 MainClass.ghealth.sendMessegeToServer(CAP);
 	}
+	
+	/**
+	 * this method is in charge of initializing Cap and sending it to server with task  delete appointments
+	 */
 	public void cancelAppointment()
 	{
 		CAP = new CancelAppointmentEntity("delete" ,((Appointment)CancelAppointmentview.getComboBox().getSelectedItem()).getIdappointment());
 		MainClass.ghealth.sendMessegeToServer(CAP);
 	}
 
+	/**
+	 * this method is in charge of getting from sql name of patient by patient id
+	 * method is ran by server!
+	 * @param arrList receives from sql answer
+	 * @param query initials query to send to sql
+	 * @param cap message received from server
+	 */
 	public void checkExistanceSql(CancelAppointmentEntity cap)
 	{
 		ArrayList<Object> arrList = new ArrayList<Object>();
@@ -51,6 +77,14 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 			}
 		
 	}
+	
+	/**
+	 * this method is ran by server!
+	 * method is in charge of getting all open patient references from sql server
+	 * @param arrList receives from sql answer
+	 * @param query initials query to send to sql
+	 * @param cap message received from server - contains important data for sql query.
+	 */
 	public void searchAppointmentSQL(CancelAppointmentEntity cap )
 	{
 		cap.setAppList(new ArrayList<Appointment>());
@@ -69,18 +103,29 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 
 	}
 	
+	/**
+	 * this method is in charge of sending a delete query to sql with details of the appointment we would like to delete
+	 * @param cap - message sent from server.contains id of appointment that we would like to delete
+	 * @param query - the string that is sent to sql server.
+	 */
 	public void deleteAppintmentSQL(CancelAppointmentEntity cap )
 	{
 		String query="UPDATE ghealth.appointments SET idpatient=0, appstatus=0, dispatcherSettingDate="+null+ ",dispatcherSettingHour="+null+",sentemail=0 WHERE idappointment="+cap.getIdapp();
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 	}
-		
+	
+	/**
+	 * this method is in charge of changing panels into cancel appointment view
+	 */
 	@Override
 	public void refreshView() {
 		MainClass.masterControler.setView(CancelAppointmentview);	
 	}
 
 	@Override
+	/**
+	 * this method is in charge of updating client in sql data and results that came up from server
+	 */
 	public void update(Observable o, Object arg) {
 	
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("search"))

@@ -75,7 +75,7 @@ public class RecordAppointView extends JPanel {
 				}
 			}
 		});
-		notappear.setBounds(33, 229, 140, 24);
+		notappear.setBounds(43, 229, 140, 24);
 		add(notappear);
 		/*
 		record = new JTextArea();
@@ -93,6 +93,7 @@ public class RecordAppointView extends JPanel {
 		add(scrollPane);
 		
 		record = new WebEditorPane("","");
+		record.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		record.setText("");
 		record.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		scrollPane.setViewportView(record);
@@ -147,8 +148,8 @@ public class RecordAppointView extends JPanel {
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(record.getText());
 						MainClass.masterControler.EXPVCont.RAE1.appointment.setEndS(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()));
 					}
-					MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Appointment Searial No. : " + MainClass.masterControler.EXPVCont.RAE1.appID +
-							"\nAppointment Date : " + new SimpleDateFormat("dd/MM/yyyy   HH:mm").format(Calendar.getInstance().getTime()) + "\n\n"+
+					MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord("Appointment ID No. : " + MainClass.masterControler.EXPVCont.RAE1.appID +
+							"\nAppointment Date : " + new SimpleDateFormat("dd/MM/yyyy   HH:mm").format(Calendar.getInstance().getTime()) + "\n"+
 							MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
 					MainClass.masterControler.EXPVCont.RAE1.taskToDo="update";
 					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);
@@ -174,7 +175,7 @@ public class RecordAppointView extends JPanel {
 			
 		JLabel lblAppointmentRecord = new JLabel("Appointment Record :");
 		lblAppointmentRecord.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblAppointmentRecord.setBounds(33, 193, 173, 29);
+		lblAppointmentRecord.setBounds(43, 196, 173, 29);
 		add(lblAppointmentRecord);
 		
 		appNoLabel = new JLabel("");
@@ -202,6 +203,7 @@ public class RecordAppointView extends JPanel {
 		add(btnProduceLabReference);
 		
 		rtypes = new JComboBox();
+		rtypes.setMaximumRowCount(6);
 		rtypes.setEditable(false); 
 		rtypes.setVisible(false);
 		rtypes.setBounds(490, 270, 140, 22);

@@ -61,14 +61,14 @@ public class ViewAppHistoryView extends JPanel {
 
 		scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		scrollPane.setBackground(Color.WHITE);
-		scrollPane.setBounds(45, 288, 433, 233);
+		scrollPane.setBounds(45, 204, 422, 317);
 		add(scrollPane);
 		
 	    fileArea = new JTextArea();
-		fileArea.setLineWrap(true);
-		scrollPane.setViewportView(fileArea);
-		fileArea.setEditable(false);
-		fileArea.setFont(new Font("Dialog", Font.PLAIN, 14));
+	    scrollPane.setViewportView(fileArea);
+	    fileArea.setLineWrap(true);
+	    fileArea.setEditable(false);
+	    fileArea.setFont(new Font("Dialog", Font.PLAIN, 14));
 		
 		
 		

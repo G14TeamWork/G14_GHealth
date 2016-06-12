@@ -89,18 +89,15 @@ public class ViewRefDetView extends JPanel {
 		
 		lblErrorLabel = new JLabel("Error  Label");
 		lblErrorLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblErrorLabel.setBounds(68, 241, 244, 22);
+		lblErrorLabel.setBounds(68, 241, 430, 22);
 		add(lblErrorLabel);
 		
 		comboRefs= new JComboBox();
+		comboRefs.setMaximumRowCount(5);
 		
 		comboRefs.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if((e.getStateChange()==ItemEvent.SELECTED)&&(!(((String)comboRefs.getSelectedItem()).equals("")))){
-				//	tmp = MainClass.masterControler.VRDCont.getDetailsFromList(comboRefs.getSelectedIndex()-1);
-				
-					//redDetails.setText(tmp);
-				 
 					redDetails.setText(MainClass.masterControler.VRDCont.getDetailsFromList(comboRefs.getSelectedIndex()-1));
 				}
 				else redDetails.setText("");
@@ -112,13 +109,7 @@ public class ViewRefDetView extends JPanel {
 		lblChooseRef = new JLabel("Choose Reference:");
 		lblChooseRef.setBounds(366, 206, 107, 25);
 		add(lblChooseRef);
-	/*
-		redDetails.setEditable(false);
-		redDetails.setLineWrap(true);
-		redDetails.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		redDetails.setBounds(68, 285, 529, 146);
-		add(redDetails);
-		*/
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -128,9 +119,9 @@ public class ViewRefDetView extends JPanel {
 		add(scrollPane);
 		
 		redDetails = new JTextArea();
+		redDetails.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		scrollPane.setViewportView(redDetails);
 		redDetails.setLineWrap(true);
-		//redDetails = new WebEditorPane("text/html","");
 		redDetails.setEditable(false);
 		redDetails.setFont(new Font("Dialog", Font.PLAIN, 14));
 		

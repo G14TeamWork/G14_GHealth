@@ -97,7 +97,6 @@ public class ExpView extends JPanel {
 					try{
 						String appID = JOptionPane.showInputDialog(null, "Insert appointment number : ");
 						MainClass.masterControler.EXPVCont.checkApp(appID);
-						Thread.sleep(200);
 						if(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient()!=null){
 							MainClass.masterControler.EXPVCont.expview.sched.setText("");
 							MainClass.masterControler.EXPVCont.expview.checkboxAll.setSelected(false);
@@ -119,12 +118,6 @@ public class ExpView extends JPanel {
 						
 					}
 				}
-				/*if (MainClass.masterControler.EXPVCont.checkApp(appID)){
-					MainClass.masterControler.RACont = new RecordAppointController();
-					MainClass.masterControler.setView(
-						MainClass.masterControler.RACont.RecordAppointview,
-							MainClass.masterControler.RACont);
-				}*/
 			}
 				
 		});

@@ -70,15 +70,11 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 		"app.idexpert=users.username";
 		ArrayList<Object> arrAppList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrAppList.isEmpty())
-		{
-			System.out.println("noooooooooo");
 			VAHEnt.appResultsFlag=false;
-		}
 		else
 		{
 			VAHEnt.appResultsFlag=true;
 			VAHEnt.arrApp=arrAppList;
-			System.out.println(arrAppList);
 		}
 	}
 	
@@ -124,11 +120,11 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 				{
 					strTemp=strTemp+
 					" "+(String)VAHEnt1.arrApp.get(i+8)+//record
-					"Doctor:"
+					"\nDoctor:"
 					+(String)VAHEnt1.arrApp.get(i+1)+
 					" "+(String)VAHEnt1.arrApp.get(i+2)+
 					","+(String)VAHEnt1.arrApp.get(i+3)+
-					",clinic "+(String)VAHEnt1.arrApp.get(i+9)+"\n***************************************************\n";
+					",clinic "+(String)VAHEnt1.arrApp.get(i+9)+"\n******************************************************************************\n";
 				}
 				MainClass.masterControler.VLRCont.viewapphistoryview.fileArea.setText(strTemp);
 				MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewapphistoryview);

@@ -57,23 +57,20 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 	}
 	
 	public void manageGUI(){
-		//TODO DELETE PRINTS
+		int tmp;
 		if(rde.patName.equals("0")){
-			System.out.println("NAME EQUALS NULL");
 			ViewRefDetview.lblErrorLabel.setVisible(true);
 			ViewRefDetview.lblErrorLabel.setForeground(Color.RED);
 			ViewRefDetview.lblErrorLabel.setText("Wrong patient ID!");
 			ViewRefDetview.comboRefs.setSelectedItem("");
 			ViewRefDetview.comboRefs.setEnabled(false);
 		}else if(rde.rlist.isEmpty()){
-			System.out.println("LIST IS EMPTY");
 			ViewRefDetview.lblErrorLabel.setVisible(true);
 			ViewRefDetview.lblErrorLabel.setForeground(Color.RED);
 			ViewRefDetview.lblErrorLabel.setText("No Open references for this patient!");
 			ViewRefDetview.comboRefs.setSelectedItem("");
 			ViewRefDetview.comboRefs.setEnabled(false);
 		}else{
-			System.out.println("SHOULD BE FINE");
 			ViewRefDetview.lblErrorLabel.setVisible(true);
 			ViewRefDetview.lblErrorLabel.setForeground(Color.BLACK);
 			ViewRefDetview.lblErrorLabel.setText( "Patient Name : " + rde.patName );
@@ -81,19 +78,17 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 			ViewRefDetview.comboRefs.setSelectedItem("");
 			ViewRefDetview.comboRefs.setEnabled(true);
 			ViewRefDetview.comboRefs.addItem("");
-			for(int i = 0 ; i < rde.rlist.size() ; i++ ) {
-				ViewRefDetview.comboRefs.addItem(rde.rlist.get(i).getReftype());
+			for(int i = 0  ; i < rde.rlist.size() ; i++ ) {
+				tmp = i+1;
+				ViewRefDetview.comboRefs.addItem(tmp + " - "+ rde.rlist.get(i).getReftype());
 			}
 		}
 	}
 	
-	public String getDetailsFromList(String type){
+	public String getDetailsFromList(int index){
 		String appid = "";
-		String expid = "";
-		int i=0;
-		while(!rde.rlist.get(i).getReftype().equals(type))
-			i++;
-		appid = rde.rlist.get(i).getAppid();
+	
+		appid = rde.rlist.get(index).getAppid();
 		rae = new RecordAppointmentEntity();
 		rae.appID = appid;
 		rae.taskToDo = "getRecord";
@@ -101,10 +96,9 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-		System.out.println(rae.appointment.getRecord());
 		return rae.appointment.getRecord();
 	}
 	

@@ -128,10 +128,10 @@ public class RecordAppointView extends JPanel {
 			}
 		});
 		btnCancel.setBounds(478, 424, 155, 55);
+		btnCancel.setIcon(new GUIimage("xSign", 25, 23).image);
 		add(btnCancel);
-		btnCancel.setIcon(null);
 		
-		btnSave = new JButton("Save");
+		btnSave = new JButton("Save   ");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "Save Record?",null,JOptionPane.YES_NO_OPTION)==0){
@@ -168,6 +168,8 @@ public class RecordAppointView extends JPanel {
 			}
 		});
 		btnSave.setBounds(478, 358, 155, 55);
+		btnSave.setIconTextGap(10);
+		btnSave.setIcon(new GUIimage("save", 25, 23).image);
 		add(btnSave);
 			
 		JLabel lblAppointmentRecord = new JLabel("Appointment Record :");
@@ -187,7 +189,7 @@ public class RecordAppointView extends JPanel {
 		startHourLabel.setBounds(243, 240, 155, 22);
 		add(startHourLabel);
 		
-		btnProduceLabReference = new JButton("Produce Lab Reference");
+		btnProduceLabReference = new JButton("<html><center>Produce Lab<br />Reference</html>");
 		btnProduceLabReference.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rtypes.setVisible(true);
@@ -195,6 +197,8 @@ public class RecordAppointView extends JPanel {
 			}
 		});
 		btnProduceLabReference.setBounds(478, 169, 155, 59);
+		btnProduceLabReference.setIconTextGap(10);
+		btnProduceLabReference.setIcon(new GUIimage("labref", 29, 27).image);
 		add(btnProduceLabReference);
 		
 		rtypes = new JComboBox();
@@ -227,7 +231,7 @@ public class RecordAppointView extends JPanel {
 		});
 		add(rtypes);
 		
-		btnproduce = new JButton("Produce");
+		btnproduce = new JButton(" Produce ");
 		btnproduce.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainClass.masterControler.RACont.handleProduceBtn((String)rtypes.getSelectedItem());
@@ -236,9 +240,10 @@ public class RecordAppointView extends JPanel {
 				newRefs = true;
 			}
 		});
-		btnproduce.setBounds(478, 296, 155, 40);
+		btnproduce.setBounds(478, 296, 155, 49);
 		btnproduce.setEnabled(false);
 		btnproduce.setVisible(false);
+		btnproduce.setIcon(new GUIimage("pen", 25, 23).image);
 		add(btnproduce);
 			
 	}

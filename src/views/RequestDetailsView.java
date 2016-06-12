@@ -30,6 +30,7 @@ import com.alee.laf.text.WebEditorPane;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.ScrollPaneConstants;
+import java.awt.Insets;
 
 public class RequestDetailsView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -71,7 +72,8 @@ public class RequestDetailsView extends JPanel {
 		add(btnBack);
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
-		btnEntireFile = new JButton("View entire medical file");
+		btnEntireFile = new JButton("<html><center>View entire<br />medical file</html>");
+		btnEntireFile.setMargin(new Insets(2, 10, 2, 10));
 		btnEntireFile.setEnabled(false);
 		btnEntireFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,15 +84,19 @@ public class RequestDetailsView extends JPanel {
 			}
 		});
 		btnEntireFile.setBounds(490, 288, 142, 55);
+		btnEntireFile.setIcon(new GUIimage("medicalFile", 25, 23).image);
+		btnEntireFile.setIconTextGap(10);
 		add(btnEntireFile);
-		
-		btnBySpec = new JButton("View by speciality");
+
+		btnBySpec = new JButton("<html><center>View by<br />speciality</html>");
 		btnBySpec.setEnabled(false);
 		btnBySpec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				specs.setVisible(true);
 			}
 		});
+		btnBySpec.setIcon(new GUIimage("medicalDocument", 25, 23).image);
+		btnBySpec.setIconTextGap(11);
 		btnBySpec.setBounds(490, 356, 140, 55);
 		add(btnBySpec);
 		

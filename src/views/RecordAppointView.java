@@ -155,7 +155,6 @@ public class RecordAppointView extends JPanel {
 					MainClass.masterControler.RACont.saveRecord(MainClass.masterControler.EXPVCont.RAE1);
 					MainClass.masterControler.setView(MainClass.masterControler.EXPVCont.expview);//back to exp window
 					record.setText("");
-					System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
 
 					notappear.setSelected(false);
 					record.setEditable(true);

@@ -13,12 +13,24 @@ import Controllers.IRefresh;
 import Entities.RecordAppointmentEntity;
 import Entities.RefDetailsEntity;
 import Entities.Reference;
-
+/**
+ * This class is the controller of view request details. 
+ * is responsible for  client server interaction. 
+ * @param rae  - record appointment entity - is here as msg sent to server.
+ * @param viewrefdetview - is the panel view of view ref details window
+ * @param rde  - entity that is used as msg same as rae.
+ * @author Ruslan
+ *
+ */
 public class ViewRefDetController implements Observer,IRefresh, Serializable {
 	private static final long serialVersionUID = 1L;
 	public ViewRefDetView ViewRefDetview;
 	public RefDetailsEntity rde = new RefDetailsEntity();
 	public RecordAppointmentEntity rae;
+	/**
+	 * constructor - creates view ref det view
+	 * @return 
+	 */
 	public ViewRefDetController() {
 		ViewRefDetview = new ViewRefDetView();
 	}

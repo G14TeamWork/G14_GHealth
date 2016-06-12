@@ -14,6 +14,8 @@ import java.util.Observer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
+import com.thoughtworks.xstream.security.ForbiddenClassException;
+
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.ViewMedicalHistoryView;
@@ -23,15 +25,32 @@ import Entities.FillTestResEntity;
 import Entities.ViewHistoryEntity;
 import Entities.ViewLabResEntity;
 
+/**
+ * This class is in charge of viewing medical history features
+ * showing all appointments history of patient
+ * @param viewmedicalhistoryview is a panel that contains the view of view medical history
+ * @param VHEnt1 - an entity that will be sent to server as msg, and received as one. in it there are appointments and other data
+ * @param arrList array list of object to get data from sql
+ * @author Ruslan
+ *
+ */
 public class ViewMedicalHistoryController implements Observer,IRefresh,Serializable {
 	private static final long serialVersionUID = 1L;
 	public ViewMedicalHistoryView ViewMedicalHistoryview;
 	public ViewHistoryEntity VHEnt1;
 	ArrayList<Object> arrList = new ArrayList<>();
+	/**
+	 * constructor - builds a new view panel
+	 * @return like a constructor returns viewmedicalfilehistory
+	 */
 	public ViewMedicalHistoryController() {
 		ViewMedicalHistoryview = new ViewMedicalHistoryView();
 	}
 	
+	/**
+	 * this method prepares VHEnt1 for searching patient in db.
+	 * client side
+	 */
 	public void setVHEnt_Patient()
 	{
 	
@@ -40,6 +59,12 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 		VHEnt1.pat.setId(ViewMedicalHistoryview.textFieldid.getText());
 		MainClass.ghealth.sendMessegeToServer(VHEnt1);
 	}
+	/**
+	 * server side <br>
+	 * gets patient name by id
+	 * using the VHENT which is the message sent from client that contains id inside it
+	 * @param VHEnt message sent from client. contains patid inside it
+	 */
 	public void checkExistanceSql(ViewHistoryEntity VHEnt)
 	{
 		String query = "";
@@ -60,35 +85,6 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 		}
 	}
 	
-	
-	
-	/*
-	public void askPhoto_Patient()
-	{
-		VHEnt1.photoflag=true;
-		 MainClass.ghealth.sendMessegeToServer(VHEnt1);
-	}
-	public void askPhotoFromTestResSql(ViewHistoryEntity VHEnt)
-	{
-		String query = "";
-		VHEnt.date="07.06.2016 20:05:01";
-		query = "SELECT photo FROM ghealth.test_results WHERE "
-				+ "patientid = \"" + VHEnt.pat.getId() + "\" AND date =\"" +VHEnt.date+ "\"";
-		
-		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		if (arrList.isEmpty())
-		{
-			System.out.println("noooooooooo");
-			VHEnt.photoflag=false;
-		}
-		else
-		{
-			VHEnt.photoflag=true;////////
-			VHEnt.PhotoPath=(String) arrList.get(0);
-			arrList.clear();
-		}
-	}
-	*/
 
 	@Override
 	public void refreshView() {

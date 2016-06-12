@@ -20,6 +20,21 @@ import Entities.Expert;
 import Entities.Patient;
 import Entities.SetAppointmentEntity;
 
+/**
+ * This class is the controller of setting an appointment
+ * In charge of client server connection within setting an appointment
+ * Managing all queries that needed to be sent from dispatcher to sql, handles them and so on..
+ * @author Ruslan
+ * @param arrlist	 list of objects for receiving from sql
+ * @param arrList1 list of objects for receiving from sql
+ * @param AppToSet	appointment object 
+ * @param SApat1
+ * @param SAexp
+ * @param SAapp
+ * @param newPatient
+ * @param expIDlist
+ * @param appIDlist
+ */
 public class SetAppointmentController implements Observer,IRefresh,Serializable {
 	private static final long serialVersionUID = 1L;
 	public SetAppointmentView SetAppointmentview;
@@ -32,6 +47,10 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	public Patient newPatient;
 	public ArrayList<Integer> expIDlist;
 	public ArrayList<Integer> AppIDlist;
+	
+	/**
+	 * constructor
+	 */
 	public SetAppointmentController() {
 		SetAppointmentview = new SetAppointmentView();
 	}

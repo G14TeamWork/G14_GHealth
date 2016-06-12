@@ -110,7 +110,7 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	 */
 	public void deleteAppintmentSQL(CancelAppointmentEntity cap )
 	{
-		String query="UPDATE ghealth.appointments SET idpatient=0, appstatus=0, dispatcherSettingDate=00000000 ,dispatcherSettingHour=000000,sentemail=0 WHERE idappointment="+cap.getIdapp();
+		String query="UPDATE ghealth.appointments SET idpatient=0, appstatus=0, dispatcherSettingDate="+null+ ",dispatcherSettingHour="+null+",sentemail=0 WHERE idappointment="+cap.getIdapp();
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 	}
 	

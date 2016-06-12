@@ -129,6 +129,9 @@ public class RequestDetailsView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				specs.setVisible(false);
 				specs.setSelectedItem("");
+				btnBySpec.setEnabled(false);
+				btnEntireFile.setEnabled(false);
+				fileArea.setText("");
 				if (idrec.getText().equals("")){
 					errorlbl.setForeground(Color.RED);
 					errorlbl.setText("Please enter patient id!");

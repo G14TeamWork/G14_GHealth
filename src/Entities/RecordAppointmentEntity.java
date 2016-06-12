@@ -9,6 +9,7 @@ public class RecordAppointmentEntity implements Serializable {
 	public Appointment appointment;
 	public String taskToDo ;
 	public String appID="";
+	public String expID;
 	
 	public RecordAppointmentEntity(){
 

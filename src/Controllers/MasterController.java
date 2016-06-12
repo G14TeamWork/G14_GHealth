@@ -33,24 +33,6 @@ public class MasterController {
 	public RequestDetailsController	       RDCont;
 	public ViewReportsController		   VRCont;
 	public viewLabResuControlller	  	   VLRCont;
-	/*
-	public StationManagerController stationManagerCont;
-	
-	public FuelingViewController 	fuelingVCont;
-	public HeatingFuelController 	heatingfuelcont;
-	public SetMinLvController       minLvcont;
-	public MarketMngController 		marketManagCont;
-	public MarketAgentController 	marketAgentCont;
-	public InventoryController 		inventoryCont;
-	public StationManagerReportsController staMngReportsCont;
-	public StartNewCmpnControlelr	StartNewCmpCont;
-	public MngCustomersController	mngCustomersCont;
-	public OrderStatusController 	OrderStatCont;
-	public SetPriceController		setPriceController;
-	public NetworkMngController		networkMngController;
-	public NfcController			nfcController;
-	*/
-// Constructor --------------------------------------------------------------
 	
 	public MasterController(final Object obj){
 		this(obj, false);
@@ -91,26 +73,7 @@ public class MasterController {
 					VRCont = new ViewReportsController();
 					VLRCont= new viewLabResuControlller();
 				}
-				/*
-				 * 
-				CustomerVCont 		= new CustomerViewController();
-				heatingfuelcont		= new HeatingFuelController();
-				OrderStatCont       = new OrderStatusController();
-				if (!MainClass.debug) {
-					nfcController		= new NfcController();
-					stationManagerCont 	= new StationManagerController();
-					fuelingVCont		= new FuelingViewController();
-					minLvcont           = new SetMinLvController();
-					marketManagCont		= new MarketMngController();
-					marketAgentCont		= new MarketAgentController();
-					inventoryCont       = new InventoryController();
-					staMngReportsCont   = new StationManagerReportsController();
-					StartNewCmpCont		= new StartNewCmpnControlelr();
-					mngCustomersCont	= new MngCustomersController();
-					setPriceController	= new SetPriceController();
-					networkMngController= new NetworkMngController();
-				}
-				*/
+				
 				if (obj instanceof GHealthClient) {
 					GHealthClient ghealth = (GHealthClient)obj;
 					if (!MainClass.debug) ghealth.addAllControllersAsObservers(master);  

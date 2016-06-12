@@ -39,18 +39,29 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 
 	}
 	/**
-	 * this method is in charge of creating 
+	 * this method is in charge of initializing CAP and sending it to server with task search appointments
 	 */
 	public void searchAppointments(){
 		this.CAP = new CancelAppointmentEntity("search" , CancelAppointmentview.getSearchField().getText());
 		 MainClass.ghealth.sendMessegeToServer(CAP);
 	}
+	
+	/**
+	 * this method is in charge of initializing Cap and sending it to server with task  delete appointments
+	 */
 	public void cancelAppointment()
 	{
 		CAP = new CancelAppointmentEntity("delete" ,((Appointment)CancelAppointmentview.getComboBox().getSelectedItem()).getIdappointment());
 		MainClass.ghealth.sendMessegeToServer(CAP);
 	}
 
+	/**
+	 * this method is in charge of getting from sql name of patient by patient id
+	 * method is ran by server!
+	 * @param arrList receives from sql answer
+	 * @param query initials query to send to sql
+	 * @param cap message received from server
+	 */
 	public void checkExistanceSql(CancelAppointmentEntity cap)
 	{
 		ArrayList<Object> arrList = new ArrayList<Object>();
@@ -66,6 +77,14 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 			}
 		
 	}
+	
+	/**
+	 * this method is ran by server!
+	 * method is in charge of getting all open patient references from sql server
+	 * @param arrList receives from sql answer
+	 * @param query initials query to send to sql
+	 * @param cap message received from server - contains important data for sql query.
+	 */
 	public void searchAppointmentSQL(CancelAppointmentEntity cap )
 	{
 		cap.setAppList(new ArrayList<Appointment>());
@@ -84,18 +103,29 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 
 	}
 	
+	/**
+	 * this method is in charge of sending a delete query to sql with details of the appointment we would like to delete
+	 * @param cap - message sent from server.contains id of appointment that we would like to delete
+	 * @param query - the string that is sent to sql server.
+	 */
 	public void deleteAppintmentSQL(CancelAppointmentEntity cap )
 	{
 		String query="UPDATE ghealth.appointments SET idpatient=0, appstatus=0, dispatcherSettingDate=00000000 ,dispatcherSettingHour=000000,sentemail=0 WHERE idappointment="+cap.getIdapp();
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 	}
-		
+	
+	/**
+	 * this method is in charge of changing panels into cancel appointment view
+	 */
 	@Override
 	public void refreshView() {
 		MainClass.masterControler.setView(CancelAppointmentview);	
 	}
 
 	@Override
+	/**
+	 * this method is in charge of updating client in sql data and results that came up from server
+	 */
 	public void update(Observable o, Object arg) {
 	
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("search"))

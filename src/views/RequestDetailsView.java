@@ -97,7 +97,7 @@ public class RequestDetailsView extends JPanel {
 		});
 		btnBySpec.setIcon(new GUIimage("medicalDocument", 25, 23).image);
 		btnBySpec.setIconTextGap(11);
-		btnBySpec.setBounds(490, 356, 140, 55);
+		btnBySpec.setBounds(490, 322, 140, 55);
 		add(btnBySpec);
 		
 		
@@ -139,18 +139,18 @@ public class RequestDetailsView extends JPanel {
 				
 			}
 		});
-		searchIcon.setBounds(296, 216, 29, 28);
+		searchIcon.setBounds(303, 218, 29, 28);
 		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth()-7,searchIcon.getHeight()-7).image);
 		this.add(searchIcon);
 		
 		idrec = new JTextField();
-		idrec.setBounds(200, 222, 86, 20);
+		idrec.setBounds(190, 222, 101, 20);
 		add(idrec);
 		idrec.setColumns(10);
 		
 		errorlbl = new JLabel("");
 		errorlbl.setFont(new Font("Tahoma", Font.BOLD, 17));
-		errorlbl.setBounds(70, 255, 255, 28);
+		errorlbl.setBounds(70, 255, 306, 28);
 		add(errorlbl);
 		
 		specs = new JComboBox();

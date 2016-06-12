@@ -29,6 +29,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Insets;
+import javax.swing.SwingConstants;
 
 public class RequestDetailsView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -50,8 +51,9 @@ public class RequestDetailsView extends JPanel {
 		add(separator);
 		
 		JLabel lblExpert = new JLabel("Request Details");
+		lblExpert.setHorizontalAlignment(SwingConstants.CENTER);
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(190, 134, 186, 71);
+		lblExpert.setBounds(10, 134, 655, 71);
 		add(lblExpert);
 		
 		JButton btnBack = new JButton("Back");

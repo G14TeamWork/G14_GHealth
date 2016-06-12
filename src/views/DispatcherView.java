@@ -69,8 +69,8 @@ public class DispatcherView extends JPanel {
 				
 			}
 		});
-		btnCancelAppointment.setText("Cancel appointment");
-		btnCancelAppointment.setBounds(469, 372, 161, 55);
+		btnCancelAppointment.setText("<html><center>Cancel<br />appointment</html>");
+		btnCancelAppointment.setBounds(490, 371, 140, 55);
 		btnCancelAppointment.setIcon(new GUIimage("calendarCancel",26,26).image);
 		add(btnCancelAppointment);
 		
@@ -110,8 +110,8 @@ public class DispatcherView extends JPanel {
 				MainClass.masterControler.SACont.SetAppointmentview.btnSetAppointment.setVisible(false);
 			}
 		});
-		btnSetappointment.setText("Set appointment");
-		btnSetappointment.setBounds(469, 304, 161, 55);
+		btnSetappointment.setText("<html><center>Set<br />appointment</html>");
+		btnSetappointment.setBounds(490, 303, 140, 55);
 		btnSetappointment.setIcon(new GUIimage("calendarAdd",26,26).image);
 		add(btnSetappointment);
 	}

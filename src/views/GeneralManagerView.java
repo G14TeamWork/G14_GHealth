@@ -27,6 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
 
 import java.awt.Color;
+import java.awt.Insets;
 
 public class GeneralManagerView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -72,6 +73,7 @@ public class GeneralManagerView extends JPanel {
 		btnLogout.setIcon(new GUIimage("logout", 25, 23).image);
 		
 		btnViewWeeklyReport = new JButton();
+		btnViewWeeklyReport.setMargin(new Insets(2, 10, 2, 10));
 		btnViewWeeklyReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainClass.masterControler.setView(
@@ -79,12 +81,15 @@ public class GeneralManagerView extends JPanel {
 						MainClass.masterControler.VPRCont);
 			}
 		});
-		btnViewWeeklyReport.setText("View weekly report");
-		btnViewWeeklyReport.setBounds(449, 372, 181, 55);
+		btnViewWeeklyReport.setText("<html><center>View <b>weekly</b><br />report</html>");
+		btnViewWeeklyReport.setBounds(490, 374, 140, 55);
+		btnViewWeeklyReport.setIcon(new GUIimage("eye", 25, 23).image);
 		add(btnViewWeeklyReport);
 		
-		JButton btnViewMonthlyReport = new JButton("View monthly report");
-		btnViewMonthlyReport.setBounds(449, 306, 181, 55);
+		JButton btnViewMonthlyReport = new JButton("<html><center>View <b>monthly</b><br />report</html>");
+		btnViewMonthlyReport.setMargin(new Insets(2, 10, 2, 10));
+		btnViewMonthlyReport.setBounds(490, 306, 140, 55);
+		btnViewMonthlyReport.setIcon(new GUIimage("eye", 25, 23).image);
 		add(btnViewMonthlyReport);
 		
 		JFormattedTextField frmtdtxtfldEnterClinicId = new JFormattedTextField();
@@ -92,6 +97,7 @@ public class GeneralManagerView extends JPanel {
 		frmtdtxtfldEnterClinicId.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		frmtdtxtfldEnterClinicId.setText("Enter Clinic ID");
 		frmtdtxtfldEnterClinicId.setBounds(133, 311, 245, 28);
+		
 		add(frmtdtxtfldEnterClinicId);
 		
 		JLabel searchIcon = new JLabel("");

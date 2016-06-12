@@ -106,6 +106,7 @@ public class LoginView extends JPanel {
 		smallLoadingAnimation.stop();
 		
 		btnLogin = new JButton("Login");
+		btnLogin.setFont(new Font("Dialog", Font.PLAIN, 14));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				popover = new WebPopOver();
@@ -119,13 +120,15 @@ public class LoginView extends JPanel {
 				if(MainClass.ghealth.isConnected()) {
 					loadingAnimation.start();
 					btnLogin.setText("");
+					btnLogin.setIcon(null);
 					MainClass.ghealth.sendMessegeToServer(logEnt);
 				}
 				else MainClass.masterControler.LoginCont.setConnectionButton("disconnected");
 				
 			}
 		});
-	
+		btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
+		btnLogin.setIconTextGap(10);
 		btnLogin.setBounds(218, 424, 163, 53);
 		btnLogin.setEnabled(false);
 		this.add(btnLogin);

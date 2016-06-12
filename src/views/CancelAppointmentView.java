@@ -117,8 +117,8 @@ public class CancelAppointmentView extends JPanel {
 		comboBox.setAlignmentX(CENTER_ALIGNMENT);
 		comboBox.setBounds(12, 311, 510, 28);
 		add(comboBox);
-		
-		btnCancelApp = new JButton("Cancel Appointment");
+
+		btnCancelApp = new JButton("<html><center>Cancel<br />Appointment</html>");
 		btnCancelApp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "remove appointment ?", null,JOptionPane.YES_NO_OPTION )== 0)
@@ -127,6 +127,7 @@ public class CancelAppointmentView extends JPanel {
 		});
 		btnCancelApp.setEnabled(false);
 		btnCancelApp.setBounds(490, 374, 140, 55);
+		btnCancelApp.setIcon(new GUIimage("xSign", 25, 23).image);
 		add(btnCancelApp);
 		
 		JLabel lbEnterPatientId = new JLabel(" Enter Patient ID :");

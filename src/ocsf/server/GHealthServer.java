@@ -61,10 +61,6 @@ public class GHealthServer extends ObservableServer{
 		StartServer(5555);
 		ConnectToSQL("root","Braude");
 		sendAutoEmailAlert();
-	//	createDaylyReport(1234);
-		
-		
-		
 	}
 
 	

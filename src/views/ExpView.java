@@ -24,6 +24,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.awt.Insets;
 
 public class ExpView extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -107,11 +108,13 @@ public class ExpView extends JPanel {
 			}
 				
 		});
-		btnRecordAppointment.setText("Record Appointment");
+		btnRecordAppointment.setText("<html><center>Record<br />Appointment</html>");
 		btnRecordAppointment.setBounds(490, 372, 140, 55);
+		btnRecordAppointment.setIcon(new GUIimage("pen", 25, 23).image);
 		add(btnRecordAppointment);
 		
 		btnRequstDetails = new JButton();
+		btnRequstDetails.setMargin(new Insets(2, 9, 2, 9));
 		btnRequstDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainClass.masterControler.RDCont.RequestDetailsview.btnBySpec.setEnabled(false);
@@ -122,6 +125,7 @@ public class ExpView extends JPanel {
 		});
 		btnRequstDetails.setText("Requst Details");
 		btnRequstDetails.setBounds(490, 304, 140, 55);
+		btnRequstDetails.setIcon(new GUIimage("requestdetails", 24, 23).image);
 		add(btnRequstDetails);
 		
 		btnViewMedicalHistory = new JButton();
@@ -136,7 +140,8 @@ public class ExpView extends JPanel {
 			
 			}
 		});
-		btnViewMedicalHistory.setText("View medical history");
+		btnViewMedicalHistory.setIcon(new GUIimage("medicalhistory", 25, 23).image);
+		btnViewMedicalHistory.setText("<html><center>View medical<br />history</html>");
 		btnViewMedicalHistory.setBounds(490, 232, 140, 55);
 		add(btnViewMedicalHistory);
 	}

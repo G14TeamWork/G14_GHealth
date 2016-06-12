@@ -149,6 +149,11 @@ public class GHealthServer extends ObservableServer{
 	
 			case "String":
 				break;
+			case "ScheduleEntity":
+			{
+				SMC.EXPVCont.serverShowSchedule((ScheduleEntity)msg);
+			}
+				break;
 			case "RefDetailsEntity":
 			{
 				SMC.VRDCont.serverGetPatientRefs((RefDetailsEntity)msg);

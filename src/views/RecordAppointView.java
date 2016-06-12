@@ -77,19 +77,12 @@ public class RecordAppointView extends JPanel {
 		});
 		notappear.setBounds(43, 229, 140, 24);
 		add(notappear);
-		/*
-		record = new JTextArea();
-		record.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		record.setForeground(Color.BLACK);
-		record.setLineWrap(true);
-		record.setBounds(33, 273, 435, 206);
-		add(record);
-		*/
+		
 		JScrollPane scrollPane = new JScrollPane();
 
 		scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		scrollPane.setBackground(Color.WHITE);
-		scrollPane.setBounds(43, 262, 406, 213);
+		scrollPane.setBounds(25, 270, 435, 213);
 		add(scrollPane);
 		
 		record = new WebEditorPane("","");

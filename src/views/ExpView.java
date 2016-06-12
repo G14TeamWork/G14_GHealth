@@ -45,9 +45,9 @@ public class ExpView extends JPanel {
 	public JButton btnRequstDetails;
 	public JButton btnViewMedicalHistory;
 	public JLabel lblExpname;
-	public String tmp;
 	public WebEditorPane sched;
 	public JCheckBox checkboxAll;
+	public JLabel lblHiddenID;
 		
 	public ExpView() {
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -69,6 +69,10 @@ public class ExpView extends JPanel {
 		lblExpname.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblExpname.setBounds(20, 203, 657, 31);
 		add(lblExpname);
+		
+		lblHiddenID = new JLabel("");
+		lblHiddenID.setVisible(false);
+		add(lblHiddenID);
 		
 		btnLogout = new JButton();
 		btnLogout.setText("Logout");
@@ -92,41 +96,14 @@ public class ExpView extends JPanel {
 		
 		btnRecordAppointment = new JButton();
 		btnRecordAppointment.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (arg0.getSource()==btnRecordAppointment){
-					try{
-						String appID = JOptionPane.showInputDialog(null, "Insert appointment number : ");
-						MainClass.masterControler.EXPVCont.checkApp(appID);
-						Thread.sleep(200);
-						if(MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient()!=null){
-							MainClass.masterControler.EXPVCont.expview.sched.setText("");
-							MainClass.masterControler.EXPVCont.expview.checkboxAll.setSelected(false);
-							MainClass.masterControler.RACont.RecordAppointview.idPatientLabel.setText("Patient : " + MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
-							MainClass.masterControler.RACont.RecordAppointview.appNoLabel.setText("Appointment : " + appID);
-							tmp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-							MainClass.masterControler.RACont.RecordAppointview.newRefs = false;
-							MainClass.masterControler.RACont.RecordAppointview.startHourLabel.setText("Start Time : " + tmp);
-							MainClass.masterControler.EXPVCont.RAE1.appointment.setStartS(tmp);
-							MainClass.masterControler.RACont.RecordAppointview.btnProduceLabReference.setVisible(true);
-							MainClass.masterControler.RACont.RecordAppointview.record.setText(MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
-							if (MainClass.masterControler.RACont.RecordAppointview.record.getText().equals("0"))
-								MainClass.masterControler.RACont.RecordAppointview.record.setText("");
-							MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview,MainClass.masterControler.RACont);
-						}
-						else if (!appID.equals(null))
-							JOptionPane.showMessageDialog(null, "No matching appointment in data server!");
-					}catch(Exception e){
-						
-					}
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				if (arg0.getSource()==btnRecordAppointment)
+				{
+					String appID = JOptionPane.showInputDialog(null, "Insert appointment number : ");
+					MainClass.masterControler.EXPVCont.checkApp(appID,lblHiddenID.getText());
 				}
-				/*if (MainClass.masterControler.EXPVCont.checkApp(appID)){
-					MainClass.masterControler.RACont = new RecordAppointController();
-					MainClass.masterControler.setView(
-						MainClass.masterControler.RACont.RecordAppointview,
-							MainClass.masterControler.RACont);
-				}*/
 			}
-				
 		});
 		btnRecordAppointment.setText("<html><center>Record<br />Appointment</html>");
 		btnRecordAppointment.setBounds(490, 372, 140, 55);
@@ -178,7 +155,7 @@ public class ExpView extends JPanel {
 
 		scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		scrollPane.setBackground(Color.WHITE);
-		scrollPane.setBounds(57, 309, 410, 186);
+		scrollPane.setBounds(30, 309, 445, 186);
 		add(scrollPane);
 		
 		sched = new WebEditorPane("text/html","");

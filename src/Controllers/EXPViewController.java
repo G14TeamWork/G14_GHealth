@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JOptionPane;
+
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.ExpView;
@@ -23,18 +25,20 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 	public ExpView expview;
 	public RecordAppointmentEntity RAE1 = new RecordAppointmentEntity();
 	public ScheduleEntity se;
+	public String tmp;
 	public EXPViewController() {
 		expview = new ExpView();
 	}
 	
-	public void checkApp(String appID1){
+	public void checkApp(String appID1, String expertID){
 		RAE1.appID=appID1;
+		RAE1.expID=expertID;
 		RAE1.taskToDo="search";
 		MainClass.ghealth.sendMessegeToServer(RAE1);
 	}
 	public void checkAppSQL(RecordAppointmentEntity rae) {
 		ArrayList<Object> arrList = new ArrayList<Object>();
-		String query = "SELECT * FROM ghealth.appointments WHERE idappointment ='" + rae.appID+"'" ;
+		String query = "SELECT * FROM ghealth.appointments WHERE idexpert='"+ rae.expID +"' AND idappointment ='" + rae.appID+"'" ;
 			arrList=GHealthServer.sqlConn.sendSqlQuery(query);
 		if (!arrList.isEmpty()){
 			rae.appointment.setIdpatient(String.valueOf((int)arrList.get(2)));
@@ -116,9 +120,27 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 	@Override
 	public void update(Observable o, Object arg) {
 			if(arg instanceof RecordAppointmentEntity){
-				if(((RecordAppointmentEntity)arg).taskToDo.equals("search")){
-					MainClass.masterControler.EXPVCont.RAE1.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
-					MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(((RecordAppointmentEntity)arg).appointment.getRecord());
+				if(((RecordAppointmentEntity)arg).taskToDo.equals("search"))
+				{
+					if(((RecordAppointmentEntity)arg).appointment.getIdpatient()!=null && !(((RecordAppointmentEntity)arg).appointment.getIdpatient().equals("0"))){
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setIdpatient(((RecordAppointmentEntity)arg).appointment.getIdpatient());
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setRecord(((RecordAppointmentEntity)arg).appointment.getRecord());
+						MainClass.masterControler.EXPVCont.expview.sched.setText("");
+						MainClass.masterControler.EXPVCont.expview.checkboxAll.setSelected(false);
+						MainClass.masterControler.RACont.RecordAppointview.idPatientLabel.setText("Patient : " + MainClass.masterControler.EXPVCont.RAE1.appointment.getIdpatient());
+						MainClass.masterControler.RACont.RecordAppointview.appNoLabel.setText("Appointment : " + ((RecordAppointmentEntity)arg).appID);
+						tmp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+						MainClass.masterControler.RACont.RecordAppointview.newRefs = false;
+						MainClass.masterControler.RACont.RecordAppointview.startHourLabel.setText("Start Time : " + tmp);
+						MainClass.masterControler.EXPVCont.RAE1.appointment.setStartS(tmp);
+						MainClass.masterControler.RACont.RecordAppointview.btnProduceLabReference.setVisible(true);
+						MainClass.masterControler.RACont.RecordAppointview.record.setText(MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord());
+						if (MainClass.masterControler.RACont.RecordAppointview.record.getText().equals("0"))
+							MainClass.masterControler.RACont.RecordAppointview.record.setText("");
+						MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview,MainClass.masterControler.RACont);
+					}
+					else if (!((RecordAppointmentEntity)arg).appID.equals(null))
+						JOptionPane.showMessageDialog(null, "No matching appointment for you in data server!");
 				}
 			}else{
 				if(arg instanceof ScheduleEntity){

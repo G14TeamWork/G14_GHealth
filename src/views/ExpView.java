@@ -59,14 +59,15 @@ public class ExpView extends JPanel {
 		add(separator);
 		
 		JLabel lblExpert = new JLabel("Expert");
+		lblExpert.setHorizontalAlignment(SwingConstants.CENTER);
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(290, 151, 181, 65);
+		lblExpert.setBounds(10, 151, 655, 65);
 		add(lblExpert);
 	
 		lblExpname = new JLabel("");
 		lblExpname.setHorizontalAlignment(SwingConstants.CENTER);
 		lblExpname.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblExpname.setBounds(198, 203, 238, 31);
+		lblExpname.setBounds(20, 203, 657, 31);
 		add(lblExpname);
 		
 		btnLogout = new JButton();
@@ -197,7 +198,7 @@ public class ExpView extends JPanel {
 				MainClass.masterControler.EXPVCont.showExpSched();
 			}
 		});
-		btnSched.setBounds(157, 273, 28, 25);
+		btnSched.setBounds(163, 273, 28, 25);
 		btnSched.setIcon(new GUIimage("refresh",btnSched.getWidth()-7,btnSched.getHeight()-7).image);
 		add(btnSched);
 		

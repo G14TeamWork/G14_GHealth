@@ -71,7 +71,7 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 				}
 			}
 		}else{
-			str = "No appointments were set for today. Go to the beach...";
+			str = "No appointments were set for today.";
 		}
 		expview.sched.setText(str);
 	}

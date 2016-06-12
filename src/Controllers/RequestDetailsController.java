@@ -80,6 +80,7 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 					mf.setOnco("No neurology history.");
 			}
 			else{
+				RequestDetailsview.fileArea.setText("");
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setText("Please enter valid patient ID.");
 				MainClass.masterControler.RDCont.RequestDetailsview.errorlbl.setForeground(Color.RED);
 				MainClass.masterControler.RDCont.RequestDetailsview.btnEntireFile.setEnabled(false);

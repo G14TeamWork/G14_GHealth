@@ -40,6 +40,7 @@ public class ViewRefDetView extends JPanel {
 	public JButton 		btnSearch;
 	public JButton 		btnBack;
 	public JLabel		lblExpert;
+	public String 		tmp;
 	
 	public ViewRefDetView() {
 		setLayout(null);
@@ -95,8 +96,13 @@ public class ViewRefDetView extends JPanel {
 		
 		comboRefs.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				if((e.getStateChange()==ItemEvent.SELECTED)&&(!(((String)comboRefs.getSelectedItem()).equals(""))))
-					 redDetails.setText(MainClass.masterControler.VRDCont.getDetailsFromList((String)comboRefs.getSelectedItem()));
+				if((e.getStateChange()==ItemEvent.SELECTED)&&(!(((String)comboRefs.getSelectedItem()).equals("")))){
+				//	tmp = MainClass.masterControler.VRDCont.getDetailsFromList(comboRefs.getSelectedIndex()-1);
+				
+					//redDetails.setText(tmp);
+				 
+					redDetails.setText(MainClass.masterControler.VRDCont.getDetailsFromList(comboRefs.getSelectedIndex()-1));
+				}
 				else redDetails.setText("");
 			}
 		});

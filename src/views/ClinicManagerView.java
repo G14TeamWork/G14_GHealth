@@ -36,14 +36,15 @@ public class ClinicManagerView extends JPanel {
 		add(separator);
 		
 		JLabel lblClinicManager = new JLabel("Clinic Manager");
+		lblClinicManager.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClinicManager.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblClinicManager.setBounds(243, 151, 166, 65);
+		lblClinicManager.setBounds(10, 151, 655, 65);
 		add(lblClinicManager);
 		
 		lblClinicManagername = new JLabel("");
 		lblClinicManagername.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClinicManagername.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblClinicManagername.setBounds(194, 203, 238, 31);
+		lblClinicManagername.setBounds(20, 203, 645, 31);
 		add(lblClinicManagername);
 		
 		

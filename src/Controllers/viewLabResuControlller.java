@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JOptionPane;
+
 import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import views.viewLabResuView;
@@ -86,10 +88,9 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	{
 		if (arg instanceof ViewLabResEntity)
 		{
-			if (MainClass.masterControler.VMHCont.ViewMedicalHistoryview.taskToDo.equals("firstTime"))
-			
+			if (((ViewLabResEntity)arg).testResultsFlag)
 			{
-				System.out.println(((ViewLabResEntity)arg).arrTest);
+				//System.out.println(((ViewLabResEntity)arg).arrTest);
 				//VLREnt1.arrTest.clear();
 				VLREnt1.arrTest=(ArrayList<Object>) ((ViewLabResEntity)arg).arrTest;
 				
@@ -98,6 +99,10 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 				for (int i=0;i<VLREnt1.arrTest.size();i+=4)
 					MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem(VLREnt1.arrTest.get(0+i)+" "+VLREnt1.arrTest.get(1+i));
 				MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewLabResuview);
+			}
+			else 
+			{
+				JOptionPane.showMessageDialog(null, "No test results for patient!","",JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}

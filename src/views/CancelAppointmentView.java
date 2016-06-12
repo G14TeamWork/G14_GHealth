@@ -40,6 +40,7 @@ public class CancelAppointmentView extends JPanel {
 	private JComboBox comboBox;
 	private JLabel Notificationlbl;
 	public JButton btnsearch;
+	public JButton btnCancelApp;
 	public CancelAppointmentView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -49,7 +50,6 @@ public class CancelAppointmentView extends JPanel {
 		add(separator);
 		Notificationlbl = new JLabel("");
 		Notificationlbl.setEnabled(false);
-		Notificationlbl.setForeground(Color.RED);
 		Notificationlbl.setFont(new Font("Dialog", Font.BOLD, 16));
 		Notificationlbl.setBounds(60, 229, 462, 28);
 		add(Notificationlbl);
@@ -78,21 +78,11 @@ public class CancelAppointmentView extends JPanel {
 			public void processKeyEvent(KeyEvent ev) {
 				    char c = ev.getKeyChar();
 				    int d = ev.getKeyCode();
-				    if ((c >= 48 && c <= 57 && searchField.getText().length()<10) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39) { // c = '0' ... c = '9'
+				    if ((c >= 48 && c <= 57 && searchField.getText().length()<10) || c==127 || c==8 || c==224  || c==39 || d==37 || d==39 || ev.getKeyChar()==10) { // c = '0' ... c = '9'
 				      super.processKeyEvent(ev);
 				    }
 				  }
 				};
-				searchField.addKeyListener(new KeyAdapter() {
-					@Override
-					public void keyPressed(KeyEvent arg0) { // ENTER pressed
-						if (arg0.getKeyChar()==10 && searchField.getText().length()>=1 )
-						{
-							MainClass.masterControler.SACont.setPatient();
-						}
-						}
-					});
-		searchField.setForeground(new Color(0, 0, 0));
 		searchField.setBounds(198, 188, 130, 28);
 		searchField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -125,17 +115,19 @@ public class CancelAppointmentView extends JPanel {
 		comboBox.setMaximumRowCount(5);
 		comboBox.setFont(new Font("Dialog", Font.PLAIN, 15));
 		comboBox.setAlignmentX(CENTER_ALIGNMENT);
-		comboBox.setBounds(22, 311, 462, 28);
+		comboBox.setBounds(12, 311, 510, 28);
 		add(comboBox);
-		
-		JButton btnCancelApp = new JButton("Cancel Appointment");
+
+		btnCancelApp = new JButton("<html><center>Cancel<br />Appointment</html>");
 		btnCancelApp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if(JOptionPane.showConfirmDialog(null, "remove appointment ?", null,JOptionPane.YES_NO_OPTION )== 0)
-				MainClass.masterControler.CACont.cancelAppointment();
+					MainClass.masterControler.CACont.cancelAppointment();
 			}
 		});
+		btnCancelApp.setEnabled(false);
 		btnCancelApp.setBounds(490, 374, 140, 55);
+		btnCancelApp.setIcon(new GUIimage("xSign", 25, 23).image);
 		add(btnCancelApp);
 		
 		JLabel lbEnterPatientId = new JLabel(" Enter Patient ID :");

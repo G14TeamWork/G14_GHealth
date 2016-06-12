@@ -123,13 +123,35 @@ public class SetAppointmentView extends JPanel {
 		btnsearch.setIcon(new GUIimage("search",btnsearch.getWidth()-7,btnsearch.getHeight()-7).image);
 		this.add(btnsearch);
 		
-		textField_first = new JTextField();
+		textField_first = new JTextField(){
+			  /**
+			 * limit to email
+			 */
+			private static final long serialVersionUID = 1L;
+			public void processKeyEvent(KeyEvent ev) {
+				    char c = ev.getKeyChar();
+				    int d = ev.getKeyCode();
+				    if ((textField_first.getText().length()<30))
+				    		super.processKeyEvent(ev);
+				}
+		};
 		textField_first.setColumns(10);
 		textField_first.setBounds(154, 209, 148, 28);
 		textField_first.setVisible(false);
 		add(textField_first);
 		
-		textField_last = new JTextField();
+		textField_last = new JTextField(){
+			  /**
+			 * limit to email
+			 */
+			private static final long serialVersionUID = 1L;
+			public void processKeyEvent(KeyEvent ev) {
+				    char c = ev.getKeyChar();
+				    int d = ev.getKeyCode();
+				    if ((textField_last.getText().length()<30))
+				    		super.processKeyEvent(ev);
+				}
+		};
 		textField_last.setColumns(10);
 		textField_last.setBounds(466, 209, 148, 28);
 		textField_last.setVisible(false);
@@ -177,7 +199,18 @@ public class SetAppointmentView extends JPanel {
 
 		add(textField_phone);
 		
-		textField_email = new JTextField();
+		textField_email = new JTextField(){
+			  /**
+			 * limit to email
+			 */
+			private static final long serialVersionUID = 1L;
+			public void processKeyEvent(KeyEvent ev) {
+				    char c = ev.getKeyChar();
+				    int d = ev.getKeyCode();
+				    if ((textFieldid.getText().length()<30))
+				    		super.processKeyEvent(ev);
+				}
+		};
 		textField_email.setColumns(10);
 		textField_email.setBounds(466, 250, 148, 28);
 		textField_email.setVisible(false);
@@ -189,7 +222,18 @@ public class SetAppointmentView extends JPanel {
 		lblEmail.setVisible(false);
 		add(lblEmail);
 		
-		textField_adress = new JTextField();
+		textField_adress = new JTextField(){
+			  /**
+			 * limit to email
+			 */
+			private static final long serialVersionUID = 1L;
+			public void processKeyEvent(KeyEvent ev) {
+				    char c = ev.getKeyChar();
+				    int d = ev.getKeyCode();
+				    if ((textField_adress.getText().length()<30))
+				    		super.processKeyEvent(ev);
+				}
+		};
 		textField_adress.setColumns(10);
 		textField_adress.setBounds(154, 291, 148, 28);
 		textField_adress.setVisible(false);

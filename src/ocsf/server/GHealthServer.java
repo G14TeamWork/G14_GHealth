@@ -61,10 +61,6 @@ public class GHealthServer extends ObservableServer{
 		StartServer(5555);
 		ConnectToSQL("root","Braude");
 		sendAutoEmailAlert();
-	//	createDaylyReport(1234);
-		
-		
-		
 	}
 
 	
@@ -148,6 +144,11 @@ public class GHealthServer extends ObservableServer{
 		switch(className){
 	
 			case "String":
+				break;
+			case "ScheduleEntity":
+			{
+				SMC.EXPVCont.serverShowSchedule((ScheduleEntity)msg);
+			}
 				break;
 			case "RefDetailsEntity":
 			{

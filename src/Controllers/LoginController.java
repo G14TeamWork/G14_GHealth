@@ -57,12 +57,14 @@ public void setConnectionButton(String state){
 		case "connected":
 			loginView.status.setVisible(true);
 			loginView.btnLogin.setEnabled(true);
+			loginView.btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 			loginView.status.setIcon(new GUIimage("connect",loginView.status.getWidth(),loginView.status.getHeight()).image);
 			break;
 
 		case "disconnected":
 			loginView.status.setVisible(true);
 			loginView.btnLogin.setEnabled(false);
+			loginView.btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 			loginView.status.setIcon(new GUIimage("disconnect",loginView.status.getWidth(),loginView.status.getHeight()).image);
 			break;
 			
@@ -190,6 +192,7 @@ public void setConnectionButton(String state){
 					LV.popover.show(LV.btnLogin);
 					loginView.loadingAnimation.stop();
 					loginView.btnLogin.setText("Login");
+					loginView.btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 					
 				}
 			};
@@ -253,6 +256,7 @@ public void setConnectionButton(String state){
 	public void refreshView() {
 		
 		loginView.btnLogin.setText("Login");
+		loginView.btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 		loginView.loadingAnimation.stop();
 		
 		if (loginEntity!=null && loginEntity.isConnectionLost()) {

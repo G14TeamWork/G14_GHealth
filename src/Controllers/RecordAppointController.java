@@ -27,7 +27,6 @@ public class  RecordAppointController implements Observer,IRefresh, Serializable
 		
 	}
 	public void saveRecord(RecordAppointmentEntity RAE){
-	//	System.out.println(MainClass.masterControler.EXPVCont.RAE1.appointment.getRecord()+"AAAAAAAAAAAAAA");
 		MainClass.ghealth.sendMessegeToServer(RAE);
 	}
 	public void serverSaveRecord(RecordAppointmentEntity rae){

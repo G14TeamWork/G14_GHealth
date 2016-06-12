@@ -46,27 +46,38 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	
 	public void setNewPatient() {
 		newPatient=new Patient();
-		newPatient.setId(SetAppointmentview.textFieldid.getText());
-		newPatient.setFirstname(SetAppointmentview.textField_first.getText());
-		newPatient.setLastname(SetAppointmentview.textField_last.getText());
-		newPatient.setPhone(SetAppointmentview.textField_phone.getText());
-		newPatient.setEmail(SetAppointmentview.textField_email.getText());
-		newPatient.setAddress(SetAppointmentview.textField_adress.getText());
 		String fillERR = "Please enter ";
-		if(newPatient.getId().length()<1)
+		if(SetAppointmentview.textFieldid.getText().length()<1)
 			fillERR+="id, ";
-		if(newPatient.getFirstname().length()<1)
+		if(SetAppointmentview.textField_first.getText().length()<1)
 			fillERR+="first name, ";
-		if(newPatient.getLastname().length()<1)
+		if(SetAppointmentview.textField_last.getText().length()<1)
 			fillERR+="last name, ";
-		if(newPatient.getPhone().length()<1)
+		if(SetAppointmentview.textField_phone.getText().length()<1)
 			fillERR+="phone, ";
-		if(newPatient.getEmail().length()<1)
+		if(SetAppointmentview.textField_email.getText().length()<1)
 			fillERR+="email, ";
-		if(newPatient.getAddress().length()<1)
+		else
+		{
+			boolean emailFLAG=false;
+			for(int i = 0 ; i < SetAppointmentview.textField_email.getText().length() ; i++)
+				if(SetAppointmentview.textField_email.getText().charAt(i)=='@')
+					emailFLAG=true;
+			if(!emailFLAG)
+				fillERR+="email with valid structure (@), ";
+		}
+		if(SetAppointmentview.textField_adress.getText().length()<1)
 			fillERR+="address";
 		if (fillERR.equals("Please enter "))
+		{
+			newPatient.setId(SetAppointmentview.textFieldid.getText());
+			newPatient.setFirstname(SetAppointmentview.textField_first.getText());
+			newPatient.setLastname(SetAppointmentview.textField_last.getText());
+			newPatient.setPhone(SetAppointmentview.textField_phone.getText());
+			newPatient.setEmail(SetAppointmentview.textField_email.getText());
+			newPatient.setAddress(SetAppointmentview.textField_adress.getText());
 			MainClass.ghealth.sendMessegeToServer(newPatient);
+		}
 		else
 		{
 			JOptionPane.showMessageDialog(null,fillERR);

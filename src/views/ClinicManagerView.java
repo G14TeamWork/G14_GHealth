@@ -53,6 +53,8 @@ public class ClinicManagerView extends JPanel {
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainClass.masterControler.LoginCont.loginEntity.setLogout(true);
+				MainClass.masterControler.LoginCont.loginView.getTextFieldUserName().setText("");
+				MainClass.masterControler.LoginCont.loginView.getPwdPassword().setText("");
 				MainClass.masterControler.setView(
 						MainClass.masterControler.LoginCont.loginView,
 						MainClass.masterControler.LoginCont);
@@ -72,10 +74,11 @@ public class ClinicManagerView extends JPanel {
 			}
 		});
 		btnViewReports.setText("View reports");
+		btnViewReports.setIcon(new GUIimage("eye", 25, 23).image);
 		btnViewReports.setBounds(490, 372, 140, 55);
 		add(btnViewReports);
-		
-		btnProduceReport = new JButton("Produce Report");
+
+		btnProduceReport = new JButton("<html><center>Produce<br />Report</html>");
 		btnProduceReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainClass.masterControler.setView(
@@ -84,6 +87,7 @@ public class ClinicManagerView extends JPanel {
 			}
 		});
 		btnProduceReport.setBounds(490, 306, 140, 55);
+		btnProduceReport.setIcon(new GUIimage("report", 25, 23).image);
 		add(btnProduceReport);
 	}
 }

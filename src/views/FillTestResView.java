@@ -154,7 +154,7 @@ public class FillTestResView extends JPanel {
 		textField_TestResult.setBounds(32, 312, 437, 183);
 		add(textField_TestResult);
 		
-		btnSave = new JButton("Save");
+		btnSave = new JButton("  Save   ");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -172,6 +172,7 @@ public class FillTestResView extends JPanel {
 						}
 			}
 		});
+		btnSave.setIcon(new GUIimage("save", 25, 23).image);
 		btnSave.setBounds(490, 374, 140, 53);
 		add(btnSave);
 		

@@ -67,11 +67,11 @@ public class RequestDetailsView extends JPanel {
 						MainClass.masterControler.EXPVCont.expview);
 			}
 		});
-		btnBack.setBounds(490, 466, 140, 55);
+		btnBack.setBounds(490, 452, 140, 55);
 		add(btnBack);
 		btnBack.setIcon(new GUIimage("back", 25, 23).image);
 		
-		btnEntireFile = new JButton("View entire medical file");
+		btnEntireFile = new JButton("View Entire File");
 		btnEntireFile.setEnabled(false);
 		btnEntireFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -81,17 +81,18 @@ public class RequestDetailsView extends JPanel {
 				}
 			}
 		});
-		btnEntireFile.setBounds(490, 288, 142, 55);
+		btnEntireFile.setBounds(490, 386, 140, 55);
 		add(btnEntireFile);
 		
-		btnBySpec = new JButton("View by speciality");
+		btnBySpec = new JButton("View By Speciality");
 		btnBySpec.setEnabled(false);
 		btnBySpec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				specs.setVisible(true);
+				specs.setSelectedItem("");
 			}
 		});
-		btnBySpec.setBounds(490, 356, 140, 55);
+		btnBySpec.setBounds(490, 320, 140, 55);
 		add(btnBySpec);
 		
 		
@@ -103,23 +104,14 @@ public class RequestDetailsView extends JPanel {
 		scrollPane.setBounds(45, 288, 433, 233);
 		add(scrollPane);
 		
-		
-		
-		
+				
 		fileArea = new JTextArea();
+		fileArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		fileArea.setLineWrap(true);
 		scrollPane.setViewportView(fileArea);
 		fileArea.setEditable(false);
 		fileArea.setFont(new Font("Dialog", Font.PLAIN, 14));
-		
-		/*
-		fileArea.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		fileArea.setEditable(false);
-		fileArea.setLineWrap(true);
-		fileArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		fileArea.setBounds(75, 288, 389, 233);
-		add(fileArea);
-	*/
+	
 		JLabel lblEnterPatientId = new JLabel("Enter patient ID:");
 		lblEnterPatientId.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblEnterPatientId.setBounds(70, 216, 120, 28);
@@ -157,6 +149,7 @@ public class RequestDetailsView extends JPanel {
 		add(errorlbl);
 		
 		specs = new JComboBox();
+		specs.setMaximumRowCount(4);
 		specs.addItem("");
 		specs.addItem("Cardiology");
 		specs.addItem("Neurology");
@@ -170,7 +163,7 @@ public class RequestDetailsView extends JPanel {
 			}
 		});
 
-		specs.setBounds(490, 422, 140, 33);
+		specs.setBounds(490, 276, 140, 33);
 		specs.setVisible(false);
 		add(specs);
 

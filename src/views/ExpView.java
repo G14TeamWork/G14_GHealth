@@ -112,7 +112,8 @@ public class ExpView extends JPanel {
 								MainClass.masterControler.RACont.RecordAppointview.record.setText("");
 							MainClass.masterControler.setView(MainClass.masterControler.RACont.RecordAppointview,MainClass.masterControler.RACont);
 						}
-						else JOptionPane.showMessageDialog(null, "No matching appointment in data server!");
+						else if (!appID.equals(null))
+							JOptionPane.showMessageDialog(null, "No matching appointment in data server!");
 					}catch(Exception e){
 						
 					}

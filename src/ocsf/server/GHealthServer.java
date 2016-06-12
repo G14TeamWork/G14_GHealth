@@ -159,7 +159,7 @@ public class GHealthServer extends ObservableServer{
 				SMC.RACont.serverCreateRef((Reference)msg);
 			}
 				break; 
-			case"MedicalFile":
+			case "MedicalFile":
 			{
 				SMC.RDCont.serverGetMedicalFile((MedicalFile)msg);
 			}
@@ -181,8 +181,14 @@ public class GHealthServer extends ObservableServer{
 			{
 				 if (((ViewLabResEntity)msg).testResultsFlag)
 					 SMC.VLRCont.askForTestResultSql((ViewLabResEntity)msg);
+				 break;
 			}
-				break;
+			case "ViewAppHistoryEntity":
+			{
+				 if (((ViewAppHistoryEntity)msg).appResultsFlag)
+					 SMC.VLRCont.askForAppRecordSql((ViewAppHistoryEntity)msg);
+				 break;
+			}
 			case "ViewHistoryEntity":
 				//if(!((ViewHistoryEntity)msg).photoflag)
 				

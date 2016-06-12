@@ -92,7 +92,7 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		String query = "";
 		String labworker =FTRpat.labworkerFirstName+" "+FTRpat.labworkerLastName;
 		
-		String date = new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime());;
+		String date = new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime());
 	    String filledtime = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 		if (FTRpat.PhotoPath.contains("."))
 			FTRpat.PhotoPath=FTRpat.PhotoPath.substring(0, FTRpat.PhotoPath.lastIndexOf("."));

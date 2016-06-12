@@ -11,8 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.*;
 import java.time.*;
 
@@ -150,7 +148,13 @@ public class GHealthServer extends ObservableServer{
 	
 			case "String":
 				break;
+			case "ClinicManagerEntity":
+			{
+				if( ((ClinicManagerEntity)msg).getTaskToDo().equals("seting clinic manager id"))
+					SMC.CMCont.searchClinicIdServer(((ClinicManagerEntity)msg));
 				
+			}
+				break;
 			case"MedicalFile":
 			{
 				SMC.RDCont.serverGetMedicalFile((MedicalFile)msg);
@@ -224,70 +228,7 @@ public class GHealthServer extends ObservableServer{
 		
 	//}
 	
-/*	public static void createDaylyReport(int idclinic)
-	{
-		
-		ArrayList<Object> arrList = new ArrayList<Object>();
-		Calendar calendar = Calendar.getInstance();
-		int day = calendar.get(Calendar.DAY_OF_WEEK);
-		long Max,Min,Avg,corent,Sd;
-		int Cut;
 
-		
-		String query = "SELECT ghealth.appointments.dispatcherSettingDate,"
-		+"ghealth.appointments.dispatcherSettingHour,ghealth.appointments.appdate,ghealth.appointments.start"
-		+" FROM ghealth.appointments"
-		+" WHERE ghealth.appointments.appstatus = 2 and ghealth.appointments.appdate = current_date() and ghealth.appointments.idclinic="+String.valueOf(idclinic)+";";
-		
-		
-		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		
-		
-		Max = Min = (((Date)arrList.get(2)).getTime() + ((Time)arrList.get(3)).getTime() ) - ( ((Time)arrList.get(1)).getTime() + ((Date)arrList.get(0)).getTime() ) ;
-		Avg = Sd = Cut = 0;
-
-		for (int i  = 0 ; i < arrList.size() ; i+=4)
-		{
-			corent =(((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i+1)).getTime() + ((Date)arrList.get(i)).getTime() ) ;
-			Max = Max >= corent ? Max : corent;
-			Min = Min <= corent ? Min : corent;
-			Avg += corent;
-			Cut++;
-			
-		}
-		Avg = (Avg /(long)Cut);
-			
-		for (int i  = 0 ; i < arrList.size() ; i+=4)
-		{
-			corent = (((Date)arrList.get(i+2)).getTime() + ((Time)arrList.get(i+3)).getTime() ) - ( ((Time)arrList.get(i+1)).getTime() + ((Date)arrList.get(i)).getTime() - Avg) ;
-			Sd += Math.pow(corent,(long)2.0);
-		}
-		Sd = Sd/(long)(Cut);
-		Sd =  (long)Math.sqrt(Sd);
-		String newRow = "INSERT INTO ghealth.daylyreport (idclinic, day, clientstreated, maxwaittime, minwitetime, avgwaittime, sdwaittime)"
-				+" VALUES ("+String.valueOf(idclinic)+","+String.valueOf(day)+","+String.valueOf(Cut)+","+String.valueOf(Max)+","+String.valueOf(Min)+","+String.valueOf(Avg)+","+String.valueOf(Sd)+");";
-		GHealthServer.sqlConn.sendSqlUpdate(newRow);
-		
-		long diffSeconds = Avg / 1000 % 60;
-		long diffMinutes = Avg / (60 * 1000) % 60;
-		long diffHours = Avg / (60 * 60 * 1000) % 24;
-		long diffDays = Avg / (24 * 60 * 60 * 1000);
-		
-		System.out.print(diffDays + " days, ");
-		System.out.print(diffHours + " hours, ");
-		System.out.print(diffMinutes + " minutes, ");
-		System.out.print(diffSeconds + " seconds.");
-		
-		diffSeconds = Max / 1000 % 60;
-		diffMinutes = Max / (60 * 1000) % 60;
-		diffHours = Max / (60 * 60 * 1000) % 24;
-		diffDays = Max / (24 * 60 * 60 * 1000);
-		
-		System.out.print(diffDays + " days, ");
-		System.out.print(diffHours + " hours, ");
-		System.out.print(diffMinutes + " minutes, ");
-		System.out.print(diffSeconds + " seconds.");
-	}*/
 
 	public static void sendAutoEmailAlert()	
 	{

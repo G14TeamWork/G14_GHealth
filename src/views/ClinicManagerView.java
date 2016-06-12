@@ -15,18 +15,26 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
+import javax.swing.JList;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
 
 public class ClinicManagerView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JButton btnLogout;
 	public JSeparator separator;
-	public JButton btnViewReports;
-	public JButton btnProduceReport;
 	public JLabel lblClinicManagername;
+	private JTextField year;
+	private JTextField month;
+	private JTextField textField_2;
 	public ClinicManagerView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -62,27 +70,39 @@ public class ClinicManagerView extends JPanel {
 		add(btnLogout);
 		btnLogout.setIcon(new GUIimage("logout", 25, 23).image);
 		
-		btnViewReports = new JButton();
-		btnViewReports.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MainClass.masterControler.setView(
-						MainClass.masterControler.VRCont.ViewReportsview,
-						MainClass.masterControler.VRCont);
-			}
-		});
-		btnViewReports.setText("View reports");
-		btnViewReports.setBounds(490, 372, 140, 55);
-		add(btnViewReports);
+		year = new JTextField();
+		year.setText("0000");
+		year.setBounds(124, 255, 31, 20);
+		add(year);
+		year.setColumns(10);
 		
-		btnProduceReport = new JButton("Produce Report");
-		btnProduceReport.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MainClass.masterControler.setView(
-						MainClass.masterControler.PMRCont.ProduceMonthlyReportview,
-						MainClass.masterControler.PMRCont);
+		month = new JTextField();
+		month.setText("00");
+		month.setBounds(158, 255, 20, 20);
+		add(month);
+		month.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setEnabled(false);
+		textField_2.setBounds(182, 255, 20, 20);
+		add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel searchIcon = new JLabel("");
+		searchIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				MainClass.masterControler.CMCont.searchClinicIdClient();
+				System.out.println("fjsldfja;ldka");
 			}
-		});
-		btnProduceReport.setBounds(490, 306, 140, 55);
-		add(btnProduceReport);
+			});
+
+		searchIcon.setBounds(292, 247, 29, 28);
+		searchIcon.setIcon(new GUIimage("search",searchIcon.getWidth(),searchIcon.getHeight()).image);
+		add(searchIcon);
+		
+		JCheckBox chckbxWeekly = new JCheckBox("Weekly");
+		chckbxWeekly.setBounds(212, 254, 61, 23);
+		add(chckbxWeekly);
 	}
 }

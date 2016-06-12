@@ -121,24 +121,7 @@ public void setConnectionButton(String state){
 			
 			GHealthServer.sqlConn.sendSqlUpdate(query);
 			
-			arrList.clear();
-			String userType=LE.getUsertype();
-			switch (userType) {
-			case "exp":
-				//query="SELECT stationName FROM ghealth.station,g.workers "
-					//	+ "WHERE workers.username = "+ LE.getUsername() +" AND station.idStation = workers.stationID";
-				//arrList= GasServer.sqlConn.sendSqlQuery(query);
-				//LE.setStationName((String)arrList.get(0));
-				break;
-			case "dis":
-				// למלא פרטים להצגה בחלון הבא
-				break;
-			case "lab":
-			    break; 
-			case "gmanager":
-				
-				break;
-			}	
+			arrList.clear();			
 		}
 		else{
 			LE.setArrayListReturnedEmpty(true);

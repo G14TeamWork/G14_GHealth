@@ -41,7 +41,6 @@ public class ServerView extends JPanel {
 	private JLabel lblMysqlState;
 	private JLabel lblServerState;
 	private JLabel lblIP;
-	private WebButton dbReset;
 
 	/**
 	 * Create the frame.
@@ -58,24 +57,6 @@ public class ServerView extends JPanel {
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, 126, 677, 12);
 				add(separator);
-				
-		//*** DO NOT DELETE! - END ***//
-		
-		dbReset = new WebButton ( "Rest DB!" );
-		dbReset.setText("");
-		dbReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int selection = WebOptionPane.showConfirmDialog ( null, 
-								"Are you sure you want to reset the Data Base?", 
-								" Warning ! Warning ! Warning ! Warning ! Warning !", WebOptionPane.YES_NO_OPTION,
-								WebOptionPane.WARNING_MESSAGE );
-				if(selection == 0) {
-					SET_DB_WITH_SQL_FILE.main(null);
-				}
-			}
-		});
-		dbReset.setBounds(403, 433, 47, 47);
-		add(dbReset);
 
 				
 		JLabel lblNewLabel = new JLabel("Server Side");
@@ -94,7 +75,7 @@ public class ServerView extends JPanel {
 		textFieldPort.setColumns(10);
 		
 		final WebButton toggleButton = new WebButton("Stop");
-		toggleButton.setBounds(227, 433, 168, 47);
+		toggleButton.setBounds(227, 433, 223, 47);
 		toggleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(toggleButton.getText().equals("Start")){// if start:

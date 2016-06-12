@@ -317,7 +317,7 @@ public class GHealthServer extends ObservableServer{
 
 	public static void sendAutoEmailAlert()	
 	{
-		long timeOut = 600000;
+		long timeOut = 60000;
 			Thread t = new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -342,19 +342,19 @@ public class GHealthServer extends ObservableServer{
 							
 							for(int i = 0 ; i < arrList.size() ; i +=12)
 							{
-								System.out.println(arrList.get(0));
+								//System.out.println(arrList.get(0));
 								GHealthServer.sqlConn.sendSqlUpdate(query2+String.valueOf(arrList.get(i))+";");
 								// mail: 		ghealthg14@gmail.com
 								// password: 	g14ghealth
 								SendEmail.sendFromGMail("ghealthg14@gmail.com", "g14ghealth"
-										,(String)arrList.get(i+2) , "Alert appointment with a specialist",
+										,(String)arrList.get(i+2) , "Appointment Reminder",
 										"Hello "+(String)arrList.get(i+10)+" "+(String)arrList.get(i+11)
-										+"\nTomorrow you will have an appointment at "+(Time)arrList.get(i+1)
+										+",\nYou have an appointment scheduled for tommorow at "+((Time)arrList.get(i+1)).toString().substring(0, 5)
 										+" with our "+(String)arrList.get(i+3)
-										+" "+(String)arrList.get(i+4)+" "+(String)arrList.get(i+5)
-										+"\nin clinic: "+(String)arrList.get(i+6)
-										+"\nAddress: "+(String)arrList.get(i+7)
-										+"\nClinic phone number: "+(String)arrList.get(i+8)
+										+" "+(String)arrList.get(i+4)+" "+(String)arrList.get(i+5)+"."
+										+"\nThe appointment will take place at clinic: "+(String)arrList.get(i+6)
+										+"\nClinic's address: "+(String)arrList.get(i+7)
+										+"\nClinic's phone number: "+(String)arrList.get(i+8)
 										+"\nThank you,\n     Ghealth");
 							}
 							

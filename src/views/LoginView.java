@@ -96,7 +96,7 @@ public class LoginView extends JPanel {
 		add(status);
 		
 		loadingAnimation = new InfiniteProgressPanel(1.5);
-		loadingAnimation.setBounds(218, 424, 163, 53);
+		loadingAnimation.setBounds(252, 402, 163, 53);
 		add(loadingAnimation);
 		loadingAnimation.stop();
 		
@@ -129,7 +129,7 @@ public class LoginView extends JPanel {
 		});
 		btnLogin.setIcon(new GUIimage("login1", 25, 23).image);
 		btnLogin.setIconTextGap(10);
-		btnLogin.setBounds(218, 424, 163, 53);
+		btnLogin.setBounds(252, 402, 163, 53);
 		btnLogin.setEnabled(false);
 		this.add(btnLogin);
 		

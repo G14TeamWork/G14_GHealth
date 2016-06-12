@@ -100,19 +100,6 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	{
 		if (arg instanceof ViewHistoryEntity)
 		{
-			/*
-			if (((ViewHistoryEntity)arg).testResultsFlag)
-			{
-				System.out.println(((ViewHistoryEntity)arg).arrTest);
-				VHEnt1.arrTest=(ArrayList<Object>) ((ViewHistoryEntity)arg).arrTest;
-				
-				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.removeAllItems();;
-				MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem("");
-				for (int i=0;i<VHEnt1.arrTest.size();i+=4)
-					MainClass.masterControler.VLRCont.viewLabResuview.comboBoxChooseTest.addItem(VHEnt1.arrTest.get(0+i)+" "+VHEnt1.arrTest.get(1+i));
-				MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewLabResuview);
-			}*/
-			//else 
 			{
 				
 				VHEnt1.pat.setFirstname(((ViewHistoryEntity) arg).pat.getFirstname());

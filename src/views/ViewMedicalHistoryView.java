@@ -54,10 +54,13 @@ public class ViewMedicalHistoryView extends JPanel {
 		
 		btnViewmedicalHis = new JButton("View medical history");
 		btnViewmedicalHis.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
+		public void actionPerformed(ActionEvent e) {
+			MainClass.masterControler.setView(
+					MainClass.masterControler.VLRCont.viewapphistoryview);	
+			MainClass.masterControler.VLRCont.viewapphistoryview.labelPatName.setText(textField_patname.getText());
+			MainClass.masterControler.VLRCont.getAppRecord();
+		  }
+	    });
 		btnViewmedicalHis.setBounds(479, 372, 151, 55);
 		add(btnViewmedicalHis);
 		

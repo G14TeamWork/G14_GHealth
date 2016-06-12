@@ -18,14 +18,29 @@ import Entities.CancelAppointmentEntity;
 import Entities.FillTestResEntity;
 import Entities.Patient;
 
+/**
+ *  This class is the the class that is in charge of canceling appointment feature.
+ *  @param CancelAppointmentview - panel with all needed components for canceling an appointment.
+ *  @param CAP - CancelAppointmentEntity, is being sent to server as message after filling it with needed data.
+ * @author Ruslan
+ *
+ */
 public class CancelAppointmentController implements Observer,IRefresh  {
 	public  CancelAppointmentView  CancelAppointmentview;
 	public CancelAppointmentEntity CAP;
 
+	/**
+	 * This class is a constructor for cancel appointment controller.
+	 * The only action needed in the beginning is creating view
+	 * @return it is a constructor
+	 */
 	public CancelAppointmentController() {
 		 CancelAppointmentview = new  CancelAppointmentView();
 
 	}
+	/**
+	 * this method is in charge of creating 
+	 */
 	public void searchAppointments(){
 		this.CAP = new CancelAppointmentEntity("search" , CancelAppointmentview.getSearchField().getText());
 		 MainClass.ghealth.sendMessegeToServer(CAP);

@@ -26,13 +26,14 @@ public class Appointment implements Serializable{
 	{
 		
 	}
-	public Appointment(Date appdate, Time start, Time end, String expertise, String firstname, String lastname, String idappointment)
+	public Appointment(Date appdate, Time start, Time end, String expertise, String firstname, String lastname, String idappointment, String clinicName)
 	{
 		this.start=start;
 		this.end=end;
 		this.idappointment = idappointment;
 		this.appdate = appdate;
 		this.EX = new Expert(expertise,firstname,lastname);
+		this.EX.setClinicName(clinicName);
 	}
 	
 	public Appointment(Date date) {
@@ -104,7 +105,7 @@ public class Appointment implements Serializable{
 		String Date = new SimpleDateFormat("dd.MM.yyyy").format(appdate);
 		String HourStart = new SimpleDateFormat("HH:mm").format(start);
 		String HourEnd = new SimpleDateFormat("HH:mm").format(end);
-		return "AppID["+idappointment+"], " +Date+", "+ HourStart+"-"+HourEnd+ " " + EX;
+		return "AppID["+idappointment+"], " +Date+", "+ HourStart+"-"+HourEnd+ " ," + EX.getFirstName() + " " + EX.getLastName() + ", " + EX.getExpertise() + ", " + EX.getClinicName();
 	}
 	
 	public void setAppdateString(String timeStamp1) {

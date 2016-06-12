@@ -52,6 +52,8 @@ public class ClinicManagerView extends JPanel {
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MainClass.masterControler.LoginCont.loginEntity.setLogout(true);
+				MainClass.masterControler.LoginCont.loginView.getTextFieldUserName().setText("");
+				MainClass.masterControler.LoginCont.loginView.getPwdPassword().setText("");
 				MainClass.masterControler.setView(
 						MainClass.masterControler.LoginCont.loginView,
 						MainClass.masterControler.LoginCont);

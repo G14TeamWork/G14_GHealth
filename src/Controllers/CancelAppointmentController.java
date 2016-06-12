@@ -55,16 +55,17 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 	{
 		cap.setAppList(new ArrayList<Appointment>());
 				ArrayList<Object> arrList = new ArrayList<Object>();
-				String query="SELECT ghealth.appointments.appdate,ghealth.appointments.start,ghealth.appointments.end,ghealth.expert.experties,ghealth.users.firstname,ghealth.users.lastname,ghealth.appointments.idappointment"
-								+" FROM ghealth.appointments,ghealth.users,ghealth.expert" 
+				String query="SELECT ghealth.appointments.appdate,ghealth.appointments.start,ghealth.appointments.end,ghealth.expert.experties,ghealth.users.firstname,ghealth.users.lastname,ghealth.appointments.idappointment,ghealth.clinic.Name"
+								+" FROM ghealth.appointments,ghealth.users,ghealth.expert,ghealth.clinic" 
 								+" WHERE ghealth.appointments.idpatient=" + cap.getIdPatient()+" AND"
 								+" ghealth.appointments.idexpert = ghealth.expert.id AND"
-								+" ghealth.users.username = ghealth.expert.id AND ghealth.appointments.appstatus=1";
+								+" ghealth.users.username = ghealth.expert.id AND ghealth.appointments.appstatus=1"
+								+" AND ghealth.expert.clinic=ghealth.clinic.idclinic";
 				arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 			
 
-				for (int i  = 0 ; i < arrList.size() ; i +=7)
-					cap.getAppList().add(new Appointment((Date)arrList.get(i),(Time)arrList.get(i+1),(Time)arrList.get(i+2),(String)arrList.get(i+3),(String)arrList.get(i+4),(String)arrList.get(i+5),String.valueOf((int)arrList.get(i+6))));
+				for (int i  = 0 ; i < arrList.size() ; i +=8)
+					cap.getAppList().add(new Appointment((Date)arrList.get(i),(Time)arrList.get(i+1),(Time)arrList.get(i+2),(String)arrList.get(i+3),(String)arrList.get(i+4),(String)arrList.get(i+5),String.valueOf((int)arrList.get(i+6)),(String)arrList.get(i+7)));
 
 	}
 	
@@ -89,28 +90,28 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 			
 			if(((CancelAppointmentEntity)arg).getAppList().size() != 0)
 			{
-				CancelAppointmentview.getNotificationlbl().setText("ID : "+
-						((CancelAppointmentEntity)arg).getIdPatient()+", Patient name: "+
+				CancelAppointmentview.getNotificationlbl().setText("Patient name: "+
 						((CancelAppointmentEntity)arg).getFirstName()+" "+
 						((CancelAppointmentEntity)arg).getLastName());
 				
-				CancelAppointmentview.getNotificationlbl().setForeground(Color.BLACK);
 				CAP = ((CancelAppointmentEntity)arg);
 				for (int i  = 0 ; i < ((CancelAppointmentEntity)arg).getAppList().size() ; i ++)
 					CancelAppointmentview.getComboBox().addItem(((CancelAppointmentEntity)arg).getAppList().get(i));
+				CancelAppointmentview.btnCancelApp.setEnabled(true);
 			}
 			else
 			{
-				CancelAppointmentview.getNotificationlbl().setText("Patient name: "+((CancelAppointmentEntity)arg).getFirstName()+" "+((CancelAppointmentEntity)arg).getLastName()+" No appointments to show");
+				CancelAppointmentview.getNotificationlbl().setText("Patient name: "+((CancelAppointmentEntity)arg).getFirstName()+" "+((CancelAppointmentEntity)arg).getLastName()+", no appointments to show");
+				CancelAppointmentview.btnCancelApp.setEnabled(false);
 			}
 			CancelAppointmentview.getNotificationlbl().setEnabled(true);
-
 		}
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("Error! enter valid patient ID!") )
 		{
 			CancelAppointmentview.getComboBox().removeAllItems();
 			CancelAppointmentview.getNotificationlbl().setText("Patient doesn't exist");
 			CancelAppointmentview.getNotificationlbl().setEnabled(true);
+			CancelAppointmentview.btnCancelApp.setEnabled(false);
 			
 		}
 		if (arg instanceof CancelAppointmentEntity && ((CancelAppointmentEntity)arg).getTaskToDo().equals("delete") )

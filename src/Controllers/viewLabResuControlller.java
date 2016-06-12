@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -63,8 +64,10 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	{
 		String query = "";
 		
-		query ="SELECT idappointment,idexpert,appdate,realStart,realEnd,appstatus,record,idclinic FROM ghealth.appointments WHERE idpatient ='"+
-		VAHEnt.pat.getId()+"' AND (appstatus='2' OR appstatus='3')";
+		query ="SELECT app.idappointment,users.firstname,users.lastname,exps.experties,app.appdate,app.realStart,app.realEnd,app.appstatus,app.record,"+
+		"clinics.Name FROM ghealth.appointments as app, ghealth.users, (SELECT id,experties FROM ghealth.expert)as exps,(SELECT idclinic,Name FROM ghealth.clinic)"+
+		"as clinics WHERE idpatient ='"+VAHEnt.pat.getId()+"' AND (appstatus='2' OR appstatus='3') AND app.idexpert=exps.id AND app.idclinic=clinics.idclinic AND "+
+		"app.idexpert=users.username";
 		ArrayList<Object> arrAppList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrAppList.isEmpty())
 		{
@@ -74,22 +77,8 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 		else
 		{
 			VAHEnt.appResultsFlag=true;
-			query ="SELECT id,experties FROM ghealth.expert";
-			ArrayList<Object> arrExpert = GHealthServer.sqlConn.sendSqlQuery(query);
-			query="SELECT idclinic,Name FROM ghealth.clinic";
-			ArrayList<Object> arrClinic = GHealthServer.sqlConn.sendSqlQuery(query);
-			
-			System.out.println("before\n"+arrAppList);
-			System.out.println(arrExpert);
-			System.out.println(arrClinic);
-			for (int i=1;i<arrAppList.size();i+=8)//8?
-				arrAppList.set(i, arrExpert.get((arrExpert.indexOf(arrAppList.get(i))+1)));
-			for (int i=7;i<arrAppList.size();i+=8)//8?
-				arrAppList.set(i, arrClinic.get((arrClinic.indexOf(arrAppList.get(i))+1)));
-			System.out.println("after\n"+arrAppList);
 			VAHEnt.arrApp=arrAppList;
-			arrExpert.clear();
-			arrClinic.clear();
+			System.out.println(arrAppList);
 		}
 	}
 	
@@ -122,23 +111,26 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 				JOptionPane.showMessageDialog(null, "No test results for patient!","",JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
-		if (arg instanceof ViewAppHistoryEntity)
+		else if (arg instanceof ViewAppHistoryEntity)
 		{
 			if (((ViewAppHistoryEntity)arg).appResultsFlag)
 			{
 
-				VAHEnt1.arrApp=(ArrayList<Object>) ((ViewAppHistoryEntity)arg).arrApp;
+				VAHEnt1.arrApp=((ViewAppHistoryEntity)arg).arrApp;
 				
 				MainClass.masterControler.VLRCont.viewapphistoryview.fileArea.setText("");
-				for (int i=0;i<VAHEnt1.arrApp.size();i+=7)
-					MainClass.masterControler.VLRCont.viewapphistoryview.fileArea.setText((String)VAHEnt1.arrApp.get(i)+
-					" "+(String)VAHEnt1.arrApp.get(i+1)+
+				String strTemp = "";
+				for (int i=0;i<VAHEnt1.arrApp.size();i+=10)
+				{
+					strTemp=strTemp+
+					" "+(String)VAHEnt1.arrApp.get(i+8)+//record
+					"Doctor:"
+					+(String)VAHEnt1.arrApp.get(i+1)+
 					" "+(String)VAHEnt1.arrApp.get(i+2)+
-					" "+(String)VAHEnt1.arrApp.get(i+3)+
-					" "+(String)VAHEnt1.arrApp.get(i+4)+
-					" "+(String)VAHEnt1.arrApp.get(i+5)+
-					" "+(String)VAHEnt1.arrApp.get(i+6)+
-					" "+(String)VAHEnt1.arrApp.get(i+7));
+					","+(String)VAHEnt1.arrApp.get(i+3)+
+					",clinic "+(String)VAHEnt1.arrApp.get(i+9)+"\n***************************************************\n";
+				}
+				MainClass.masterControler.VLRCont.viewapphistoryview.fileArea.setText(strTemp);
 				MainClass.masterControler.setView(MainClass.masterControler.VLRCont.viewapphistoryview);
 			}
 			else 

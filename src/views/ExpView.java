@@ -74,6 +74,8 @@ public class ExpView extends JPanel {
 				MainClass.masterControler.EXPVCont.expview.sched.setText("");
 				MainClass.masterControler.EXPVCont.expview.checkboxAll.setSelected(false);
 				MainClass.masterControler.LoginCont.loginEntity.setLogout(true);
+				MainClass.masterControler.LoginCont.loginView.getTextFieldUserName().setText("");
+				MainClass.masterControler.LoginCont.loginView.getPwdPassword().setText("");
 				MainClass.masterControler.setView(
 						MainClass.masterControler.LoginCont.loginView,
 						MainClass.masterControler.LoginCont);

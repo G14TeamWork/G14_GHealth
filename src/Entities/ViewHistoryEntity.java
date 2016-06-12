@@ -10,6 +10,7 @@ public class ViewHistoryEntity implements Serializable{
 	public String date;
 	public boolean photoflag=false;
 	//public String taskTodo="firstTime";
+	//public boolean testResultsFlag=false;
 	
 	//public String PhotoPath="photo-not-available";
 	//public boolean testResultsFlag = false;

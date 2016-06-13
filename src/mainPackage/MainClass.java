@@ -13,6 +13,13 @@ import ocsf.client.GHealthClient;
 import Controllers.MasterController;
 import mainPackage.MainClass;
 
+/**
+ * Main class of client <br> this is where it all begins.
+ * @author Ruslan
+ * @splash - jframe that contains all panels we will use
+ * @ghealth the client 
+ * @masterController - master controller of all controllers
+ */
 public class MainClass {
 	
 	public static Boolean debug = false;
@@ -21,6 +28,9 @@ public class MainClass {
 	public static GHealthClient ghealth;
 	public static MasterController masterControler;
 	
+	/**
+	 * method that sets default host, creates master controller
+	 */
 	public static void testMain(String[] args) {
 		
 		MainClass.debug = true;
@@ -36,7 +46,10 @@ public class MainClass {
 		masterControler.setView(masterControler.LoginCont.loginView);
 
 	}
-	
+	/**
+	 * main method of client
+	 * @param args - non
+	 */
 	public static void main(String[] args) {
 		
 		splash = splash();

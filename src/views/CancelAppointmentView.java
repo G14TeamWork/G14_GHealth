@@ -32,6 +32,14 @@ import java.awt.Color;
 
 import javax.swing.DropMode;
 
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when dispatcher enters cancel appointment. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class CancelAppointmentView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;

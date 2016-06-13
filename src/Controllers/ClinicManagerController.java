@@ -28,7 +28,7 @@ public class ClinicManagerController implements Observer,IRefresh  {
 	
 	public void searchClinicIdClient()
 	{
-		this.CME.setTaskToDo("set clinic id");
+		this.CME.setTaskToDo("setClinicID");
 		this.CME.setManagerId(Integer.valueOf(MainClass.masterControler.LoginCont.loginEntity.getUsername())); 
 		MainClass.ghealth.sendMessegeToServer(CME);
 	}
@@ -39,25 +39,6 @@ public class ClinicManagerController implements Observer,IRefresh  {
 		String query ="SELECT ghealth.clinic.idclinic FROM ghealth.clinic WHERE ghealth.clinic.managerid ="+String.valueOf(cme.getManagerId())+";";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		cme.setClinicId(Integer.valueOf((String)arrList.get(0)));
-	}
-	
-	public void createDailyReport(ClinicManagerEntity cme)
-	{
-		ArrayList<Object> arrList = new ArrayList<Object>();
-		
-		String date = new SimpleDateFormat("yyyyMMdd").format(cme.getDay());
-	
-		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.appdate="+date+";";
-		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		for(int i=0 ; i < arrList.size() ; i+=6)	//[   dispatcher	seted DateTime	 ] [   Appointment DateTime		   ] [ Appointment End Time ] [ Appointment realStart ,realEnd  ]
-		cme.getMonth().add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
-		
-		
-		
-		
-		query = "UPDATE ghealth.appointments as app SET sentemail=2 WHERE app.appdate="+date+";";  //update status in appointment table [sentemail = 2] 
-		GHealthServer.sqlConn.sendSqlUpdate(query);
-
 	}
 
 	public void viewDaylyReport()
@@ -85,16 +66,27 @@ public class ClinicManagerController implements Observer,IRefresh  {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (arg instanceof ClinicManagerEntity) {
-			if( ((ClinicManagerEntity)arg).getTaskToDo().equals("set clinic id"))
+			if( ((ClinicManagerEntity)arg).getTaskToDo().equals("setClinicID"))
+			{
 				CME.setClinicId(((ClinicManagerEntity)arg).getClinicId());
-	//		Date d = ;
-			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			LocalDateTime date= LocalDateTime.parse("2016/06/20", formatter); 
-			
-	//		DR.createDayliReport(date, CME.getClinicId());
+			//TODO yoni yoni yoni
+				Calendar cal  = Calendar.getInstance();
+				cal.set(2016, 5, 20);
+				Date date = cal.getTime();
+				CME.setTaskToDo("createDailyReport");
+				CME.setFrom(date);
+				MainClass.ghealth.sendMessegeToServer(CME);
+
+
+				
+				
+			}
+			else if(((ClinicManagerEntity)arg).getTaskToDo().equals("createDailyReport"))
+			{
+				System.out.println(((ClinicManagerEntity)arg).toString());				
+			}
+
 		}
-		
 	}
 }
 
@@ -129,5 +121,28 @@ long diffInSeconds = java.time.Duration.between(dateTime1, dateTime2).getSeconds
 long diffInMinutes = java.time.Duration.between(dateTime1, dateTime2).toMinutes()%60;
 long diffInHours = java.time.Duration.between(dateTime1, dateTime2).toHours()%24;
 long diffInDays = java.time.Duration.between(dateTime1, dateTime2).toDays();
+
+
+
+	public void createDailyReport(ClinicManagerEntity cme)
+	{
+		ArrayList<Object> arrList = new ArrayList<Object>();
+		
+		String date = new SimpleDateFormat("yyyyMMdd").format(cme.getDay());
+	
+		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.appdate="+date+";";
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+		for(int i=0 ; i < arrList.size() ; i+=6)	//[   dispatcher	seted DateTime	 ] [   Appointment DateTime		   ] [ Appointment End Time ] [ Appointment realStart ,realEnd  ]
+		cme.getMonth().add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
+		
+		
+		
+		
+		query = "UPDATE ghealth.appointments as app SET sentemail=2 WHERE app.appdate="+date+";";  //update status in appointment table [sentemail = 2] 
+		GHealthServer.sqlConn.sendSqlUpdate(query);
+
+	}
+
+
 
  */

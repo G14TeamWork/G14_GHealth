@@ -1,12 +1,14 @@
 package Entities;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class AppointmentTimeValues {
+public class AppointmentTimeValues implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 
 	private long fromDisToAppDateDiffInMinutes;
 	private long fromAppDateToRealAppDateDiffInMinutes;
@@ -55,8 +57,8 @@ public class AppointmentTimeValues {
 		disSetDateTime = LocalDateTime.parse(setedDate+" "+setedTime, formatter); //convert (Date and Time) to LocalDateTime ->>> "yyyy-MM-dd HH:mm:ss"
 		appDateTime = LocalDateTime.parse(appDate+" "+appStartTime, formatter);
 		realAppDateTime = LocalDateTime.parse(appDate+" "+realStartTime, formatter);
-		this.fromDisToAppDateDiffInMinutes = java.time.Duration.between(appDateTime, disSetDateTime).toMinutes();
-		this.fromAppDateToRealAppDateDiffInMinutes = java.time.Duration.between(realAppDateTime, appDateTime).toMinutes();
+		this.fromDisToAppDateDiffInMinutes = java.time.Duration.between( disSetDateTime,appDateTime).toMinutes();
+		this.fromAppDateToRealAppDateDiffInMinutes = java.time.Duration.between(appDateTime,realAppDateTime).toMinutes();
 	
 	
 	}

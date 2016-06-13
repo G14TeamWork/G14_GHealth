@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import ocsf.server.GHealthServer;
@@ -26,6 +27,7 @@ public class DayReport {
 	
 	public DayReport createDayliReport(Date date , int idclinic)
 	{
+		
 		this.date = date;
 		this.idClinic = idclinic;
 		
@@ -205,6 +207,21 @@ public class DayReport {
 
 	public void setDayValues(ArrayList<AppointmentTimeValues> dayValues) {
 		this.dayValues = dayValues;
+	}
+
+	@Override
+	public String toString() {
+		
+		String str ="A : \n\tMax :"+generateDiffToHoursDaysMinutes(getMaxFromDisToAppDateDiffInMinutes())
+				+"\n\tMin :"+generateDiffToHoursDaysMinutes(getMinFromDisToAppDateDiffInMinutes())
+				+"\n\tAvg :"+generateDiffToHoursDaysMinutes(getAvgFromDisToAppDateDiffInMinutes())
+				+"\n\tSd :"+generateDiffToHoursDaysMinutes(getSdFromDisToAppDateDiffInMinutes())
+				+"B : \n\tMax :"+ generateDiffToHoursDaysMinutes(getMaxFromAppDateToRealAppDateDiffInMinutes())
+				+"\n\tMin :"+generateDiffToHoursDaysMinutes(getMinFromAppDateToRealAppDateDiffInMinutes())
+				+"\n\tAvg :"+generateDiffToHoursDaysMinutes(getAvgFromAppDateToRealAppDateDiffInMinutes())
+				+"\n\tSd :"+generateDiffToHoursDaysMinutes(getSdFromAppDateToRealAppDateDiffInMinutes());
+		
+		return  str ;
 	}
 	
 }

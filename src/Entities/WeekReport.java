@@ -55,10 +55,13 @@ public class WeekReport {
 					+ "WHERE app.idclinic = "+String.valueOf(idclinic)+" app.appdate="+generateDayDateToSql(date)+" +"+String.valueOf(j)+" DAY;";
 			arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 			
-			dateInLong +=24 * 60 * 60 * 1000;
+			
 			specific.setTime(dateInLong);
 			if(currentDayVal.createDayliReport(specific,idclinic) != null)
-				allDaysReport.add(currentDayVal);		
+				allDaysReport.add(currentDayVal);
+			
+			dateInLong +=24 * 60 * 60 * 1000;
+			
 			for(int i = 0 ; i < arrList.size() ; i+=7)
 			{
 				numOfPatientsTreated++;
@@ -128,6 +131,7 @@ public class WeekReport {
 		
 		
 	}
+
 	public String generateDiffToHoursDaysMinutesForWeekly(DayReport allDaysInWeek)
 	{
 		
@@ -173,7 +177,180 @@ public class WeekReport {
 		return new SimpleDateFormat("yyyyMMdd").format(date);
 	}
 	
+	@Override
+	public String toString() {
 	
+		DayReport temp = new DayReport();
+		String str = "W-T Max :"+temp.generateDiffToHoursDaysMinutes(maxNumOfPatientsTreated)
+				+"\n\tW-T Min :"+temp.generateDiffToHoursDaysMinutes(minNumOfPatientsTreated)
+				+"\n\tW-T AVG :"+temp.generateDiffToHoursDaysMinutes(avgNumOfPatientsTreated)
+				+"\n\tW-T Sd :"+temp.generateDiffToHoursDaysMinutes(sdNumOfPatientsTreated)
+				+"\n\tW-A Max :"+temp.generateDiffToHoursDaysMinutes(maxFromDisToAppDateDiffInMinutes)
+				+"\n\tW-A Min:"+temp.generateDiffToHoursDaysMinutes(minFromDisToAppDateDiffInMinutes)
+				+"\n\tW-A AVG :"+temp.generateDiffToHoursDaysMinutes(avgFromDisToAppDateDiffInMinutes)
+				+"\n\tW-A Sd :"+temp.generateDiffToHoursDaysMinutes(sdFromDisToAppDateDiffInMinutes)
+				+"\n\tW-B Min :"+temp.generateDiffToHoursDaysMinutes(maxFromAppDateToRealAppDateDiffInMinutes)
+				+"\n\tW-B Min :"+temp.generateDiffToHoursDaysMinutes(minFromAppDateToRealAppDateDiffInMinutes)
+				+"\n\tW-B Min :"+temp.generateDiffToHoursDaysMinutes(avgFromAppDateToRealAppDateDiffInMinutes)
+				+"\n\tW-B Sd :"+temp.generateDiffToHoursDaysMinutes(sdFromAppDateToRealAppDateDiffInMinutes);
+		str +="\n";
+		for(int i = 0 ; i < allDaysReport.size() ; i++)
+			str +=allDaysReport.get(i).toString();
+		return "WeekReport \n" +str ;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public int getIdClinic() {
+		return idClinic;
+	}
+
+	public void setIdClinic(int idClinic) {
+		this.idClinic = idClinic;
+	}
+
+	public int getNumOfMiss() {
+		return numOfMiss;
+	}
+
+	public void setNumOfMiss(int numOfMiss) {
+		this.numOfMiss = numOfMiss;
+	}
+
+	public int getNumOfPatientsTreated() {
+		return numOfPatientsTreated;
+	}
+
+	public void setNumOfPatientsTreated(int numOfPatientsTreated) {
+		this.numOfPatientsTreated = numOfPatientsTreated;
+	}
+
+	public long getMaxNumOfPatientsTreated() {
+		return maxNumOfPatientsTreated;
+	}
+
+	public void setMaxNumOfPatientsTreated(long maxNumOfPatientsTreated) {
+		this.maxNumOfPatientsTreated = maxNumOfPatientsTreated;
+	}
+
+	public long getMinNumOfPatientsTreated() {
+		return minNumOfPatientsTreated;
+	}
+
+	public void setMinNumOfPatientsTreated(long minNumOfPatientsTreated) {
+		this.minNumOfPatientsTreated = minNumOfPatientsTreated;
+	}
+
+	public long getAvgNumOfPatientsTreated() {
+		return avgNumOfPatientsTreated;
+	}
+
+	public void setAvgNumOfPatientsTreated(long avgNumOfPatientsTreated) {
+		this.avgNumOfPatientsTreated = avgNumOfPatientsTreated;
+	}
+
+	public long getSdNumOfPatientsTreated() {
+		return sdNumOfPatientsTreated;
+	}
+
+	public void setSdNumOfPatientsTreated(long sdNumOfPatientsTreated) {
+		this.sdNumOfPatientsTreated = sdNumOfPatientsTreated;
+	}
+
+	public long getMaxFromDisToAppDateDiffInMinutes() {
+		return maxFromDisToAppDateDiffInMinutes;
+	}
+
+	public void setMaxFromDisToAppDateDiffInMinutes(
+			long maxFromDisToAppDateDiffInMinutes) {
+		this.maxFromDisToAppDateDiffInMinutes = maxFromDisToAppDateDiffInMinutes;
+	}
+
+	public long getMinFromDisToAppDateDiffInMinutes() {
+		return minFromDisToAppDateDiffInMinutes;
+	}
+
+	public void setMinFromDisToAppDateDiffInMinutes(
+			long minFromDisToAppDateDiffInMinutes) {
+		this.minFromDisToAppDateDiffInMinutes = minFromDisToAppDateDiffInMinutes;
+	}
+
+	public long getAvgFromDisToAppDateDiffInMinutes() {
+		return avgFromDisToAppDateDiffInMinutes;
+	}
+
+	public void setAvgFromDisToAppDateDiffInMinutes(
+			long avgFromDisToAppDateDiffInMinutes) {
+		this.avgFromDisToAppDateDiffInMinutes = avgFromDisToAppDateDiffInMinutes;
+	}
+
+	public long getSdFromDisToAppDateDiffInMinutes() {
+		return sdFromDisToAppDateDiffInMinutes;
+	}
+
+	public void setSdFromDisToAppDateDiffInMinutes(
+			long sdFromDisToAppDateDiffInMinutes) {
+		this.sdFromDisToAppDateDiffInMinutes = sdFromDisToAppDateDiffInMinutes;
+	}
+
+	public long getMaxFromAppDateToRealAppDateDiffInMinutes() {
+		return maxFromAppDateToRealAppDateDiffInMinutes;
+	}
+
+	public void setMaxFromAppDateToRealAppDateDiffInMinutes(
+			long maxFromAppDateToRealAppDateDiffInMinutes) {
+		this.maxFromAppDateToRealAppDateDiffInMinutes = maxFromAppDateToRealAppDateDiffInMinutes;
+	}
+
+	public long getMinFromAppDateToRealAppDateDiffInMinutes() {
+		return minFromAppDateToRealAppDateDiffInMinutes;
+	}
+
+	public void setMinFromAppDateToRealAppDateDiffInMinutes(
+			long minFromAppDateToRealAppDateDiffInMinutes) {
+		this.minFromAppDateToRealAppDateDiffInMinutes = minFromAppDateToRealAppDateDiffInMinutes;
+	}
+
+	public long getAvgFromAppDateToRealAppDateDiffInMinutes() {
+		return avgFromAppDateToRealAppDateDiffInMinutes;
+	}
+
+	public void setAvgFromAppDateToRealAppDateDiffInMinutes(
+			long avgFromAppDateToRealAppDateDiffInMinutes) {
+		this.avgFromAppDateToRealAppDateDiffInMinutes = avgFromAppDateToRealAppDateDiffInMinutes;
+	}
+
+	public long getSdFromAppDateToRealAppDateDiffInMinutes() {
+		return sdFromAppDateToRealAppDateDiffInMinutes;
+	}
+
+	public void setSdFromAppDateToRealAppDateDiffInMinutes(
+			long sdFromAppDateToRealAppDateDiffInMinutes) {
+		this.sdFromAppDateToRealAppDateDiffInMinutes = sdFromAppDateToRealAppDateDiffInMinutes;
+	}
+
+	public ArrayList<DayReport> getAllDaysReport() {
+		return allDaysReport;
+	}
+
+	public void setAllDaysReport(ArrayList<DayReport> allDaysReport) {
+		this.allDaysReport = allDaysReport;
+	}
+
+	public ArrayList<AppointmentTimeValues> getAllWeekAppointments() {
+		return allWeekAppointments;
+	}
+
+	public void setAllWeekAppointments(
+			ArrayList<AppointmentTimeValues> allWeekAppointments) {
+		this.allWeekAppointments = allWeekAppointments;
+	}
 	
 
 }

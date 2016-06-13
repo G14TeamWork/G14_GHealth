@@ -14,12 +14,13 @@ import ocsf.server.GHealthServer;
 import mainPackage.MainClass;
 import Entities.AppointmentTimeValues;
 import Entities.ClinicManagerEntity;
+import Entities.DayReport;
 import views.ClinicManagerView;
 
 public class ClinicManagerController implements Observer,IRefresh  {
 	public ClinicManagerView clinicmanagerview;
 	private ClinicManagerEntity CME = new ClinicManagerEntity();
-
+	public DayReport DR= new DayReport();
 	
 	public ClinicManagerController() {
 		clinicmanagerview = new ClinicManagerView();
@@ -86,6 +87,12 @@ public class ClinicManagerController implements Observer,IRefresh  {
 		if (arg instanceof ClinicManagerEntity) {
 			if( ((ClinicManagerEntity)arg).getTaskToDo().equals("set clinic id"))
 				CME.setClinicId(((ClinicManagerEntity)arg).getClinicId());
+	//		Date d = ;
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDateTime date= LocalDateTime.parse("2016/06/20", formatter); 
+			
+	//		DR.createDayliReport(date, CME.getClinicId());
 		}
 		
 	}

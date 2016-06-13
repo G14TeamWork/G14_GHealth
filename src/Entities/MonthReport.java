@@ -32,7 +32,7 @@ public class MonthReport {
 	private long sdFromAppDateToRealAppDateDiffInMinutes;
 	private ArrayList<WeekReport> allWeeksReport;
 	private ArrayList<AppointmentTimeValues> allMonthReport;
-//	private ArrayList<AppointmentTimeValues> allWeekAppointments = new ArrayList<AppointmentTimeValues>();
+	private ArrayList<DayReport> allDaysReport;
 	
 	public MonthReport createMonthlyReport(Date date , int idclinic)
 	{
@@ -72,20 +72,10 @@ public class MonthReport {
 				allMonthReport.add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
 				
 			}
+			
 		}
 
 		numOfPatientsTreated /=7;
-		
-		/*
-		private int numOfMiss;
-		private int maxNumOfMiss;
-		private int minNumOfMiss;
-		private int avgNumOfMiss;
-		private int sdNumOfMiss;
-		
-		*/
-		
-		
 		
 		sdFromDisToAppDateDiffInMinutes = avgFromDisToAppDateDiffInMinutes = 0;
 		sdFromAppDateToRealAppDateDiffInMinutes = avgFromAppDateToRealAppDateDiffInMinutes = 0;
@@ -126,21 +116,26 @@ public class MonthReport {
 			avgNumOfMiss += currentWeekVal.getNumOfMiss();
 		}
 		
-	/*	
+		
 		avgFromDisToAppDateDiffInMinutes = (avgFromDisToAppDateDiffInMinutes /(long)numOfPatientsTreated);
 		avgFromAppDateToRealAppDateDiffInMinutes = (avgFromAppDateToRealAppDateDiffInMinutes /(long)numOfPatientsTreated);
-		avgNumOfPatientsTreated = (avgNumOfPatientsTreated/(int)allDaysReport.size());
+		avgNumOfPatientsTreated = (avgNumOfPatientsTreated/(int)allWeeksReport.size());
+		avgNumOfMiss = (avgNumOfMiss/(int)allWeeksReport.size());
 		
 
 		for (int i  = 0 ; i < allDaysReport.size() ; i++)
 		{
 			currentDayVal = allDaysReport.get(i);
 			sdNumOfPatientsTreated += Math.pow(currentDayVal.getNumOfPatientsTreated() - avgNumOfPatientsTreated,(long)2.0);
+			sdNumOfMiss += Math.pow(currentDayVal.getNumOfMiss() - avgNumOfMiss,(long)2.0);
 		}
 		sdNumOfPatientsTreated = (sdNumOfPatientsTreated/(long)(numOfPatientsTreated));
 		sdNumOfPatientsTreated =  (long)Math.sqrt(sdNumOfPatientsTreated);
+		sdNumOfMiss = (int) (sdNumOfMiss/(long)(numOfMiss));
+		sdNumOfMiss =  (int)Math.sqrt(sdNumOfMiss);
 
 		
+		/*
 		for (int i  = 0 ; i < allWeekAppointments.size() ; i++)
 		{
 			currentAppVal = allWeekAppointments.get(i);
@@ -151,11 +146,10 @@ public class MonthReport {
 		sdFromDisToAppDateDiffInMinutes =  (long)Math.sqrt(sdFromDisToAppDateDiffInMinutes);
 		sdFromAppDateToRealAppDateDiffInMinutes = (sdFromAppDateToRealAppDateDiffInMinutes/(long)(numOfPatientsTreated));
 		sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
-		
+		*/
 		return this;
 		
-		*/
-		return null;
+		
 		
 	}
 	

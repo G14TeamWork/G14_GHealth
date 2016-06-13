@@ -14,6 +14,7 @@ public class DayReport {
 	
 	private Date date;
 	private int idClinic;
+	private int numOfMiss;
 	private int numOfPatientsTreated;
 	private long maxFromDisToAppDateDiffInMinutes;
 	private long minFromDisToAppDateDiffInMinutes;
@@ -32,7 +33,13 @@ public class DayReport {
 		this.idClinic = idclinic;
 		
 		ArrayList<Object> arrList = new ArrayList<Object>();
+		ArrayList<Object> arrList2 = new ArrayList<Object>();
 		AppointmentTimeValues current;
+		
+		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='2' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+" + 7 DAY;";
+		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query2);
+		this.numOfMiss = (int)arrList2.get(0);
+		
 		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.idclinic = "+String.valueOf(idclinic)+" app.appdate="+generateDayDateToSql(date)+";";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		
@@ -222,6 +229,14 @@ public class DayReport {
 				+"\n\tSd :"+generateDiffToHoursDaysMinutes(getSdFromAppDateToRealAppDateDiffInMinutes());
 		
 		return  str ;
+	}
+
+	public int getNumOfMiss() {
+		return numOfMiss;
+	}
+
+	public void setNumOfMiss(int numOfMiss) {
+		this.numOfMiss = numOfMiss;
 	}
 	
 }

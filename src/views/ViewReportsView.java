@@ -18,7 +18,14 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import com.alee.laf.table.WebTable;
 
 import java.awt.Component;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when clinic manager enters view reports view. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class ViewReportsView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;

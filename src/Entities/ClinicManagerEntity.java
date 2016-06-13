@@ -7,7 +7,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import ocsf.server.GHealthServer;
-
+/**
+ * entity class. suppose to have all fields that might be sent to or from server in reports actions.
+ * being sent from and to client/server
+ * 
+ * @author Ruslan
+ *
+ */
 public class ClinicManagerEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;

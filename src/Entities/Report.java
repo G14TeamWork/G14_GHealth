@@ -1,5 +1,11 @@
 package Entities;
-
+/**
+ * entity class. suppose to have all fields that might be sent to or from server in any reports action.
+ * being sent from and to client/server
+ * 
+ * @author Ruslan
+ *
+ */
 public class Report {
 	
 	private int idClinic;

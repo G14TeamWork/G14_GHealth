@@ -9,7 +9,14 @@ import mainPackage.MainClass;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when clinic manager enters produce monthly report view. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class ProduceMonthlyReportView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;

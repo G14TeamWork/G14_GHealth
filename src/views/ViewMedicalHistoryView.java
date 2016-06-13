@@ -45,7 +45,7 @@ public class ViewMedicalHistoryView extends JPanel {
 		lblTitle.setBounds(214, 126, 253, 74);
 		add(lblTitle);
 		
-		btnViewLabHis = new JButton("View lab history");
+		btnViewLabHis = new JButton("<html><center>View <b>lab   </b><br />history   </html>");
 		btnViewLabHis.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainClass.masterControler.setView(
@@ -56,10 +56,12 @@ public class ViewMedicalHistoryView extends JPanel {
 				MainClass.masterControler.VLRCont.getTestResults();
 			}
 		});
+		btnViewLabHis.setIcon(new GUIimage("eye", 25, 23).image);
+		btnViewLabHis.setIconTextGap(10);
 		btnViewLabHis.setBounds(479, 306, 151, 53);
 		add(btnViewLabHis);
 		
-		btnViewmedicalHis = new JButton("View medical history");
+		btnViewmedicalHis = new JButton("<html><center>View <b>medical   </b><br />history   </html>");
 		btnViewmedicalHis.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			MainClass.masterControler.setView(
@@ -69,6 +71,8 @@ public class ViewMedicalHistoryView extends JPanel {
 		  }
 	    });
 		btnViewmedicalHis.setBounds(479, 372, 151, 55);
+		btnViewmedicalHis.setIcon(new GUIimage("eye", 25, 23).image);
+		btnViewmedicalHis.setIconTextGap(8);
 		add(btnViewmedicalHis);
 		
 		JButton btnBack = new JButton("Back");

@@ -144,10 +144,10 @@ public class MonthReport implements Serializable{
 		sdNumOfMiss =  (int)Math.sqrt(sdNumOfMiss);
 
 		
-		/*
-		for (int i  = 0 ; i < allWeekAppointments.size() ; i++)
+		
+		for (int i  = 0 ; i < allMonthReport.size() ; i++)
 		{
-			currentAppVal = allWeekAppointments.get(i);
+			currentAppVal = allMonthReport.get(i);
 			sdFromDisToAppDateDiffInMinutes += Math.pow(currentAppVal.getFromDisToAppDateDiffInMinutes() - avgFromDisToAppDateDiffInMinutes,(long)2.0);
 			sdFromAppDateToRealAppDateDiffInMinutes += Math.pow(currentAppVal.getFromAppDateToRealAppDateDiffInMinutes() - avgFromAppDateToRealAppDateDiffInMinutes,(long)2.0);
 		}
@@ -155,7 +155,7 @@ public class MonthReport implements Serializable{
 		sdFromDisToAppDateDiffInMinutes =  (long)Math.sqrt(sdFromDisToAppDateDiffInMinutes);
 		sdFromAppDateToRealAppDateDiffInMinutes = (sdFromAppDateToRealAppDateDiffInMinutes/(long)(numOfPatientsTreated));
 		sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
-		*/
+		
 		return this;
 		
 		
@@ -167,4 +167,42 @@ public class MonthReport implements Serializable{
 		
 		return new SimpleDateFormat("yyyyMMdd").format(date);
 	}
+
+	@Override
+	public String toString() {
+		
+		String str = allWeeksReport.toString();
+		
+		
+		str = "MonthReport [date=" + date + ", idClinic=" + idClinic
+				+ ", numOfMiss=" + numOfMiss + ", maxNumOfMiss=" + maxNumOfMiss
+				+ ", minNumOfMiss=" + minNumOfMiss + ", avgNumOfMiss="
+				+ avgNumOfMiss + ", sdNumOfMiss=" + sdNumOfMiss
+				+ ", numOfPatientsTreated=" + numOfPatientsTreated
+				+ ", maxNumOfPatientsTreated=" + maxNumOfPatientsTreated
+				+ ", minNumOfPatientsTreated=" + minNumOfPatientsTreated
+				+ ", avgNumOfPatientsTreated=" + avgNumOfPatientsTreated
+				+ ", sdNumOfPatientsTreated=" + sdNumOfPatientsTreated
+				+ ", maxFromDisToAppDateDiffInMinutes="
+				+ maxFromDisToAppDateDiffInMinutes
+				+ ", minFromDisToAppDateDiffInMinutes="
+				+ minFromDisToAppDateDiffInMinutes
+				+ ", avgFromDisToAppDateDiffInMinutes="
+				+ avgFromDisToAppDateDiffInMinutes
+				+ ", sdFromDisToAppDateDiffInMinutes="
+				+ sdFromDisToAppDateDiffInMinutes
+				+ ", maxFromAppDateToRealAppDateDiffInMinutes="
+				+ maxFromAppDateToRealAppDateDiffInMinutes
+				+ ", minFromAppDateToRealAppDateDiffInMinutes="
+				+ minFromAppDateToRealAppDateDiffInMinutes
+				+ ", avgFromAppDateToRealAppDateDiffInMinutes="
+				+ avgFromAppDateToRealAppDateDiffInMinutes
+				+ ", sdFromAppDateToRealAppDateDiffInMinutes="
+				+ sdFromAppDateToRealAppDateDiffInMinutes + ", allWeeksReport="
+				+ allWeeksReport + ", allMonthReport=" + allMonthReport
+				+ ", allDaysReport=" + allDaysReport + "]";
+		 
+		 return str;
+	}
+	
 }

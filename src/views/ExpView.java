@@ -108,7 +108,8 @@ public class ExpView extends JPanel {
 				if (arg0.getSource()==btnRecordAppointment)
 				{
 					String appID = JOptionPane.showInputDialog(null, "Insert appointment number : ");
-					MainClass.masterControler.EXPVCont.checkApp(appID,lblHiddenID.getText());
+					if (appID!=null)
+						MainClass.masterControler.EXPVCont.checkApp(appID,lblHiddenID.getText());
 				}
 			}
 		});

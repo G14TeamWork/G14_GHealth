@@ -7,11 +7,9 @@ import java.util.Date;
 
 public class AppointmentTimeValues {
 
-	private LocalDateTime disSetDateTime;
-	private LocalDateTime appDateTime;
-	private LocalDateTime realAppDateTime;
+
 	private long fromDisToAppDateDiffInMinutes;
-	private long fromDisToRealAppDateDiffInMinutes;
+	private long fromAppDateToRealAppDateDiffInMinutes;
 	
 	/** 
 	 * (non-Javadoc)
@@ -49,36 +47,37 @@ public class AppointmentTimeValues {
 								//[ dispatcher	seted DateTime] [ Appointment DateTime		] [ Appointment End Time ] [ Appointment realStart ,realEnd  ]
 	public AppointmentTimeValues(Date setedDate, Time setedTime, 	Date appDate,Time appStartTime, 	Time appEndTime,			 Time realStartTime, Time realEndTime) 
 	{
-		
-		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime disSetDateTime;
+		LocalDateTime appDateTime;
+		LocalDateTime realAppDateTime;
 		
-		this.disSetDateTime = LocalDateTime.parse(setedDate+" "+setedTime, formatter); //convert (Date and Time) to LocalDateTime ->>> "yyyy-MM-dd HH:mm:ss"
-		this.appDateTime = LocalDateTime.parse(appDate+" "+appStartTime, formatter);
-		this.realAppDateTime = LocalDateTime.parse(appDate+" "+realStartTime, formatter);
+		disSetDateTime = LocalDateTime.parse(setedDate+" "+setedTime, formatter); //convert (Date and Time) to LocalDateTime ->>> "yyyy-MM-dd HH:mm:ss"
+		appDateTime = LocalDateTime.parse(appDate+" "+appStartTime, formatter);
+		realAppDateTime = LocalDateTime.parse(appDate+" "+realStartTime, formatter);
 		this.fromDisToAppDateDiffInMinutes = java.time.Duration.between(appDateTime, disSetDateTime).toMinutes();
-		this.fromDisToRealAppDateDiffInMinutes = java.time.Duration.between(realAppDateTime, appDateTime).toMinutes();
+		this.fromAppDateToRealAppDateDiffInMinutes = java.time.Duration.between(realAppDateTime, appDateTime).toMinutes();
 	
 	
 	}
-	public LocalDateTime getDisSetDateTime() {
-		return disSetDateTime;
+
+	public long getFromDisToAppDateDiffInMinutes() {
+		return fromDisToAppDateDiffInMinutes;
 	}
-	public void setDisSetDateTime(LocalDateTime disSetDateTime) {
-		this.disSetDateTime = disSetDateTime;
+
+	public void setFromDisToAppDateDiffInMinutes(long fromDisToAppDateDiffInMinutes) {
+		this.fromDisToAppDateDiffInMinutes = fromDisToAppDateDiffInMinutes;
 	}
-	public LocalDateTime getAppDateTime() {
-		return appDateTime;
+
+	public long getFromAppDateToRealAppDateDiffInMinutes() {
+		return fromAppDateToRealAppDateDiffInMinutes;
 	}
-	public void setAppDateTime(LocalDateTime appDateTime) {
-		this.appDateTime = appDateTime;
+
+	public void setFromAppDateToRealAppDateDiffInMinutes(
+			long fromAppDateToRealAppDateDiffInMinutes) {
+		this.fromAppDateToRealAppDateDiffInMinutes = fromAppDateToRealAppDateDiffInMinutes;
 	}
-	public LocalDateTime getRealAppDateTime() {
-		return realAppDateTime;
-	}
-	public void setRealAppDateTime(LocalDateTime realAppDateTime) {
-		this.realAppDateTime = realAppDateTime;
-	}
+	
 
 	
 	

@@ -19,10 +19,10 @@ import Entities.ViewLabResEntity;
  * This class is a controller for viewing test results. also managing view appointment record
  * The controller is in charge of communication with the server.
  * Also in charge of filling entities that are sent as msg between server and client
- * @param viewLabResuview is the window with all features of lab history
- * @param viewapphistory is the window with all features of appointment history
- * @param VLREnt1 is the msg sent between server and client in case of lab history
- * @param VAHEnt1 is the msg sent between server and client in case of app history
+ * param viewLabResuview is the window with all features of lab history
+ * param viewapphistory is the window with all features of appointment history
+ * param VLREnt1 is the msg sent between server and client in case of lab history
+ * param VAHEnt1 is the msg sent between server and client in case of app history
  * @author Ruslan
  *
  */
@@ -35,7 +35,7 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	/**
 	 * constroctor
 	 * creates a new panel
-	 * @return constructor returns viewLabResultController
+	 * return constructor returns viewLabResultController
 	 */
 	public viewLabResuControlller() {
 		viewLabResuview = new viewLabResuView();
@@ -58,7 +58,7 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	/**
 	 * server side - server queries the db for patient with given id
 	 * should return in entity all test results for patient
-	 * @param query - the string that is sent to db
+	 * param query - the string that is sent to db
 	 * @param VLREnt - holds patient id for db query
 	 */
 	public void askForTestResultSql(ViewLabResEntity VLREnt)
@@ -96,7 +96,7 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 	/**
 	 * server side of get appointment record
 	 * method gets appointments record and puts it in VAHEnt and sends it back to client
-	 * @param query is the string that sent to sql
+	 * param query is the string that sent to sql
 	 * @param VAHEnt
 	 */
 	public void askForAppRecordSql(ViewAppHistoryEntity VAHEnt)

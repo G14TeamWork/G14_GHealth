@@ -28,9 +28,9 @@ import Entities.ViewLabResEntity;
 /**
  * This class is in charge of viewing medical history features
  * showing all appointments history of patient
- * @param viewmedicalhistoryview is a panel that contains the view of view medical history
- * @param VHEnt1 - an entity that will be sent to server as msg, and received as one. in it there are appointments and other data
- * @param arrList array list of object to get data from sql
+ * Param viewmedicalhistoryview is a panel that contains the view of view medical history
+ * param VHEnt1 - an entity that will be sent to server as msg, and received as one. in it there are appointments and other data
+ * param arrList array list of object to get data from sql
  * @author Ruslan
  *
  */
@@ -41,7 +41,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 	ArrayList<Object> arrList = new ArrayList<>();
 	/**
 	 * constructor - builds a new view panel
-	 * @return like a constructor returns viewmedicalfilehistory
+	 * return like a constructor returns viewmedicalfilehistory
 	 */
 	public ViewMedicalHistoryController() {
 		ViewMedicalHistoryview = new ViewMedicalHistoryView();

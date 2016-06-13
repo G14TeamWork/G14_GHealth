@@ -27,7 +27,7 @@ public class Expert implements Serializable{
 
 	/**
 	 * constructor 
-	 * @return returns  empty expert...
+	 * return returns  empty expert...
 	 */
 	public Expert()
 	{
@@ -38,7 +38,7 @@ public class Expert implements Serializable{
 	 * @param expertise inital value
 	 * @param firstName initial value
 	 * @param lastName initial value
-	 * @return expert
+	 * return expert
 	 */
 	public Expert(String expertise , String firstName ,String lastName)
 	{
@@ -55,7 +55,7 @@ public class Expert implements Serializable{
 	 * @param clinicName initial value
 	 * @param startWorking initial value
 	 * @param endWorking initial value
-	 * @return expert
+	 * return expert
 	 */
 	public Expert(int id, String firstname, String lastname,
 			String clinicName, Time startWorking, Time endWorking) {

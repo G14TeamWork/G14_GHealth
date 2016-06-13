@@ -19,7 +19,7 @@ public class RecordAppointmentEntity implements Serializable {
 	
 	/**
 	 * constructor. creates new appointment in it.
-	 * @return like any other constructor, returns its' type
+	 * return like any other constructor, returns its' type
 	 */
 	public RecordAppointmentEntity(){
 

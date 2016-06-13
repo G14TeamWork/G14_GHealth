@@ -1,27 +1,11 @@
 package views;
-
-import graphics.DropShadowPanel;
 import graphics.GUIimage;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
-
-import javax.swing.SwingConstants;
-
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.awt.BorderLayout;
-import java.awt.Window.Type;
+
 
 public class seeBigPhotoView extends JFrame {
 	/**

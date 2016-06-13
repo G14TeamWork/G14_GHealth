@@ -17,7 +17,7 @@ import Entities.Reference;
  * This class is the controller of view request details. 
  * is responsible for  client server interaction. 
  * @param rae  - record appointment entity - is here as msg sent to server.
- * @param viewrefdetview - is the panel view of view ref details window
+ * @param ViewRefDetview - is the panel view of view ref details window
  * @param rde  - entity that is used as msg same as rae.
  * @author Ruslan
  *
@@ -29,7 +29,7 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 	public RecordAppointmentEntity rae;
 	/**
 	 * constructor - creates view ref det view
-	 * @return returnd view ref det controller
+	 * return returnd view ref det controller
 	 */
 	public ViewRefDetController() {
 		ViewRefDetview = new ViewRefDetView();
@@ -49,9 +49,9 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 	/**
 	 * method in charge of getting from sql all references given in an appointment
 	 * server side
-	 * @param query - string that is sent to sql 
+	 * param query - string that is sent to sql 
 	 * @param RDE - reference detail entity - used as the message between client and server
-	 * @param arrList -used to save reply from sql to query
+	 * param arrList -used to save reply from sql to query
 	 */
 	public void serverGetPatientRefs(RefDetailsEntity RDE){
 	

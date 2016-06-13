@@ -30,7 +30,7 @@ public class Appointment implements Serializable{
 	
 	/**
 	 * default constructor
-	 * @return appointment
+	 * return appointment
 	 */
 	public Appointment()
 	{
@@ -46,7 +46,7 @@ public class Appointment implements Serializable{
 	 * @param lastname  initial value
 	 * @param idappointment  initial value
 	 * @param clinicName  initial value
-	 * @return returns an appointment
+	 * return returns an appointment
 	 */
 	public Appointment(Date appdate, Time start, Time end, String expertise, String firstname, String lastname, String idappointment, String clinicName)
 	{

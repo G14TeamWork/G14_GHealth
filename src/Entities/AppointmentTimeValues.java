@@ -13,7 +13,7 @@ public class AppointmentTimeValues implements Serializable{
 	private long fromDisToAppDateDiffInMinutes;
 	private long fromAppDateToRealAppDateDiffInMinutes;
 	
-	/** 
+	/* 
 	 * (non-Javadoc)
 	 * 
 

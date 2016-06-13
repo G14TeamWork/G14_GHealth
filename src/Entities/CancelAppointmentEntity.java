@@ -22,7 +22,7 @@ public class CancelAppointmentEntity implements Serializable{
 	
 	/**
 	 * constructor - initals values of task and id
-	 * @return returns cancel appointment entity
+	 * return returns cancel appointment entity
 	 * @param task initial value
 	 * @param id initial value
 	 */

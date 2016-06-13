@@ -26,7 +26,7 @@ public class SetAppointmentEntity implements Serializable{
 	/**
 	 * constructor that sets task
 	 * @param task initial value
-	 * @return like any other constructor returns it's own type
+	 * return like any other constructor returns it's own type
 	 */
 	public void setTask(String task) {
 		this.task = task;

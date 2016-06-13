@@ -20,7 +20,7 @@ public class ScheduleEntity implements Serializable{
 	
 	/**
 	 * constructor that initials array list of appointments
-	 * @return - like any other constructor - returns it's own type
+	 * return - like any other constructor - returns it's own type
 	 */
 	public ScheduleEntity(){
 		alist = new ArrayList<Appointment>();

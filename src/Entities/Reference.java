@@ -18,7 +18,7 @@ public class Reference implements Serializable {
 	
 	/**
 	 * constructor 
-	 * @return - it's own type
+	 * return - it's own type
 	 */
 	public Reference(){
 		
@@ -28,7 +28,7 @@ public class Reference implements Serializable {
 	 * @param patid - inital value 
 	 * @param reftype initial value
 	 * @param appid initial value
-	 * @return like any other constructor - it's own type
+	 * return like any other constructor - it's own type
 	 */
 	public Reference(String patid, String reftype, String appid){
 		this.patid = patid;

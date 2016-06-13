@@ -18,7 +18,7 @@ public class RefDetailsEntity implements Serializable {
 	
 	/**
 	 * constructor
-	 * @return like any other constructor returns it's own type
+	 * return like any other constructor returns it's own type
 	 */
 	public RefDetailsEntity(){
 		

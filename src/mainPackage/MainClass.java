@@ -16,9 +16,9 @@ import mainPackage.MainClass;
 /**
  * Main class of client <br> this is where it all begins.
  * @author Ruslan
- * @splash - jframe that contains all panels we will use
- * @ghealth the client 
- * @masterController - master controller of all controllers
+ * splash - jframe that contains all panels we will use
+ * ghealth the client 
+ * masterController - master controller of all controllers
  */
 public class MainClass {
 	

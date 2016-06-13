@@ -5,7 +5,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import java.util.*;
-
+/**
+ * entity class. suppose to have all fields that might be sent to or from server in Sent mail!.
+ * being sent from and to client/server
+ * 
+ * @author Ruslan
+ *
+ */
 public class SendEmail {
 	
 	// mail: 		ghealthg14@gmail.com

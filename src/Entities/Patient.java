@@ -1,7 +1,13 @@
 package Entities;
 
 import java.io.Serializable;
-
+/**
+ * entity class. suppose to have all fields that might be sent to or from server in patient details transfer.
+ * being sent from and to client/server
+ * 
+ * @author Ruslan
+ *
+ */
 public class Patient implements Serializable{
 
 	private static final long serialVersionUID = 1L;

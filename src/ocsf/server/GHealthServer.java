@@ -145,9 +145,8 @@ public class GHealthServer extends ObservableServer{
 				break;
 			case "ClinicManagerEntity":
 			{
-				if( ((ClinicManagerEntity)msg).getTaskToDo().equals("seting clinic manager id"))
-					SMC.CMCont.searchClinicIdServer(((ClinicManagerEntity)msg));
-				
+				if( ((ClinicManagerEntity)msg).getTaskToDo().equals("set clinic id"))
+					SMC.CMCont.searchClinicIDSql(((ClinicManagerEntity)msg));	
 			}
 				break;
 			case "ScheduleEntity":

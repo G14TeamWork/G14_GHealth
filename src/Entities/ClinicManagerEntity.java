@@ -14,7 +14,7 @@ public class ClinicManagerEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String taskToDo;
-	private int clinicManegerId;
+	private int clinicId;
 	private int ManagerId;
 	private Date from;
 	private Date to;
@@ -51,11 +51,11 @@ public class ClinicManagerEntity implements Serializable{
 	public void setTaskToDo(String taskToDo) {
 		this.taskToDo = taskToDo;
 	}
-	public int getClinicManegerId() {
-		return clinicManegerId;
+	public int getClinicId() {
+		return clinicId;
 	}
-	public void setClinicManegerId(int clinicManegerId) {
-		this.clinicManegerId = clinicManegerId;
+	public void setClinicId(int clinicManegerId) {
+		this.clinicId = clinicManegerId;
 	}
 	public int getManagerId() {
 		return ManagerId;

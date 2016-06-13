@@ -81,9 +81,10 @@ public class ClinicManagerView extends JPanel {
 		btnProduceReport = new JButton("<html><center>Produce<br />Report</html>");
 		btnProduceReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainClass.masterControler.setView(
+/*				MainClass.masterControler.setView(
 						MainClass.masterControler.PMRCont.ProduceMonthlyReportview,
-						MainClass.masterControler.PMRCont);
+						MainClass.masterControler.PMRCont);*/
+				MainClass.masterControler.CMCont.searchClinicIdClient();
 			}
 		});
 		btnProduceReport.setBounds(490, 306, 140, 55);

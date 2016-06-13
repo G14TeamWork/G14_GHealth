@@ -29,12 +29,16 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 	public RecordAppointmentEntity rae;
 	/**
 	 * constructor - creates view ref det view
-	 * @return 
+	 * @return returnd view ref det controller
 	 */
 	public ViewRefDetController() {
 		ViewRefDetview = new ViewRefDetView();
 	}
-	
+	/**
+	 * prepares rde as message to server for getting patient's references
+	 * client side
+	 * @param ID gets appointment ID and sets it in rde. 
+	 */
 	public void getPatientRefs(String ID){
 		rde.patID = ID;
 		rde.patName = null;
@@ -42,6 +46,13 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 		MainClass.ghealth.sendMessegeToServer(rde);
 	}
 	
+	/**
+	 * method in charge of getting from sql all references given in an appointment
+	 * server side
+	 * @param query - string that is sent to sql 
+	 * @param RDE - reference detail entity - used as the message between client and server
+	 * @param arrList -used to save reply from sql to query
+	 */
 	public void serverGetPatientRefs(RefDetailsEntity RDE){
 	
 		ArrayList<Object> arrList = new ArrayList<Object>();
@@ -68,6 +79,10 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 		}else RDE.patName="0";
 	}
 	
+	/**
+	 * this function manages gui after update is done. all buttons set and so on
+	 * in charge of setting buttons visible and etc...
+	 */
 	public void manageGUI(){
 		int tmp;
 		if(rde.patName.equals("0")){
@@ -97,6 +112,12 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 		}
 	}
 	
+	/**
+	 * this method is in charge of getting record appointmnet for certain reference
+	 * client side
+	 * @param index = is the index of array list in rde  ( index of reference in arraylist )
+	 * @return returns appointment record
+	 */
 	public String getDetailsFromList(int index){
 		String appid = "";
 	
@@ -106,14 +127,19 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 		rae.taskToDo = "getRecord";
 		MainClass.ghealth.sendMessegeToServer(rae);
 		try {
-			Thread.sleep(200);
+			Thread.sleep(400);
 		} catch (InterruptedException e) {
 			
 			e.printStackTrace();
 		}
 		return rae.appointment.getRecord();
 	}
-	
+	/** 
+	 * server side
+	 * in charge of detting record of a certain appointment.
+	 * set record that is braught from db in RAE
+	 * @param RAE message between server and client. will contain the record of the appointment
+	 */
 	public void serverGetRecord(RecordAppointmentEntity RAE){
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		String query = "SELECT record FROM ghealth.appointments WHERE idappointment='" + RAE.appID +"'";

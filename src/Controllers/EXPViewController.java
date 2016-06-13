@@ -18,7 +18,15 @@ import Controllers.IRefresh;
 import Entities.Appointment;
 import Entities.RecordAppointmentEntity;
 import Entities.ScheduleEntity;
-
+/**
+ * This class is the window controller of expert view
+ * is incharge of verifying appointments id before entering record appointment.
+ * also in charge of expert schedule view.
+ * @author Ruslan
+ * @param expview - panel that holds all expert features
+ * @param RAE1 - record appointment entity - the message between server and client . contatining appointment
+ * @param se  - schedule entity - contatining appointments - sent between server and client as message
+ */
 public class EXPViewController implements Observer,IRefresh, Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -26,16 +34,34 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 	public RecordAppointmentEntity RAE1 = new RecordAppointmentEntity();
 	public ScheduleEntity se;
 	public String tmp;
+	/**
+	 * constructor - creates an expert view panel inside
+	 * @return like every constructor , returns its' type
+	 */
 	public EXPViewController() {
 		expview = new ExpView();
 	}
 	
+	/**
+	 * This method prepares RAE1 to be sent to server. sets data in it that the server will manage
+	 * client side
+	 * @param appID1  - contatining appointment id server needs for query
+	 * @param expertID - containing expert id server needs for query
+	 */
 	public void checkApp(String appID1, String expertID){
 		RAE1.appID=appID1;
 		RAE1.expID=expertID;
 		RAE1.taskToDo="search";
 		MainClass.ghealth.sendMessegeToServer(RAE1);
 	}
+	
+	/**
+	 * server side
+	 * method is in charge of getting patient id and record from an appointment 
+	 * @param rae - message received from client and will be returned to client - contains appointment
+	 * @param query - the string that will be sent to db
+	 * @param arrList - the list that receiving reply from sql
+	 */
 	public void checkAppSQL(RecordAppointmentEntity rae) {
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		String query = "SELECT * FROM ghealth.appointments WHERE idexpert='"+ rae.expID +"' AND idappointment ='" + rae.appID+"'" ;
@@ -48,6 +74,11 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 			rae.appointment.setIdpatient(null);
 	}
 	
+	/**
+	 * this method is in charge of preparing se for being sent to server
+	 * client side.
+	 * also prepares text for text area
+	 */
 	public void showExpSched(){
 		se = new ScheduleEntity();
 		String str = "";
@@ -56,7 +87,7 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 		se.comment = "";
 		MainClass.ghealth.sendMessegeToServer(se);
 		try {
-			Thread.sleep(200);
+			Thread.sleep(400);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -79,7 +110,13 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 		}
 		expview.sched.setText(str);
 	}
-
+	/**
+	 * this medor is in charge of taking some data from sql and giving it to client.
+	 * server side.
+	 * @param query - the string that is sent to sql
+	 * @param arrList - list that get sql reply
+	 * @param SE - message sent between client and server. contains details required for query. later i filled with details client asked for
+	 */
 	public void serverShowSchedule(ScheduleEntity SE){
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		int index=0;

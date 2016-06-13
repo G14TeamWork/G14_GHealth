@@ -12,21 +12,43 @@ import views.RequestDetailsView;
 import Controllers.IRefresh;
 import Entities.MedicalFile;
 
+/**
+ * This clas is request details controller
+ * is in charge of getting medical files for patients
+ * @author Ruslan
+ *@param requestdetailview - panel that contains all buttons and features of request details
+ * @param mf - medical file entity - used to be sent between client and server
+ */
 public class RequestDetailsController implements Observer,IRefresh, Serializable  {
 	
 	private static final long serialVersionUID = 1L;
 	public RequestDetailsView RequestDetailsview;
 	public MedicalFile mf;
 	
+	/**
+	 * constructor - creates new requestdetails view
+	 * @return like every constructor - returns its' type..
+	 */
 	public RequestDetailsController() {
 		RequestDetailsview = new RequestDetailsView();
 	}
 	
+	/**
+	 * client side. preparing mf to be sent to server. get medical file of patient ID.
+	 * @param patID - patient id of whom medical file is requested
+	 */
 	public void getMedicalFile(String patID){
 		mf = new MedicalFile(patID);
 		MainClass.ghealth.sendMessegeToServer(mf);
 	}
 	
+	/**
+	 * server side. should transfer file to client 
+	 * gets file from sql
+	 * @param MF - message received from client and sent back to him with details
+	 * @param query - the string that is sent to sql
+	 * @param arrList - the receiver of sql's answer
+	 */
 	public void serverGetMedicalFile(MedicalFile MF){
 		ArrayList<Object> arrList = new ArrayList<Object>();
 	
@@ -88,6 +110,10 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 			}
 		}
 	}
+	/**
+	 * method that get medical file and to strings it. 
+	 * @return str is the string that is created.
+	 */
 	public String entireFileFormat(){
 		String str="";
 		
@@ -104,6 +130,10 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 		return  str;
 	}
 	
+	/**
+	 * function that manages comboBox changing items.
+	 * in case of switching seleceted item.
+	 */
 	public void manageComboBox(){
 		if (RequestDetailsview.specs.getSelectedItem().equals("Cardiology")){
 			RequestDetailsview.fileArea.setText("Cardiology history : " + mf.getCardio());

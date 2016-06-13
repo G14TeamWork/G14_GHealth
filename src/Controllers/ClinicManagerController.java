@@ -28,7 +28,7 @@ import views.ClinicManagerView;
  */
 public class ClinicManagerController implements Observer,IRefresh  {
 	public ClinicManagerView clinicmanagerview;
-	private ClinicManagerEntity CME = new ClinicManagerEntity();
+	public ClinicManagerEntity CME = new ClinicManagerEntity();
 	public DayReport DR= new DayReport();
 	
 	public ClinicManagerController() {

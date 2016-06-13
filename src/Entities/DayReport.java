@@ -32,6 +32,7 @@ public class DayReport implements Serializable{
 		
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		AppointmentTimeValues current;
+		
 		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.idclinic = "+String.valueOf(idclinic)+" AND app.appdate="+generateDayDateToSql(date)+" AND app.appstatus = 2;";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		

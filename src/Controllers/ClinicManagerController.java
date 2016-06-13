@@ -66,6 +66,10 @@ public class ClinicManagerController implements Observer,IRefresh  {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (arg instanceof ClinicManagerEntity) {
+			if(((ClinicManagerEntity)arg).getTaskToDo().equals("createDailyReport"))
+			{
+				System.out.println(((ClinicManagerEntity)arg).toString());				
+			}
 			if( ((ClinicManagerEntity)arg).getTaskToDo().equals("setClinicID"))
 			{
 				CME.setClinicId(((ClinicManagerEntity)arg).getClinicId());
@@ -75,16 +79,9 @@ public class ClinicManagerController implements Observer,IRefresh  {
 				Date date = cal.getTime();
 				CME.setTaskToDo("createDailyReport");
 				CME.setFrom(date);
-				MainClass.ghealth.sendMessegeToServer(CME);
-
-
-				
-				
+		//		MainClass.ghealth.sendMessegeToServer(CME);
 			}
-			else if(((ClinicManagerEntity)arg).getTaskToDo().equals("createDailyReport"))
-			{
-				System.out.println(((ClinicManagerEntity)arg).toString());				
-			}
+
 
 		}
 	}

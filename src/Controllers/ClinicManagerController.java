@@ -16,7 +16,16 @@ import Entities.AppointmentTimeValues;
 import Entities.ClinicManagerEntity;
 import Entities.DayReport;
 import views.ClinicManagerView;
-
+/**
+ * This class is clinic manager controller.
+ * Is in charge of every feature of clinic manager.
+ * Also in charge of connection to sql of clinic manager interface
+ * @param clinicmanagerview is a view when clinic manager logs in
+ * @param CME is clinic manager entity - the message sent between server and client
+ * @param DR is daily report entity - contains all daily report details. brought  and calculated in database
+ * @author Ruslan
+ *
+ */
 public class ClinicManagerController implements Observer,IRefresh  {
 	public ClinicManagerView clinicmanagerview;
 	private ClinicManagerEntity CME = new ClinicManagerEntity();

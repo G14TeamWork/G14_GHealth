@@ -95,6 +95,10 @@ public class DayReport implements Serializable{
 			sdFromAppDateToRealAppDateDiffInMinutes = (sdFromAppDateToRealAppDateDiffInMinutes/(long)(numOfPatientsTreated));
 			sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
 			
+			 query2 = "INSERT INTO `ghealth`.`daylireport` (`idclinic`, `date`, `numofmiss`, `numoftreted`, `maxdistoapp`, `mindistoapp`, `avgdistoapp`, `sddistoapp`, `maxapptoreal`, `minapptoreal`, `avgapptoreal`, `sdapptoreal`)"
+														+ " VALUES ("+String.valueOf(idClinic)+","+generateDayDateToSql(date)+","+String.valueOf(numOfPatientsTreated)+","+String.valueOf(numOfMiss)+","+String.valueOf(maxFromDisToAppDateDiffInMinutes)+","+String.valueOf(minFromDisToAppDateDiffInMinutes)+","+String.valueOf(avgFromDisToAppDateDiffInMinutes)+","+String.valueOf(sdFromDisToAppDateDiffInMinutes)+", "+String.valueOf(maxFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(minFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(avgFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(sdFromAppDateToRealAppDateDiffInMinutes)+");";
+			
+			GHealthServer.sqlConn.sendSqlUpdate(query2);
 			return this;
 		}
 		return null;
@@ -113,8 +117,9 @@ public class DayReport implements Serializable{
 		 * hours = (allTimeInMinutes%24*60)/60;
 		 * Minutes = allTimeInMinutes%60;
 		 * */
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	/*	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime date= LocalDateTime.parse(getDate().toString(), formatter); 
+		*/
 		long days = allTimeInMinutes/24*60;
 		long hours = (allTimeInMinutes%24*60)/60;
 		long minutes = allTimeInMinutes%60;

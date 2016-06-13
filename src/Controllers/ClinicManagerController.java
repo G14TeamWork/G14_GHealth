@@ -50,20 +50,16 @@ public class ClinicManagerController implements Observer,IRefresh  {
 		cme.setClinicId(Integer.valueOf((String)arrList.get(0)));
 	}
 
-	public void viewDaylyReport()
+	public void viewWeeklyReport()
 	{
-		CME.setTaskToDo("viewDailyReport");
-		CME.setManagerId(Integer.valueOf(MainClass.masterControler.LoginCont.loginEntity.getUsername()));
-		MainClass.ghealth.sendMessegeToServer(CME); 
-		
+		this.CME.setTaskToDo("viewWeeklyReport");
+		MainClass.ghealth.sendMessegeToServer(CME);
 	}
-
-	public void PreduceReport(String taskToDo,Date from ,Date to)
+	public void viewMonthlyReport()
 	{
-		
+		this.CME.setTaskToDo("viewMonthlyReport");
+		MainClass.ghealth.sendMessegeToServer(CME);
 	}
-	
-	
 
 	@Override
 	public void refreshView() {

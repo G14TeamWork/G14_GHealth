@@ -3,12 +3,15 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * entity class. suppose to have all fields that might be sent to or from server in cancel appointment.
+ * being sent from and to client/server
+ * 
+ * @author Ruslan
+ *
+ */
 public class CancelAppointmentEntity implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Appointment> appList;
 	private String taskToDo;
@@ -17,6 +20,12 @@ public class CancelAppointmentEntity implements Serializable{
 	private String firstName;
 	private String lastName;
 	
+	/**
+	 * constructor - initals values of task and id
+	 * @return returns cancel appointment entity
+	 * @param task initial value
+	 * @param id initial value
+	 */
 	public CancelAppointmentEntity(String task , String id)
 	{
 		if(task.equals("search"))

@@ -6,13 +6,17 @@ import Controllers.MasterController;
 import mainPackage.MainClass;
 import mainPackage.infoBox;
 
-
+/**
+ * This class is GHealth client - extends observable
+ * @author Ruslan
+ *
+ */
 public class GHealthClient extends ObservableClient{
 
 	/**
 	 * Constructor. Sends host and port to super. 
-	 * @param host
-	 * @param port
+	 * @param host inital value
+	 * @param port initial value
 	 */
 	public GHealthClient(String host, int port) {
 		super(host, port);

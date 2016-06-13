@@ -39,15 +39,16 @@ public class WeekReport implements Serializable{
 		this.date = date;
 		this.idClinic = idclinic;
 		ArrayList<Object> arrList = new ArrayList<Object>();
+		ArrayList<Object> arrList2 = new ArrayList<Object>();
 		AppointmentTimeValues currentAppVal;
 		DayReport currentDayVal = new DayReport();
 		Date specific = new Date();
 		long dateInLong = date.getTime();
 		
 		
-	/*	String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='2' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+" + 7 DAY;";
+		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='2' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+" + 7 DAY;";
 		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query2);
-		*/
+		this.numOfMiss = (int)arrList2.get(0);
 		
 		
 		

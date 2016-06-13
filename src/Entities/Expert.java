@@ -3,13 +3,16 @@ package Entities;
 import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
-
+/**
+ * entity class. suppose to have all fields that might be sent to or from server in set appointment
+ * being sent from and to client/server
+ * 
+ * @author Ruslan
+ *
+ */
 public class Expert implements Serializable{
 	
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String firstName;
@@ -21,11 +24,22 @@ public class Expert implements Serializable{
 	private Time startWorkingHours;
 	private Time endWorkingHours;
 	private String patID;
-	
+
+	/**
+	 * constructor 
+	 * @return returns  empty expert...
+	 */
 	public Expert()
 	{
 		
 	}
+	/**
+	 * constructor that sets inital values
+	 * @param expertise inital value
+	 * @param firstName initial value
+	 * @param lastName initial value
+	 * @return expert
+	 */
 	public Expert(String expertise , String firstName ,String lastName)
 	{
 		this.expertise = expertise;
@@ -33,6 +47,16 @@ public class Expert implements Serializable{
 		this.lastName = lastName;
 	}
 
+	/**
+	 * constructor that sets inital values
+	 * @param id inital value
+	 * @param firstname initial value
+	 * @param lastname initial value
+	 * @param clinicName initial value
+	 * @param startWorking initial value
+	 * @param endWorking initial value
+	 * @return expert
+	 */
 	public Expert(int id, String firstname, String lastname,
 			String clinicName, Time startWorking, Time endWorking) {
 		this.id=id;

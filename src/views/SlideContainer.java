@@ -10,7 +10,14 @@ import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 
 public class SlideContainer extends JLayeredPane {
-
+	/**
+	 * This class extends JPanel. <br>
+	 * It is a view containing components of gui. <br>
+	 * This is the screen that opens every change of screens.<br>
+	 * Almost all functionality of GUI is here.
+	 * @author Ruslan
+	 *
+	 */
 	private static final long serialVersionUID = 1L;
 	private static final int PREF_W = 677;
 	   private static final int PREF_H = 562;

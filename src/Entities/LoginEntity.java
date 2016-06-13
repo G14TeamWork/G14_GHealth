@@ -6,7 +6,13 @@ import java.sql.Time;
 
 import mainPackage.MainClass;
 
-/** this class controls the login */
+/**
+ * entity class. suppose to have all fields that might be sent to or from server in login.
+ * being sent from and to client/server
+ * 
+ * @author Ruslan
+ *
+ */
 public class LoginEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;

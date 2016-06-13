@@ -16,7 +16,14 @@ import javax.swing.JButton;
 import mainPackage.MainClass;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when expert enters view appointment history. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class ViewAppHistoryView extends JPanel {
 	
 	private static final long serialVersionUID = 1L;

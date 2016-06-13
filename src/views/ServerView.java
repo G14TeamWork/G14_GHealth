@@ -28,7 +28,14 @@ import com.alee.laf.button.WebButton;
 import com.alee.laf.optionpane.WebOptionPane;
 
 import db.SET_DB_WITH_SQL_FILE;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when server starts. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class ServerView extends JPanel {
 
 	private static final long serialVersionUID = 1L;

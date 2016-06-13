@@ -15,7 +15,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when expert enters view medical history view. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class ViewMedicalHistoryView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;

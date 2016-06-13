@@ -5,6 +5,12 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * entity class. 
+ * containing info that needs to be moved between client and server.
+ * @author Ruslan
+ *
+ */
 public class Appointment implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -22,10 +28,26 @@ public class Appointment implements Serializable{
 	private float price;
 	private Expert EX;
 	
+	/**
+	 * default constructor
+	 * @return appointment
+	 */
 	public Appointment()
 	{
 		
 	}
+	/**
+	 * constructor. creates appointmnet with given details
+	 * @param appdate initial value
+	 * @param start  initial value
+	 * @param end  initial value
+	 * @param expertise  initial value
+	 * @param firstname  initial value
+	 * @param lastname  initial value
+	 * @param idappointment  initial value
+	 * @param clinicName  initial value
+	 * @return returns an appointment
+	 */
 	public Appointment(Date appdate, Time start, Time end, String expertise, String firstname, String lastname, String idappointment, String clinicName)
 	{
 		this.start=start;

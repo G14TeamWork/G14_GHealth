@@ -36,7 +36,14 @@ import java.awt.Insets;
 import javax.swing.JCheckBox;
 import javax.swing.border.LineBorder;
 import java.awt.Cursor;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when expert enters logs in. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class ExpView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JButton btnLogout;
@@ -101,7 +108,8 @@ public class ExpView extends JPanel {
 				if (arg0.getSource()==btnRecordAppointment)
 				{
 					String appID = JOptionPane.showInputDialog(null, "Insert appointment number : ");
-					MainClass.masterControler.EXPVCont.checkApp(appID,lblHiddenID.getText());
+					if (appID!=null)
+						MainClass.masterControler.EXPVCont.checkApp(appID,lblHiddenID.getText());
 				}
 			}
 		});

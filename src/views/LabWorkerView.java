@@ -21,7 +21,14 @@ import java.awt.Font;
 import java.awt.Component;
 import javax.swing.SwingConstants;
 import java.awt.Insets;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when lab worker logs in. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class LabWorkerView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JButton btnLogout;

@@ -27,6 +27,14 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when dispatcher enters set an appointment. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class SetAppointmentView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;
@@ -268,7 +276,6 @@ public class SetAppointmentView extends JPanel {
 		comboBox_expertise.addItem("Gynecologist");
 		comboBox_expertise.addItem("Neurologist");
 		comboBox_expertise.addItem("Oncologist");
-		comboBox_expertise.addItem("Orthopedic Surgeon");
 		comboBox_expertise.setEditable(false);
 		comboBox_expertise.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {

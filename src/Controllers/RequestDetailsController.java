@@ -93,13 +93,13 @@ public class RequestDetailsController implements Observer,IRefresh, Serializable
 				MainClass.masterControler.RDCont.RequestDetailsview.btnEntireFile.setEnabled(true);
 				MainClass.masterControler.RDCont.RequestDetailsview.btnBySpec.setEnabled(true);
 				if(mf.getCardio()==null) 
-					mf.setCardio("No cardiology history.");
+					mf.setCardio("No cardiologic file.");
 				if(mf.getNeuro()==null)
-					mf.setNeuro("No neurology history.");
+					mf.setNeuro("No neurologic file.");
 				if(mf.getGenyc()==null) 
-					mf.setGenyc("No cardiology history.");
+					mf.setGenyc("No geniologic file.");
 				if(mf.getOnco()==null)
-					mf.setOnco("No neurology history.");
+					mf.setOnco("No oncologic file.");
 			}
 			else{
 				RequestDetailsview.fileArea.setText("");

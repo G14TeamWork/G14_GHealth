@@ -23,7 +23,9 @@ import Controllers.*;
 import db.SQLconnection;
 import Entities.*;
 
-/** Server class responsible for the server communication and data base connection */
+/** Server class responsible for the server communication and data base connection
+ * 
+ *  */
 public class GHealthServer extends ObservableServer{
 
 	public static Boolean debug = false;

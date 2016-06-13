@@ -30,7 +30,13 @@ import java.awt.event.ItemListener;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when expert enters request details. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ */
 public class RequestDetailsView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator separator;

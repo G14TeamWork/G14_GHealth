@@ -9,7 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Class that works with mysql. 
+ * 
+ * @author Ruslan
+ *
+ */
 public class mysqlConnection {
 
 	public static void main(String[] args) 

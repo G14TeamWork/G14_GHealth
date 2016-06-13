@@ -136,6 +136,14 @@ public class WeekReport implements Serializable{
 		sdFromAppDateToRealAppDateDiffInMinutes = (sdFromAppDateToRealAppDateDiffInMinutes/(long)(numOfPatientsTreated));
 		sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
 		
+		query2 =" INSERT INTO `ghealth`.`weeklyreport` (`idclinic`, `date`, `numofmiss`, `numoftreted`, `maxoftreted`, `minoftreted`, `avgoftreted`, `sdoftreted`, `maxdistoapp`, `mindistoapp`, `avgdistoapp`, `sddistoapp`, `maxapptoreal`, `minapptoreal`, `avgapptoreal`, `sdapptoreal`) "
+				+ "VALUES ("+String.valueOf(idclinic)+", "+generateDayDateToSql(this.date)+", "+String.valueOf(numOfMiss)+","
+				+ " "+String.valueOf(numOfPatientsTreated)+", "+String.valueOf(maxNumOfPatientsTreated)+","
+				+ " "+String.valueOf(minNumOfPatientsTreated)+", "+String.valueOf(avgNumOfPatientsTreated)+", "+String.valueOf(sdNumOfPatientsTreated)+","
+				+ " "+String.valueOf(maxFromDisToAppDateDiffInMinutes)+", "+String.valueOf(minFromDisToAppDateDiffInMinutes)+","
+				+ " "+String.valueOf(avgFromDisToAppDateDiffInMinutes)+", "+String.valueOf(sdFromDisToAppDateDiffInMinutes)+", "+String.valueOf(maxFromAppDateToRealAppDateDiffInMinutes)+","
+				+ " "+String.valueOf(minFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(avgFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(sdFromAppDateToRealAppDateDiffInMinutes)+");";
+		GHealthServer.sqlConn.sendSqlUpdate(query2);
 		return this;
 		
 		
@@ -161,14 +169,15 @@ public class WeekReport implements Serializable{
 
 	public String generateDiffToHoursDaysMinutesForWeekly(Date date)
 	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		/*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime date1= LocalDateTime.parse(date.toString(), formatter); 
 		String str =date1.toString();
 		long dateInLong = date.getTime();
 		dateInLong +=7*24 * 60 * 60 * 1000;
 		date.setTime(dateInLong);
-		date1= LocalDateTime.parse(date.toString(), formatter);
-		str +="-"+date1.toString();
+		date1= LocalDateTime.parse(date.toString(), formatter);*/
+		String str ="";
+		//str +="-"+date1.toString();
 		
 		str += "\nnumber of patients treated : "+String.valueOf(numOfPatientsTreated)
 				+"\nmax number of patients treated :"+String.valueOf(maxNumOfPatientsTreated)

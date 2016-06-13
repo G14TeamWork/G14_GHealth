@@ -155,7 +155,14 @@ public class GHealthServer extends ObservableServer{
 				{
 					System.out.println((((ClinicManagerEntity)msg).getDay().createDayliReport(((ClinicManagerEntity)msg).getFrom(),((ClinicManagerEntity)msg).getClinicId())).toString());
 				}
-					
+				else if(((ClinicManagerEntity)msg).getTaskToDo().equals("viewWeeklyReport"))
+				{
+					System.out.println((((ClinicManagerEntity)msg).getWeek().createWeeklyReport(((ClinicManagerEntity)msg).getFrom(),((ClinicManagerEntity)msg).getClinicId())));
+				}
+				else if (((ClinicManagerEntity)msg).getTaskToDo().equals("viewWeeklyReport"))
+				{
+					System.out.println((((ClinicManagerEntity)msg).getMonth().createMonthlyReport(((ClinicManagerEntity)msg).getFrom(),((ClinicManagerEntity)msg).getClinicId())));
+				}
 			}
 				break;
 			case "ScheduleEntity":

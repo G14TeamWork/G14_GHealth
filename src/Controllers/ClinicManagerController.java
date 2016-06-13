@@ -79,10 +79,8 @@ public class ClinicManagerController implements Observer,IRefresh  {
 				Date date = cal.getTime();
 				CME.setTaskToDo("createDailyReport");
 				CME.setFrom(date);
-		//		MainClass.ghealth.sendMessegeToServer(CME);
+				MainClass.ghealth.sendMessegeToServer(CME);
 			}
-
-
 		}
 	}
 }

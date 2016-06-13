@@ -27,7 +27,14 @@ import java.awt.Color;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.ScrollPaneConstants;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when labworker enters view reference details view. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class ViewRefDetView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JSeparator 	separator;

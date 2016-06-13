@@ -34,7 +34,14 @@ import com.alee.laf.text.WebEditorPane;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.ComponentOrientation;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when expert enters record appointment. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class RecordAppointView extends JPanel {
 
 	private static final long serialVersionUID = 1L;

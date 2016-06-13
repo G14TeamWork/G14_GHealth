@@ -24,7 +24,14 @@ import java.awt.BorderLayout;
 import java.awt.Window.Type;
 
 public class seeBigPhotoView extends JFrame {
-
+	/**
+	 * This class extends JPanel. <br>
+	 * It is a view containing components of gui. <br>
+	 * This is the screen that opens when expert enters view full size image. <br>
+	 * Almost all functionality of GUI is here.
+	 * @author Ruslan
+	 *
+	 */
 
 	private static final long serialVersionUID = 1L;
 	public JLabel lblreerer;

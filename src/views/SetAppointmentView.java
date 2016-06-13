@@ -268,7 +268,6 @@ public class SetAppointmentView extends JPanel {
 		comboBox_expertise.addItem("Gynecologist");
 		comboBox_expertise.addItem("Neurologist");
 		comboBox_expertise.addItem("Oncologist");
-		comboBox_expertise.addItem("Orthopedic Surgeon");
 		comboBox_expertise.setEditable(false);
 		comboBox_expertise.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {

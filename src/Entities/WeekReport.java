@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -10,7 +11,9 @@ import java.util.Date;
 
 import ocsf.server.GHealthServer;
 
-public class WeekReport {
+public class WeekReport implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
 	private Date date;
 	private int idClinic;

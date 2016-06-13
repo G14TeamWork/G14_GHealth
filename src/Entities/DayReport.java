@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -10,10 +11,11 @@ import java.util.Date;
 
 import ocsf.server.GHealthServer;
 
-public class DayReport {
+public class DayReport implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
 	private Date date;
-	private int idClinic;
 	private int numOfPatientsTreated;
 	private long maxFromDisToAppDateDiffInMinutes;
 	private long minFromDisToAppDateDiffInMinutes;
@@ -29,16 +31,16 @@ public class DayReport {
 	{
 		
 		this.date = date;
-		this.idClinic = idclinic;
 		
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		AppointmentTimeValues current;
-		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.idclinic = "+String.valueOf(idclinic)+" app.appdate="+generateDayDateToSql(date)+";";
+		
+		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.idclinic = "+String.valueOf(idclinic)+" AND app.appdate="+generateDayDateToSql(date)+" AND app.appstatus = 2;";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		
 		if(!arrList.isEmpty())
 		{
-				this.numOfPatientsTreated = arrList.size();
+				this.numOfPatientsTreated = arrList.size()/7;
 				dayValues = new ArrayList<AppointmentTimeValues>();
 				for(int i = 0 ; i < arrList.size() ; i+=7)
 					dayValues.add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));

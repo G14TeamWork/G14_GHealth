@@ -63,7 +63,7 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrList.isEmpty())
 		{
-			System.out.println("noooooooooo");
+			//System.out.println("noooooooooo");
 			FTRpat.taskToDo="noPat";
 		}
 		else

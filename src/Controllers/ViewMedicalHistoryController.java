@@ -73,7 +73,7 @@ public class ViewMedicalHistoryController implements Observer,IRefresh,Serializa
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrList.isEmpty())
 		{
-			System.out.println("noooooooooo");
+			//System.out.println("noooooooooo");
 			VHEnt.showbuttonflag=false;
 		}
 		else

@@ -69,7 +69,7 @@ public class viewLabResuControlller implements Observer,IRefresh  {
 		ArrayList<Object> arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		if (arrList.isEmpty())
 		{
-			System.out.println("noooooooooo");
+			//System.out.println("noooooooooo");
 			VLREnt.testResultsFlag=false;
 		}
 		else

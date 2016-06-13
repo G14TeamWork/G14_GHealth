@@ -47,10 +47,10 @@ public class seeBigPhotoView extends JFrame {
 		getContentPane().setLayout(null);
 		lblreerer = new JLabel();
 		lblreerer.setBounds(204, 76, 572, 615);
-		System.out.println("photo path see big photo before chang:"+photoName);
+		//System.out.println("photo path see big photo before chang:"+photoName);
 		if (viewLabResuView.photoPath!=" ")
 			photoName=viewLabResuView.photoPath;
-		System.out.println("photo path see big photo after chang:"+photoName);
+		//System.out.println("photo path see big photo after chang:"+photoName);
 		lblreerer.setIcon(new GUIimage(photoName, lblreerer.getWidth(),lblreerer.getHeight()).image);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);

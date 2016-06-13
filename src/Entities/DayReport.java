@@ -12,6 +12,7 @@ import ocsf.server.GHealthServer;
 public class DayReport {
 	
 	private Date date;
+	private int idClinic;
 	private int numOfPatientsTreated;
 	private long maxFromDisToAppDateDiffInMinutes;
 	private long minFromDisToAppDateDiffInMinutes;
@@ -26,6 +27,7 @@ public class DayReport {
 	public DayReport createDayliReport(Date date , int idclinic)
 	{
 		this.date = date;
+		this.idClinic = idclinic;
 		
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		AppointmentTimeValues current;

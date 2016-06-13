@@ -28,7 +28,14 @@ import javax.swing.JFormattedTextField;
 
 import java.awt.Color;
 import java.awt.Insets;
-
+/**
+ * This class extends JPanel. <br>
+ * It is a view containing components of gui. <br>
+ * This is the screen that opens when general managers  logs in. <br>
+ * Almost all functionality of GUI is here.
+ * @author Ruslan
+ *
+ */
 public class GeneralManagerView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JButton btnLogout;

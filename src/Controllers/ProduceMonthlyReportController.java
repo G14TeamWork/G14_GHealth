@@ -5,7 +5,13 @@ import java.util.Observer;
 
 import views.ProduceMonthlyReportView;
 import Controllers.IRefresh;
-
+/**
+ * This class is for making connections to db when producing monthly report
+ * in charge of all server client connection.
+ * @param ProduceMonthlyReportview is the panel opened when  produce monthly reports is pressed.
+ * @author Ruslan
+ *
+ */
 public class ProduceMonthlyReportController implements Observer,IRefresh  {
 	public ProduceMonthlyReportView ProduceMonthlyReportview;
 	

@@ -68,13 +68,13 @@ public class ExpView extends JPanel {
 		JLabel lblExpert = new JLabel("Expert");
 		lblExpert.setHorizontalAlignment(SwingConstants.CENTER);
 		lblExpert.setFont(new Font("Lucida Grande", Font.BOLD, 22));
-		lblExpert.setBounds(10, 151, 655, 65);
+		lblExpert.setBounds(0, 151, 677, 65);
 		add(lblExpert);
 	
 		lblExpname = new JLabel("");
 		lblExpname.setHorizontalAlignment(SwingConstants.CENTER);
 		lblExpname.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblExpname.setBounds(20, 203, 657, 31);
+		lblExpname.setBounds(0, 203, 677, 31);
 		add(lblExpname);
 		
 		lblHiddenID = new JLabel("");

@@ -163,6 +163,7 @@ public class ViewReportsView extends JPanel {
 	    		if (comboBoxYear.getSelectedItem()!="")
 	    		{
 	    			comboBoxMonth.setEnabled(true);
+	    			MainClass.masterControler.CMCont.searchClinicIdClient();
 	    		}
 	    		else 
 	    		{
@@ -199,6 +200,8 @@ public class ViewReportsView extends JPanel {
 				Calendar cal  = Calendar.getInstance();
 				cal.set(Year, Month, Day);
 				Date date = cal.getTime();
+				MainClass.masterControler.CMCont.CME.setFrom(date);
+				MainClass.masterControler.CMCont.viewWeeklyReport();
 				
 				//MainClass.masterControler.CMCont.CME.
 	    	}

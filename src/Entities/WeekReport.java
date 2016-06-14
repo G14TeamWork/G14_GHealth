@@ -23,7 +23,7 @@ public class WeekReport implements Serializable{
 	
 	private Date date;
 	private int idClinic;
-	private int numOfMiss;
+	private long numOfMiss;
 	private int numOfPatientsTreated = 0;
 	private long maxNumOfPatientsTreated;
 	private long minNumOfPatientsTreated;
@@ -38,44 +38,46 @@ public class WeekReport implements Serializable{
 	private long avgFromAppDateToRealAppDateDiffInMinutes;
 	private long sdFromAppDateToRealAppDateDiffInMinutes;
 	private ArrayList<DayReport> allDaysReport;
-	private ArrayList<AppointmentTimeValues> allWeekAppointments = new ArrayList<AppointmentTimeValues>();
+	private ArrayList<AppointmentTimeValues> allWeekAppointments;
 	
 	public WeekReport createWeeklyReport(Date date , int idclinic)
 	{
 		this.date = date;
 		this.idClinic = idclinic;
+		this.allDaysReport = new ArrayList<DayReport>();
+		this.allWeekAppointments = new ArrayList<AppointmentTimeValues>();
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		ArrayList<Object> arrList2 = new ArrayList<Object>();
 		AppointmentTimeValues currentAppVal;
 		DayReport currentDayVal = new DayReport();
 		Date specific = new Date();
 		long dateInLong = date.getTime();
+		specific = date;
 		
-		
-		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='2' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+" + 7 DAY;";
+		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='3' AND `appdate` BETWEEN "+generateDayDateToSql(date,0)+" AND "+generateDayDateToSql(date,7)+";";
 		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query2);
-		this.numOfMiss = (int)arrList2.get(0);
+		if(arrList2 != null)
+		this.numOfMiss = (long)arrList2.get(0);
 		
 		
 		
-		for(int j = 0 ; j < 7 ; j++)
+		for(int j = 0 ; j < 7 ; j++,specific = addDays(date,1),currentDayVal = new DayReport())
 		{
 			String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app "
-					+ "WHERE app.idclinic = "+String.valueOf(idclinic)+" app.appdate="+generateDayDateToSql(date)+" +"+String.valueOf(j)+" DAY;";
+					+ "WHERE app.idclinic = "+String.valueOf(idclinic)+" AND app.appdate = "+generateDayDateToSql(date,j)+";";
 			arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-			
-			
-			specific.setTime(dateInLong);
-			if(currentDayVal.createDayliReport(specific,idclinic) != null)
-				allDaysReport.add(currentDayVal);
-			
-			dateInLong +=24 * 60 * 60 * 1000;
-			
-			for(int i = 0 ; i < arrList.size() ; i+=7)
-			{
-				numOfPatientsTreated++;
-				allWeekAppointments.add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
-				
+			if((currentDayVal=currentDayVal.createDayliReport(specific,idclinic) )!= null)
+			{		
+						allDaysReport.add(currentDayVal);
+					
+					dateInLong +=24 * 60 * 60 * 1000;
+					
+					for(int i = 0 ; i < arrList.size() ; i+=7)
+					{
+						numOfPatientsTreated++;
+						allWeekAppointments.add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
+						
+					}
 			}
 		}
 
@@ -137,7 +139,7 @@ public class WeekReport implements Serializable{
 		sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
 		
 		query2 =" INSERT INTO `ghealth`.`weeklyreport` (`idclinic`, `date`, `numofmiss`, `numoftreted`, `maxoftreted`, `minoftreted`, `avgoftreted`, `sdoftreted`, `maxdistoapp`, `mindistoapp`, `avgdistoapp`, `sddistoapp`, `maxapptoreal`, `minapptoreal`, `avgapptoreal`, `sdapptoreal`) "
-				+ "VALUES ("+String.valueOf(idclinic)+", "+generateDayDateToSql(this.date)+", "+String.valueOf(numOfMiss)+","
+				+ "VALUES ("+String.valueOf(idclinic)+", "+generateDayDateToSql(this.date,0)+", "+String.valueOf(numOfMiss)+","
 				+ " "+String.valueOf(numOfPatientsTreated)+", "+String.valueOf(maxNumOfPatientsTreated)+","
 				+ " "+String.valueOf(minNumOfPatientsTreated)+", "+String.valueOf(avgNumOfPatientsTreated)+", "+String.valueOf(sdNumOfPatientsTreated)+","
 				+ " "+String.valueOf(maxFromDisToAppDateDiffInMinutes)+", "+String.valueOf(minFromDisToAppDateDiffInMinutes)+","
@@ -188,10 +190,34 @@ public class WeekReport implements Serializable{
 		return str;
 	}
 	
+	public Date addDays(Date date,int inc)
+	{
+		if(inc != 0)
+		{
+			Calendar cal = Calendar.getInstance();
+	        cal.setTime(date);
+	        cal.add(Calendar.DATE, inc); //minus number would decrement the days
+	        date = cal.getTime();
+		}
+        return date;
+	}
 	
-	public String generateDayDateToSql(Date date)
+	public String generateDayDateToSql(Date date,int inc)
 	{
 		
+		/*	Calendar cal  = Calendar.getInstance();
+		cal.set(2016, 5, 20);
+		Date date = cal.getTime();
+		this.CME.setTaskToDo("createDailyReport");
+		this.CME.setFrom(date);
+		MainClass.ghealth.sendMessegeToServer(CME);*/
+		if(inc != 0)
+		{
+			Calendar cal = Calendar.getInstance();
+	        cal.setTime(date);
+	        cal.add(Calendar.DATE, inc); //minus number would decrement the days
+	        date = cal.getTime();
+		}
 		return new SimpleDateFormat("yyyyMMdd").format(date);
 	}
 	
@@ -199,18 +225,18 @@ public class WeekReport implements Serializable{
 	public String toString() {
 	
 		DayReport temp = new DayReport();
-		String str = "W-T Max :"+temp.generateDiffToHoursDaysMinutes(maxNumOfPatientsTreated)
-				+"\n\tW-T Min :"+temp.generateDiffToHoursDaysMinutes(minNumOfPatientsTreated)
-				+"\n\tW-T AVG :"+temp.generateDiffToHoursDaysMinutes(avgNumOfPatientsTreated)
-				+"\n\tW-T Sd :"+temp.generateDiffToHoursDaysMinutes(sdNumOfPatientsTreated)
-				+"\n\tW-A Max :"+temp.generateDiffToHoursDaysMinutes(maxFromDisToAppDateDiffInMinutes)
-				+"\n\tW-A Min:"+temp.generateDiffToHoursDaysMinutes(minFromDisToAppDateDiffInMinutes)
-				+"\n\tW-A AVG :"+temp.generateDiffToHoursDaysMinutes(avgFromDisToAppDateDiffInMinutes)
-				+"\n\tW-A Sd :"+temp.generateDiffToHoursDaysMinutes(sdFromDisToAppDateDiffInMinutes)
-				+"\n\tW-B Min :"+temp.generateDiffToHoursDaysMinutes(maxFromAppDateToRealAppDateDiffInMinutes)
-				+"\n\tW-B Min :"+temp.generateDiffToHoursDaysMinutes(minFromAppDateToRealAppDateDiffInMinutes)
-				+"\n\tW-B Min :"+temp.generateDiffToHoursDaysMinutes(avgFromAppDateToRealAppDateDiffInMinutes)
-				+"\n\tW-B Sd :"+temp.generateDiffToHoursDaysMinutes(sdFromAppDateToRealAppDateDiffInMinutes);
+		String str = "W-T Max :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(maxNumOfPatientsTreated))
+				+"\n\tW-T Min :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(minNumOfPatientsTreated))
+				+"\n\tW-T AVG :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(avgNumOfPatientsTreated))
+				+"\n\tW-T Sd :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(sdNumOfPatientsTreated))
+				+"\n\tW-A Max :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(maxFromDisToAppDateDiffInMinutes))
+				+"\n\tW-A Min:"+String.valueOf(temp.generateDiffToHoursDaysMinutes(minFromDisToAppDateDiffInMinutes))
+				+"\n\tW-A AVG :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(avgFromDisToAppDateDiffInMinutes))
+				+"\n\tW-A Sd :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(sdFromDisToAppDateDiffInMinutes))
+				+"\n\tW-B Min :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(maxFromAppDateToRealAppDateDiffInMinutes))
+				+"\n\tW-B Min :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(minFromAppDateToRealAppDateDiffInMinutes))
+				+"\n\tW-B Min :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(avgFromAppDateToRealAppDateDiffInMinutes))
+				+"\n\tW-B Sd :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(sdFromAppDateToRealAppDateDiffInMinutes));
 		str +="\n";
 		for(int i = 0 ; i < allDaysReport.size() ; i++)
 			str +=allDaysReport.get(i).toString();
@@ -233,11 +259,11 @@ public class WeekReport implements Serializable{
 		this.idClinic = idClinic;
 	}
 
-	public int getNumOfMiss() {
+	public long getNumOfMiss() {
 		return numOfMiss;
 	}
 
-	public void setNumOfMiss(int numOfMiss) {
+	public void setNumOfMiss(long numOfMiss) {
 		this.numOfMiss = numOfMiss;
 	}
 

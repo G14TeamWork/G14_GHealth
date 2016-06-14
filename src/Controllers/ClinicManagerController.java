@@ -28,11 +28,12 @@ import views.ClinicManagerView;
  */
 public class ClinicManagerController implements Observer,IRefresh  {
 	public ClinicManagerView clinicmanagerview;
-	public ClinicManagerEntity CME = new ClinicManagerEntity();
+	public ClinicManagerEntity CME;
 	public DayReport DR= new DayReport();
 	
 	public ClinicManagerController() {
 		clinicmanagerview = new ClinicManagerView();
+		this.CME = new ClinicManagerEntity();
 	}
 	
 	public void searchClinicIdClient()
@@ -77,14 +78,24 @@ public class ClinicManagerController implements Observer,IRefresh  {
 			}
 			if( ((ClinicManagerEntity)arg).getTaskToDo().equals("setClinicID"))
 			{
-				CME.setClinicId(((ClinicManagerEntity)arg).getClinicId());
+				this.CME.setClinicId(((ClinicManagerEntity)arg).getClinicId());
 			//TODO yoni yoni yoni
-				Calendar cal  = Calendar.getInstance();
+			/*	Calendar cal  = Calendar.getInstance();
 				cal.set(2016, 5, 20);
 				Date date = cal.getTime();
-				CME.setTaskToDo("createDailyReport");
-				CME.setFrom(date);
-				MainClass.ghealth.sendMessegeToServer(CME);
+				this.CME.setTaskToDo("createDailyReport");
+				this.CME.setFrom(date);
+				MainClass.ghealth.sendMessegeToServer(CME);*/
+			}
+			if( ((ClinicManagerEntity)arg).getTaskToDo().equals("viewWeeklyReport"))
+			{
+				this.CME.setWeek(((ClinicManagerEntity)arg).getWeek());
+				MainClass.masterControler.VRCont.ViewReportsview.fileArea.setText(this.CME.getWeek().toString());
+			}
+			if (((ClinicManagerEntity)arg).getTaskToDo().equals("viewWeeklyReport"))
+			{
+				this.CME.setMonth(((ClinicManagerEntity)arg).getMonth());
+				MainClass.masterControler.VRCont.ViewReportsview.fileArea.setText(this.CME.getMonth().toString());
 			}
 		}
 	}

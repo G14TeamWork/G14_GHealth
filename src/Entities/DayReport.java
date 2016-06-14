@@ -23,7 +23,7 @@ public class DayReport implements Serializable{
 	
 	private Date date;
 	private int idClinic;
-	private int numOfMiss;
+	private long numOfMiss;
 	private int numOfPatientsTreated;
 	private long maxFromDisToAppDateDiffInMinutes;
 	private long minFromDisToAppDateDiffInMinutes;
@@ -44,9 +44,9 @@ public class DayReport implements Serializable{
 		ArrayList<Object> arrList2 = new ArrayList<Object>();
 		AppointmentTimeValues current;
 		
-		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='2' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+" + 7 DAY;";
+		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='3' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+";";
 		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query2);
-		this.numOfMiss = (int)arrList2.get(0);
+		this.numOfMiss = (long)arrList2.get(0);
 		
 		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.idclinic = "+String.valueOf(idclinic)+" AND app.appdate="+generateDayDateToSql(date)+" AND app.appstatus = 2;";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
@@ -95,10 +95,16 @@ public class DayReport implements Serializable{
 			sdFromAppDateToRealAppDateDiffInMinutes = (sdFromAppDateToRealAppDateDiffInMinutes/(long)(numOfPatientsTreated));
 			sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
 			
-			 query2 = "INSERT INTO `ghealth`.`daylireport` (`idclinic`, `date`, `numofmiss`, `numoftreted`, `maxdistoapp`, `mindistoapp`, `avgdistoapp`, `sddistoapp`, `maxapptoreal`, `minapptoreal`, `avgapptoreal`, `sdapptoreal`)"
+			
+			query2 = "SELECT idclinic FROM ghealth.daylireport as d WHERE d.idclinic = "+String.valueOf(idClinic)+" AND d.date = "+generateDayDateToSql(date)+";";
+			arrList = GHealthServer.sqlConn.sendSqlQuery(query2);
+			if(arrList.size() == 0)
+			{
+			query2 = "INSERT INTO `ghealth`.`daylireport` (`idclinic`, `date`, `numofmiss`, `numoftreted`, `maxdistoapp`, `mindistoapp`, `avgdistoapp`, `sddistoapp`, `maxapptoreal`, `minapptoreal`, `avgapptoreal`, `sdapptoreal`)"
 														+ " VALUES ("+String.valueOf(idClinic)+","+generateDayDateToSql(date)+","+String.valueOf(numOfPatientsTreated)+","+String.valueOf(numOfMiss)+","+String.valueOf(maxFromDisToAppDateDiffInMinutes)+","+String.valueOf(minFromDisToAppDateDiffInMinutes)+","+String.valueOf(avgFromDisToAppDateDiffInMinutes)+","+String.valueOf(sdFromDisToAppDateDiffInMinutes)+", "+String.valueOf(maxFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(minFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(avgFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(sdFromAppDateToRealAppDateDiffInMinutes)+");";
 			
 			GHealthServer.sqlConn.sendSqlUpdate(query2);
+			}
 			return this;
 		}
 		return null;
@@ -244,11 +250,11 @@ public class DayReport implements Serializable{
 		return  str ;
 	}
 
-	public int getNumOfMiss() {
+	public long getNumOfMiss() {
 		return numOfMiss;
 	}
 
-	public void setNumOfMiss(int numOfMiss) {
+	public void setNumOfMiss(long numOfMiss) {
 		this.numOfMiss = numOfMiss;
 	}
 	

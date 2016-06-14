@@ -22,8 +22,8 @@ public class MonthReport implements Serializable{
 	private Date date;
 	private int idClinic;
 	private int numOfMiss;
-	private int maxNumOfMiss;
-	private int minNumOfMiss;
+	private long maxNumOfMiss;
+	private long minNumOfMiss;
 	private int avgNumOfMiss;
 	private int sdNumOfMiss;
 	private int numOfPatientsTreated = 0;
@@ -47,11 +47,15 @@ public class MonthReport implements Serializable{
 	{
 		this.date = date;
 		this.idClinic = idclinic;
+		this.allWeeksReport = new ArrayList<WeekReport>();
+		this.allMonthReport = new ArrayList<AppointmentTimeValues>();
+		this.allDaysReport = new ArrayList<DayReport>();
+		DayReport currentDayVal = new DayReport();
+		WeekReport currentWeekVal = new WeekReport();
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		ArrayList<Object> arrList2 = new ArrayList<Object>();
 		AppointmentTimeValues currentAppVal;
-		DayReport currentDayVal = new DayReport();
-		WeekReport currentWeekVal = new WeekReport();
+
 		Date specific = new Date();
 		long dateInLong = date.getTime();
 		

@@ -75,6 +75,7 @@ public class ClinicManagerView extends JPanel {
 		btnViewReports = new JButton();
 		btnViewReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				MainClass.masterControler.CMCont.searchClinicIdClient();
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VRCont.ViewReportsview,
 						MainClass.masterControler.VRCont);

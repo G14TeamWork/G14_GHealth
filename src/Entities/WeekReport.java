@@ -138,6 +138,11 @@ public class WeekReport implements Serializable{
 		sdFromAppDateToRealAppDateDiffInMinutes = (sdFromAppDateToRealAppDateDiffInMinutes/(long)(numOfPatientsTreated));
 		sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
 		
+		
+		query2 = "SELECT idclinic FROM ghealth.weeklyreport as d WHERE d.idclinic = "+String.valueOf(idClinic)+" AND d.date = "+generateDayDateToSql(date,0)+";";
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query2);
+		if(arrList.size() == 0)
+		{
 		query2 =" INSERT INTO `ghealth`.`weeklyreport` (`idclinic`, `date`, `numofmiss`, `numoftreted`, `maxoftreted`, `minoftreted`, `avgoftreted`, `sdoftreted`, `maxdistoapp`, `mindistoapp`, `avgdistoapp`, `sddistoapp`, `maxapptoreal`, `minapptoreal`, `avgapptoreal`, `sdapptoreal`) "
 				+ "VALUES ("+String.valueOf(idclinic)+", "+generateDayDateToSql(this.date,0)+", "+String.valueOf(numOfMiss)+","
 				+ " "+String.valueOf(numOfPatientsTreated)+", "+String.valueOf(maxNumOfPatientsTreated)+","
@@ -146,6 +151,7 @@ public class WeekReport implements Serializable{
 				+ " "+String.valueOf(avgFromDisToAppDateDiffInMinutes)+", "+String.valueOf(sdFromDisToAppDateDiffInMinutes)+", "+String.valueOf(maxFromAppDateToRealAppDateDiffInMinutes)+","
 				+ " "+String.valueOf(minFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(avgFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(sdFromAppDateToRealAppDateDiffInMinutes)+");";
 		GHealthServer.sqlConn.sendSqlUpdate(query2);
+		}
 		return this;
 		
 		
@@ -201,7 +207,28 @@ public class WeekReport implements Serializable{
 		}
         return date;
 	}
-	
+	public String generateDiffToHoursDaysMinutes(long allTimeInMinutes)
+	{
+		/*
+		 * days = allTimeInMinutes/24*60;
+		 * hours = (allTimeInMinutes%24*60)/60;
+		 * Minutes = allTimeInMinutes%60;
+		 * */
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime date= LocalDateTime.parse(getDate().toString(), formatter); 
+		
+		long days = allTimeInMinutes/(24*60);
+		long hours = (allTimeInMinutes%(24*60))/60;
+		long minutes = allTimeInMinutes%60;
+		String str="";
+		str += date.toString() + " : ";
+		str += String.valueOf(days)+" d ";
+		str += String.valueOf(hours)+" h ";
+		str += String.valueOf(minutes)+" m \n";
+		
+		
+		return str;
+	}
 	public String generateDayDateToSql(Date date,int inc)
 	{
 		
@@ -224,19 +251,18 @@ public class WeekReport implements Serializable{
 	@Override
 	public String toString() {
 	
-		DayReport temp = new DayReport();
-		String str = "W-T Max :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(maxNumOfPatientsTreated))
-				+"\n\tW-T Min :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(minNumOfPatientsTreated))
-				+"\n\tW-T AVG :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(avgNumOfPatientsTreated))
-				+"\n\tW-T Sd :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(sdNumOfPatientsTreated))
-				+"\n\tW-A Max :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(maxFromDisToAppDateDiffInMinutes))
-				+"\n\tW-A Min:"+String.valueOf(temp.generateDiffToHoursDaysMinutes(minFromDisToAppDateDiffInMinutes))
-				+"\n\tW-A AVG :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(avgFromDisToAppDateDiffInMinutes))
-				+"\n\tW-A Sd :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(sdFromDisToAppDateDiffInMinutes))
-				+"\n\tW-B Min :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(maxFromAppDateToRealAppDateDiffInMinutes))
-				+"\n\tW-B Min :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(minFromAppDateToRealAppDateDiffInMinutes))
-				+"\n\tW-B Min :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(avgFromAppDateToRealAppDateDiffInMinutes))
-				+"\n\tW-B Sd :"+String.valueOf(temp.generateDiffToHoursDaysMinutes(sdFromAppDateToRealAppDateDiffInMinutes));
+		String str = "W-T Max :"+String.valueOf(generateDiffToHoursDaysMinutes(maxNumOfPatientsTreated))
+				+"\n\tW-T Min :"+String.valueOf(generateDiffToHoursDaysMinutes(minNumOfPatientsTreated))
+				+"\n\tW-T AVG :"+String.valueOf(generateDiffToHoursDaysMinutes(avgNumOfPatientsTreated))
+				+"\n\tW-T Sd :"+String.valueOf(generateDiffToHoursDaysMinutes(sdNumOfPatientsTreated))
+				+"\n\tW-A Max :"+String.valueOf(generateDiffToHoursDaysMinutes(maxFromDisToAppDateDiffInMinutes))
+				+"\n\tW-A Min:"+String.valueOf(generateDiffToHoursDaysMinutes(minFromDisToAppDateDiffInMinutes))
+				+"\n\tW-A AVG :"+String.valueOf(generateDiffToHoursDaysMinutes(avgFromDisToAppDateDiffInMinutes))
+				+"\n\tW-A Sd :"+String.valueOf(generateDiffToHoursDaysMinutes(sdFromDisToAppDateDiffInMinutes))
+				+"\n\tW-B Min :"+String.valueOf(generateDiffToHoursDaysMinutes(maxFromAppDateToRealAppDateDiffInMinutes))
+				+"\n\tW-B Min :"+String.valueOf(generateDiffToHoursDaysMinutes(minFromAppDateToRealAppDateDiffInMinutes))
+				+"\n\tW-B Min :"+String.valueOf(generateDiffToHoursDaysMinutes(avgFromAppDateToRealAppDateDiffInMinutes))
+				+"\n\tW-B Sd :"+String.valueOf(generateDiffToHoursDaysMinutes(sdFromAppDateToRealAppDateDiffInMinutes));
 		str +="\n";
 		for(int i = 0 ; i < allDaysReport.size() ; i++)
 			str +=allDaysReport.get(i).toString();

@@ -35,11 +35,22 @@ public class DayReport implements Serializable{
 	private long sdFromAppDateToRealAppDateDiffInMinutes;
 	private ArrayList<AppointmentTimeValues> dayValues;
 	
+	public DayReport()
+	{
+		
+	}
+	
+	public DayReport(Date date , int idclinic)
+	{
+		this.date = date;
+		this.idClinic = idclinic;
+	}
+	
 	public DayReport createDayliReport(Date date , int idclinic)
 	{
 		
 		this.date = date;
-		
+		this.idClinic = idclinic;
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		ArrayList<Object> arrList2 = new ArrayList<Object>();
 		AppointmentTimeValues current;
@@ -126,11 +137,11 @@ public class DayReport implements Serializable{
 	/*	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime date= LocalDateTime.parse(getDate().toString(), formatter); 
 		*/
-		long days = allTimeInMinutes/24*60;
-		long hours = (allTimeInMinutes%24*60)/60;
+		long days = allTimeInMinutes/(24*60);
+		long hours = (allTimeInMinutes%(24*60))/60;
 		long minutes = allTimeInMinutes%60;
-		String str = null;
-		str += date.toString()+" : ";
+		String str="";
+		str += date.toString() + " : ";
 		str += String.valueOf(days)+" d ";
 		str += String.valueOf(hours)+" h ";
 		str += String.valueOf(minutes)+" m \n";
@@ -238,15 +249,16 @@ public class DayReport implements Serializable{
 	@Override
 	public String toString() {
 		
-		String str ="A : \n\tMax :"+generateDiffToHoursDaysMinutes(getMaxFromDisToAppDateDiffInMinutes())
-				+"\n\tMin :"+generateDiffToHoursDaysMinutes(getMinFromDisToAppDateDiffInMinutes())
-				+"\n\tAvg :"+generateDiffToHoursDaysMinutes(getAvgFromDisToAppDateDiffInMinutes())
-				+"\n\tSd :"+generateDiffToHoursDaysMinutes(getSdFromDisToAppDateDiffInMinutes())
-				+"B : \n\tMax :"+ generateDiffToHoursDaysMinutes(getMaxFromAppDateToRealAppDateDiffInMinutes())
-				+"\n\tMin :"+generateDiffToHoursDaysMinutes(getMinFromAppDateToRealAppDateDiffInMinutes())
-				+"\n\tAvg :"+generateDiffToHoursDaysMinutes(getAvgFromAppDateToRealAppDateDiffInMinutes())
-				+"\n\tSd :"+generateDiffToHoursDaysMinutes(getSdFromAppDateToRealAppDateDiffInMinutes());
-		
+		String str = date.toString() + " : "
+					+"A : \n\tMax :"+generateDiffToHoursDaysMinutes(getMaxFromDisToAppDateDiffInMinutes())
+					+"\n\tMin :"+generateDiffToHoursDaysMinutes(getMinFromDisToAppDateDiffInMinutes())
+					+"\n\tAvg :"+generateDiffToHoursDaysMinutes(getAvgFromDisToAppDateDiffInMinutes())
+					+"\n\tSd :"+generateDiffToHoursDaysMinutes(getSdFromDisToAppDateDiffInMinutes())
+					+"B : \n\tMax :"+ generateDiffToHoursDaysMinutes(getMaxFromAppDateToRealAppDateDiffInMinutes())
+					+"\n\tMin :"+generateDiffToHoursDaysMinutes(getMinFromAppDateToRealAppDateDiffInMinutes())
+					+"\n\tAvg :"+generateDiffToHoursDaysMinutes(getAvgFromAppDateToRealAppDateDiffInMinutes())
+					+"\n\tSd :"+generateDiffToHoursDaysMinutes(getSdFromAppDateToRealAppDateDiffInMinutes());
+			
 		return  str ;
 	}
 

@@ -76,7 +76,7 @@ public class  RecordAppointController implements Observer,IRefresh, Serializable
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		String query = "SELECT MAX(idcounter_ref) FROM ghealth.counter_ref";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		REF.setId(Integer.valueOf((String)arrList.get(0))+1);
+		REF.setId((int)arrList.get(0)+1);
 		query = "INSERT INTO `ghealth`.`counter_ref` (`idcounter_ref`) VALUES (" + String.valueOf(REF.getId())+")";
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 		query = "INSERT INTO `ghealth`.`references` (`idreferences`, `idpatient`, `reftype`, `appid`) VALUES ('"+String.valueOf(REF.getId()) +

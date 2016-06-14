@@ -94,7 +94,8 @@ public class CancelAppointmentController implements Observer,IRefresh  {
 								+" WHERE ghealth.appointments.idpatient=" + cap.getIdPatient()+" AND"
 								+" ghealth.appointments.idexpert = ghealth.expert.id AND"
 								+" ghealth.users.username = ghealth.expert.id AND ghealth.appointments.appstatus=1"
-								+" AND ghealth.expert.clinic=ghealth.clinic.idclinic";
+								+" AND ghealth.expert.clinic=ghealth.clinic.idclinic"
+								+" AND ghealth.appointments.appdate>=CURDATE() ORDER BY ghealth.appointments.appdate";
 				arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 			
 

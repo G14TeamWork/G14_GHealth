@@ -81,34 +81,9 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 	 */
 	public void showExpSched(){
 		se = new ScheduleEntity();
-		String str = "";
-		String tmp = "";
 		se.idExp = Integer.valueOf(MainClass.masterControler.LoginCont.loginEntity.getUsername());
 		se.comment = "";
 		MainClass.ghealth.sendMessegeToServer(se);
-		try {
-			Thread.sleep(400);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		if (!se.comment.equals("xxx")){
-			for ( int i = 0 ; i < se.alist.size() ; i++ ){
-				if((se.alist.get(i).getAppstatus().equals("1")||(MainClass.masterControler.EXPVCont.expview.checkboxAll.isSelected()))){
-					if (se.alist.get(i).getAppstatus().equals("2")){
-						tmp = "<font color=\"white\">__</font><b><font color=\"green\">finished</font></b>";
-					}else if (se.alist.get(i).getAppstatus().equals("1")){
-						tmp = "";
-					}else tmp = "<font color=\"white\">__</font><b><font color=\"red\">didn't apear!</font></b> ";
-					str = str + "* <b>Time: </b>"+  se.alist.get(i).getStartS().substring(0,5)+
-							"<font color=\"white\">__</font><b>App No.: </b> "
-							+ se.alist.get(i).getIdappointment() + "<font color=\"white\">__</font><b>Patient: </b> "
-							+ se.alist.get(i).getEndS() +tmp+"<br>";	
-				}
-			}
-		}else{
-			str = "No appointments were set for today.";
-		}
-		expview.sched.setText(str);
 	}
 	/**
 	 * this medor is in charge of taking some data from sql and giving it to client.
@@ -181,9 +156,31 @@ public class EXPViewController implements Observer,IRefresh, Serializable {
 				}
 			}else{
 				if(arg instanceof ScheduleEntity){
+					String str = "";
 					se.alist = ((ScheduleEntity)arg).alist;
 					se.noOfApps = ((ScheduleEntity)arg).noOfApps;
 					se.comment = ((ScheduleEntity)arg).comment;
+					if (!se.comment.equals("xxx")){
+						for ( int i = 0 ; i < se.alist.size() ; i++ ){
+							if((se.alist.get(i).getAppstatus().equals("1")||(MainClass.masterControler.EXPVCont.expview.checkboxAll.isSelected()))){
+								if (se.alist.get(i).getAppstatus().equals("2")){
+									tmp = "<font color=\"white\">__</font><b><font color=\"green\">finished</font></b>";
+								}else if (se.alist.get(i).getAppstatus().equals("1")){
+									tmp = "";
+								}else tmp = "<font color=\"white\">__</font><b><font color=\"red\">didn't apear!</font></b> ";
+								str = str + "* <b>Time: </b>"+  se.alist.get(i).getStartS().substring(0,5)+
+										"<font color=\"white\">__</font><b>App No.: </b> "
+										+ se.alist.get(i).getIdappointment() + "<font color=\"white\">__</font><b>Patient: </b> "
+										+ se.alist.get(i).getEndS() +tmp+"<br>";	
+							}
+						}
+					}else{
+						str = "No appointments were set for today.";
+					}
+					if (str.equals("")){
+						str= "You finished today's appointments.";
+					}
+					expview.sched.setText(str);
 				}
 			}
 	}

@@ -105,7 +105,7 @@ public class ViewRefDetView extends JPanel {
 		comboRefs.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if((e.getStateChange()==ItemEvent.SELECTED)&&(!(((String)comboRefs.getSelectedItem()).equals("")))){
-					redDetails.setText(MainClass.masterControler.VRDCont.getDetailsFromList(comboRefs.getSelectedIndex()-1));
+					MainClass.masterControler.VRDCont.getDetailsFromList(comboRefs.getSelectedIndex()-1);
 				}
 				else redDetails.setText("");
 			}

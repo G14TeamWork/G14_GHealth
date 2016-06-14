@@ -54,71 +54,84 @@ public class DayReport implements Serializable{
 		ArrayList<Object> arrList = new ArrayList<Object>();
 		ArrayList<Object> arrList2 = new ArrayList<Object>();
 		AppointmentTimeValues current;
-		
-		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='3' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+";";
-		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query2);
-		this.numOfMiss = (long)arrList2.get(0);
-		
-		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.idclinic = "+String.valueOf(idclinic)+" AND app.appdate="+generateDayDateToSql(date)+" AND app.appstatus = 2;";
-		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		
-		if(!arrList.isEmpty())
+		String query3;
+		query3 = "SELECT * FROM ghealth.daylireport as d WHERE d.idclinic = "+String.valueOf(idClinic)+" AND d.date = "+generateDayDateToSql(date)+";";
+		arrList = GHealthServer.sqlConn.sendSqlQuery(query3);	
+		if(arrList.size() > 0)
 		{
-				this.numOfPatientsTreated = arrList.size()/7;
-				dayValues = new ArrayList<AppointmentTimeValues>();
-				for(int i = 0 ; i < arrList.size() ; i+=7)
-					dayValues.add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
-			
-			minFromDisToAppDateDiffInMinutes = maxFromDisToAppDateDiffInMinutes = dayValues.get(0).getFromDisToAppDateDiffInMinutes();
-			minFromAppDateToRealAppDateDiffInMinutes = maxFromAppDateToRealAppDateDiffInMinutes = dayValues.get(0).getFromAppDateToRealAppDateDiffInMinutes();
-			sdFromDisToAppDateDiffInMinutes = avgFromDisToAppDateDiffInMinutes = 0;
-			sdFromAppDateToRealAppDateDiffInMinutes = avgFromAppDateToRealAppDateDiffInMinutes = 0;
-	
-			for (int i  = 0 ; i < dayValues.size() ; i++)
-			{
-				current = dayValues.get(i);
-				maxFromDisToAppDateDiffInMinutes = maxFromDisToAppDateDiffInMinutes >= current.getFromDisToAppDateDiffInMinutes() ? 
-						maxFromDisToAppDateDiffInMinutes : current.getFromDisToAppDateDiffInMinutes();
-				maxFromAppDateToRealAppDateDiffInMinutes = maxFromAppDateToRealAppDateDiffInMinutes >= current.getFromAppDateToRealAppDateDiffInMinutes() ?
-						maxFromAppDateToRealAppDateDiffInMinutes : current.getFromAppDateToRealAppDateDiffInMinutes();
-				minFromDisToAppDateDiffInMinutes = minFromDisToAppDateDiffInMinutes <= current.getFromDisToAppDateDiffInMinutes() ? 
-						minFromDisToAppDateDiffInMinutes : current.getFromDisToAppDateDiffInMinutes() ;
-				minFromAppDateToRealAppDateDiffInMinutes = minFromAppDateToRealAppDateDiffInMinutes <= current.getFromAppDateToRealAppDateDiffInMinutes() ?
-						minFromAppDateToRealAppDateDiffInMinutes : current.getFromAppDateToRealAppDateDiffInMinutes();
-				avgFromDisToAppDateDiffInMinutes += current.getFromDisToAppDateDiffInMinutes();
-				avgFromAppDateToRealAppDateDiffInMinutes +=current.getFromAppDateToRealAppDateDiffInMinutes();	
-			}
-			
-			avgFromDisToAppDateDiffInMinutes = (avgFromDisToAppDateDiffInMinutes /(long)numOfPatientsTreated);
-			avgFromAppDateToRealAppDateDiffInMinutes = (avgFromAppDateToRealAppDateDiffInMinutes /(long)numOfPatientsTreated);
+			numOfMiss = (int)arrList.get(2);
+			numOfPatientsTreated =Integer.valueOf(Long.toString(((long)arrList.get(3))));
+			maxFromDisToAppDateDiffInMinutes = (long)arrList.get(4);
+			minFromDisToAppDateDiffInMinutes = (long)arrList.get(5);
+			avgFromDisToAppDateDiffInMinutes = (long)arrList.get(6);
+			sdFromDisToAppDateDiffInMinutes = (long)arrList.get(7);
+			maxFromAppDateToRealAppDateDiffInMinutes = (long)arrList.get(8);
+			minFromAppDateToRealAppDateDiffInMinutes = (long)arrList.get(9);
+			avgFromAppDateToRealAppDateDiffInMinutes = (long)arrList.get(10);
+			sdFromAppDateToRealAppDateDiffInMinutes = (long)arrList.get(11);
+		}
+		else
+		{
+					String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='3' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+";";
+					arrList2 = GHealthServer.sqlConn.sendSqlQuery(query2);
+					this.numOfMiss = (long)arrList2.get(0);
+					
+					String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.idclinic = "+String.valueOf(idclinic)+" AND app.appdate="+generateDayDateToSql(date)+" AND app.appstatus = 2;";
+					arrList = GHealthServer.sqlConn.sendSqlQuery(query);
+					
+					if(arrList.isEmpty()) return null;
+					
+							this.numOfPatientsTreated = arrList.size()/7;
+							dayValues = new ArrayList<AppointmentTimeValues>();
+							for(int i = 0 ; i < arrList.size() ; i+=7)
+								dayValues.add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
+						
+						minFromDisToAppDateDiffInMinutes = maxFromDisToAppDateDiffInMinutes = dayValues.get(0).getFromDisToAppDateDiffInMinutes();
+						minFromAppDateToRealAppDateDiffInMinutes = maxFromAppDateToRealAppDateDiffInMinutes = dayValues.get(0).getFromAppDateToRealAppDateDiffInMinutes();
+						sdFromDisToAppDateDiffInMinutes = avgFromDisToAppDateDiffInMinutes = 0;
+						sdFromAppDateToRealAppDateDiffInMinutes = avgFromAppDateToRealAppDateDiffInMinutes = 0;
 				
+						for (int i  = 0 ; i < dayValues.size() ; i++)
+						{
+							current = dayValues.get(i);
+							maxFromDisToAppDateDiffInMinutes = maxFromDisToAppDateDiffInMinutes >= current.getFromDisToAppDateDiffInMinutes() ? 
+									maxFromDisToAppDateDiffInMinutes : current.getFromDisToAppDateDiffInMinutes();
+							maxFromAppDateToRealAppDateDiffInMinutes = maxFromAppDateToRealAppDateDiffInMinutes >= current.getFromAppDateToRealAppDateDiffInMinutes() ?
+									maxFromAppDateToRealAppDateDiffInMinutes : current.getFromAppDateToRealAppDateDiffInMinutes();
+							minFromDisToAppDateDiffInMinutes = minFromDisToAppDateDiffInMinutes <= current.getFromDisToAppDateDiffInMinutes() ? 
+									minFromDisToAppDateDiffInMinutes : current.getFromDisToAppDateDiffInMinutes() ;
+							minFromAppDateToRealAppDateDiffInMinutes = minFromAppDateToRealAppDateDiffInMinutes <= current.getFromAppDateToRealAppDateDiffInMinutes() ?
+									minFromAppDateToRealAppDateDiffInMinutes : current.getFromAppDateToRealAppDateDiffInMinutes();
+							avgFromDisToAppDateDiffInMinutes += current.getFromDisToAppDateDiffInMinutes();
+							avgFromAppDateToRealAppDateDiffInMinutes +=current.getFromAppDateToRealAppDateDiffInMinutes();	
+						}
+						
+						avgFromDisToAppDateDiffInMinutes = (avgFromDisToAppDateDiffInMinutes /(long)numOfPatientsTreated);
+						avgFromAppDateToRealAppDateDiffInMinutes = (avgFromAppDateToRealAppDateDiffInMinutes /(long)numOfPatientsTreated);
+							
+						
+						for (int i  = 0 ; i < dayValues.size() ; i++)
+						{
+							current = dayValues.get(i);
+							sdFromDisToAppDateDiffInMinutes += Math.pow(current.getFromDisToAppDateDiffInMinutes() - avgFromDisToAppDateDiffInMinutes,(long)2.0);
+							sdFromAppDateToRealAppDateDiffInMinutes += Math.pow(current.getFromAppDateToRealAppDateDiffInMinutes() - avgFromAppDateToRealAppDateDiffInMinutes,(long)2.0);
+						}
+						
+						sdFromDisToAppDateDiffInMinutes = (sdFromDisToAppDateDiffInMinutes/(long)(numOfPatientsTreated));
+						sdFromDisToAppDateDiffInMinutes =  (long)Math.sqrt(sdFromDisToAppDateDiffInMinutes);
+						
+						sdFromAppDateToRealAppDateDiffInMinutes = (sdFromAppDateToRealAppDateDiffInMinutes/(long)(numOfPatientsTreated));
+						sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
+						
+						query2 = "INSERT INTO `ghealth`.`daylireport` (`idclinic`, `date`, `numofmiss`, `numoftreted`, `maxdistoapp`, `mindistoapp`, `avgdistoapp`, `sddistoapp`, `maxapptoreal`, `minapptoreal`, `avgapptoreal`, `sdapptoreal`)"
+																	+ " VALUES ("+String.valueOf(idClinic)+","+generateDayDateToSql(date)+","+String.valueOf(numOfPatientsTreated)+","+String.valueOf(numOfMiss)+","+String.valueOf(maxFromDisToAppDateDiffInMinutes)+","+String.valueOf(minFromDisToAppDateDiffInMinutes)+","+String.valueOf(avgFromDisToAppDateDiffInMinutes)+","+String.valueOf(sdFromDisToAppDateDiffInMinutes)+", "+String.valueOf(maxFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(minFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(avgFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(sdFromAppDateToRealAppDateDiffInMinutes)+");";
+						
+						GHealthServer.sqlConn.sendSqlUpdate(query2);
+						
 			
-			for (int i  = 0 ; i < dayValues.size() ; i++)
-			{
-				current = dayValues.get(i);
-				sdFromDisToAppDateDiffInMinutes += Math.pow(current.getFromDisToAppDateDiffInMinutes() - avgFromDisToAppDateDiffInMinutes,(long)2.0);
-				sdFromAppDateToRealAppDateDiffInMinutes += Math.pow(current.getFromAppDateToRealAppDateDiffInMinutes() - avgFromAppDateToRealAppDateDiffInMinutes,(long)2.0);
-			}
-			
-			sdFromDisToAppDateDiffInMinutes = (sdFromDisToAppDateDiffInMinutes/(long)(numOfPatientsTreated));
-			sdFromDisToAppDateDiffInMinutes =  (long)Math.sqrt(sdFromDisToAppDateDiffInMinutes);
-			
-			sdFromAppDateToRealAppDateDiffInMinutes = (sdFromAppDateToRealAppDateDiffInMinutes/(long)(numOfPatientsTreated));
-			sdFromAppDateToRealAppDateDiffInMinutes =  (long)Math.sqrt(sdFromAppDateToRealAppDateDiffInMinutes);
-			
-			
-			query2 = "SELECT idclinic FROM ghealth.daylireport as d WHERE d.idclinic = "+String.valueOf(idClinic)+" AND d.date = "+generateDayDateToSql(date)+";";
-			arrList = GHealthServer.sqlConn.sendSqlQuery(query2);
-			if(arrList.size() == 0)
-			{
-			query2 = "INSERT INTO `ghealth`.`daylireport` (`idclinic`, `date`, `numofmiss`, `numoftreted`, `maxdistoapp`, `mindistoapp`, `avgdistoapp`, `sddistoapp`, `maxapptoreal`, `minapptoreal`, `avgapptoreal`, `sdapptoreal`)"
-														+ " VALUES ("+String.valueOf(idClinic)+","+generateDayDateToSql(date)+","+String.valueOf(numOfPatientsTreated)+","+String.valueOf(numOfMiss)+","+String.valueOf(maxFromDisToAppDateDiffInMinutes)+","+String.valueOf(minFromDisToAppDateDiffInMinutes)+","+String.valueOf(avgFromDisToAppDateDiffInMinutes)+","+String.valueOf(sdFromDisToAppDateDiffInMinutes)+", "+String.valueOf(maxFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(minFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(avgFromAppDateToRealAppDateDiffInMinutes)+", "+String.valueOf(sdFromAppDateToRealAppDateDiffInMinutes)+");";
-			
-			GHealthServer.sqlConn.sendSqlUpdate(query2);
 			}
 			return this;
-		}
-		return null;
+
 	}
 	
 	public String generateDayDateToSql(Date date)
@@ -141,7 +154,6 @@ public class DayReport implements Serializable{
 		long hours = (allTimeInMinutes%(24*60))/60;
 		long minutes = allTimeInMinutes%60;
 		String str="";
-		str += date.toString() + " : ";
 		str += String.valueOf(days)+" d ";
 		str += String.valueOf(hours)+" h ";
 		str += String.valueOf(minutes)+" m \n";
@@ -249,7 +261,7 @@ public class DayReport implements Serializable{
 	@Override
 	public String toString() {
 		
-		String str = date.toString() + " : "
+		String str = new SimpleDateFormat("dd/MM/yyyy").format(date) + " : \n"
 					+"A : \n\tMax :"+generateDiffToHoursDaysMinutes(getMaxFromDisToAppDateDiffInMinutes())
 					+"\n\tMin :"+generateDiffToHoursDaysMinutes(getMinFromDisToAppDateDiffInMinutes())
 					+"\n\tAvg :"+generateDiffToHoursDaysMinutes(getAvgFromDisToAppDateDiffInMinutes())

@@ -187,7 +187,8 @@ public class WeekReport implements Serializable{
 		String str ="";
 		//str +="-"+date1.toString();
 		
-		str += "\nnumber of patients treated : "+String.valueOf(numOfPatientsTreated)
+		str += new SimpleDateFormat("dd/MM/yyyy").format(date)
+				+"\nnumber of patients treated : "+String.valueOf(numOfPatientsTreated)
 				+"\nmax number of patients treated :"+String.valueOf(maxNumOfPatientsTreated)
 				+"\nmin number of patients treated :"+String.valueOf(minNumOfPatientsTreated)
 				+"\navg number of patients treated :"+String.valueOf(avgNumOfPatientsTreated)
@@ -214,18 +215,18 @@ public class WeekReport implements Serializable{
 		 * hours = (allTimeInMinutes%24*60)/60;
 		 * Minutes = allTimeInMinutes%60;
 		 * */
+	/*
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime date= LocalDateTime.parse(getDate().toString(), formatter); 
-		
+		*/
 		long days = allTimeInMinutes/(24*60);
 		long hours = (allTimeInMinutes%(24*60))/60;
 		long minutes = allTimeInMinutes%60;
 		String str="";
-		str += date.toString() + " : ";
-		str += String.valueOf(days)+" d ";
-		str += String.valueOf(hours)+" h ";
-		str += String.valueOf(minutes)+" m \n";
-		
+		str =new SimpleDateFormat("dd/MM/yyyy").format(date)+" :"
+			+ String.valueOf(days)+" d "
+			+ String.valueOf(hours)+" h "
+			+ String.valueOf(minutes)+" m \n";
 		
 		return str;
 	}
@@ -250,8 +251,9 @@ public class WeekReport implements Serializable{
 	
 	@Override
 	public String toString() {
-	
-		String str = "W-T Max :"+String.valueOf(generateDiffToHoursDaysMinutes(maxNumOfPatientsTreated))
+ 
+		String str = new SimpleDateFormat("dd/MM/yyyy").format(date)+" - "+new SimpleDateFormat("dd/MM/yyyy").format(addDays(date,7))+" :\n"
+				+"W-T Max :"+String.valueOf(generateDiffToHoursDaysMinutes(maxNumOfPatientsTreated))
 				+"\n\tW-T Min :"+String.valueOf(generateDiffToHoursDaysMinutes(minNumOfPatientsTreated))
 				+"\n\tW-T AVG :"+String.valueOf(generateDiffToHoursDaysMinutes(avgNumOfPatientsTreated))
 				+"\n\tW-T Sd :"+String.valueOf(generateDiffToHoursDaysMinutes(sdNumOfPatientsTreated))
@@ -262,8 +264,8 @@ public class WeekReport implements Serializable{
 				+"\n\tW-B Min :"+String.valueOf(generateDiffToHoursDaysMinutes(maxFromAppDateToRealAppDateDiffInMinutes))
 				+"\n\tW-B Min :"+String.valueOf(generateDiffToHoursDaysMinutes(minFromAppDateToRealAppDateDiffInMinutes))
 				+"\n\tW-B Min :"+String.valueOf(generateDiffToHoursDaysMinutes(avgFromAppDateToRealAppDateDiffInMinutes))
-				+"\n\tW-B Sd :"+String.valueOf(generateDiffToHoursDaysMinutes(sdFromAppDateToRealAppDateDiffInMinutes));
-		str +="\n";
+				+"\n\tW-B Sd :"+String.valueOf(generateDiffToHoursDaysMinutes(sdFromAppDateToRealAppDateDiffInMinutes))
+				+"\n";
 		for(int i = 0 ; i < allDaysReport.size() ; i++)
 			str +=allDaysReport.get(i).toString();
 		return "WeekReport \n" +str ;

@@ -92,7 +92,7 @@ public class ClinicManagerController implements Observer,IRefresh  {
 				this.CME.setWeek(((ClinicManagerEntity)arg).getWeek());
 				MainClass.masterControler.VRCont.ViewReportsview.fileArea.setText(this.CME.getWeek().toString());
 			}
-			if (((ClinicManagerEntity)arg).getTaskToDo().equals("viewWeeklyReport"))
+			if (((ClinicManagerEntity)arg).getTaskToDo().equals("viewMonthlyReport"))
 			{
 				this.CME.setMonth(((ClinicManagerEntity)arg).getMonth());
 				MainClass.masterControler.VRCont.ViewReportsview.fileArea.setText(this.CME.getMonth().toString());

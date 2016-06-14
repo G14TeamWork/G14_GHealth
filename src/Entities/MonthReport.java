@@ -60,7 +60,7 @@ public class MonthReport implements Serializable{
 		long dateInLong = date.getTime();
 		
 		
-		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='2' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+" + 1 MONTH;";
+		String query2 ="SELECT COUNT(*) FROM ghealth.appointments where  `appstatus`='3' AND `appdate` BETWEEN "+generateDayDateToSql(date)+" AND "+generateDayDateToSql(date)+" + 1 MONTH;";
 		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query2);
 		this.numOfMiss = (int)arrList2.get(0);
 		

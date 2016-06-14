@@ -34,6 +34,7 @@ public class ClinicManagerView extends JPanel {
 	public JButton btnViewReports;
 	public JButton btnProduceReport;
 	public JLabel lblClinicManagername;
+
 	public ClinicManagerView() {
 		setLayout(null);
 		this.setBounds(0, 0, 677, 562);
@@ -92,7 +93,9 @@ public class ClinicManagerView extends JPanel {
 /*				MainClass.masterControler.setView(
 						MainClass.masterControler.PMRCont.ProduceMonthlyReportview,
 						MainClass.masterControler.PMRCont);*/
+		//		if(!MainClass.masterControler.LoginCont.loginEntity.getUsertype().equals("gmanager"))
 				MainClass.masterControler.CMCont.searchClinicIdClient();
+				
 			}
 		});
 		btnProduceReport.setBounds(490, 306, 140, 55);

@@ -118,7 +118,7 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 	 * @param index = is the index of array list in rde  ( index of reference in arraylist )
 	 * @return returns appointment record
 	 */
-	public String getDetailsFromList(int index){
+	public void getDetailsFromList(int index){
 		String appid = "";
 	
 		appid = rde.rlist.get(index).getAppid();
@@ -126,13 +126,6 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 		rae.appID = appid;
 		rae.taskToDo = "getRecord";
 		MainClass.ghealth.sendMessegeToServer(rae);
-		try {
-			Thread.sleep(400);
-		} catch (InterruptedException e) {
-			
-			e.printStackTrace();
-		}
-		return rae.appointment.getRecord();
 	}
 	/** 
 	 * server side
@@ -162,7 +155,10 @@ public class ViewRefDetController implements Observer,IRefresh, Serializable {
 			manageGUI();
 		}else if (arg instanceof RecordAppointmentEntity){
 			if (((RecordAppointmentEntity)arg).taskToDo.equals("getRecord"))
+			{
 				rae.appointment.setRecord(((RecordAppointmentEntity)arg).appointment.getRecord());
+				ViewRefDetview.redDetails.setText(rae.appointment.getRecord());
+			}
 		}
 		
 	}

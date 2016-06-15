@@ -191,7 +191,7 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 	
 	public void searchAvailableAppointmentDatesSql(SetAppointmentEntity msg) {
 		String query = "";
-		query = "SELECT DISTINCT appdate FROM ghealth.appointments WHERE idexpert="+((SetAppointmentEntity)msg).app.getIdexpert()+" AND appstatus=0 ORDER BY appdate";
+		query = "SELECT DISTINCT appdate FROM ghealth.appointments WHERE idexpert="+((SetAppointmentEntity)msg).app.getIdexpert()+" AND appstatus=0 AND ghealth.appointments.appdate>=CURDATE() ORDER BY appdate";
 		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
 		
 		for (int i  = 0 ; i < arrList.size() ; i++)

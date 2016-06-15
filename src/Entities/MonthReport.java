@@ -75,7 +75,7 @@ public class MonthReport implements Serializable{
 					
 			currentWeekVal=  currentWeekVal.createWeeklyReport(specific,idclinic);
 			if(currentWeekVal.getMassage().equals("not empty"))
-				allWeeksReport.add(currentWeekVal);	
+				this.allWeeksReport.add(currentWeekVal);	
 			
 			
 			for(int i = 0 ; i < arrList.size() ; i+=7)
@@ -133,7 +133,7 @@ public class MonthReport implements Serializable{
 		avgNumOfPatientsTreated = (avgNumOfPatientsTreated/(int)allWeeksReport.size());
 		avgNumOfMiss = (avgNumOfMiss/(int)allWeeksReport.size());
 		
-
+/*
 		for (int i  = 0 ; i < allWeeksReport.size() ; i++)
 		{
 			for(int j = 0 ; j  < allWeeksReport.get(i).getAllDaysReport().size() ; j++ )
@@ -142,7 +142,7 @@ public class MonthReport implements Serializable{
 			sdNumOfPatientsTreated += Math.pow(currentDayVal.getNumOfPatientsTreated() - avgNumOfPatientsTreated,(long)2.0);
 			sdNumOfMiss += Math.pow(currentDayVal.getNumOfMiss() - avgNumOfMiss,(long)2.0);
 			}
-		}
+		}*/
 		sdNumOfPatientsTreated = (sdNumOfPatientsTreated/(long)(numOfPatientsTreated));
 		sdNumOfPatientsTreated =  (long)Math.sqrt(sdNumOfPatientsTreated);
 		sdNumOfMiss = (int) (sdNumOfMiss/(long)(numOfMiss));
@@ -177,35 +177,30 @@ public class MonthReport implements Serializable{
 	public String toString() {
 		
 		String str = allWeeksReport.toString();
+
 		
-		
-		str = "MonthReport [date=" + date + ", idClinic=" + idClinic
-				+ ", numOfMiss=" + numOfMiss + ", maxNumOfMiss=" + maxNumOfMiss
+		str = "MonthReport"+new SimpleDateFormat("dd/MM/yyyy").format(date)+" :\n idClinic=" + idClinic
+				+ "\n\t numOfMiss=" + numOfMiss + ", maxNumOfMiss=" + maxNumOfMiss
 				+ ", minNumOfMiss=" + minNumOfMiss + ", avgNumOfMiss="
 				+ avgNumOfMiss + ", sdNumOfMiss=" + sdNumOfMiss
-				+ ", numOfPatientsTreated=" + numOfPatientsTreated
-				+ ", maxNumOfPatientsTreated=" + maxNumOfPatientsTreated
-				+ ", minNumOfPatientsTreated=" + minNumOfPatientsTreated
-				+ ", avgNumOfPatientsTreated=" + avgNumOfPatientsTreated
-				+ ", sdNumOfPatientsTreated=" + sdNumOfPatientsTreated
-				+ ", maxFromDisToAppDateDiffInMinutes="
-				+ maxFromDisToAppDateDiffInMinutes
-				+ ", minFromDisToAppDateDiffInMinutes="
-				+ minFromDisToAppDateDiffInMinutes
-				+ ", avgFromDisToAppDateDiffInMinutes="
-				+ avgFromDisToAppDateDiffInMinutes
-				+ ", sdFromDisToAppDateDiffInMinutes="
-				+ sdFromDisToAppDateDiffInMinutes
-				+ ", maxFromAppDateToRealAppDateDiffInMinutes="
-				+ maxFromAppDateToRealAppDateDiffInMinutes
-				+ ", minFromAppDateToRealAppDateDiffInMinutes="
-				+ minFromAppDateToRealAppDateDiffInMinutes
-				+ ", avgFromAppDateToRealAppDateDiffInMinutes="
-				+ avgFromAppDateToRealAppDateDiffInMinutes
-				+ ", sdFromAppDateToRealAppDateDiffInMinutes="
-				+ sdFromAppDateToRealAppDateDiffInMinutes + ", allWeeksReport="
-				+ allWeeksReport + ", allMonthReport=" + allMonthReport
-				+ ", allDaysReport=" + allDaysReport + "]";
+				+ "\n\t num Of Patients Treated : " 
+				+ "\nnum to all month :"+ numOfPatientsTreated
+				+ "\n\tmax =" + maxNumOfPatientsTreated
+				+ "\n\tmin =" + minNumOfPatientsTreated
+				+ "\n\tavg =" + avgNumOfPatientsTreated
+				+ "\n\tsd =" + sdNumOfPatientsTreated
+				+ "\nDisToApp:"
+				+ "\n\tmax ="+ maxFromDisToAppDateDiffInMinutes
+				+ "\n\tmin ="+ minFromDisToAppDateDiffInMinutes
+				+ "\n\tavg ="+ avgFromDisToAppDateDiffInMinutes
+				+ "\n\tsd ="+ sdFromDisToAppDateDiffInMinutes
+				+"\nAppDateToReal :"
+				+ "\n\tmax ="+ maxFromAppDateToRealAppDateDiffInMinutes
+				+ "\n\tmin ="+ minFromAppDateToRealAppDateDiffInMinutes
+				+ "\n\tavg ="+ avgFromAppDateToRealAppDateDiffInMinutes
+				+ "\n\tsd ="+ sdFromAppDateToRealAppDateDiffInMinutes 
+				+ "\nallWeeksReport :"+ allWeeksReport 
+				+ "\n\tall Days Report =" + allDaysReport.toString() ;
 		 
 		 return str;
 	}

@@ -62,8 +62,11 @@ public class ProduceMonthlyReportView extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(!MainClass.masterControler.LoginCont.loginEntity.getUsertype().equals("gmanager"))
 				MainClass.masterControler.setView(
 						MainClass.masterControler.CMCont.clinicmanagerview);
+				else MainClass.masterControler.setView(
+						MainClass.masterControler.GMCont.generalmanagerview);
 			}
 		});
 		btnBack.setBounds(490, 440, 140, 55);

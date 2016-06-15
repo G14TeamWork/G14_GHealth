@@ -208,7 +208,7 @@ public void setConnectionButton(String state){
 			case "gmanager":
 				System.out.println("Usertype: General Manager");
 				MainClass.masterControler.setView(GMC.generalmanagerview);
-				MainClass.masterControler.GMCont.generalmanagerview.lblGeneralManagername.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
+//				MainClass.masterControler.GMCont.generalmanagerview.lblGeneralManagername.setText(((LoginEntity)msg).getFirstname()+" "+((LoginEntity)msg).getLastname());
 				break;
 			}
 		}

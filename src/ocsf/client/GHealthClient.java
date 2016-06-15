@@ -137,5 +137,6 @@ public class GHealthClient extends ObservableClient{
 		addObserver(master.VRCont);
 		addObserver(master.VLRCont);
 		addObserver(master.CMCont);
+		addObserver(master.GMCont);
 	}
 }

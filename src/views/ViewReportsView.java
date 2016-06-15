@@ -85,7 +85,7 @@ public class ViewReportsView extends JPanel {
 	    scrollPane.setViewportView(fileArea);
 	    fileArea.setLineWrap(true);
 	    fileArea.setEditable(false);
-	    fileArea.setFont(new Font("Dialog", Font.PLAIN, 14));
+	    fileArea.setFont(new Font("Arial", Font.PLAIN, 9));
 	    
 	    JLabel lblLblchoosemonth = new JLabel("Choose month:");
 	    lblLblchoosemonth.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -163,7 +163,7 @@ public class ViewReportsView extends JPanel {
 	    		if (comboBoxYear.getSelectedItem()!="")
 	    		{
 	    			comboBoxMonth.setEnabled(true);
-	    			MainClass.masterControler.CMCont.searchClinicIdClient();
+	    	
 	    		}
 	    		else 
 	    		{

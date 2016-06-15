@@ -90,12 +90,15 @@ public class ClinicManagerController implements Observer,IRefresh  {
 			if( ((ClinicManagerEntity)arg).getTaskToDo().equals("viewWeeklyReport"))
 			{
 				this.CME.setWeek(((ClinicManagerEntity)arg).getWeek());
-				MainClass.masterControler.VRCont.ViewReportsview.fileArea.setText(this.CME.getWeek().toString());
+				if(!CME.getWeek().getMassage().equals("empty"))
+					MainClass.masterControler.VRCont.ViewReportsview.fileArea.setText(this.CME.getWeek().toString());
+				else
+					MainClass.masterControler.VRCont.ViewReportsview.fileArea.setText("No statics to show");
 			}
 			if (((ClinicManagerEntity)arg).getTaskToDo().equals("viewMonthlyReport"))
 			{
 				this.CME.setMonth(((ClinicManagerEntity)arg).getMonth());
-				MainClass.masterControler.VRCont.ViewReportsview.fileArea.setText(this.CME.getMonth().toString());
+				MainClass.masterControler.VRCont.ProduceMonthlyReportView.fileArea.setText(this.CME.getMonth().toString());
 			}
 		}
 	}

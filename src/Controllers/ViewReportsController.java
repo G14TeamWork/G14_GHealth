@@ -3,6 +3,7 @@ package Controllers;
 import java.util.Observable;
 import java.util.Observer;
 
+import views.ProduceMonthlyReportView;
 import views.ViewReportsView;
 import Controllers.IRefresh;
 /**
@@ -15,9 +16,11 @@ import Controllers.IRefresh;
  */
 public class ViewReportsController implements Observer,IRefresh  {
 	public ViewReportsView ViewReportsview;
+	public ProduceMonthlyReportView ProduceMonthlyReportView; 
 	
 	public ViewReportsController() {
 		ViewReportsview = new ViewReportsView();
+		ProduceMonthlyReportView = new ProduceMonthlyReportView();
 	}
 	@Override
 	public void refreshView() {

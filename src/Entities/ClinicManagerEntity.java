@@ -109,24 +109,3 @@ public class ClinicManagerEntity implements Serializable{
 	}
 	
 }
-
-/*
-		public void createDayliReport(Date date)
-	{
-		ArrayList<Object> arrList = new ArrayList<Object>();
-		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.appdate="+generateDayDateToSql(date)+";";
-		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		for(int i = 0 ; i < arrList.size() ; i+=7)
-			day.add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
-	}
-		public void createMonthlyReport(Date date)
-	{
-		ArrayList<Object> arrList = new ArrayList<Object>();
-		String query ="SELECT app.dispatcherSettingDate,app.dispatcherSettingHour,app.appdate,app.start,app.end,app.realStart,app.realEnd FROM ghealth.appointments as app where app.appdate="+generateMonthDateToSql(date)+";";
-		arrList = GHealthServer.sqlConn.sendSqlQuery(query);
-		for(int i = 0 ; i < arrList.size() ; i+=7)
-			month.add(new AppointmentTimeValues((Date)arrList.get(i),(Time)arrList.get(i+1),(Date)arrList.get(i+2),(Time)arrList.get(i+3),(Time)arrList.get(i+4) ,(Time)arrList.get(i+5),(Time)arrList.get(i+6)));
-	
-	}
-
-	*/

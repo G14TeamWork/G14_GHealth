@@ -76,6 +76,7 @@ public class ClinicManagerView extends JPanel {
 		btnViewReports = new JButton();
 		btnViewReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(!MainClass.masterControler.LoginCont.loginEntity.getUsertype().equals("gmanager"))
 				MainClass.masterControler.CMCont.searchClinicIdClient();
 				MainClass.masterControler.setView(
 						MainClass.masterControler.VRCont.ViewReportsview,
@@ -93,13 +94,20 @@ public class ClinicManagerView extends JPanel {
 /*				MainClass.masterControler.setView(
 						MainClass.masterControler.PMRCont.ProduceMonthlyReportview,
 						MainClass.masterControler.PMRCont);*/
-		//		if(!MainClass.masterControler.LoginCont.loginEntity.getUsertype().equals("gmanager"))
+				if(!MainClass.masterControler.LoginCont.loginEntity.getUsertype().equals("gmanager"))
 				MainClass.masterControler.CMCont.searchClinicIdClient();
+				
+				MainClass.masterControler.setView(
+						MainClass.masterControler.VRCont.ProduceMonthlyReportView,
+						MainClass.masterControler.VRCont);
 				
 			}
 		});
 		btnProduceReport.setBounds(490, 306, 140, 55);
 		btnProduceReport.setIcon(new GUIimage("report", 25, 23).image);
 		add(btnProduceReport);
+		
+		
+		
 	}
 }

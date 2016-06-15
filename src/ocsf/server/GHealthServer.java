@@ -153,14 +153,16 @@ public class GHealthServer extends ObservableServer{
 				}
 				else if(((ClinicManagerEntity)msg).getTaskToDo().equals("createDailyReport"))
 				{
+					if((((ClinicManagerEntity)msg).getDay().createDayliReport(((ClinicManagerEntity)msg).getFrom(),((ClinicManagerEntity)msg).getClinicId())) != null)
 					System.out.println((((ClinicManagerEntity)msg).getDay().createDayliReport(((ClinicManagerEntity)msg).getFrom(),((ClinicManagerEntity)msg).getClinicId())).toString());
 				}
 				else if(((ClinicManagerEntity)msg).getTaskToDo().equals("viewWeeklyReport"))
 				{
 					((ClinicManagerEntity)msg).setWeek(((ClinicManagerEntity)msg).getWeek().createWeeklyReport(((ClinicManagerEntity)msg).getFrom(),((ClinicManagerEntity)msg).getClinicId()));
+					if(!((ClinicManagerEntity)msg).getWeek().getMassage().equals("empty"))
 					System.out.println(((ClinicManagerEntity)msg).getWeek().toString());
 				}
-				else if (((ClinicManagerEntity)msg).getTaskToDo().equals("viewWeeklyReport"))
+				else if (((ClinicManagerEntity)msg).getTaskToDo().equals("viewMonthlyReport"))
 				{
 					System.out.println((((ClinicManagerEntity)msg).getMonth().createMonthlyReport(((ClinicManagerEntity)msg).getFrom(),((ClinicManagerEntity)msg).getClinicId())));
 				}

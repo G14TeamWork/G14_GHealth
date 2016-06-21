@@ -1,0 +1,254 @@
+<html><head><title>Suite SetAppointmentTest.fit run at: Mon Jun 20 23:16:59 IDT 2016</title>
+	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="screen"/>
+ 	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="print"/>
+<script language="JavaScript" type="text/javascript">
+var collapsableOpenCss = "collapsable"
+var collapsableClosedCss = "hidden"
+var collapsableOpenImg = "images/collapsableOpen.gif"
+var collapsableClosedImg = "images/collapsableClosed.gif"
+function toggleCollapsable(id){
+var div = document.getElementById(id);
+var img = document.getElementById("img" + id);
+if(div.className.indexOf(collapsableClosedCss) != -1) {
+div.className = collapsableOpenCss;
+img.src = collapsableOpenImg;
+} else {
+div.className = collapsableClosedCss;
+img.src = collapsableClosedImg;
+} }
+</script>
+
+</head>
+<body>
+<div> Suite is: C:/Users/elad/git/G14_GHealth/Tests/FitTests/SetAppointmentTest.fit</div><div class="test_output_name">Name: SetAppointmentTest.fit</div><div> Suite executed at: Mon Jun 20 23:16:59 IDT 2016 Elapsed time: 7 seconds 89 millseconds  </div><table><tr><td></td><td><a href="#-3c8f5ee8:1556f7580a7:-8000">SetAppointmentTest.fit</a></td><td class="pass">13 right, 0 wrong, 0 ignored, 0 exceptions</td></tr></table><div class="test_output_name"><a name="-3c8f5ee8:1556f7580a7:-8000"/><p>Test file: SetAppointmentTest.fit</p></div><html>
+<head>
+	<title></title>
+</head>
+<body dir="ltr">
+<p class="style1" style="color: rgb(0, 0, 205);">This is a test for set appointment.</p>
+
+<p class="style1" style="color: rgb(0, 0, 205);">&nbsp;</p>
+
+<p>check&nbsp;1&nbsp;: successfull appointment set (218).</p>
+
+<p>check&nbsp;2 :&nbsp;&nbsp;unsuccessfull - patient doesn&#39;t exist.</p>
+
+<p>check 3 : unsuccessfull - tries to set over existing appointment - which was set in check 1</p>
+
+<p>check 4 : unsuccessfull - incorrect appointment id (-1)</p>
+
+<p>check 5 : unsuccessfull - incorrect patient id</p>
+
+<p>check 6 : unsuccessfull - tries to set over none existing appointment id</p>
+
+<p>check 7 : successfull&nbsp;appointment set (219).&nbsp;</p>
+
+<p>check 8 : unsuccessfull - not existing expert id.</p>
+
+<p class="style1" style="margin-left: 40px;">&nbsp;</p>
+
+<table border="1" cellpadding="5" cellspacing="0" width="765">
+	<tbody>
+		<tr>
+			<td class="style1" colspan="3">
+			<p style="margin-left: 40px;">fit.ActionFixture</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="style1">start</td>
+			<td class="style1">Fixtures.SetAppointmentTest</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">111</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">getPatID</td>
+			<td class="style1" class="pass">111</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setExpertId</td>
+			<td class="style1">13</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">getExpertId</td>
+			<td class="style1" class="pass">13</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setAppointmentID</td>
+			<td class="style1">218</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">getAppId</td>
+			<td class="style1" class="pass">218</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">SetAppointment</td>
+			<td class="style1" class="pass">true</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">12345</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">getPatID</td>
+			<td class="style1" class="pass">12345</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setAppointmentID</td>
+			<td class="style1">219</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">getAppId</td>
+			<td class="style1" class="pass">219</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setExpertId</td>
+			<td class="style1">13</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">SetAppointment</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">222</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setAppointmentID</td>
+			<td class="style1">218</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setExpertId</td>
+			<td class="style1">13</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">SetAppointment</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">333</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setAppointmentID</td>
+			<td class="style1">-1</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setExpertId</td>
+			<td class="style1">13</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">SetAppointment</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setAppointmentID</td>
+			<td class="style1">219</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setExpertId</td>
+			<td class="style1">13</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">SetAppointment</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">111</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setAppointmentID</td>
+			<td class="style1">216</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setExpertId</td>
+			<td class="style1">13</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">SetAppointment</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">111</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setAppointmentID</td>
+			<td class="style1">219</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setExpertId</td>
+			<td class="style1">13</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">SetAppointment</td>
+			<td class="style1" class="pass">true</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">111</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setAppointmentID</td>
+			<td class="style1">220</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setExpertId</td>
+			<td class="style1">17</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">SetAppointment</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+	</tbody>
+</table>
+
+<p class="style1">Creating&nbsp;appointment FIT Test G1</p>
+</body>
+</html>
+
+</body></html>

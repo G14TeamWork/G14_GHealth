@@ -1,0 +1,187 @@
+<html><head><title>Suite InsertTestResultsTest.fit run at: Mon Jun 20 23:25:00 IDT 2016</title>
+	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="screen"/>
+ 	<link rel="stylesheet" type="text/css" href="css/fitnesse.css" media="print"/>
+<script language="JavaScript" type="text/javascript">
+var collapsableOpenCss = "collapsable"
+var collapsableClosedCss = "hidden"
+var collapsableOpenImg = "images/collapsableOpen.gif"
+var collapsableClosedImg = "images/collapsableClosed.gif"
+function toggleCollapsable(id){
+var div = document.getElementById(id);
+var img = document.getElementById("img" + id);
+if(div.className.indexOf(collapsableClosedCss) != -1) {
+div.className = collapsableOpenCss;
+img.src = collapsableOpenImg;
+} else {
+div.className = collapsableClosedCss;
+img.src = collapsableClosedImg;
+} }
+</script>
+
+</head>
+<body>
+<div> Suite is: C:/Users/elad/git/G14_GHealth/Tests/FitTests/InsertTestResultsTest.fit</div><div class="test_output_name">Name: InsertTestResultsTest.fit</div><div> Suite executed at: Mon Jun 20 23:25:00 IDT 2016 Elapsed time: 6 seconds 811 millseconds  </div><table><tr><td></td><td><a href="#70554d8d:1556f7cd563:-8000">InsertTestResultsTest.fit</a></td><td class="pass">11 right, 0 wrong, 0 ignored, 0 exceptions</td></tr></table><div class="test_output_name"><a name="70554d8d:1556f7cd563:-8000"/><p>Test file: InsertTestResultsTest.fit</p></div><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>Add Recipe FIT Test</title>
+	<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+	<style type="text/css"><!--.style1 {font-family: Arial, Helvetica, sans-serif}-->
+	</style>
+	<meta content="MSHTML 11.00.10586.420" name="GENERATOR" />
+</head>
+<body dir="ltr">
+<p><strong>InsertTestResultsTest Acceptance Test</strong></p>
+
+<p><u><strong>Use Case Description:</strong></u><br />
+In this use case lab worker filling patients test results.</p>
+
+<p><strong><u>Test 1: Checks&nbsp;if patient is exist</u></strong></p>
+
+<p>a. insert 4444 ( patient does&#39;t exist).</p>
+
+<p>b. checks patient existance&nbsp;- return false.</p>
+
+<p><u><strong>Test 2: </strong></u><u><strong>Checks patient with no references</strong></u></p>
+
+<p>a. insert 111 (patient exist but no references).</p>
+
+<p>b. checks patient existance&nbsp;- return true.</p>
+
+<p>c. check&nbsp;references exists&nbsp;- return false.</p>
+
+<p><u><strong>Test 3: Checks patient with references</strong></u></p>
+
+<p>a. insert 444 (patient exist with references).</p>
+
+<p>b. checks patient existance - return true.</p>
+
+<p>c. check references exists - return true.</p>
+
+<p>d. try to insert test result without text - return false.</p>
+
+<p>e. filling test result text.</p>
+
+<p>f. try to insert test result without choosing test type - return false.</p>
+
+<p>g. try to insert test result with wrong test type - return false.</p>
+
+<p>h. try to insert test result empty test type - return false.</p>
+
+<p>i. insert exist test type - return true.</p>
+
+<p>j. insert test results - return true.</p>
+
+<p>&nbsp;</p>
+
+<table border="1" cellpadding="5" cellspacing="0" width="765">
+	<tbody>
+		<tr>
+			<td class="style1" colspan="3">fit.ActionFixture</td>
+		</tr>
+		<tr>
+			<td class="style1">start</td>
+			<td class="style1">&nbsp;Fixtures.InsertTestResultsTest</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">4444</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkIdPat</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">111</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkIdPat</td>
+			<!-- der preis als float wert -->
+			<td class="style1" class="pass">true</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkPatRef</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setPatientId</td>
+			<td class="style1">444</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkIdPat</td>
+			<td class="style1" class="pass">true</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkPatRef</td>
+			<td class="style1" class="pass">true</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setTestResText</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkInsertTestRes</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setTestResText</td>
+			<td class="style1">broken hand</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkInsertTestRes</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setTestType</td>
+			<td class="style1">nanana</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkTestType</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setTestType</td>
+			<td class="style1">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkTestType</td>
+			<td class="style1" class="pass">false</td>
+		</tr>
+		<tr>
+			<td class="style1">enter</td>
+			<td class="style1">setTestType</td>
+			<td class="style1">rentgen - hand</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkTestType</td>
+			<td class="style1" class="pass">true</td>
+		</tr>
+		<tr>
+			<td class="style1">check</td>
+			<td class="style1">checkInsertTestRes</td>
+			<td class="style1" class="pass">true</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
+
+</body></html>

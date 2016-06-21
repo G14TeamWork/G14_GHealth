@@ -75,7 +75,7 @@ public void setConnectionButton(String state){
 		}
 		
 	}
-	public void toSQL(LoginEntity LE) {
+	public boolean toSQL(LoginEntity LE) {
 		String query = "";
 		ArrayList<Object> arrList = new ArrayList<>();
 		query = "SELECT usertype,loginatmps,status FROM ghealth.users where "
@@ -84,7 +84,7 @@ public void setConnectionButton(String state){
 		if (arrList.isEmpty())
 		{
 			LE.setArrayListReturnedEmpty(true);
-			return;
+			return false ;
 		}
 		LE.setUsertype ((String)arrList.get(0));
 		LE.setloginAttempts ((int)arrList.get(1));
@@ -92,7 +92,7 @@ public void setConnectionButton(String state){
 		if ( LE.getloginAttempts()>=3 || LE.getStatus()==1 )
 		{
 			LE.setArrayListReturnedEmpty(true);
-			return;
+			return false;
 		}
 		arrList.clear();
 		query = "SELECT * FROM ghealth.users where "
@@ -121,7 +121,8 @@ public void setConnectionButton(String state){
 			
 			GHealthServer.sqlConn.sendSqlUpdate(query);
 			
-			arrList.clear();			
+			arrList.clear();
+			return true;
 		}
 		else{
 			LE.setArrayListReturnedEmpty(true);
@@ -132,6 +133,7 @@ public void setConnectionButton(String state){
 					+ "username = \"" + LE.getUsername() + "\"";
 			arrList=GHealthServer.sqlConn.sendSqlQuery(query);
 			LE.setloginAttempts((int)arrList.get(0));
+			return false;
 		}
 	
 	}//end tosql

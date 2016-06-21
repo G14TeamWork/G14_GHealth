@@ -190,7 +190,7 @@ public class SQLconnection {
 		catch (Exception e1) 
 		{
 			System.err.println("SQLconnection in sendSqlUpdate"); 
-			e1.printStackTrace();
+			//e1.printStackTrace();
 			success = false;
 		}
 		disconnect();

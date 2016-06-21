@@ -21,10 +21,12 @@ public class FillTestResEntity implements Serializable{
 	public String TestRes="";
 	public String TestType="";
 	public String PhotoPath="photo-not-available";
-	public String labworkerFirstName=MainClass.masterControler.LoginCont.loginEntity.getFirstname();
-	public String labworkerLastName=MainClass.masterControler.LoginCont.loginEntity.getLastname();
+	public String labworkerFirstName;//=MainClass.masterControler.LoginCont.loginEntity.getFirstname();
+	public String labworkerLastName;//=MainClass.masterControler.LoginCont.loginEntity.getLastname();
 	public ArrayList<Object> arrRef = new ArrayList<>();
 	public ArrayList<Object> arrRefid = new ArrayList<>();
 	public int testIndex=-1;
+	public boolean flag=false;
+
 }
 

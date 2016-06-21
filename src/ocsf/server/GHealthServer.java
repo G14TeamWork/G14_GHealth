@@ -60,7 +60,7 @@ public class GHealthServer extends ObservableServer{
 //		for debuggin - skip connection:
 		StartServer(5555);
 		ConnectToSQL("root","Braude");
-		sendAutoEmailAlert();
+	//	sendAutoEmailAlert();
 	}
 
 	
@@ -119,7 +119,7 @@ public class GHealthServer extends ObservableServer{
 		
 		if (sqlConn != null) {
 			String query = "UPDATE ghealth.users SET status=0";
-			sqlConn.sendSqlUpdate(query);
+			//sqlConn.sendSqlUpdate(query);
 		}
 			
 	}

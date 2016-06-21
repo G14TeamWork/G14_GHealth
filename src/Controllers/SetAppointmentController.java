@@ -136,10 +136,32 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		"\", \""+pat.getAddress()+"\");";
 		
 		GHealthServer.sqlConn.sendSqlUpdate(query);
-		query = "INSERT INTO ghealth.medicalfile (idpatient) "+
+		/*query = "INSERT INTO ghealth.medicalfile (idpatient) "+
 				"VALUES ("+pat.getId()+");";
-		GHealthServer.sqlConn.sendSqlUpdate(query);
+		GHealthServer.sqlConn.sendSqlUpdate(query);*/
+		if (createPatientFile(pat)){
+			System.out.println("Message is sent for requesting patient details from HMO");
+		}else
+			System.out.println("Failed creating patient file. Ask  system manager for help!");
 		
+	}
+	
+	public boolean createPatientFile(Patient pat){
+		//boolean flag = true;
+		String query ="";
+		
+		query = "INSERT INTO ghealth.medicalfile (idpatient) "+
+			"VALUES ("+pat.getId()+");";
+		//System.out.println(query);
+			if ((pat.getId()==null))
+				return false;
+			else	
+				for ( int i =0 ; i< pat.getId().length() ; i++ )
+					if ((pat.getId().charAt(i)<'0')||(pat.getId().charAt(i)>'9'))
+						return false;
+			 
+	
+		return (GHealthServer.sqlConn.sendSqlUpdate(query));
 	}
 	
 	public void searchExperts(String Expertise, String patientID) {
@@ -235,6 +257,53 @@ public class SetAppointmentController implements Observer,IRefresh,Serializable 
 		GHealthServer.sqlConn.sendSqlUpdate(query);
 	
 	}	
+	public boolean SetApp(Appointment app){
+		ArrayList<Object> arrList2 = new ArrayList<>();
+		String query = "";
+		
+		if (app.getIdappointment()==null)//app id is null
+			return false;
+		
+		for (int i = 0 ; i < app.getIdappointment().length(); i++)//not digits
+			if ((app.getIdappointment().charAt(i)>'9')||(app.getIdappointment().charAt(i)<'0'))
+				return false;
+		
+		query = "SELECT * FROM ghealth.appointments WHERE idappointment='"+app.getIdappointment()+"'";
+		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query);
+		
+		if (app.getExpertid()==null)
+			return false;
+		
+		for (int i = 0 ; i < app.getExpertid().length() ; i++)//not digits
+			if ((app.getExpertid().charAt(i)>'9')||(app.getExpertid().charAt(i)<'0'))
+				return false;
+		
+		if ((int)(arrList2.get(1))!=Integer.valueOf(app.getExpertid()))
+			return false;
+		
+		if (arrList2.isEmpty())// app id doesn't exist
+			return false;
+		
+		if (app.getIdpatient()==null)
+			return false;
+		for (int i = 0 ; i < app.getIdpatient().length() ; i++)//not digits
+			if ((app.getIdpatient().charAt(i)>'9')||(app.getIdpatient().charAt(i)<'0'))
+				return false;
+		
+		
+		if (!((String)(arrList2.get(10))).equals("0"))
+			return false;
+		
+		query = "SELECT * FROM ghealth.patient WHERE id = '"+app.getIdpatient()+"'";
+		arrList2 = GHealthServer.sqlConn.sendSqlQuery(query);
+		
+		if (arrList2.isEmpty())// patient id doesn't exist
+			return false;
+		
+		SetAppointmentSql(app);
+		
+		return true;
+	}
 	
 	@Override
 	public void refreshView() {

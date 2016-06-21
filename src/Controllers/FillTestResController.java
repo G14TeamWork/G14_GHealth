@@ -34,8 +34,10 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	 * constructor. in it initializes fill test result view
 	 * @return this is a constructor. therefore return a fill test result controller
 	 */
+	
 	public FillTestResController() {
 		FillTestResview = new FillTestResView();
+		
 	}
 	
 	/**
@@ -44,6 +46,9 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	public void setFTR_Patient()
 	{
 		 FTRpat1=new FillTestResEntity();
+		 FTRpat1.flag=true;
+		 FTRpat1.labworkerFirstName = MainClass.masterControler.LoginCont.loginEntity.getFirstname();
+		 FTRpat1.labworkerLastName = MainClass.masterControler.LoginCont.loginEntity.getLastname();
 		 FTRpat1.pat.setId(FillTestResview.textFieldid.getText());
 		 FTRpat1.taskToDo="searchPat";
 		 MainClass.ghealth.sendMessegeToServer(FTRpat1);
@@ -55,7 +60,7 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	 * manipulates data after query.
 	 * @param FTRpat is the message received from server. is also used to be the message back to client
 	 */
-	public void checkExistanceSql(FillTestResEntity FTRpat)
+	public boolean checkExistanceSql(FillTestResEntity FTRpat)
 	{
 		String query = "";
 		query = "SELECT firstname,lastname FROM ghealth.patient WHERE "
@@ -65,6 +70,7 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		{
 			//System.out.println("noooooooooo");
 			FTRpat.taskToDo="noPat";
+			return false;
 		}
 		else
 		{
@@ -72,7 +78,9 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 			FTRpat.pat.setFirstname((String)arrList.get(0));
 			FTRpat.pat.setLastname((String)arrList.get(1));
 			arrList.clear();
+			return true;
 		}
+		
 		
 		
 	}
@@ -90,7 +98,7 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	 * query returns patient name by id
 	 * @param FTRpat is the object received and sent back to client. all messages are on it
 	 */
-	public void checkExistanceReferenceSql(FillTestResEntity FTRpat)
+	public boolean checkExistanceReferenceSql(FillTestResEntity FTRpat)
 	{
 		String query = "";
 		query = "SELECT idreferences, reftype FROM ghealth.references WHERE "
@@ -100,12 +108,15 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		{
 			//System.out.println("No");
 			FTRpat.taskToDo="noRef";
+			return false;
 		}
 		else
 		{
 			FTRpat.taskToDo="yesRef";
 			FTRpat.arrRef=arrList;
+			return true;
 		}
+		
 	}
 	/**
 	 * method prepares FTRpat1 and sends it to server as message. 
@@ -132,11 +143,12 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 	 * @param date string that saves the date of the filling
 	 * @param filledtime string that saves the hour of the filling
 	 */
-	public void insertTestResSql(FillTestResEntity FTRpat)
+	public boolean insertTestResSql(FillTestResEntity FTRpat)
 	{
 		String query = "";
 		String labworker =FTRpat.labworkerFirstName+" "+FTRpat.labworkerLastName;
-		
+		if(FTRpat.TestRes.equals("") || FTRpat.TestType.equals("") ) return false;
+		if(!FTRpat.flag) return true;
 		String date = new SimpleDateFormat("yyyy/MM/dd").format(Calendar.getInstance().getTime());
 	    String filledtime = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 		if (FTRpat.PhotoPath.contains("."))
@@ -152,10 +164,9 @@ public class FillTestResController implements Observer,IRefresh  ,Serializable {
 		"\", \""+FTRpat.PhotoPath+
 		"\", \""+labworker+"\");";
 		GHealthServer.sqlConn.sendSqlUpdate(query);	
-		
 		query="DELETE FROM ghealth.references WHERE idreferences='"
 		+(String)(FTRpat.arrRef.get(((int)(FTRpat.testIndex))*2))+"\';";
-		GHealthServer.sqlConn.sendSqlUpdate(query);	
+		return GHealthServer.sqlConn.sendSqlUpdate(query);	
 	}
 	
 	@Override

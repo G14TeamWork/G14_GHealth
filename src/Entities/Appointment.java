@@ -16,6 +16,7 @@ public class Appointment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String idappointment;
 	private int idexpert;
+	private String expertid;
 	private String idpatient;
 	private Date appdate;
 	private String AppdateString;
@@ -36,6 +37,7 @@ public class Appointment implements Serializable{
 	{
 		
 	}
+	
 	/**
 	 * constructor. creates appointmnet with given details
 	 * @param appdate initial value
@@ -121,7 +123,12 @@ public class Appointment implements Serializable{
 	public void setPrice(float price) {
 		this.price = price;
 	}
-
+	public String getExpertid() {
+		return expertid;
+	}
+	public void setExpertid(String expertid) {
+		this.expertid = expertid;
+	}
 	@Override
 	public String toString() {
 		String Date = new SimpleDateFormat("dd.MM.yyyy").format(appdate);
